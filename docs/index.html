@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Merci SDK v0.23.0 — Unified Agentic Multi-Provider AI SDK</title>
+    <meta name="description" content="Merci SDK v0.23.0 — agentic TypeScript SDK for OpenAI, Anthropic, Google GenAI, OpenRouter, OpenCode and local models. DAG workflows, state machines, MCP/A2A/ACP, 32 examples, 42 lessons."/>
+    <link rel="canonical" href="https://merci-kit.github.io/merci-sdk/"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:site_name" content="Merci SDK"/>
+    <meta property="og:title" content="Merci SDK — Unified Agentic Multi-Provider AI SDK"/>
+    <meta property="og:description" content="One fluent API for three standards and seven providers. 32 examples, 42 lessons, generated API reference."/>
+    <meta property="og:url" content="https://merci-kit.github.io/merci-sdk/"/>
+    <meta property="og:image" content="https://merci-kit.github.io/merci-sdk/merci-sdk-logo.png"/>
+    <link rel="icon" type="image/png" href="merci-sdk-logo.png"/>
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link as="style" href="https://fonts.googleapis.com/css2?display=swap&amp;family=Inter%3Awght%40400%3B500%3B600%3B700%3B900&family=Fira+Code%3Awght%40400%3B600" onload="this.rel='stylesheet'" rel="stylesheet"/>
+
+    <!-- Scripts and Styles -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="assets/css/style.css?v=2" rel="stylesheet">
+
+</head>
+<body class="overflow-x-hidden">
+<!-- Animated Aurora Background -->
+<div class="aurora-background"></div>
+
+<div class="flex min-h-screen flex-col">
+    <!-- Header -->
+    <header class="sticky top-0 z-50 w-full border-b border-[var(--border-color)] bg-[var(--header-background)] backdrop-blur-lg transition-colors duration-300">
+        <div class="container mx-auto flex flex-wrap items-center justify-between px-4 lg:px-8">
+            <div class="flex h-16 items-center">
+                <a class="flex items-center gap-3" href="index.html">
+                    <img src="merci-sdk-logo.png" alt="Merci SDK Logo" class="h-8 w-12 object-contain">
+                    <div class="flex items-center gap-2">
+                        <h1 class="text-xl font-bold text-[var(--text-primary)] tracking-tight">Merci SDK</h1>
+                        <span class="text-xs font-mono font-semibold px-2 py-0.5 rounded-full bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20">v0.23.0</span>
+                    </div>
+                </a>
+            </div>
+            <div class="lg:hidden">
+                <button id="menu-toggle" class="rounded-lg p-2 text-[var(--text-secondary)] hover:bg-slate-200 dark:hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-[var(--primary-color)]">
+                    <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                </button>
+            </div>
+            <div id="menu-content" class="hidden w-full lg:flex lg:w-auto lg:items-center">
+                <nav class="flex w-full flex-col gap-4 border-t border-[var(--border-color)] py-4 lg:w-auto lg:flex-row lg:items-center lg:gap-6 lg:border-none lg:py-0">
+                    <a class="nav-link-active group" href="index.html"><span>Overview</span></a>
+                    <a class="nav-link group" href="getting_started.html"><span>Getting Started</span></a>
+                    <a class="nav-link group" href="tutorials.html"><span>Tutorials (42)</span></a>
+                    <a class="nav-link group" href="demo.html"><span>Live Demo</span></a>
+                    <a class="nav-link group" href="api_reference.html"><span>API Reference</span></a>
+                </nav>
+                <div class="w-full pb-4 lg:w-auto lg:pb-0 lg:pl-4">
+                    <button type="button" class="theme-toggle-btn w-full text-sm font-semibold rounded-md px-3 py-1.5 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-[var(--background-color)] bg-slate-200 text-slate-800 hover:bg-slate-300 focus:ring-slate-500 dark:bg-slate-800 dark:text-slate-200 dark:hover:bg-slate-700 dark:focus:ring-slate-500">
+                        <span class="theme-toggle-text">Dark Mode</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow">
+        <!-- Hero Section -->
+        <section class="relative py-20 sm:py-28 lg:py-32 overflow-hidden">
+            <div class="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="max-w-4xl mx-auto text-center">
+                    <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20 text-xs font-semibold uppercase tracking-wider mb-6 badge-glow">
+                        <span class="flex h-2 w-2 rounded-full bg-blue-500 animate-pulse"></span>
+                        Version 0.23.0 • Production Agentic Suite
+                    </div>
+                    <h1 class="text-4xl font-black tracking-tight sm:text-6xl md:text-7xl text-[var(--text-primary)]">
+                        The Multi-Provider <br class="hidden sm:inline"/>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500">Agentic SDK</span>
+                    </h1>
+                    <p class="mt-6 max-w-3xl mx-auto text-lg sm:text-xl text-[var(--text-secondary)] leading-relaxed font-normal">
+                        Pure ES Modules, stateless resend guarantees, MCP/A2A protocols, DAG workflows, persistent episodic memory, and deep context management.
+                    </p>
+                    <div class="mt-10 flex flex-wrap items-center justify-center gap-4">
+                        <a href="getting_started.html" class="button_primary">
+                            <span>Get Started</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                        </a>
+                        <a href="tutorials.html" class="button_secondary">
+                            <span>Explore 42 Lessons</span>
+                            <span class="text-xs font-mono bg-blue-500/10 text-blue-600 dark:text-blue-400 px-2 py-0.5 rounded-full">01–42</span>
+                        </a>
+                        <a href="demo.html" class="button_secondary">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                            <span>Code and Output Preview</span>
+                        </a>
+                    </div>
+                    <div class="proof-strip">
+                        <span class="tag-badge bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20">v0.23.0</span>
+                        <span class="tag-badge bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border border-indigo-500/20">3 standards × 7 providers</span>
+                        <span class="tag-badge bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">32 examples</span>
+                        <span class="tag-badge bg-violet-500/10 text-violet-600 dark:text-violet-400 border border-violet-500/20">42 lessons</span>
+                        <span class="tag-badge bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20">302 events</span>
+                        <span class="tag-badge bg-sky-500/10 text-sky-600 dark:text-sky-400 border border-sky-500/20">SKILL.md included</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interactive Code and Output Preview Component -->
+        <section class="py-12 bg-[var(--card-background)]/50 border-y border-[var(--border-color)]" id="sdk-interactive-playground">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="max-w-6xl mx-auto">
+                    <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
+                        <div>
+                            <div class="text-xs font-mono font-semibold uppercase tracking-wider text-[var(--primary-color)]">Interactive Code Preview</div>
+                            <h2 class="text-2xl sm:text-3xl font-bold text-[var(--text-primary)] !border-none !pb-0 !mt-1">Driver Code and Output Preview</h2>
+                            <p class="text-[var(--text-secondary)] text-sm mt-1">Select a provider and orchestration pattern to generate copy-ready ESM driver code and preview simulated console telemetry. <span class="text-xs opacity-75">(To execute real requests against live AI providers, run the Node.js scripts in <code class="font-mono">examples/</code>)</span></p>
+                        </div>
+                        <div class="flex flex-wrap items-center gap-3">
+                            <div class="flex items-center gap-2 bg-[var(--card-background)] border border-[var(--border-color)] rounded-lg p-1">
+                                <label for="demo-backend-select" class="text-xs font-semibold px-2 text-[var(--text-secondary)]">Provider:</label>
+                                <select id="demo-backend-select" class="bg-transparent text-xs font-semibold text-[var(--text-primary)] focus:outline-none pr-3 py-1 cursor-pointer">
+                                    <option value="openai" class="bg-slate-900 text-white" selected>OpenAI</option>
+                                    <option value="google_genai" class="bg-slate-900 text-white">Google GenAI</option>
+                                    <option value="anthropic" class="bg-slate-900 text-white">Anthropic</option>
+                                    <option value="vertex" class="bg-slate-900 text-white">Vertex AI</option>
+                                    <option value="openrouter" class="bg-slate-900 text-white">OpenRouter</option>
+                                    <option value="opencode" class="bg-slate-900 text-white">OpenCode</option>
+                                    <option value="local" class="bg-slate-900 text-white">Local Stack</option>
+                                </select>
+                            </div>
+                            <div class="flex items-center gap-2 bg-[var(--card-background)] border border-[var(--border-color)] rounded-lg p-1">
+                                <label for="demo-pattern-select" class="text-xs font-semibold px-2 text-[var(--text-secondary)]">Pattern:</label>
+                                <select id="demo-pattern-select" class="bg-transparent text-xs font-semibold text-[var(--text-primary)] focus:outline-none pr-3 py-1 cursor-pointer">
+                                    <option value="quickstart" class="bg-slate-900 text-white">Streaming Quickstart</option>
+                                    <option value="tools" class="bg-slate-900 text-white">Tool Loop and Reasoning</option>
+                                    <option value="dag" class="bg-slate-900 text-white">DAG with Replan</option>
+                                    <option value="memory" class="bg-slate-900 text-white">Persistent Memory and Distillation</option>
+                                    <option value="discussion" class="bg-slate-900 text-white">Multi-Agent Debate and Consensus</option>
+                                </select>
+                            </div>
+                            <button id="demo-run-btn" class="button_primary !py-2 !px-4 text-xs font-bold flex items-center gap-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                                <span>Play Preview</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+                        <!-- Code Panel -->
+                        <div class="lg:col-span-6 flex flex-col border border-[var(--border-color)] rounded-xl bg-[var(--card-background)] overflow-hidden shadow-sm">
+                            <div class="flex items-center justify-between px-4 py-2.5 border-b border-[var(--border-color)] bg-slate-500/5">
+                                <div class="flex items-center gap-2">
+                                    <div class="flex gap-1.5">
+                                        <span class="w-3 h-3 rounded-full bg-red-500/60 inline-block"></span>
+                                        <span class="w-3 h-3 rounded-full bg-yellow-500/60 inline-block"></span>
+                                        <span class="w-3 h-3 rounded-full bg-green-500/60 inline-block"></span>
+                                    </div>
+                                    <span class="text-xs font-mono font-medium text-[var(--text-secondary)] pl-2">application.mjs</span>
+                                </div>
+                                <button class="copy-code-btn text-xs flex items-center gap-1.5 text-[var(--text-secondary)] hover:text-[var(--text-primary)] font-medium">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 16 16"><path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/><path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3z"/></svg>
+                                    <span>Copy</span>
+                                </button>
+                            </div>
+                            <div class="p-4 flex-grow overflow-x-auto bg-[#0d1117] text-slate-200">
+                                <pre class="font-mono text-xs leading-relaxed"><code id="demo-code-output">// Code will load here...</code></pre>
+                            </div>
+                        </div>
+
+                        <!-- Live Terminal and Telemetry Panel -->
+                        <div class="lg:col-span-6 flex flex-col demo-terminal">
+                            <div class="flex items-center justify-between px-4 py-2.5 border-b border-white/10 bg-slate-900/90">
+                                <div class="flex items-center gap-2">
+                                    <span class="text-xs font-mono font-bold text-slate-300">TELEMETRY and STREAM INSPECTOR</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span id="demo-status-badge" class="tag-badge bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">Ready</span>
+                                    <span id="demo-tokens-badge" class="tag-badge bg-blue-500/20 text-blue-300 border border-blue-500/30">0 tokens</span>
+                                    <span id="demo-latency-badge" class="tag-badge bg-purple-500/20 text-purple-300 border border-purple-500/30">0ms</span>
+                                </div>
+                            </div>
+                            <div id="demo-terminal-output" class="p-4 flex-grow overflow-y-auto max-h-[380px] min-h-[320px]">
+                                <div class="text-slate-500 text-xs font-mono italic">Click "Play Preview" above to view simulated console output.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 9 Core Architectural Pillars -->
+        <section class="py-24 sm:py-32">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto">
+                    <h2 class="text-3xl font-extrabold tracking-tight text-[var(--text-primary)] !border-none !pb-0 sm:text-4xl">
+                        Engineered for Production Agents
+                    </h2>
+                    <p class="mt-4 text-lg text-[var(--text-secondary)]">
+                        Merci SDK eliminates fragmentation across AI providers with clean abstractions, strict security boundaries, and resilient orchestration.
+                    </p>
+                </div>
+
+                <div class="mt-16 grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+                    <!-- 1. Multi-Provider -->
+                    <div class="border border-[var(--border-color)] rounded-xl p-6 bg-[var(--card-background)] shadow-sm hover:border-[var(--primary-color)]/50 transition-all">
+                        <div class="rounded-lg bg-blue-500/10 p-3 w-min text-blue-500 mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                        </div>
+                        <h3 class="text-lg font-bold text-[var(--text-primary)]">3 Standards × 7 Providers</h3>
+                        <p class="mt-2 text-sm text-[var(--text-secondary)] leading-relaxed">
+                            OpenAI, Anthropic Claude, Google Gemini, Vertex AI, OpenRouter, OpenCode, and Local Stack.
+                        </p>
+                    </div>
+
+                    <!-- 2. Stateless Resend -->
+                    <div class="border border-[var(--border-color)] rounded-xl p-6 bg-[var(--card-background)] shadow-sm hover:border-[var(--primary-color)]/50 transition-all">
+                        <div class="rounded-lg bg-indigo-500/10 p-3 w-min text-indigo-500 mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"/><path d="M16 21h5v-5"/></svg>
+                        </div>
+                        <h3 class="text-lg font-bold text-[var(--text-primary)]">Stateless Resend</h3>
+                        <p class="mt-2 text-sm text-[var(--text-secondary)] leading-relaxed">
+                            History is owned by your application. Every step provides an immutable updated message row (<code class="inline">finalState.messages</code>), preventing server-side vendor lock-in.
+                        </p>
+                    </div>
+
+                    <!-- 3. MCP and A2A -->
+                    <div class="border border-[var(--border-color)] rounded-xl p-6 bg-[var(--card-background)] shadow-sm hover:border-[var(--primary-color)]/50 transition-all">
+                        <div class="rounded-lg bg-emerald-500/10 p-3 w-min text-emerald-500 mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                        </div>
+                        <h3 class="text-lg font-bold text-[var(--text-primary)]">MCP and A2A Ecosystem</h3>
+                        <p class="mt-2 text-sm text-[var(--text-secondary)] leading-relaxed">
+                            First-class Model Context Protocol client support and Agent-to-Agent JSON-RPC delegation via discoverable agent cards and cross-agent telemetry.
+                        </p>
+                    </div>
+
+                    <!-- 4. Shell Security Gate -->
+                    <div class="border border-[var(--border-color)] rounded-xl p-6 bg-[var(--card-background)] shadow-sm hover:border-[var(--primary-color)]/50 transition-all">
+                        <div class="rounded-lg bg-amber-500/10 p-3 w-min text-amber-500 mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                        </div>
+                        <h3 class="text-lg font-bold text-[var(--text-primary)]">3-Layer Security Gate</h3>
+                        <p class="mt-2 text-sm text-[var(--text-secondary)] leading-relaxed">
+                            Shell tools are strictly partitioned into Safe, Blocked, and HITL-gated commands. Environmental variable inspection prevents accidental secret leaks.
+                        </p>
+                    </div>
+
+                    <!-- 5. Memory System -->
+                    <div class="border border-[var(--border-color)] rounded-xl p-6 bg-[var(--card-background)] shadow-sm hover:border-[var(--primary-color)]/50 transition-all">
+                        <div class="rounded-lg bg-rose-500/10 p-3 w-min text-rose-500 mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+                        </div>
+                        <h3 class="text-lg font-bold text-[var(--text-primary)]">Persistent Memory</h3>
+                        <p class="mt-2 text-sm text-[var(--text-secondary)] leading-relaxed">
+                            Composite and local file memory providers with background distillation, eager preload, recency fallback, and untrusted-fact escaping.
+                        </p>
+                    </div>
+
+                    <!-- 6. DAG and Orchestration -->
+                    <div class="border border-[var(--border-color)] rounded-xl p-6 bg-[var(--card-background)] shadow-sm hover:border-[var(--primary-color)]/50 transition-all">
+                        <div class="rounded-lg bg-cyan-500/10 p-3 w-min text-cyan-500 mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="8" height="8" x="3" y="3" rx="2"/><rect width="8" height="8" x="13" y="13" rx="2"/><path d="M7 11v4a2 2 0 0 0 2 2h4"/></svg>
+                        </div>
+                        <h3 class="text-lg font-bold text-[var(--text-primary)]">DAG and State Machines</h3>
+                        <p class="mt-2 text-sm text-[var(--text-secondary)] leading-relaxed">
+                            Plan-and-execute workflows, evaluator-driven replan, hierarchical sub-DAGs, StateMachine graphs, and multi-agent discussion swarms.
+                        </p>
+                    </div>
+
+                    <!-- 7. Context Management -->
+                    <div class="border border-[var(--border-color)] rounded-xl p-6 bg-[var(--card-background)] shadow-sm hover:border-[var(--primary-color)]/50 transition-all">
+                        <div class="rounded-lg bg-violet-500/10 p-3 w-min text-violet-500 mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="21" x2="3" y1="6" y2="6"/><line x1="15" x2="3" y1="12" y2="12"/><line x1="17" x2="3" y1="18" y2="18"/></svg>
+                        </div>
+                        <h3 class="text-lg font-bold text-[var(--text-primary)]">Context and Compaction</h3>
+                        <p class="mt-2 text-sm text-[var(--text-secondary)] leading-relaxed">
+                            Global objective threading, deterministic <code class="inline">foldContext</code>, loss markers, history compaction, and <code class="inline">save_artifact</code> persistence by reference.
+                        </p>
+                    </div>
+
+                    <!-- 8. Enterprise Resilience -->
+                    <div class="border border-[var(--border-color)] rounded-xl p-6 bg-[var(--card-background)] shadow-sm hover:border-[var(--primary-color)]/50 transition-all">
+                        <div class="rounded-lg bg-orange-500/10 p-3 w-min text-orange-500 mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                        </div>
+                        <h3 class="text-lg font-bold text-[var(--text-primary)]">Enterprise Resilience</h3>
+                        <p class="mt-2 text-sm text-[var(--text-secondary)] leading-relaxed">
+                            Classified retry policies, abort-aware exponential backoff, sliding-window stream timeouts, parameter warnings, and credential redaction.
+                        </p>
+                    </div>
+
+                    <!-- 9. Agent-Readable -->
+                    <div class="border border-[var(--border-color)] rounded-xl p-6 bg-[var(--card-background)] shadow-sm hover:border-[var(--primary-color)]/50 transition-all">
+                        <div class="rounded-lg bg-sky-500/10 p-3 w-min text-sky-500 mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+                        </div>
+                        <h3 class="text-lg font-bold text-[var(--text-primary)]">Agent-Readable by Design</h3>
+                        <p class="mt-2 text-sm text-[var(--text-secondary)] leading-relaxed">
+                            Coding agents get a bundled <code class="inline">SKILL.md</code>, full type declarations for every subpath, a generated API reference, and 32 runnable examples — so they build correctly on the first try.
+                        </p>
+                    </div>
+
+                    <!-- 10. Unattended Orchestration -->
+                    <div class="border border-[var(--border-color)] rounded-xl p-6 bg-[var(--card-background)] shadow-sm hover:border-[var(--primary-color)]/50 transition-all">
+                        <div class="rounded-lg bg-teal-500/10 p-3 w-min text-teal-500 mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2 2 7l10 5 10-5-10-5Z"/><path d="m2 17 10 5 10-5"/><path d="m2 12 10 5 10-5"/></svg>
+                        </div>
+                        <h3 class="text-lg font-bold text-[var(--text-primary)]">Unattended Orchestration</h3>
+                        <p class="mt-2 text-sm text-[var(--text-secondary)] leading-relaxed">
+                            A repo-owned <code class="inline">WORKFLOW.md</code>, per-item workspaces, a work-item scheduler and a read-only operator API — bound by one <code class="inline">createOrchestration</code> call, with policy health visible instead of looking idle.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Call to Action Section -->
+        <section class="py-20 bg-gradient-to-b from-transparent to-blue-500/5">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="max-w-4xl mx-auto text-center border border-[var(--border-color)] rounded-2xl p-8 sm:p-12 bg-[var(--card-background)] shadow-lg">
+                    <h2 class="text-3xl font-extrabold text-[var(--text-primary)] !border-none !pb-0">Ready to build AI agents?</h2>
+                    <p class="mt-4 text-lg text-[var(--text-secondary)] max-w-2xl mx-auto">
+                        Explore our comprehensive guide with 29 structured lessons taking you from basic streaming to multi-agent swarms. Coding agents start even faster: the npm bundle ships a <code class="inline">SKILL.md</code> written for them.
+                    </p>
+                    <div class="mt-8 flex flex-wrap items-center justify-center gap-4">
+                        <a href="getting_started.html" class="button_primary">Read the Quickstart</a>
+                        <a href="tutorials.html" class="button_secondary">Browse 42 Tutorials</a>
+                        <a href="api_reference.html" class="button_secondary">API Reference</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-[var(--border-color)] bg-[var(--card-background)] transition-colors duration-300">
+        <div class="container mx-auto px-4 py-8 sm:px-6 lg:px-8">
+            <div class="flex flex-col items-center justify-between gap-4 sm:flex-row">
+                <div class="flex items-center gap-2">
+                    <img src="merci-sdk-logo.png" alt="Merci SDK Logo" class="h-6 w-9 object-contain">
+                    <span class="font-bold text-sm text-[var(--text-primary)]">Merci SDK</span>
+                    <span class="text-xs font-mono text-[var(--text-secondary)]">v0.23.0</span>
+                </div>
+                <p class="text-xs text-[var(--text-secondary)]">© 2026 Lukáš Michna (Mobeetle) · Apache-2.0</p>
+                <nav class="flex items-center gap-4 text-xs font-semibold text-[var(--text-secondary)]">
+                    <a href="getting_started.html" class="hover:text-[var(--primary-color)]">Getting Started</a>
+                    <a href="tutorials.html" class="hover:text-[var(--primary-color)]">Tutorials</a>
+                    <a href="api_reference.html" class="hover:text-[var(--primary-color)]">API</a>
+                    <a href="https://github.com/merci-kit/merci-sdk" class="hover:text-[var(--primary-color)]">GitHub</a>
+                </nav>
+            </div>
+        </div>
+    </footer>
+</div>
+
+<script src="assets/js/script.js"></script>
+</body>
+</html>

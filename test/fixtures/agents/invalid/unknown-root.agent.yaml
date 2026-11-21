@@ -1,0 +1,8 @@
+apiVersion: merci.dev/v1alpha1
+kind: Agent
+metadata:
+  name: unknown-root
+  description: A definition with one unknown root key.
+bogus: true
+spec:
+  instructions: Do nothing.

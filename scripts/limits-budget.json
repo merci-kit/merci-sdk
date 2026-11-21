@@ -1,0 +1,54 @@
+{
+  "$comment": "Known unregistered numeric limits per file, keyed by a stable offence name. The gate fails on an offence not listed here; --update may only lower this list. Two hits with the same shape in one file share one name, so a name is a floor, not a count.",
+  "entries": {
+    "lib/agentic/agentic-core.mjs": [
+      "lib/agentic/agentic-core.mjs: String(lastGoodContent ?? '').slice(0, 2000)"
+    ],
+    "lib/agentic/discussion-session.mjs": [
+      "lib/agentic/discussion-session.mjs: (e.author + ': ' + e.content).slice(0, 240)",
+      "lib/agentic/discussion-session.mjs: String(a.persona ?? a.name).slice(0, 200)",
+      "lib/agentic/discussion-session.mjs: text.length > 800",
+      "lib/agentic/discussion-session.mjs: text.slice(0, 600)"
+    ],
+    "lib/agentic/evals.mjs": [
+      "lib/agentic/evals.mjs: JSON.stringify(answer).slice(0, 300)",
+      "lib/agentic/evals.mjs: JSON.stringify(verdict.details).slice(0, 300)",
+      "lib/agentic/evals.mjs: got.slice(0, 200)"
+    ],
+    "lib/agentic/knowledge/adapters.mjs": [
+      "lib/agentic/knowledge/adapters.mjs: String(fact.content).slice(0, 120)",
+      "lib/agentic/knowledge/adapters.mjs: String(step.brief ?? step.id).slice(0, 120)",
+      "lib/agentic/knowledge/adapters.mjs: String(todo.description ?? todo.content ?? todo.title ??…(0, 120)"
+    ],
+    "lib/agentic/knowledge/build.mjs": [
+      "lib/agentic/knowledge/build.mjs: String(text ?? '').split('\\n')[0].replace(/\\s+/g, '…(0, 120)",
+      "lib/agentic/knowledge/build.mjs: String(value ?? '') .normalize('NFKD')…(0, 60)",
+      "lib/agentic/knowledge/build.mjs: firstLine({ text: sentence.text }).slice(0, 90)"
+    ],
+    "lib/agentic/knowledge/render.mjs": [
+      "lib/agentic/knowledge/render.mjs: Math.max(160)",
+      "lib/agentic/knowledge/render.mjs: Math.max(200)",
+      "lib/agentic/knowledge/render.mjs: oneLine({ value: node.label }).replace(/\"/g, \"'\").slice(0, 60)",
+      "lib/agentic/knowledge/render.mjs: oneLine({ value: node.text }).slice(0, 240)"
+    ],
+    "lib/agentic/task.mjs": [
+      "lib/agentic/task.mjs: String(prompt).slice(0, 60)"
+    ],
+    "lib/backends/adapters/oai-adapter.mjs": [
+      "lib/backends/adapters/oai-adapter.mjs: text.replace(/\\s+/g, ' ').trim().slice(0, 120)"
+    ],
+    "lib/backends/transport/oai-client.mjs": [
+      "lib/backends/transport/oai-client.mjs: String(text ?? '').replace(/\\s+/g, ' ').trim().slice(0, 120)",
+      "lib/backends/transport/oai-client.mjs: prefix.replace(/\\s+/g, ' ').trim().slice(0, 120)"
+    ],
+    "lib/core/limit-config.mjs": [
+      "lib/core/limit-config.mjs: warned.size > 1000"
+    ],
+    "lib/tools/a2a.mjs": [
+      "lib/tools/a2a.mjs: Math.max(1000)"
+    ],
+    "lib/tools/shell-tools.mjs": [
+      "lib/tools/shell-tools.mjs: Math.max(4096)"
+    ]
+  }
+}

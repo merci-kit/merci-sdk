@@ -1,0 +1,74 @@
+{
+  "case": {
+    "id": "responses-json-incomplete",
+    "kind": "responses",
+    "mode": "json",
+    "request": {
+      "body": {
+        "model": "gpt-test",
+        "input": "truncate"
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "content-type": "application/json"
+      },
+      "chunks": [
+        "{\"id\":\"resp_inc\",\"object\":\"response\",\"status\":\"incomplete\",\"incomplete_details\":{\"reason\":\"max_output_tokens\"},\"output\":[{\"type\":\"message\",\"id\":\"msg_1\",\"content\":[{\"type\":\"output_text\",\"text\":\"partial\"}]}],\"usage\":{\"input_tokens\":2,\"output_tokens\":1,\"total_tokens\":3}}"
+      ]
+    }
+  },
+  "sdkVersion": "7.51.0",
+  "node": "v25.0.0",
+  "response": {
+    "status": 200,
+    "headers": {
+      "content-type": "application/json"
+    },
+    "chunks": [
+      "{\"id\":\"resp_inc\",\"object\":\"response\",\"status\":\"incomplete\",\"incomplete_details\":{\"reason\":\"max_output_tokens\"},\"output\":[{\"type\":\"message\",\"id\":\"msg_1\",\"content\":[{\"type\":\"output_text\",\"text\":\"partial\"}]}],\"usage\":{\"input_tokens\":2,\"output_tokens\":1,\"total_tokens\":3}}"
+    ]
+  },
+  "request": [
+    {
+      "method": "POST",
+      "url": "/v1/responses",
+      "headers": {
+        "authorization": "Bearer test-key",
+        "content-type": "application/json",
+        "accept": "application/json"
+      },
+      "body": "{\"model\":\"gpt-test\",\"input\":\"truncate\"}"
+    }
+  ],
+  "outcome": {
+    "kind": "value",
+    "value": {
+      "id": "resp_inc",
+      "object": "response",
+      "status": "incomplete",
+      "incomplete_details": {
+        "reason": "max_output_tokens"
+      },
+      "output": [
+        {
+          "type": "message",
+          "id": "msg_1",
+          "content": [
+            {
+              "type": "output_text",
+              "text": "partial"
+            }
+          ]
+        }
+      ],
+      "usage": {
+        "input_tokens": 2,
+        "output_tokens": 1,
+        "total_tokens": 3
+      },
+      "output_text": "partial"
+    }
+  }
+}

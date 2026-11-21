@@ -1,0 +1,19 @@
+apiVersion: merci.dev/v1alpha1
+kind: Agent
+metadata:
+  name: dup-tool
+  description: A definition with two tools sharing one name.
+spec:
+  instructions: Do nothing.
+  tools:
+    definitions:
+      - name: echo_args
+        description: Echoes the arguments back.
+        script: scripts/echo.mjs
+        parameters:
+          type: object
+      - name: echo_args
+        description: Echoes the arguments back again.
+        script: scripts/echo.mjs
+        parameters:
+          type: object

@@ -1,0 +1,93 @@
+{
+  "case": {
+    "id": "responses-stream-incomplete",
+    "kind": "responses",
+    "mode": "stream",
+    "request": {
+      "body": {
+        "model": "gpt-test",
+        "input": "truncate",
+        "stream": true
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "content-type": "text/event-stream"
+      },
+      "chunks": [
+        "event: response.output_text.delta\ndata: {\"type\":\"response.output_text.delta\",\"delta\":\"partial\"}\n\n",
+        "event: response.incomplete\ndata: {\"type\":\"response.incomplete\",\"response\":{\"id\":\"resp_i\",\"object\":\"response\",\"status\":\"incomplete\",\"incomplete_details\":{\"reason\":\"max_output_tokens\"}}}\n\n",
+        "data: [DONE]\n\n"
+      ]
+    }
+  },
+  "sdkVersion": "7.51.0",
+  "node": "v25.0.0",
+  "response": {
+    "status": 200,
+    "headers": {
+      "content-type": "text/event-stream"
+    },
+    "chunks": [
+      "event: response.output_text.delta\ndata: {\"type\":\"response.output_text.delta\",\"delta\":\"partial\"}\n\n",
+      "event: response.incomplete\ndata: {\"type\":\"response.incomplete\",\"response\":{\"id\":\"resp_i\",\"object\":\"response\",\"status\":\"incomplete\",\"incomplete_details\":{\"reason\":\"max_output_tokens\"}}}\n\n",
+      "data: [DONE]\n\n"
+    ]
+  },
+  "request": [
+    {
+      "method": "POST",
+      "url": "/v1/responses",
+      "headers": {
+        "authorization": "Bearer test-key",
+        "content-type": "application/json",
+        "accept": "application/json"
+      },
+      "body": "{\"model\":\"gpt-test\",\"input\":\"truncate\",\"stream\":true}"
+    },
+    {
+      "method": "POST",
+      "url": "/v1/responses",
+      "headers": {
+        "authorization": "Bearer test-key",
+        "content-type": "application/json",
+        "accept": "application/json"
+      },
+      "body": "{\"model\":\"gpt-test\",\"input\":\"truncate\",\"stream\":true}"
+    }
+  ],
+  "outcome": {
+    "kind": "chunks",
+    "chunks": [
+      {
+        "type": "response.output_text.delta",
+        "delta": "partial"
+      },
+      {
+        "type": "response.incomplete",
+        "response": {
+          "id": "resp_i",
+          "object": "response",
+          "status": "incomplete",
+          "incomplete_details": {
+            "reason": "max_output_tokens"
+          }
+        }
+      }
+    ],
+    "events": [
+      {
+        "type": "first_token",
+        "latencyMs": 0
+      },
+      {
+        "type": "text",
+        "content": "partial"
+      },
+      {
+        "type": "truncated"
+      }
+    ]
+  }
+}

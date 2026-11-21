@@ -1,0 +1,66 @@
+{
+  "case": {
+    "id": "responses-json-preset-output-text",
+    "kind": "responses",
+    "mode": "json",
+    "request": {
+      "body": {
+        "model": "gpt-test",
+        "input": "preset output text"
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "content-type": "application/json"
+      },
+      "chunks": [
+        "{\"id\":\"resp_preset\",\"object\":\"response\",\"status\":\"completed\",\"output_text\":\"stale text\",\"output\":[{\"type\":\"message\",\"id\":\"msg_1\",\"content\":[{\"type\":\"output_text\",\"text\":\"fresh text\"}]}]}"
+      ]
+    }
+  },
+  "sdkVersion": "7.51.0",
+  "node": "v25.0.0",
+  "response": {
+    "status": 200,
+    "headers": {
+      "content-type": "application/json"
+    },
+    "chunks": [
+      "{\"id\":\"resp_preset\",\"object\":\"response\",\"status\":\"completed\",\"output_text\":\"stale text\",\"output\":[{\"type\":\"message\",\"id\":\"msg_1\",\"content\":[{\"type\":\"output_text\",\"text\":\"fresh text\"}]}]}"
+    ]
+  },
+  "request": [
+    {
+      "method": "POST",
+      "url": "/v1/responses",
+      "headers": {
+        "authorization": "Bearer test-key",
+        "content-type": "application/json",
+        "accept": "application/json"
+      },
+      "body": "{\"model\":\"gpt-test\",\"input\":\"preset output text\"}"
+    }
+  ],
+  "outcome": {
+    "kind": "value",
+    "value": {
+      "id": "resp_preset",
+      "object": "response",
+      "status": "completed",
+      "output_text": "fresh text",
+      "output": [
+        {
+          "type": "message",
+          "id": "msg_1",
+          "content": [
+            {
+              "type": "output_text",
+              "text": "fresh text"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

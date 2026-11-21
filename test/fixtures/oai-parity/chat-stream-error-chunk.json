@@ -1,0 +1,63 @@
+{
+  "case": {
+    "id": "chat-stream-error-chunk",
+    "kind": "chat",
+    "mode": "stream",
+    "request": {
+      "body": {
+        "model": "gpt-test",
+        "messages": [
+          {
+            "role": "user",
+            "content": "error chunk"
+          }
+        ],
+        "stream": true
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "content-type": "text/event-stream"
+      },
+      "chunks": [
+        "data: {\"error\":{\"message\":\"upstream explosion\",\"type\":\"server_error\",\"code\":\"upstream_error\"}}\n\n"
+      ]
+    }
+  },
+  "sdkVersion": "7.51.0",
+  "node": "v25.0.0",
+  "response": {
+    "status": 200,
+    "headers": {
+      "content-type": "text/event-stream"
+    },
+    "chunks": [
+      "data: {\"error\":{\"message\":\"upstream explosion\",\"type\":\"server_error\",\"code\":\"upstream_error\"}}\n\n"
+    ]
+  },
+  "request": [
+    {
+      "method": "POST",
+      "url": "/v1/chat/completions",
+      "headers": {
+        "authorization": "Bearer test-key",
+        "content-type": "application/json",
+        "accept": "application/json"
+      },
+      "body": "{\"model\":\"gpt-test\",\"messages\":[{\"role\":\"user\",\"content\":\"error chunk\"}],\"stream\":true}"
+    }
+  ],
+  "outcome": {
+    "kind": "error",
+    "error": {
+      "message": "upstream explosion",
+      "status": null,
+      "code": "upstream_error",
+      "type": "server_error",
+      "param": null,
+      "retryAfter": null,
+      "causeName": null
+    }
+  }
+}

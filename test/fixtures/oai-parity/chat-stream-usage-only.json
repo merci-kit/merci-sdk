@@ -1,0 +1,117 @@
+{
+  "case": {
+    "id": "chat-stream-usage-only",
+    "kind": "chat",
+    "mode": "stream",
+    "request": {
+      "body": {
+        "model": "gpt-test",
+        "messages": [
+          {
+            "role": "user",
+            "content": "usage"
+          }
+        ],
+        "stream": true
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "content-type": "text/event-stream"
+      },
+      "chunks": [
+        "data: {\"id\":\"chatcmpl-usage\",\"object\":\"chat.completion.chunk\",\"created\":1,\"model\":\"gpt-test\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"ok\"},\"finish_reason\":\"stop\"}]}\n\n",
+        "data: {\"id\":\"chatcmpl-usage\",\"object\":\"chat.completion.chunk\",\"created\":1,\"model\":\"gpt-test\",\"choices\":[],\"usage\":{\"prompt_tokens\":4,\"completion_tokens\":1,\"total_tokens\":5}}\n\n",
+        "data: [DONE]\n\n"
+      ]
+    }
+  },
+  "sdkVersion": "7.51.0",
+  "node": "v25.0.0",
+  "response": {
+    "status": 200,
+    "headers": {
+      "content-type": "text/event-stream"
+    },
+    "chunks": [
+      "data: {\"id\":\"chatcmpl-usage\",\"object\":\"chat.completion.chunk\",\"created\":1,\"model\":\"gpt-test\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"ok\"},\"finish_reason\":\"stop\"}]}\n\n",
+      "data: {\"id\":\"chatcmpl-usage\",\"object\":\"chat.completion.chunk\",\"created\":1,\"model\":\"gpt-test\",\"choices\":[],\"usage\":{\"prompt_tokens\":4,\"completion_tokens\":1,\"total_tokens\":5}}\n\n",
+      "data: [DONE]\n\n"
+    ]
+  },
+  "request": [
+    {
+      "method": "POST",
+      "url": "/v1/chat/completions",
+      "headers": {
+        "authorization": "Bearer test-key",
+        "content-type": "application/json",
+        "accept": "application/json"
+      },
+      "body": "{\"model\":\"gpt-test\",\"messages\":[{\"role\":\"user\",\"content\":\"usage\"}],\"stream\":true}"
+    },
+    {
+      "method": "POST",
+      "url": "/v1/chat/completions",
+      "headers": {
+        "authorization": "Bearer test-key",
+        "content-type": "application/json",
+        "accept": "application/json"
+      },
+      "body": "{\"model\":\"gpt-test\",\"messages\":[{\"role\":\"user\",\"content\":\"usage\"}],\"stream\":true,\"stream_options\":{\"include_usage\":true}}"
+    }
+  ],
+  "outcome": {
+    "kind": "chunks",
+    "chunks": [
+      {
+        "id": "chatcmpl-usage",
+        "object": "chat.completion.chunk",
+        "created": 1,
+        "model": "gpt-test",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": "ok"
+            },
+            "finish_reason": "stop"
+          }
+        ]
+      },
+      {
+        "id": "chatcmpl-usage",
+        "object": "chat.completion.chunk",
+        "created": 1,
+        "model": "gpt-test",
+        "choices": [],
+        "usage": {
+          "prompt_tokens": 4,
+          "completion_tokens": 1,
+          "total_tokens": 5
+        }
+      }
+    ],
+    "events": [
+      {
+        "type": "first_token",
+        "latencyMs": 0
+      },
+      {
+        "type": "text",
+        "content": "ok"
+      },
+      {
+        "type": "quota",
+        "data": {
+          "spent": {
+            "amount": 5
+          },
+          "prompt_tokens": 4,
+          "completion_tokens": 1
+        }
+      }
+    ]
+  }
+}

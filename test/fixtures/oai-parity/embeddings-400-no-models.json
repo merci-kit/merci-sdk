@@ -1,0 +1,49 @@
+{
+  "case": {
+    "id": "embeddings-400-no-models",
+    "kind": "embeddings",
+    "mode": "call",
+    "request": {
+      "body": {
+        "model": "embed-test",
+        "input": "hello"
+      }
+    },
+    "response": {
+      "status": 400,
+      "headers": {
+        "content-type": "application/json"
+      },
+      "chunks": [
+        "{\"error\":{\"message\":\"no models loaded\",\"type\":\"invalid_request_error\"}}"
+      ]
+    }
+  },
+  "sdkVersion": "7.51.0",
+  "node": "v25.0.0",
+  "response": {
+    "status": 400,
+    "headers": {
+      "content-type": "application/json"
+    },
+    "chunks": [
+      "{\"error\":{\"message\":\"no models loaded\",\"type\":\"invalid_request_error\"}}"
+    ]
+  },
+  "request": [
+    {
+      "method": "POST",
+      "url": "/v1/embeddings",
+      "headers": {
+        "authorization": "Bearer test-key",
+        "content-type": "application/json",
+        "accept": "application/json"
+      },
+      "body": "{\"model\":\"embed-test\",\"input\":\"hello\",\"encoding_format\":\"base64\"}"
+    }
+  ],
+  "outcome": {
+    "kind": "value",
+    "value": null
+  }
+}

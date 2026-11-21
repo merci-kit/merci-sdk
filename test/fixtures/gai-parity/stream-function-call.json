@@ -1,0 +1,145 @@
+{
+  "case": {
+    "id": "stream-function-call",
+    "kind": "stream",
+    "mode": "stream",
+    "quiet": [
+      "warn"
+    ],
+    "request": {
+      "model": "gemini-2.5-flash",
+      "contents": "Look it up twice",
+      "config": {
+        "tools": [
+          {
+            "functionDeclarations": [
+              {
+                "name": "lookup",
+                "description": "Find a record",
+                "parameters": {
+                  "type": "OBJECT",
+                  "properties": {
+                    "q": {
+                      "type": "STRING"
+                    }
+                  },
+                  "required": [
+                    "q"
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "content-type": "text/event-stream"
+      },
+      "chunks": [
+        "data: {\"candidates\":[{\"content\":{\"parts\":[{\"functionCall\":{\"id\":\"fc_1\",\"name\":\"lookup\",\"args\":{\"q\":\"alpha\"}}}],\"role\":\"model\"}}]}\n\n",
+        "data: {\"candidates\":[{\"content\":{\"parts\":[{\"functionCall\":{\"id\":\"fc_1\",\"name\":\"lookup\",\"args\":{\"q\":\"beta\"}}}],\"role\":\"model\"},\"finishReason\":\"STOP\"}]}\n\n"
+      ]
+    }
+  },
+  "sdkPackage": "@google/genai",
+  "sdkVersion": "2.32.0",
+  "node": "v25.0.0",
+  "response": {
+    "status": 200,
+    "headers": {
+      "content-type": "text/event-stream"
+    },
+    "chunks": [
+      "data: {\"candidates\":[{\"content\":{\"parts\":[{\"functionCall\":{\"id\":\"fc_1\",\"name\":\"lookup\",\"args\":{\"q\":\"alpha\"}}}],\"role\":\"model\"}}]}\n\n",
+      "data: {\"candidates\":[{\"content\":{\"parts\":[{\"functionCall\":{\"id\":\"fc_1\",\"name\":\"lookup\",\"args\":{\"q\":\"beta\"}}}],\"role\":\"model\"},\"finishReason\":\"STOP\"}]}\n\n"
+    ]
+  },
+  "request": [
+    {
+      "method": "POST",
+      "url": "/v1beta/models/gemini-2.5-flash:streamGenerateContent?alt=sse",
+      "headers": {
+        "accept": "*/*",
+        "content-type": "application/json",
+        "user-agent": "google-genai-sdk/2.32.0 gl-node/v25.0.0",
+        "x-goog-api-client": "google-genai-sdk/2.32.0 gl-node/v25.0.0",
+        "x-goog-api-key": "test-api-key"
+      },
+      "body": "{\"contents\":[{\"parts\":[{\"text\":\"Look it up twice\"}],\"role\":\"user\"}],\"tools\":[{\"functionDeclarations\":[{\"name\":\"lookup\",\"description\":\"Find a record\",\"parameters\":{\"type\":\"OBJECT\",\"properties\":{\"q\":{\"type\":\"STRING\"}},\"required\":[\"q\"]}}]}],\"generationConfig\":{}}"
+    }
+  ],
+  "outcome": {
+    "kind": "chunks",
+    "chunks": [
+      {
+        "json": {
+          "candidates": [
+            {
+              "content": {
+                "parts": [
+                  {
+                    "functionCall": {
+                      "id": "fc_1",
+                      "name": "lookup",
+                      "args": {
+                        "q": "alpha"
+                      }
+                    }
+                  }
+                ],
+                "role": "model"
+              }
+            }
+          ]
+        },
+        "text": null,
+        "functionCalls": [
+          {
+            "id": "fc_1",
+            "name": "lookup",
+            "args": {
+              "q": "alpha"
+            }
+          }
+        ]
+      },
+      {
+        "json": {
+          "candidates": [
+            {
+              "content": {
+                "parts": [
+                  {
+                    "functionCall": {
+                      "id": "fc_1",
+                      "name": "lookup",
+                      "args": {
+                        "q": "beta"
+                      }
+                    }
+                  }
+                ],
+                "role": "model"
+              },
+              "finishReason": "STOP"
+            }
+          ]
+        },
+        "text": null,
+        "functionCalls": [
+          {
+            "id": "fc_1",
+            "name": "lookup",
+            "args": {
+              "q": "beta"
+            }
+          }
+        ]
+      }
+    ],
+    "ended": "clean"
+  }
+}

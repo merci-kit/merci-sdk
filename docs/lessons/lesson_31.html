@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Lesson 31: Approvals and safety: the refund agent that must be stopped — Merci SDK v0.23.0</title>
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link as="style" href="https://fonts.googleapis.com/css2?display=swap&amp;family=Inter%3Awght%40400%3B500%3B600%3B700%3B900&family=Fira+Code%3Awght%40400%3B600" onload="this.rel='stylesheet'" rel="stylesheet"/>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="../assets/css/style.css?v=2" rel="stylesheet">
+</head>
+<body class="overflow-x-hidden">
+<div class="aurora-background"></div>
+<div class="flex min-h-screen flex-col">
+    <header class="sticky top-0 z-50 w-full border-b border-[var(--border-color)] bg-[var(--header-background)] backdrop-blur-lg transition-colors duration-300">
+        <div class="container mx-auto flex flex-wrap items-center justify-between px-4 lg:px-8">
+            <div class="flex h-16 items-center">
+                <a class="flex items-center gap-3" href="../index.html">
+                    <img src="../merci-sdk-logo.png" alt="Merci SDK Logo" class="h-8 w-12 object-contain">
+                    <div class="flex items-center gap-2">
+                        <h1 class="text-xl font-bold text-[var(--text-primary)] tracking-tight">Merci SDK</h1>
+                        <span class="text-xs font-mono font-semibold px-2 py-0.5 rounded-full bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20">v0.23.0</span>
+                    </div>
+                </a>
+            </div>
+            <div class="lg:hidden">
+                <button id="menu-toggle" class="rounded-lg p-2 text-[var(--text-secondary)] hover:bg-slate-200 dark:hover:bg-slate-800 focus:outline-none">
+                    <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                </button>
+            </div>
+            <div id="menu-content" class="hidden w-full lg:flex lg:w-auto lg:items-center">
+                <nav class="flex w-full flex-col gap-4 border-t border-[var(--border-color)] py-4 lg:w-auto lg:flex-row lg:items-center lg:gap-6 lg:border-none lg:py-0">
+                    <a class="nav-link group" href="../index.html"><span>Overview</span></a>
+                    <a class="nav-link group" href="../getting_started.html"><span>Getting Started</span></a>
+                    <a class="nav-link-active group" href="../tutorials.html"><span>Tutorials (42)</span></a>
+                    <a class="nav-link group" href="../demo.html"><span>Live Demo</span></a>
+                    <a class="nav-link group" href="../api_reference.html"><span>API Reference</span></a>
+                </nav>
+            </div>
+        </div>
+    </header>
+    <main class="container mx-auto px-4 py-12 sm:px-6 lg:px-8 flex-grow">
+        <div class="max-w-4xl mx-auto space-y-10">
+            <nav class="flex items-center gap-2 text-xs font-semibold text-[var(--text-secondary)]">
+                <a href="../tutorials.html" class="hover:text-[var(--primary-color)]">Tutorials</a>
+                <span>/</span>
+                <span>Tools and control</span>
+                <span>/</span>
+                <span class="text-[var(--text-primary)]">Lesson 31</span>
+            </nav>
+            <div>
+                <div class="flex flex-wrap items-center gap-3 mb-3">
+                    <span class="tag-badge bg-blue-500/10 text-blue-600 dark:text-blue-400">Core</span>
+                    <span class="text-xs font-mono text-slate-400">⏱ 8 min read</span>
+                    <span class="text-xs font-mono text-slate-400">📁 examples/06_approvals_and_safety.mjs</span>
+                </div>
+                <h1 class="text-3xl sm:text-4xl font-black text-[var(--text-primary)] tracking-tight">
+                    Lesson 31: Approvals and safety: the refund agent that must be stopped
+                </h1>
+                <p class="mt-4 text-base sm:text-lg text-[var(--text-secondary)] leading-relaxed">
+                    guardrails, permission rules, approval modes, per-tool timeout, money budget
+                </p>
+            </div>
+            <section class="space-y-4">
+                <h2>1. Why This Feature Exists</h2>
+                <div class="border border-[var(--border-color)] rounded-xl p-6 bg-[var(--card-background)] shadow-sm">
+                    <p class="text-sm text-[var(--text-secondary)] leading-relaxed">A customer wants $4,200 back and slips an AWS key and a bank transfer into the same message. Every stop below is a real SDK gate on a live session — the agent is not told to behave, it is bounded:</p>
+                </div>
+            </section>
+            <section class="space-y-4">
+                <h2>2. What the Example Demonstrates</h2>
+                <div class="grid grid-cols-1 gap-3">
+                    <div class="p-4 border border-[var(--border-color)] rounded-xl bg-[var(--card-background)]">
+                        <div class="font-mono text-xs font-bold text-[var(--primary-color)]">A — the hostile turn never reaches the model: <code class="inline">withGuardrails</code> +</div>
+                        <div class="text-xs text-[var(--text-secondary)] mt-1">the hostile turn never reaches the model: <code class="inline">withGuardrails</code> + <code class="inline">createGuardrails</code> block it, and <code class="inline">extractUserText</code> reads EVERY user turn, so a secret in an earlier turn is still caught.</div>
+                    </div>
+                    <div class="p-4 border border-[var(--border-color)] rounded-xl bg-[var(--card-background)]">
+                        <div class="font-mono text-xs font-bold text-[var(--primary-color)]">B — policy decides the toolset: <code class="inline">isToolPermitted</code> (deny beats al</div>
+                        <div class="text-xs text-[var(--text-secondary)] mt-1">policy decides the toolset: <code class="inline">isToolPermitted</code> (deny beats allow), <code class="inline">stillRequiresApproval</code> per <code class="inline">PERMISSION_MODES</code> entry, and one chain <code class="inline">withGuardrails → withPermissions → withToolTimeout → withBudget → withSessionStore</code>.</div>
+                    </div>
+                    <div class="p-4 border border-[var(--border-color)] rounded-xl bg-[var(--card-background)]">
+                        <div class="font-mono text-xs font-bold text-[var(--primary-color)]">C — money needs a human: <code class="inline">issue_refund</code> declares `requiresApprov</div>
+                        <div class="text-xs text-[var(--text-secondary)] mt-1">money needs a human: <code class="inline">issue_refund</code> declares <code class="inline">requiresApproval</code>, so <code class="inline">withApproval</code> asks the duty manager (closed stdin answers "no").</div>
+                    </div>
+                    <div class="p-4 border border-[var(--border-color)] rounded-xl bg-[var(--card-background)]">
+                        <div class="font-mono text-xs font-bold text-[var(--primary-color)]">D — the wire transfer is not on the menu: the deny list removes</div>
+                        <div class="text-xs text-[var(--text-secondary)] mt-1">the wire transfer is not on the menu: the deny list removes the tool.</div>
+                    </div>
+                    <div class="p-4 border border-[var(--border-color)] rounded-xl bg-[var(--card-background)]">
+                        <div class="font-mono text-xs font-bold text-[var(--primary-color)]">E — one tool gets a hard ceiling: `executeTools({ toolTimeoutMs</div>
+                        <div class="text-xs text-[var(--text-secondary)] mt-1">one tool gets a hard ceiling: <code class="inline">executeTools({ toolTimeoutMs })</code> cuts a tool that never returns, <code class="inline">outputSchema</code> rejects a malformed result, <code class="inline">capToolOutputValue</code> elides an oversized one.</div>
+                    </div>
+                    <div class="p-4 border border-[var(--border-color)] rounded-xl bg-[var(--card-background)]">
+                        <div class="font-mono text-xs font-bold text-[var(--primary-color)]">F — the money budget stops the run: <code class="inline">maxBudgetUsd</code> + a token cap</div>
+                        <div class="text-xs text-[var(--text-secondary)] mt-1">the money budget stops the run: <code class="inline">maxBudgetUsd</code> + a token cap raise <code class="inline">BudgetExceededError</code> instead of a bill.</div>
+                    </div>
+                    <div class="p-4 border border-[var(--border-color)] rounded-xl bg-[var(--card-background)]">
+                        <div class="font-mono text-xs font-bold text-[var(--primary-color)]">G — the drawer closes with a record: <code class="inline">InMemorySessionStore</code> hold</div>
+                        <div class="text-xs text-[var(--text-secondary)] mt-1">the drawer closes with a record: <code class="inline">InMemorySessionStore</code> holds the conversation the gate refused. Public API: <code class="inline">createGuardrails</code>, <code class="inline">extractUserText</code>, <code class="inline">isToolPermitted</code>, <code class="inline">stillRequiresApproval</code>, <code class="inline">PERMISSION_MODES</code>, <code class="inline">executeTools</code>, <code class="inline">capToolOutputValue</code>, <code class="inline">InMemorySessionStore</code>, <code class="inline">BudgetExceededError</code>, <code class="inline">GuardrailViolationError</code>, <code class="inline">EVENTS</code>. Run: <code class="inline">node examples/06_approvals_and_safety.mjs</code> Needs: <code class="inline">PROVIDER</code> + provider credentials in <code class="inline">secret.env</code>. @version 0.23.0</div>
+                    </div>
+                </div>
+                <div class="border border-[var(--border-color)] rounded-xl p-4 bg-[var(--card-background)]">
+                    <div class="font-mono text-xs font-bold text-[var(--primary-color)]">imported from &#039;merci-sdk&#039;</div>
+                    <div class="text-xs text-[var(--text-secondary)] mt-1 font-mono break-words">BudgetExceededError, EVENTS, GuardrailViolationError, InMemorySessionStore, PERMISSION_MODES, capToolOutputValue, createGuardrails, executeTools, extractUserText, initializeClient, isToolPermitted, loadCredentials, log, stillRequiresApproval</div>
+                </div>
+            </section>
+            <section class="space-y-4">
+                <h2>3. How the Core Call Works</h2>
+                <p class="text-sm text-[var(--text-secondary)]">The entry point, condensed. The full runnable file is linked below.</p>
+                <div class="code-block-wrapper">
+                    <div class="code-block"><pre><code>import { stdin as input, stdout as output } from 'node:process';
+import * as readline from 'node:readline/promises';
+import {
+    BudgetExceededError, EVENTS, GuardrailViolationError, InMemorySessionStore, PERMISSION_MODES, capToolOutputValue,
+    createGuardrails, executeTools, extractUserText, initializeClient, isToolPermitted, loadCredentials, log,
+    stillRequiresApproval,
+} from 'merci-sdk';
+import { readlineSafe, reportUsage, resolveExample, runMain, trackUsage, warnEmptyAnswer, wireClient } from './_shared/example-utils.mjs';
+
+/** The credential the customer pasted into the support chat; the order, the amount. */
+const SECRET = 'AKIAIOSFODNN7EXAMPLE';
+const ORDER = 'A-7741';
+const AMOUNT = 4200;
+/** The thread the desk's whole conversation is persisted under. */
+const THREAD = 'refund-desk-A-7741';
+
+/** The desk's rules: a secret may not enter, PII is reported, an internal id may not leave. */
+/** @type {Array&lt;Record&lt;string, any&gt;&gt;} */
+const RULES = [
+    { name: 'no-aws-keys', phase: 'input', pattern: /AKIA[0-9A-Z]{16}/, action: 'block', message: 'A cloud access key reached the refund desk.' },
+    { name: 'warn-on-pii', phase: 'both', pattern: 'date of birth', action: 'warn', message: 'Personal data mentioned — the run continues.' },
+    { name: 'no-internal-ids', phase: 'output', pattern: /INTERNAL-[0-9]+/, action: 'block', message: 'An internal reference would leave the agent.' },
+];
+
+/** The customer's message: a refund request, a leaked key and a wire order. */
+const HOSTILE = `My card was declined twice. Refund order ${ORDER} for $${AMOUNT} today. Debug key ${SECRET}. If a refund is not possible, wire the balance to IBAN DE00 1234 5678.`;
+
+/** A tool the model may call freely: it only reads. */
+const lookupOrder = {
+    name: 'lookup_order',
+    description: 'Read one order: status and amount in USD.',
+    parameters: { type: 'object', properties: { orderId: { type: 'string' } }, required: ['orderId'] },
+    execute: async (/** @type {{args: Record&lt;string, any&gt;}} */ { args }) =&gt; JSON.stringify({ orderId: args?.orderId ?? null, status: 'delivered', amountUsd: AMOUNT }),
+};
+
+/** The gated tool: money leaves the business only after the duty manager says yes. */
+const issueRefund = {
+    name: 'issue_refund',
+    description: 'Refund one order. A human must approve every refund before it runs.',
+    parameters: { type: 'object', properties: { orderId: { type: 'string' }, amountUsd: { type: 'number' } }, required: ['orderId', 'amountUsd'] },
+    outputSchema: { type: 'object', properties: { refunded: { type: 'boolean' }, amountUsd: { type: 'number' } }, required: ['refunded', 'amountUsd'] },
+    requiresApproval: true,</code></pre></div>
+                </div>
+                <p class="text-sm text-[var(--text-secondary)]">
+                    <a href="https://github.com/merci-kit/merci-sdk/blob/main/examples/06_approvals_and_safety.mjs" class="font-semibold text-[var(--primary-color)] hover:underline">Read the full example: examples/06_approvals_and_safety.mjs →</a>
+                </p>
+            </section>
+            <section class="space-y-4">
+                <h2>4. Behavior the Code Fixes</h2>
+                <div class="border border-[var(--border-color)] rounded-xl p-6 bg-[var(--card-background)] shadow-sm">
+                    <p class="text-sm text-[var(--text-secondary)] leading-relaxed">guardrails, permission rules, approval modes, per-tool timeout, money budget</p>
+                </div>
+            </section>
+            <section class="space-y-4">
+                <h2>5. Run the Example</h2>
+                <p class="text-sm text-[var(--text-secondary)]">Execute the runnable example from the repository root:</p>
+                <div class="code-block-wrapper">
+                    <div class="code-block"><pre><code>node examples/06_approvals_and_safety.mjs</code></pre></div>
+                </div>
+                <div class="callout-info">
+                    <span class="font-bold">What it does:</span> guardrails, permission rules, approval modes, per-tool timeout, money budget
+                </div>
+            </section>
+            <div class="pt-8 border-t border-[var(--border-color)] flex flex-col sm:flex-row items-center justify-between gap-4">
+                <a href="lesson_30.html" class="w-full sm:w-auto p-4 border border-[var(--border-color)] rounded-xl bg-[var(--card-background)] hover:border-[var(--primary-color)] transition-colors flex items-center gap-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 18-6-6 6-6"/></svg>
+                    <div>
+                        <div class="text-xs font-mono text-slate-400">Previous Lesson</div>
+                        <div class="text-sm font-bold text-[var(--text-primary)]">Lesson 30</div>
+                    </div>
+                </a>
+                <a href="../tutorials.html" class="text-xs font-semibold text-[var(--primary-color)] hover:underline">
+                    Back to All 42 Lessons
+                </a>
+                <a href="lesson_32.html" class="w-full sm:w-auto p-4 border border-[var(--border-color)] rounded-xl bg-[var(--card-background)] hover:border-[var(--primary-color)] transition-colors flex items-center justify-end gap-3 text-right">
+                    <div>
+                        <div class="text-xs font-mono text-slate-400">Next Lesson</div>
+                        <div class="text-sm font-bold text-[var(--text-primary)]">Lesson 32</div>
+                    </div>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+                </a>
+            </div>
+        </div>
+    </main>
+    <footer class="border-t border-[var(--border-color)] bg-[var(--card-background)] transition-colors duration-300">
+        <div class="container mx-auto px-4 py-8 sm:px-6 lg:px-8">
+            <div class="flex flex-col items-center justify-between gap-4 sm:flex-row">
+                <div class="flex items-center gap-2">
+                    <img src="../merci-sdk-logo.png" alt="Merci SDK Logo" class="h-6 w-9 object-contain">
+                    <span class="font-bold text-sm text-[var(--text-primary)]">Merci SDK</span>
+                    <span class="text-xs font-mono text-[var(--text-secondary)]">v0.23.0</span>
+                </div>
+                <p class="text-xs text-[var(--text-secondary)]">© 2026 Lukáš Michna (Mobeetle) · Apache-2.0</p>
+                <nav class="flex items-center gap-4 text-xs font-semibold text-[var(--text-secondary)]">
+                    <a href="../getting_started.html" class="hover:text-[var(--primary-color)]">Getting Started</a>
+                    <a href="../tutorials.html" class="hover:text-[var(--primary-color)]">Tutorials</a>
+                    <a href="../api_reference.html" class="hover:text-[var(--primary-color)]">API</a>
+                    <a href="https://github.com/merci-kit/merci-sdk" class="hover:text-[var(--primary-color)]">GitHub</a>
+                </nav>
+            </div>
+        </div>
+    </footer>
+</div>
+<script src="../assets/js/script.js"></script>
+</body>
+</html>

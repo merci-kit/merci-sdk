@@ -1,0 +1,17 @@
+apiVersion: merci.dev/v1alpha1
+kind: Agent
+metadata:
+  name: alias-bomb
+  description: A definition that tries to expand more aliases than the cap allows.
+spec:
+  instructions: Do nothing.
+  tools:
+    definitions:
+      - name: bomb
+        description: bomb
+        script: scripts/echo-args.mjs
+        parameters:
+          type: object
+          properties:
+            a: &a [one, two]
+            b: [*a, *a, *a, *a, *a, *a, *a, *a, *a, *a, *a, *a, *a, *a, *a, *a, *a, *a, *a, *a, *a, *a, *a, *a, *a, *a, *a, *a, *a, *a, *a, *a, *a, *a, *a, *a, *a, *a, *a, *a, *a, *a, *a, *a, *a, *a, *a, *a, *a, *a, *a, *a, *a, *a, *a, *a, *a, *a, *a, *a]

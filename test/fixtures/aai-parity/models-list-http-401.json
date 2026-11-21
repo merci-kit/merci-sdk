@@ -1,0 +1,73 @@
+{
+  "case": {
+    "id": "models-list-http-401",
+    "kind": "models",
+    "mode": "error",
+    "response": {
+      "status": 401,
+      "headers": {
+        "content-type": "application/json",
+        "request-id": "req_oracle_models_401"
+      },
+      "chunks": [
+        "{\"type\":\"error\",\"error\":{\"type\":\"authentication_error\",\"message\":\"invalid x-api-key\"}}"
+      ]
+    }
+  },
+  "sdkVersion": "1.5.0",
+  "node": "v25.0.0",
+  "response": {
+    "status": 401,
+    "headers": {
+      "content-type": "application/json",
+      "request-id": "req_oracle_models_401"
+    },
+    "chunks": [
+      "{\"type\":\"error\",\"error\":{\"type\":\"authentication_error\",\"message\":\"invalid x-api-key\"}}"
+    ]
+  },
+  "request": [
+    {
+      "method": "GET",
+      "url": "/v1/models",
+      "headers": {
+        "connection": "keep-alive",
+        "Accept": "application/json",
+        "User-Agent": "Anthropic/JS 1.5.0",
+        "X-Stainless-Retry-Count": "0",
+        "X-Stainless-Timeout": "600",
+        "X-Stainless-Lang": "js",
+        "X-Stainless-Package-Version": "1.5.0",
+        "X-Stainless-OS": "MacOS",
+        "X-Stainless-Arch": "arm64",
+        "X-Stainless-Runtime": "node",
+        "X-Stainless-Runtime-Version": "v25.0.0",
+        "anthropic-version": "2026-10-21",
+        "authorization": "Bearer test-key",
+        "accept-language": "*",
+        "sec-fetch-mode": "cors",
+        "accept-encoding": "gzip, deflate"
+      },
+      "body": ""
+    }
+  ],
+  "outcome": {
+    "kind": "error",
+    "error": {
+      "name": "Error",
+      "message": "401 {\"type\":\"error\",\"error\":{\"type\":\"authentication_error\",\"message\":\"invalid x-api-key\"}}",
+      "status": 401,
+      "type": "authentication_error",
+      "error": {
+        "type": "error",
+        "error": {
+          "type": "authentication_error",
+          "message": "invalid x-api-key"
+        }
+      },
+      "requestID": "req_oracle_models_401",
+      "errorCode": null,
+      "details": null
+    }
+  }
+}

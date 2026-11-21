@@ -1,0 +1,10 @@
+apiVersion: merci.dev/v1alpha1
+kind: Agent
+metadata:
+  name: unknown-tools
+  description: A definition with one unknown tools key.
+spec:
+  instructions: Do nothing.
+  tools:
+    use: [files]
+    bogus: true

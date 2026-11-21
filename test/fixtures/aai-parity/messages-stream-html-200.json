@@ -1,0 +1,79 @@
+{
+  "case": {
+    "id": "messages-stream-html-200",
+    "kind": "messages",
+    "mode": "stream",
+    "request": {
+      "body": {
+        "model": "claude-sonnet-5-5",
+        "max_tokens": 1024,
+        "messages": [
+          {
+            "role": "user",
+            "content": "hi"
+          }
+        ],
+        "stream": true
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "content-type": "text/html"
+      },
+      "chunks": [
+        "<html>\n<body>\n<h1>Sign in</h1>\n<form method=\"post\" action=\"/login\"><input name=\"user\"></form>\n</body>\n</html>\n"
+      ]
+    }
+  },
+  "sdkVersion": "1.5.0",
+  "node": "v25.0.0",
+  "response": {
+    "status": 200,
+    "headers": {
+      "content-type": "text/html"
+    },
+    "chunks": [
+      "<html>\n<body>\n<h1>Sign in</h1>\n<form method=\"post\" action=\"/login\"><input name=\"user\"></form>\n</body>\n</html>\n"
+    ]
+  },
+  "request": [
+    {
+      "method": "POST",
+      "url": "/v1/messages",
+      "headers": {
+        "connection": "keep-alive",
+        "Accept": "application/json",
+        "User-Agent": "Anthropic/JS 1.5.0",
+        "X-Stainless-Retry-Count": "0",
+        "X-Stainless-Timeout": "600",
+        "X-Stainless-Lang": "js",
+        "X-Stainless-Package-Version": "1.5.0",
+        "X-Stainless-OS": "MacOS",
+        "X-Stainless-Arch": "arm64",
+        "X-Stainless-Runtime": "node",
+        "X-Stainless-Runtime-Version": "v25.0.0",
+        "anthropic-version": "2026-10-21",
+        "authorization": "Bearer test-key",
+        "content-type": "application/json",
+        "x-stainless-helper-method": "stream",
+        "accept-language": "*",
+        "sec-fetch-mode": "cors",
+        "accept-encoding": "gzip, deflate",
+        "content-length": "105"
+      },
+      "body": "{\"model\":\"claude-sonnet-5-5\",\"max_tokens\":1024,\"messages\":[{\"role\":\"user\",\"content\":\"hi\"}],\"stream\":true}"
+    }
+  ],
+  "outcome": {
+    "kind": "messages",
+    "mode": "stream",
+    "status": 200,
+    "events": [],
+    "ended": "threw",
+    "error": {
+      "name": "Error",
+      "message": "request ended without sending any chunks"
+    }
+  }
+}

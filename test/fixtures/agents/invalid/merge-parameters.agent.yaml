@@ -1,0 +1,19 @@
+apiVersion: merci.dev/v1alpha1
+kind: Agent
+metadata:
+  name: merge-parameters
+  description: A merge key hidden inside a tool parameter schema.
+spec:
+  instructions: Do nothing.
+  tools:
+    definitions:
+      - name: merged
+        description: merged
+        script: scripts/echo-args.mjs
+        parameters:
+          type: object
+          properties:
+            a:
+              type: string
+          <<:
+            bogus: true

@@ -1,0 +1,62 @@
+{
+  "case": {
+    "id": "stream-prompt-block-safety",
+    "kind": "stream",
+    "mode": "stream",
+    "request": {
+      "model": "gemini-2.5-flash",
+      "contents": "Block the prompt"
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "content-type": "text/event-stream"
+      },
+      "chunks": [
+        "data: {\"promptFeedback\":{\"blockReason\":\"SAFETY\",\"blockReasonMessage\":\"prompt blocked by safety policy\"}}\n\n"
+      ]
+    }
+  },
+  "sdkPackage": "@google/genai",
+  "sdkVersion": "2.32.0",
+  "node": "v25.0.0",
+  "response": {
+    "status": 200,
+    "headers": {
+      "content-type": "text/event-stream"
+    },
+    "chunks": [
+      "data: {\"promptFeedback\":{\"blockReason\":\"SAFETY\",\"blockReasonMessage\":\"prompt blocked by safety policy\"}}\n\n"
+    ]
+  },
+  "request": [
+    {
+      "method": "POST",
+      "url": "/v1beta/models/gemini-2.5-flash:streamGenerateContent?alt=sse",
+      "headers": {
+        "accept": "*/*",
+        "content-type": "application/json",
+        "user-agent": "google-genai-sdk/2.32.0 gl-node/v25.0.0",
+        "x-goog-api-client": "google-genai-sdk/2.32.0 gl-node/v25.0.0",
+        "x-goog-api-key": "test-api-key"
+      },
+      "body": "{\"contents\":[{\"parts\":[{\"text\":\"Block the prompt\"}],\"role\":\"user\"}]}"
+    }
+  ],
+  "outcome": {
+    "kind": "chunks",
+    "chunks": [
+      {
+        "json": {
+          "promptFeedback": {
+            "blockReason": "SAFETY",
+            "blockReasonMessage": "prompt blocked by safety policy"
+          }
+        },
+        "text": null,
+        "functionCalls": null
+      }
+    ],
+    "ended": "clean"
+  }
+}

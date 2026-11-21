@@ -1,0 +1,50 @@
+{
+  "case": {
+    "id": "models-json-null",
+    "kind": "transport-models",
+    "mode": "value",
+    "response": {
+      "status": 200,
+      "headers": {
+        "content-type": "application/json"
+      },
+      "chunks": [
+        "null"
+      ]
+    }
+  },
+  "sdkVersion": "7.51.0",
+  "node": "v25.0.0",
+  "response": {
+    "status": 200,
+    "headers": {
+      "content-type": "application/json"
+    },
+    "chunks": [
+      "null"
+    ]
+  },
+  "request": [
+    {
+      "method": "GET",
+      "url": "/v1/models",
+      "headers": {
+        "authorization": "Bearer test-key",
+        "accept": "application/json"
+      },
+      "body": ""
+    }
+  ],
+  "outcome": {
+    "kind": "error",
+    "error": {
+      "message": "Cannot read properties of null (reading 'data')",
+      "status": null,
+      "code": null,
+      "type": null,
+      "param": null,
+      "retryAfter": null,
+      "causeName": null
+    }
+  }
+}

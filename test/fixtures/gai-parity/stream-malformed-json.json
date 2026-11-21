@@ -1,0 +1,59 @@
+{
+  "case": {
+    "id": "stream-malformed-json",
+    "kind": "stream",
+    "mode": "stream",
+    "request": {
+      "model": "gemini-2.5-flash",
+      "contents": "Break the frame"
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "content-type": "text/event-stream"
+      },
+      "chunks": [
+        "data: {not json\n\n"
+      ]
+    }
+  },
+  "sdkPackage": "@google/genai",
+  "sdkVersion": "2.32.0",
+  "node": "v25.0.0",
+  "response": {
+    "status": 200,
+    "headers": {
+      "content-type": "text/event-stream"
+    },
+    "chunks": [
+      "data: {not json\n\n"
+    ]
+  },
+  "request": [
+    {
+      "method": "POST",
+      "url": "/v1beta/models/gemini-2.5-flash:streamGenerateContent?alt=sse",
+      "headers": {
+        "accept": "*/*",
+        "content-type": "application/json",
+        "user-agent": "google-genai-sdk/2.32.0 gl-node/v25.0.0",
+        "x-goog-api-client": "google-genai-sdk/2.32.0 gl-node/v25.0.0",
+        "x-goog-api-key": "test-api-key"
+      },
+      "body": "{\"contents\":[{\"parts\":[{\"text\":\"Break the frame\"}],\"role\":\"user\"}]}"
+    }
+  ],
+  "outcome": {
+    "kind": "chunks",
+    "chunks": [],
+    "ended": "threw",
+    "error": {
+      "name": "SyntaxError",
+      "message": "Expected property name or '}' in JSON at position 1 (line 1 column 2)",
+      "status": null,
+      "code": null,
+      "error": null,
+      "causeName": null
+    }
+  }
+}

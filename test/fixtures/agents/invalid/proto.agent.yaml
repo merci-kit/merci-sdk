@@ -1,0 +1,9 @@
+apiVersion: merci.dev/v1alpha1
+kind: Agent
+__proto__:
+  polluted: true
+metadata:
+  name: proto
+  description: A definition that tries to touch a prototype.
+spec:
+  instructions: Do nothing.

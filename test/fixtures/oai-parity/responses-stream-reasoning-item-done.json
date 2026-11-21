@@ -1,0 +1,107 @@
+{
+  "case": {
+    "id": "responses-stream-reasoning-item-done",
+    "kind": "responses",
+    "mode": "stream",
+    "request": {
+      "body": {
+        "model": "gpt-test",
+        "input": "reasoning item",
+        "stream": true
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "content-type": "text/event-stream"
+      },
+      "chunks": [
+        "event: response.output_text.delta\ndata: {\"type\":\"response.output_text.delta\",\"delta\":\"thought about it\"}\n\n",
+        "event: response.output_item.done\ndata: {\"type\":\"response.output_item.done\",\"output_index\":1,\"item\":{\"type\":\"reasoning\",\"id\":\"rs_1\",\"summary\":[{\"type\":\"summary_text\",\"text\":\"thought\"}]}}\n\n",
+        "data: [DONE]\n\n"
+      ]
+    }
+  },
+  "sdkVersion": "7.51.0",
+  "node": "v25.0.0",
+  "response": {
+    "status": 200,
+    "headers": {
+      "content-type": "text/event-stream"
+    },
+    "chunks": [
+      "event: response.output_text.delta\ndata: {\"type\":\"response.output_text.delta\",\"delta\":\"thought about it\"}\n\n",
+      "event: response.output_item.done\ndata: {\"type\":\"response.output_item.done\",\"output_index\":1,\"item\":{\"type\":\"reasoning\",\"id\":\"rs_1\",\"summary\":[{\"type\":\"summary_text\",\"text\":\"thought\"}]}}\n\n",
+      "data: [DONE]\n\n"
+    ]
+  },
+  "request": [
+    {
+      "method": "POST",
+      "url": "/v1/responses",
+      "headers": {
+        "authorization": "Bearer test-key",
+        "content-type": "application/json",
+        "accept": "application/json"
+      },
+      "body": "{\"model\":\"gpt-test\",\"input\":\"reasoning item\",\"stream\":true}"
+    },
+    {
+      "method": "POST",
+      "url": "/v1/responses",
+      "headers": {
+        "authorization": "Bearer test-key",
+        "content-type": "application/json",
+        "accept": "application/json"
+      },
+      "body": "{\"model\":\"gpt-test\",\"input\":\"reasoning item\",\"stream\":true}"
+    }
+  ],
+  "outcome": {
+    "kind": "chunks",
+    "chunks": [
+      {
+        "type": "response.output_text.delta",
+        "delta": "thought about it"
+      },
+      {
+        "type": "response.output_item.done",
+        "output_index": 1,
+        "item": {
+          "type": "reasoning",
+          "id": "rs_1",
+          "summary": [
+            {
+              "type": "summary_text",
+              "text": "thought"
+            }
+          ]
+        }
+      }
+    ],
+    "events": [
+      {
+        "type": "first_token",
+        "latencyMs": 0
+      },
+      {
+        "type": "text",
+        "content": "thought about it"
+      },
+      {
+        "type": "reasoning_item",
+        "protocol": "responses",
+        "item": {
+          "type": "reasoning",
+          "id": "rs_1",
+          "summary": [
+            {
+              "type": "summary_text",
+              "text": "thought"
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "case": {
+    "id": "models-connection-closed",
+    "kind": "models",
+    "mode": "call",
+    "response": {
+      "status": 200,
+      "headers": {},
+      "chunks": [],
+      "destroy": true
+    }
+  },
+  "sdkVersion": "7.51.0",
+  "node": "v25.0.0",
+  "response": {
+    "status": 200,
+    "headers": {},
+    "chunks": [],
+    "destroy": true
+  },
+  "request": [
+    {
+      "method": "GET",
+      "url": "/v1/models",
+      "headers": {
+        "authorization": "Bearer test-key",
+        "accept": "application/json"
+      },
+      "body": ""
+    }
+  ],
+  "outcome": {
+    "kind": "error",
+    "error": {
+      "message": "Model list fetch failed: provider unreachable (no status)",
+      "status": null,
+      "code": "NETWORK_FAILURE",
+      "type": null,
+      "param": null,
+      "retryAfter": null,
+      "causeName": "Error"
+    }
+  }
+}

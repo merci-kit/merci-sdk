@@ -1,0 +1,53 @@
+{
+  "case": {
+    "id": "models-list-http-401",
+    "kind": "models",
+    "mode": "error",
+    "response": {
+      "status": 401,
+      "headers": {
+        "content-type": "application/json"
+      },
+      "chunks": [
+        "{\"error\":{\"code\":401,\"message\":\"API key not valid\",\"status\":\"UNAUTHENTICATED\"}}"
+      ]
+    }
+  },
+  "sdkPackage": "@google/genai",
+  "sdkVersion": "2.32.0",
+  "node": "v25.0.0",
+  "response": {
+    "status": 401,
+    "headers": {
+      "content-type": "application/json"
+    },
+    "chunks": [
+      "{\"error\":{\"code\":401,\"message\":\"API key not valid\",\"status\":\"UNAUTHENTICATED\"}}"
+    ]
+  },
+  "request": [
+    {
+      "method": "GET",
+      "url": "/v1beta/models",
+      "headers": {
+        "accept": "*/*",
+        "content-type": "application/json",
+        "user-agent": "google-genai-sdk/2.32.0 gl-node/v25.0.0",
+        "x-goog-api-client": "google-genai-sdk/2.32.0 gl-node/v25.0.0",
+        "x-goog-api-key": "test-api-key"
+      },
+      "body": ""
+    }
+  ],
+  "outcome": {
+    "kind": "error",
+    "error": {
+      "name": "ApiError",
+      "message": "{\"error\":{\"code\":401,\"message\":\"API key not valid\",\"status\":\"UNAUTHENTICATED\"}}",
+      "status": 401,
+      "code": null,
+      "error": null,
+      "causeName": null
+    }
+  }
+}

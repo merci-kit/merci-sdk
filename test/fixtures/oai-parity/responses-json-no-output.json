@@ -1,0 +1,57 @@
+{
+  "case": {
+    "id": "responses-json-no-output",
+    "kind": "responses",
+    "mode": "json",
+    "request": {
+      "body": {
+        "model": "gpt-test",
+        "input": "no output"
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "content-type": "application/json"
+      },
+      "chunks": [
+        "{\"id\":\"resp_no_output\",\"object\":\"response\",\"status\":\"completed\"}"
+      ]
+    }
+  },
+  "sdkVersion": "7.51.0",
+  "node": "v25.0.0",
+  "response": {
+    "status": 200,
+    "headers": {
+      "content-type": "application/json"
+    },
+    "chunks": [
+      "{\"id\":\"resp_no_output\",\"object\":\"response\",\"status\":\"completed\"}"
+    ]
+  },
+  "request": [
+    {
+      "method": "POST",
+      "url": "/v1/responses",
+      "headers": {
+        "authorization": "Bearer test-key",
+        "content-type": "application/json",
+        "accept": "application/json"
+      },
+      "body": "{\"model\":\"gpt-test\",\"input\":\"no output\"}"
+    }
+  ],
+  "outcome": {
+    "kind": "error",
+    "error": {
+      "message": "rsp.output is not iterable",
+      "status": null,
+      "code": null,
+      "type": null,
+      "param": null,
+      "retryAfter": null,
+      "causeName": null
+    }
+  }
+}

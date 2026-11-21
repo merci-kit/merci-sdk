@@ -1,0 +1,98 @@
+{
+  "case": {
+    "id": "stream-usage-metadata",
+    "kind": "stream",
+    "mode": "stream",
+    "request": {
+      "model": "gemini-2.5-flash",
+      "contents": "Account for yourself"
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "content-type": "text/event-stream"
+      },
+      "chunks": [
+        "data: {\"candidates\":[{\"content\":{\"parts\":[{\"text\":\"done\"}],\"role\":\"model\"}}]}\n\n",
+        "data: {\"candidates\":[{\"content\":{\"parts\":[{\"text\":\"\"}],\"role\":\"model\"},\"finishReason\":\"STOP\"}],\"usageMetadata\":{\"promptTokenCount\":12,\"candidatesTokenCount\":7,\"totalTokenCount\":19,\"cachedContentTokenCount\":3,\"thoughtsTokenCount\":2}}\n\n"
+      ]
+    }
+  },
+  "sdkPackage": "@google/genai",
+  "sdkVersion": "2.32.0",
+  "node": "v25.0.0",
+  "response": {
+    "status": 200,
+    "headers": {
+      "content-type": "text/event-stream"
+    },
+    "chunks": [
+      "data: {\"candidates\":[{\"content\":{\"parts\":[{\"text\":\"done\"}],\"role\":\"model\"}}]}\n\n",
+      "data: {\"candidates\":[{\"content\":{\"parts\":[{\"text\":\"\"}],\"role\":\"model\"},\"finishReason\":\"STOP\"}],\"usageMetadata\":{\"promptTokenCount\":12,\"candidatesTokenCount\":7,\"totalTokenCount\":19,\"cachedContentTokenCount\":3,\"thoughtsTokenCount\":2}}\n\n"
+    ]
+  },
+  "request": [
+    {
+      "method": "POST",
+      "url": "/v1beta/models/gemini-2.5-flash:streamGenerateContent?alt=sse",
+      "headers": {
+        "accept": "*/*",
+        "content-type": "application/json",
+        "user-agent": "google-genai-sdk/2.32.0 gl-node/v25.0.0",
+        "x-goog-api-client": "google-genai-sdk/2.32.0 gl-node/v25.0.0",
+        "x-goog-api-key": "test-api-key"
+      },
+      "body": "{\"contents\":[{\"parts\":[{\"text\":\"Account for yourself\"}],\"role\":\"user\"}]}"
+    }
+  ],
+  "outcome": {
+    "kind": "chunks",
+    "chunks": [
+      {
+        "json": {
+          "candidates": [
+            {
+              "content": {
+                "parts": [
+                  {
+                    "text": "done"
+                  }
+                ],
+                "role": "model"
+              }
+            }
+          ]
+        },
+        "text": "done",
+        "functionCalls": null
+      },
+      {
+        "json": {
+          "candidates": [
+            {
+              "content": {
+                "parts": [
+                  {
+                    "text": ""
+                  }
+                ],
+                "role": "model"
+              },
+              "finishReason": "STOP"
+            }
+          ],
+          "usageMetadata": {
+            "promptTokenCount": 12,
+            "candidatesTokenCount": 7,
+            "totalTokenCount": 19,
+            "cachedContentTokenCount": 3,
+            "thoughtsTokenCount": 2
+          }
+        },
+        "text": "",
+        "functionCalls": null
+      }
+    ],
+    "ended": "clean"
+  }
+}

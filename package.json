@@ -1,0 +1,176 @@
+{
+  "name": "merci-sdk",
+  "version": "0.23.0",
+  "description": "Merci SDK - Agentic SDK for OpenAI, Gemini and Anthropic compatible endpoints",
+  "type": "module",
+  "main": "lib/index.mjs",
+  "types": "dist/types/lib/index.d.mts",
+  "exports": {
+    ".": {
+      "types": "./dist/types/lib/index.d.mts",
+      "import": "./lib/index.mjs"
+    },
+    "./oai": {
+      "types": "./dist/types/lib/backends/oai.d.mts",
+      "import": "./lib/backends/oai.mjs"
+    },
+    "./jai": {
+      "types": "./dist/types/lib/backends/jai.d.mts",
+      "import": "./lib/backends/jai.mjs"
+    },
+    "./gai": {
+      "types": "./dist/types/lib/backends/gai.d.mts",
+      "import": "./lib/backends/gai.mjs"
+    },
+    "./aai": {
+      "types": "./dist/types/lib/backends/aai.d.mts",
+      "import": "./lib/backends/aai.mjs"
+    },
+    "./json": {
+      "types": "./dist/types/lib/support/json.d.mts",
+      "import": "./lib/support/json.mjs"
+    },
+    "./tools": {
+      "types": "./dist/types/lib/tools/index.d.mts",
+      "import": "./lib/tools/index.mjs"
+    },
+    "./planning": {
+      "types": "./dist/types/lib/agentic/planning/index.d.mts",
+      "import": "./lib/agentic/planning/index.mjs"
+    },
+    "./messaging": {
+      "types": "./dist/types/lib/messaging/unified-message.d.mts",
+      "import": "./lib/messaging/unified-message.mjs"
+    },
+    "./evals": {
+      "types": "./dist/types/lib/agentic/evals.d.mts",
+      "import": "./lib/agentic/evals.mjs"
+    },
+    "./cassette": {
+      "types": "./dist/types/lib/support/cassette.d.mts",
+      "import": "./lib/support/cassette.mjs"
+    },
+    "./sessions": {
+      "types": "./dist/types/lib/agentic/sessions.d.mts",
+      "import": "./lib/agentic/sessions.mjs"
+    },
+    "./otel": {
+      "types": "./dist/types/lib/support/otel-exporter.d.mts",
+      "import": "./lib/support/otel-exporter.mjs"
+    },
+    "./workspace": {
+      "types": "./dist/types/lib/agentic/workspace/index.d.mts",
+      "import": "./lib/agentic/workspace/index.mjs"
+    },
+    "./scheduler": {
+      "types": "./dist/types/lib/agentic/scheduler/index.d.mts",
+      "import": "./lib/agentic/scheduler/index.mjs"
+    },
+    "./operator": {
+      "types": "./dist/types/lib/agentic/operator/index.d.mts",
+      "import": "./lib/agentic/operator/index.mjs"
+    },
+    "./workflow-policy": {
+      "types": "./dist/types/lib/agentic/workflow-policy/index.d.mts",
+      "import": "./lib/agentic/workflow-policy/index.mjs"
+    },
+    "./orchestration": {
+      "types": "./dist/types/lib/agentic/orchestration/index.d.mts",
+      "import": "./lib/agentic/orchestration/index.mjs"
+    },
+    "./knowledge": {
+      "types": "./dist/types/lib/agentic/knowledge/index.d.mts",
+      "import": "./lib/agentic/knowledge/index.mjs"
+    },
+    "./agents": {
+      "types": "./dist/types/lib/agentic/agents/index.d.mts",
+      "import": "./lib/agentic/agents/index.mjs"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib",
+    "dist/types",
+    "skills",
+    "README.md",
+    "LICENSE",
+    "TRADEMARK.md",
+    "secret.env.example"
+  ],
+  "sideEffects": false,
+  "scripts": {
+    "build:matrix": "node scripts/build-matrix.mjs",
+    "build:structure": "node scripts/build-structure.mjs",
+    "build:example-map": "node scripts/build-example-map.mjs",
+    "build:types": "tsc -p tsconfig.build.json",
+    "test": "node --test \"test/*.test.mjs\"",
+    "pretest": "node scripts/typecheck-if-flagged.mjs",
+    "test:examples": "node scripts/run-examples.mjs",
+    "typecheck": "pnpm run build:types && tsc --noEmit",
+    "check:guidelines": "node scripts/check-guidelines.mjs --all",
+    "check:type-surface": "node scripts/check-type-surface.mjs",
+    "audit:deps": "node scripts/audit-deps.mjs",
+    "pack:check": "node scripts/check-pack.mjs",
+    "smoke:live": "node scripts/live-agentic-smoke.mjs",
+    "docs:check": "node scripts/check-docs.mjs",
+    "check": "tsc --noEmit && pnpm run check:limits && pnpm run check:agents && pnpm test",
+    "prepublishOnly": "pnpm run build:types && pnpm run pack:check",
+    "docs:api-reference": "node scripts/build-api-reference.mjs",
+    "docs:api-reference:check": "node scripts/build-api-reference.mjs --check",
+    "check:coverage": "node scripts/check-coverage.mjs",
+    "check:examples": "node scripts/check-example-coverage.mjs",
+    "check:skill": "node scripts/check-skill.mjs",
+    "check:limits": "node scripts/check-limits.mjs",
+    "check:agents": "node scripts/check-agent-catalog.mjs"
+  },
+  "keywords": [
+    "agent",
+    "anthropic",
+    "ai",
+    "claude",
+    "google",
+    "gemini",
+    "genai",
+    "gpt",
+    "llm",
+    "local",
+    "mcp",
+    "merci",
+    "openai",
+    "openrouter",
+    "sdk"
+  ],
+  "author": "Luk\u00e1\u0161 Michna (Mobeetle)",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "@agentclientprotocol/sdk": "^2.4.0",
+    "@freakynit/json-healer": "^1.0.0",
+    "@modelcontextprotocol/client": "^2.4.0",
+    "@modelcontextprotocol/node": "^2.1.2",
+    "@modelcontextprotocol/server": "^2.4.0",
+    "ajv": "^8.20.0",
+    "dotenv": "^18.0.9",
+    "yaml": "^2.9.1",
+    "zod": "^4.6.7"
+  },
+  "optionalDependencies": {
+    "playwright-core": "^1.64.1"
+  },
+  "devDependencies": {
+    "@a2a-js/sdk": "^1.3.0",
+    "@modelcontextprotocol/sdk": "^1.32.2",
+    "@types/node": "^26.6.6",
+    "acorn": "^8.19.0",
+    "pnpm": "^11.1.3",
+    "typescript": "^7.0.2"
+  },
+  "engines": {
+    "node": ">=22.13.0"
+  },
+  "packageManager": "pnpm@11.1.3",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/merci-kit/merci-sdk.git"
+  },
+  "homepage": "https://merci-kit.github.io/merci-sdk/"
+}

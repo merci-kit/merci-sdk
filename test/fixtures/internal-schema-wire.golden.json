@@ -1,0 +1,509 @@
+{
+  "plan": {
+    "type": "object",
+    "properties": {
+      "summary": {
+        "type": "string",
+        "description": "One-sentence summary of the workflow approach."
+      },
+      "complexity": {
+        "type": "string",
+        "enum": [
+          "low",
+          "medium",
+          "high"
+        ],
+        "description": "Estimated task complexity."
+      },
+      "steps": {
+        "minItems": 2,
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "description": "Unique step identifier in snake_case."
+            },
+            "title": {
+              "type": "string",
+              "description": "Short descriptive title of the step."
+            },
+            "description": {
+              "type": "string",
+              "description": "What this step must accomplish. Used as the step prompt when systemPrompt/userPromptTemplate are omitted."
+            },
+            "type": {
+              "type": "string",
+              "enum": [
+                "research",
+                "analysis",
+                "generation",
+                "tool",
+                "review",
+                "decision"
+              ],
+              "description": "Step category."
+            },
+            "systemPrompt": {
+              "type": "string",
+              "description": "Highly specific system directive tailored for this task. Omit to fall back to description."
+            },
+            "userPromptTemplate": {
+              "type": "string",
+              "description": "The prompt template. Use {{step_id.output}} to reference outputs from parent steps. Omit to fall back to description."
+            },
+            "dependencies": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "Prerequisite step IDs."
+            },
+            "intakeMode": {
+              "type": "string",
+              "enum": [
+                "dependencies",
+                "all",
+                "some",
+                "none"
+              ],
+              "description": "Which parent outputs to append automatically to user text."
+            },
+            "intakeSteps": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "Target step IDs to pull outputs from when mode is \"some\"."
+            },
+            "handoff": {
+              "type": "object",
+              "properties": {
+                "goal": {
+                  "type": "string",
+                  "enum": [
+                    "clean",
+                    "full",
+                    "moderated"
+                  ],
+                  "description": "Goal handoff: clean drops all direction, full re-injects the objective, moderated carries the full objective plus a handoff marker. Default full."
+                },
+                "context": {
+                  "type": "string",
+                  "enum": [
+                    "clean",
+                    "full",
+                    "moderated"
+                  ],
+                  "description": "Context handoff: clean drops upstream/parent content, full passes it through, moderated compacts it to a summary. Default is engine-current."
+                },
+                "tools": {
+                  "type": "string",
+                  "enum": [
+                    "inherit",
+                    "none"
+                  ],
+                  "description": "Tool belt: inherit the runner tools (default) or none for isolation."
+                }
+              },
+              "additionalProperties": false,
+              "description": "Handoff modes for this step (goal/context/tools). Omit for defaults."
+            },
+            "hitl": {
+              "type": "boolean",
+              "description": "Set to true if this step should pause for manual operator approval."
+            },
+            "model": {
+              "type": "string",
+              "description": "Optional step-specific model override."
+            },
+            "assignee": {
+              "type": "string",
+              "description": "Optional agent name when the step runs under the discussion engine (MAA swarm)."
+            },
+            "engine": {
+              "type": "string",
+              "enum": [
+                "naive",
+                "stateMachine",
+                "discussion"
+              ],
+              "description": "Optional per-step engine override (default: the executor engine)."
+            },
+            "turns": {
+              "type": "integer",
+              "description": "Optional discussion turns for a discussion-engine step (default 1)."
+            },
+            "replaces": {
+              "type": "string",
+              "description": "The id of a rejected step this step replaces: its surviving dependents are rewired onto this step. Omit otherwise."
+            }
+          },
+          "required": [
+            "id",
+            "dependencies"
+          ]
+        }
+      }
+    },
+    "required": [
+      "steps"
+    ]
+  },
+  "replan": {
+    "type": "object",
+    "properties": {
+      "summary": {
+        "type": "string",
+        "description": "One-sentence summary of the workflow approach."
+      },
+      "complexity": {
+        "type": "string",
+        "enum": [
+          "low",
+          "medium",
+          "high"
+        ],
+        "description": "Estimated task complexity."
+      },
+      "steps": {
+        "minItems": 1,
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "description": "Unique step identifier in snake_case."
+            },
+            "title": {
+              "type": "string",
+              "description": "Short descriptive title of the step."
+            },
+            "description": {
+              "type": "string",
+              "description": "What this step must accomplish. Used as the step prompt when systemPrompt/userPromptTemplate are omitted."
+            },
+            "type": {
+              "type": "string",
+              "enum": [
+                "research",
+                "analysis",
+                "generation",
+                "tool",
+                "review",
+                "decision"
+              ],
+              "description": "Step category."
+            },
+            "systemPrompt": {
+              "type": "string",
+              "description": "Highly specific system directive tailored for this task. Omit to fall back to description."
+            },
+            "userPromptTemplate": {
+              "type": "string",
+              "description": "The prompt template. Use {{step_id.output}} to reference outputs from parent steps. Omit to fall back to description."
+            },
+            "dependencies": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "Prerequisite step IDs."
+            },
+            "intakeMode": {
+              "type": "string",
+              "enum": [
+                "dependencies",
+                "all",
+                "some",
+                "none"
+              ],
+              "description": "Which parent outputs to append automatically to user text."
+            },
+            "intakeSteps": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "Target step IDs to pull outputs from when mode is \"some\"."
+            },
+            "handoff": {
+              "type": "object",
+              "properties": {
+                "goal": {
+                  "type": "string",
+                  "enum": [
+                    "clean",
+                    "full",
+                    "moderated"
+                  ],
+                  "description": "Goal handoff: clean drops all direction, full re-injects the objective, moderated carries the full objective plus a handoff marker. Default full."
+                },
+                "context": {
+                  "type": "string",
+                  "enum": [
+                    "clean",
+                    "full",
+                    "moderated"
+                  ],
+                  "description": "Context handoff: clean drops upstream/parent content, full passes it through, moderated compacts it to a summary. Default is engine-current."
+                },
+                "tools": {
+                  "type": "string",
+                  "enum": [
+                    "inherit",
+                    "none"
+                  ],
+                  "description": "Tool belt: inherit the runner tools (default) or none for isolation."
+                }
+              },
+              "additionalProperties": false,
+              "description": "Handoff modes for this step (goal/context/tools). Omit for defaults."
+            },
+            "hitl": {
+              "type": "boolean",
+              "description": "Set to true if this step should pause for manual operator approval."
+            },
+            "model": {
+              "type": "string",
+              "description": "Optional step-specific model override."
+            },
+            "assignee": {
+              "type": "string",
+              "description": "Optional agent name when the step runs under the discussion engine (MAA swarm)."
+            },
+            "engine": {
+              "type": "string",
+              "enum": [
+                "naive",
+                "stateMachine",
+                "discussion"
+              ],
+              "description": "Optional per-step engine override (default: the executor engine)."
+            },
+            "turns": {
+              "type": "integer",
+              "description": "Optional discussion turns for a discussion-engine step (default 1)."
+            },
+            "replaces": {
+              "type": "string",
+              "description": "The id of a rejected step this step replaces: its surviving dependents are rewired onto this step. Omit otherwise."
+            }
+          },
+          "required": [
+            "id",
+            "dependencies"
+          ]
+        }
+      }
+    },
+    "required": [
+      "steps"
+    ]
+  },
+  "eval": {
+    "type": "object",
+    "properties": {
+      "replanRequired": {
+        "type": "boolean",
+        "description": "True if execution failed, produced unresolved variables, or encountered environmental drift."
+      },
+      "reason": {
+        "type": "string",
+        "description": "Justification for the execution success or replanning trigger."
+      }
+    },
+    "required": [
+      "replanRequired",
+      "reason"
+    ],
+    "additionalProperties": false
+  },
+  "sm": {
+    "type": "object",
+    "properties": {
+      "summary": {
+        "type": "string",
+        "description": "One-sentence summary of the state machine approach."
+      },
+      "entry": {
+        "type": "string",
+        "description": "ID of the starting node."
+      },
+      "nodes": {
+        "minItems": 1,
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "description": "Unique node identifier."
+            },
+            "model": {
+              "type": "string",
+              "description": "Optional model override for this node. Omit to use the default model."
+            },
+            "systemPrompt": {
+              "type": "string",
+              "description": "System directive for the LLM when this node executes."
+            },
+            "userPromptTemplate": {
+              "type": "string",
+              "description": "Optional template for the user message. Use {{context.key}} to reference the shared state."
+            },
+            "terminal": {
+              "type": "boolean",
+              "description": "If true, the machine halts after this node."
+            },
+            "handoff": {
+              "type": "object",
+              "properties": {
+                "goal": {
+                  "type": "string",
+                  "enum": [
+                    "clean",
+                    "full",
+                    "moderated"
+                  ],
+                  "description": "Goal handoff: clean drops all direction, full re-injects the objective, moderated carries the full objective plus a handoff marker. Default full."
+                },
+                "context": {
+                  "type": "string",
+                  "enum": [
+                    "clean",
+                    "full",
+                    "moderated"
+                  ],
+                  "description": "Context handoff: clean drops upstream/parent content, full passes it through, moderated compacts it to a summary. Default is engine-current."
+                },
+                "tools": {
+                  "type": "string",
+                  "enum": [
+                    "inherit",
+                    "none"
+                  ],
+                  "description": "Tool belt: inherit the runner tools (default) or none for isolation."
+                }
+              },
+              "additionalProperties": false,
+              "description": "Handoff modes for this node (goal/context/tools). Omit for defaults."
+            },
+            "maxVisits": {
+              "type": "integer",
+              "description": "Max times this node can execute before cycle guard throws (default 10)."
+            }
+          },
+          "required": [
+            "id"
+          ]
+        }
+      },
+      "edges": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "from": {
+              "type": "string",
+              "description": "Source node ID."
+            },
+            "to": {
+              "type": "string",
+              "description": "Target node ID."
+            },
+            "condition": {
+              "type": "string",
+              "description": "Optional JS expression evaluated against context. When omitted, the edge is unconditional."
+            }
+          },
+          "required": [
+            "from",
+            "to"
+          ]
+        }
+      }
+    },
+    "required": [
+      "entry",
+      "nodes",
+      "edges"
+    ]
+  },
+  "summary": {
+    "type": "object",
+    "properties": {
+      "summary": {
+        "type": "string",
+        "description": "Concise, retention-worthy summary of the earlier conversation turns."
+      }
+    },
+    "required": [
+      "summary"
+    ],
+    "additionalProperties": false
+  },
+  "memory": {
+    "type": "object",
+    "properties": {
+      "newFacts": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "content": {
+              "type": "string",
+              "description": "The extracted declarative fact or user preference."
+            },
+            "category": {
+              "type": "string",
+              "description": "The category of fact (e.g., config, preference, environment)."
+            },
+            "targetBanks": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "Array of memory bank names where this fact should be stored."
+            }
+          },
+          "required": [
+            "content",
+            "category",
+            "targetBanks"
+          ]
+        }
+      },
+      "obsoleteFactIds": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "description": "The IDs of any previously stored facts that are now obsolete or contradicted by the new turns."
+        }
+      }
+    },
+    "required": [
+      "newFacts",
+      "obsoleteFactIds"
+    ],
+    "additionalProperties": false
+  },
+  "judge": {
+    "type": "object",
+    "properties": {
+      "passed": {
+        "type": "boolean"
+      },
+      "evidence": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "passed",
+      "evidence"
+    ],
+    "additionalProperties": false
+  }
+}

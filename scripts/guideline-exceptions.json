@@ -1,0 +1,107 @@
+{
+  "_comment": "Allowlist for scripts/check-guidelines.mjs. Entries are {rule, file, symbol, reason}. Start empty; add only by explicit decision.",
+  "exceptions": [
+    {
+      "rule": "R1",
+      "file": "lib/agentic/planning/executor.mjs",
+      "symbol": "WorkflowExecutor.emit",
+      "reason": "Overrides Node EventEmitter.emit(event, ...args). The positional (event, ...args) signature IS the EventEmitter contract; a destructured object would break every listener and super.emit delegation."
+    },
+    {
+      "rule": "R1",
+      "file": "examples/25_mcp_server_http.mjs",
+      "symbol": "callTool",
+      "reason": "Implements the AcpCapability duck-typed remote-client contract, which lib invokes positionally: client.callTool(name, args, { signal }) (lib/tools/external-capability.mjs:152). The positional shape is the external ACP/MCP client contract, not an SDK-internal callable."
+    },
+    {
+      "rule": "R1",
+      "file": "examples/14_coding_agent.mjs",
+      "symbol": "approvalCallback",
+      "reason": "Shell-tool HITL callback; the SDK invokes it positionally (command, args) from the shell approval gate. The positional shape is the shell-tool contract, not an SDK-internal callable."
+    },
+    {
+      "rule": "R1",
+      "file": "examples/14_coding_agent.mjs",
+      "symbol": "approveTool",
+      "reason": "Generic per-tool HITL callback; the SDK invokes it positionally (name, args, ctx) from the approval gate. The positional shape is the approval contract, not an SDK-internal callable."
+    },
+    {
+      "rule": "R1",
+      "file": "examples/27_acp_agent.mjs",
+      "symbol": "approvalCallback",
+      "reason": "Shell-tool HITL callback; the SDK invokes it positionally (command, args) from the shell approval gate. The positional shape is the shell-tool contract, not an SDK-internal callable."
+    },
+    {
+      "rule": "R1",
+      "file": "examples/06_approvals_and_safety.mjs",
+      "symbol": "fn",
+      "reason": "`withApproval({ fn })` is invoked positionally (name, args, ctx) by the approval gate. The positional shape is the approval contract, not an SDK-internal callable."
+    },
+    {
+      "rule": "R1",
+      "file": "examples/05_tool_calling.mjs",
+      "symbol": "callback",
+      "reason": "executeTools approval callback; the SDK invokes it positionally (tool, args, callId). The positional shape is the approval contract (lib/tools/tool-execution.mjs), not an SDK-internal callable."
+    },
+    {
+      "rule": "R1",
+      "file": "lib/tools/mcp-server.mjs",
+      "symbol": "handle",
+      "reason": "It is a node:http request handler. The (req, res) signature IS the HTTP server contract; a destructured object would break every http.createServer mount."
+    },
+    {
+      "rule": "R3",
+      "file": "examples/21_observability.mjs",
+      "symbol": "nobody:listens",
+      "reason": "Deliberately emits an event name that is NOT in the EVENTS registry to demonstrate the strict emitter's unhandled-event reporting (the example asserts the event surfaces on EVENTS.ERRORS.UNHANDLED). Using a registry name here would defeat the demonstration."
+    },
+    {
+      "rule": "R1",
+      "file": "lib/agentic/guardrails.mjs",
+      "symbol": "guardToolInput",
+      "reason": "A tool:before / tool:after waterfall hook: HookRegistry.runWaterfall calls every hook positionally as fn(value, ctx). The positional shape is the hook contract, not an SDK-internal callable."
+    },
+    {
+      "rule": "R1",
+      "file": "lib/agentic/guardrails.mjs",
+      "symbol": "guardToolOutput",
+      "reason": "A tool:before / tool:after waterfall hook: HookRegistry.runWaterfall calls every hook positionally as fn(value, ctx). The positional shape is the hook contract, not an SDK-internal callable."
+    },
+    {
+      "rule": "R1",
+      "file": "lib/tools/mcp-server.mjs",
+      "symbol": "setRequestHandler",
+      "reason": "The modern stdio facade mirrors the SDK's Server.setRequestHandler(method, handler) contract. A destructured object would not match what a caller (or the SDK's own factory path) invokes."
+    },
+    {
+      "rule": "R1",
+      "file": "lib/agentic/operator/http.mjs",
+      "symbol": "handler",
+      "reason": "It is a node:http request handler. The (req, res) signature IS the HTTP server contract; a destructured object would break every http.createServer mount."
+    },
+    {
+      "rule": "R1",
+      "file": "lib/backends/transport/oai-client.mjs",
+      "symbol": "create",
+      "reason": "Mirrors the OpenAI SDK's positional create(body, opts) contract that lib/backends/adapters/oai-adapter.mjs invokes (executeVendorRequest). A destructured object would change the vendor surface the adapter and host-injected transports depend on."
+    },
+    {
+      "rule": "R1",
+      "file": "lib/backends/transport/aai-client.mjs",
+      "symbol": "stream",
+      "reason": "Mirrors the Anthropic SDK's positional messages.stream(body, opts) contract that lib/backends/adapters/aai-adapter.mjs invokes (executeVendorRequest). A destructured object would change the vendor surface the adapter and host-injected transports depend on."
+    },
+    {
+      "rule": "R1",
+      "file": "examples/22_telemetry.mjs",
+      "symbol": "fetch",
+      "reason": "Implements the platform fetch(url, init) contract for the local OTLP collector the example injects as the exporter's transport. The positional shape is fetch's, not an SDK-internal callable."
+    },
+    {
+      "rule": "R1",
+      "file": "examples/06_approvals_and_safety.mjs",
+      "symbol": "approve",
+      "reason": "This is the `withApproval({ fn })` callback the SDK invokes positionally (name, args, ctx). The positional shape is the approval contract, not an SDK-internal callable."
+    }
+  ]
+}

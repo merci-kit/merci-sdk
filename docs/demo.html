@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Interactive Code and Output Preview — Merci SDK v0.23.0</title>
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link as="style" href="https://fonts.googleapis.com/css2?display=swap&amp;family=Inter%3Awght%40400%3B500%3B600%3B700%3B900&family=Fira+Code%3Awght%40400%3B600" onload="this.rel='stylesheet'" rel="stylesheet"/>
+
+    <!-- Scripts and Styles -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="assets/css/style.css?v=2" rel="stylesheet">
+
+</head>
+<body class="overflow-x-hidden">
+<div class="aurora-background"></div>
+
+<div class="flex min-h-screen flex-col">
+    <!-- Header -->
+    <header class="sticky top-0 z-50 w-full border-b border-[var(--border-color)] bg-[var(--header-background)] backdrop-blur-lg transition-colors duration-300">
+        <div class="container mx-auto flex flex-wrap items-center justify-between px-4 lg:px-8">
+            <div class="flex h-16 items-center">
+                <a class="flex items-center gap-3" href="index.html">
+                    <img src="merci-sdk-logo.png" alt="Merci SDK Logo" class="h-8 w-12 object-contain">
+                    <div class="flex items-center gap-2">
+                        <h1 class="text-xl font-bold text-[var(--text-primary)] tracking-tight">Merci SDK</h1>
+                        <span class="text-xs font-mono font-semibold px-2 py-0.5 rounded-full bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20">v0.23.0</span>
+                    </div>
+                </a>
+            </div>
+            <div class="lg:hidden">
+                <button id="menu-toggle" class="rounded-lg p-2 text-[var(--text-secondary)] hover:bg-slate-200 dark:hover:bg-slate-800 focus:outline-none">
+                    <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                </button>
+            </div>
+            <div id="menu-content" class="hidden w-full lg:flex lg:w-auto lg:items-center">
+                <nav class="flex w-full flex-col gap-4 border-t border-[var(--border-color)] py-4 lg:w-auto lg:flex-row lg:items-center lg:gap-6 lg:border-none lg:py-0">
+                    <a class="nav-link group" href="index.html"><span>Overview</span></a>
+                    <a class="nav-link group" href="getting_started.html"><span>Getting Started</span></a>
+                    <a class="nav-link group" href="tutorials.html"><span>Tutorials (42)</span></a>
+                    <a class="nav-link-active group" href="demo.html"><span>Live Demo</span></a>
+                    <a class="nav-link group" href="api_reference.html"><span>API Reference</span></a>
+                </nav>
+                <div class="w-full pb-4 lg:w-auto lg:pb-0 lg:pl-4">
+                    <button type="button" class="theme-toggle-btn w-full text-sm font-semibold rounded-md px-3 py-1.5 bg-slate-200 text-slate-800 hover:bg-slate-300 dark:bg-slate-800 dark:text-slate-200">
+                        <span class="theme-toggle-text">Dark Mode</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8 sm:px-6 lg:px-8 flex-grow" id="sdk-interactive-playground">
+        <div class="max-w-6xl mx-auto">
+            <!-- Header Section -->
+            <div class="mb-8">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20 text-xs font-semibold uppercase tracking-wider mb-2">
+                    Code Generator and Output Preview
+                </div>
+                <h1 class="text-3xl sm:text-4xl font-extrabold text-[var(--text-primary)]">Interactive Code and Output Preview</h1>
+                <p class="text-[var(--text-secondary)] mt-2">
+                    Generate copy-ready ESM driver code for any provider pattern and preview simulated wire telemetry in your browser. <span class="text-sm opacity-80">(To execute live model requests, run the Node.js scripts in <code class="font-mono">examples/</code>)</span>
+                </p>
+            </div>
+
+            <!-- Controls Toolbar -->
+            <div class="border border-[var(--border-color)] rounded-xl p-4 bg-[var(--card-background)] mb-6 shadow-sm flex flex-wrap items-center justify-between gap-4">
+                <div class="flex flex-wrap items-center gap-4">
+                    <div class="flex items-center gap-2">
+                        <label for="demo-backend-select" class="text-xs font-semibold text-[var(--text-secondary)] uppercase tracking-wider">Provider:</label>
+                        <select id="demo-backend-select" class="bg-slate-100 dark:bg-slate-800 border border-[var(--border-color)] text-xs font-bold text-[var(--text-primary)] rounded-lg px-3 py-2 cursor-pointer focus:ring-2 focus:ring-[var(--primary-color)]">
+                            <option value="openai" selected>OpenAI</option>
+                            <option value="google_genai">Google GenAI</option>
+                            <option value="anthropic">Anthropic</option>
+                            <option value="vertex">Vertex AI</option>
+                            <option value="openrouter">OpenRouter</option>
+                            <option value="local">Local Stack</option>
+                        </select>
+                    </div>
+
+                    <div class="flex items-center gap-2">
+                        <label for="demo-pattern-select" class="text-xs font-semibold text-[var(--text-secondary)] uppercase tracking-wider">Pattern:</label>
+                        <select id="demo-pattern-select" class="bg-slate-100 dark:bg-slate-800 border border-[var(--border-color)] text-xs font-bold text-[var(--text-primary)] rounded-lg px-3 py-2 cursor-pointer focus:ring-2 focus:ring-[var(--primary-color)]">
+                            <option value="quickstart">1. Streaming Quickstart</option>
+                            <option value="tools">2. Tools and Thinking Budget</option>
+                            <option value="dag">3. DAG with Replan</option>
+                            <option value="memory">4. Persistent Memory and Distillation</option>
+                            <option value="discussion">5. Multi-Agent Discussion Swarm</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-3">
+                    <button id="demo-run-btn" class="button_primary">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                        <span>Play Preview</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Main Demonstration Grid -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+                <!-- Code Editor / Viewer -->
+                <div class="lg:col-span-6 flex flex-col border border-[var(--border-color)] rounded-xl bg-[var(--card-background)] overflow-hidden shadow-sm">
+                    <div class="flex items-center justify-between px-4 py-3 border-b border-[var(--border-color)] bg-slate-500/5">
+                        <div class="flex items-center gap-2">
+                            <span class="text-xs font-mono font-bold text-[var(--text-primary)]">ESM Driver Code</span>
+                        </div>
+                        <button class="copy-code-btn text-xs flex items-center gap-1 text-[var(--text-secondary)] hover:text-[var(--text-primary)] font-medium">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 16 16"><path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/><path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3z"/></svg>
+                            <span>Copy ESM</span>
+                        </button>
+                    </div>
+                    <div class="p-4 flex-grow overflow-x-auto bg-[#0d1117] text-slate-200 min-h-[380px]">
+                        <pre class="font-mono text-xs leading-relaxed"><code id="demo-code-output">// Generating driver code...</code></pre>
+                    </div>
+                </div>
+
+                <!-- Telemetry and Stream Inspector -->
+                <div class="lg:col-span-6 flex flex-col demo-terminal">
+                    <div class="flex items-center justify-between px-4 py-3 border-b border-white/10 bg-slate-900">
+                        <div class="flex items-center gap-2">
+                            <span class="text-xs font-mono font-bold text-slate-200">TELEMETRY and LOG STREAM</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span id="demo-status-badge" class="tag-badge bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">Ready</span>
+                            <span id="demo-tokens-badge" class="tag-badge bg-blue-500/20 text-blue-300 border border-blue-500/30">0 tokens</span>
+                            <span id="demo-latency-badge" class="tag-badge bg-purple-500/20 text-purple-300 border border-purple-500/30">0ms</span>
+                        </div>
+                    </div>
+                    <div id="demo-terminal-output" class="p-4 flex-grow overflow-y-auto min-h-[380px] max-h-[500px]">
+                        <div class="text-slate-500 text-xs font-mono italic">Ready to preview. Select a pattern and click "Play Preview".</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Deep Dive Cross-References -->
+            <div class="mt-12 border border-[var(--border-color)] rounded-xl p-6 bg-[var(--card-background)]">
+                <h3 class="text-lg font-bold text-[var(--text-primary)] mb-4">Relevant In-Depth Tutorials</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <a href="lessons/lesson_1.html" class="p-3 border border-[var(--border-color)] rounded-lg hover:border-[var(--primary-color)] transition-colors">
+                        <div class="text-xs font-mono text-blue-500 font-semibold">Lesson 01</div>
+                        <div class="text-sm font-semibold text-[var(--text-primary)]">Quickstart and Streaming</div>
+                        <div class="text-xs text-[var(--text-secondary)] mt-1">Session lifecycle, token metrics, and provider bootstrapping.</div>
+                    </a>
+                    <a href="lessons/lesson_4.html" class="p-3 border border-[var(--border-color)] rounded-lg hover:border-[var(--primary-color)] transition-colors">
+                        <div class="text-xs font-mono text-blue-500 font-semibold">Lesson 04</div>
+                        <div class="text-sm font-semibold text-[var(--text-primary)]">Function Calling and Thinking</div>
+                        <div class="text-xs text-[var(--text-secondary)] mt-1">Parallel tools, reasoning budgets, and degradation handling.</div>
+                    </a>
+                    <a href="lessons/lesson_13.html" class="p-3 border border-[var(--border-color)] rounded-lg hover:border-[var(--primary-color)] transition-colors">
+                        <div class="text-xs font-mono text-blue-500 font-semibold">Lesson 13</div>
+                        <div class="text-sm font-semibold text-[var(--text-primary)]">DAG Workflows and Replan</div>
+                        <div class="text-xs text-[var(--text-secondary)] mt-1">Plan, execute, evaluate, and dynamically self-heal graphs.</div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-[var(--border-color)] bg-[var(--card-background)] transition-colors duration-300">
+        <div class="container mx-auto px-4 py-8 sm:px-6 lg:px-8">
+            <div class="flex flex-col items-center justify-between gap-4 sm:flex-row">
+                <div class="flex items-center gap-2">
+                    <img src="merci-sdk-logo.png" alt="Merci SDK Logo" class="h-6 w-9 object-contain">
+                    <span class="font-bold text-sm text-[var(--text-primary)]">Merci SDK</span>
+                    <span class="text-xs font-mono text-[var(--text-secondary)]">v0.23.0</span>
+                </div>
+                <p class="text-xs text-[var(--text-secondary)]">© 2026 Lukáš Michna (Mobeetle) · Apache-2.0</p>
+                <nav class="flex items-center gap-4 text-xs font-semibold text-[var(--text-secondary)]">
+                    <a href="getting_started.html" class="hover:text-[var(--primary-color)]">Getting Started</a>
+                    <a href="tutorials.html" class="hover:text-[var(--primary-color)]">Tutorials</a>
+                    <a href="api_reference.html" class="hover:text-[var(--primary-color)]">API</a>
+                    <a href="https://github.com/merci-kit/merci-sdk" class="hover:text-[var(--primary-color)]">GitHub</a>
+                </nav>
+            </div>
+        </div>
+    </footer>
+</div>
+
+<script src="assets/js/script.js"></script>
+</body>
+</html>

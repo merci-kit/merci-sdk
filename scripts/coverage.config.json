@@ -1,0 +1,8 @@
+{
+    "note": "Coverage ratchet. Two guards. (1) A fixed denominator: the gate refuses to pass when the suite did not load every lib/**/*.mjs file, because node reports only the files that were loaded — deleting the only test that imports a module used to remove it from the report and RAISE the percentage. (2) Percentage floors: the gate fails when any metric falls below its floor. Baseline is line 94.71 / branch 83.97 / function 87.98 on node 25; the floors sit about four points under it so the node 22 / 24 / 25 matrix stays stable. Raise a floor as the baseline improves; never lower one.",
+    "floors": {
+        "line": 90,
+        "branch": 75,
+        "function": 80
+    }
+}

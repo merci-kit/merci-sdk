@@ -1,0 +1,7 @@
+apiVersion: merci.dev/v1alpha1
+kind: Agent
+metadata:
+  name: someone-else
+  description: A definition whose name does not match its file.
+spec:
+  instructions: Do nothing.

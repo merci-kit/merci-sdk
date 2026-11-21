@@ -1,0 +1,47 @@
+# Dependencies
+node_modules/
+
+# Build output — generated declarations are published, not committed
+dist/
+
+# Secrets — NEVER commit
+secret.env
+!secret.env.example
+vertex-sa.json
+.env
+.env.*
+!.env.example
+
+# OS
+.DS_Store
+
+# IDE / editor
+.idea/
+.vscode/
+
+# Local tooling & scratch
+.opencode/
+.openchamber/
+.workflow/
+.claude/
+scratchpad/
+
+# Working notes & backups (local only)
+backups/
+backups_do_NOT_use_do_NOT_delete/
+.inspiration/
+.coding-task/
+*.textClipping
+opencode.json.openchamber.backup
+
+# Generated artifact output (running examples writes here; the curated
+# examples/advanced/artifacts/*.md and its .artifacts.json stay tracked)
+/artifacts/
+examples/advanced/artifacts/*.v*.md
+
+# Example audit logs (one subdir per example, written on every run)
+examples/.logs/
+# Local memory store written by the memory subsystem at runtime
+merci-memory.json
+# ...and the quarantine/tmp siblings the provider mints next to it
+merci-memory.json.*

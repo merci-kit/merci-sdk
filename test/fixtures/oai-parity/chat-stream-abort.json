@@ -1,0 +1,75 @@
+{
+  "case": {
+    "id": "chat-stream-abort",
+    "kind": "chat",
+    "mode": "stream",
+    "variant": "abort",
+    "request": {
+      "body": {
+        "model": "gpt-test",
+        "messages": [
+          {
+            "role": "user",
+            "content": "abort"
+          }
+        ],
+        "stream": true
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "content-type": "text/event-stream"
+      },
+      "chunks": [
+        "data: {\"id\":\"chatcmpl-abort\",\"object\":\"chat.completion.chunk\",\"created\":1,\"model\":\"gpt-test\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"partial\"}}]}\n\n"
+      ],
+      "hang": true
+    }
+  },
+  "sdkVersion": "7.51.0",
+  "node": "v25.0.0",
+  "response": {
+    "status": 200,
+    "headers": {
+      "content-type": "text/event-stream"
+    },
+    "chunks": [
+      "data: {\"id\":\"chatcmpl-abort\",\"object\":\"chat.completion.chunk\",\"created\":1,\"model\":\"gpt-test\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"partial\"}}]}\n\n"
+    ],
+    "hang": true
+  },
+  "request": [
+    {
+      "method": "POST",
+      "url": "/v1/chat/completions",
+      "headers": {
+        "authorization": "Bearer test-key",
+        "content-type": "application/json",
+        "accept": "application/json"
+      },
+      "body": "{\"model\":\"gpt-test\",\"messages\":[{\"role\":\"user\",\"content\":\"abort\"}],\"stream\":true}"
+    }
+  ],
+  "outcome": {
+    "kind": "chunks",
+    "chunks": [
+      {
+        "id": "chatcmpl-abort",
+        "object": "chat.completion.chunk",
+        "created": 1,
+        "model": "gpt-test",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": "partial"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    ],
+    "ended": "abort"
+  }
+}

@@ -1,0 +1,140 @@
+{
+  "case": {
+    "id": "request-response-schema",
+    "kind": "stream",
+    "mode": "stream",
+    "request": {
+      "model": "gemini-2.5-flash",
+      "contents": "Answer as JSON",
+      "config": {
+        "responseMimeType": "application/json",
+        "responseSchema": {
+          "type": "object",
+          "description": "one answer",
+          "properties": {
+            "answer": {
+              "type": "string",
+              "nullable": true
+            },
+            "tags": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "score": {
+              "type": "number",
+              "format": "float"
+            },
+            "kind": {
+              "type": "string",
+              "enum": [
+                "a",
+                "b"
+              ]
+            },
+            "maybe": {
+              "anyOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "type": "boolean"
+                }
+              ]
+            },
+            "pick": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "number"
+                }
+              ]
+            },
+            "raw": {
+              "allOf": [
+                {
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "required": [
+            "answer"
+          ],
+          "additionalProperties": false
+        },
+        "responseJsonSchema": {
+          "type": "object",
+          "properties": {
+            "answer": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "content-type": "text/event-stream"
+      },
+      "chunks": [
+        "data: {\"candidates\":[{\"content\":{\"parts\":[{\"text\":\"{}\"}],\"role\":\"model\"},\"finishReason\":\"STOP\"}]}\n\n"
+      ]
+    }
+  },
+  "sdkPackage": "@google/genai",
+  "sdkVersion": "2.32.0",
+  "node": "v25.0.0",
+  "response": {
+    "status": 200,
+    "headers": {
+      "content-type": "text/event-stream"
+    },
+    "chunks": [
+      "data: {\"candidates\":[{\"content\":{\"parts\":[{\"text\":\"{}\"}],\"role\":\"model\"},\"finishReason\":\"STOP\"}]}\n\n"
+    ]
+  },
+  "request": [
+    {
+      "method": "POST",
+      "url": "/v1beta/models/gemini-2.5-flash:streamGenerateContent?alt=sse",
+      "headers": {
+        "accept": "*/*",
+        "content-type": "application/json",
+        "user-agent": "google-genai-sdk/2.32.0 gl-node/v25.0.0",
+        "x-goog-api-client": "google-genai-sdk/2.32.0 gl-node/v25.0.0",
+        "x-goog-api-key": "test-api-key"
+      },
+      "body": "{\"contents\":[{\"parts\":[{\"text\":\"Answer as JSON\"}],\"role\":\"user\"}],\"generationConfig\":{\"responseMimeType\":\"application/json\",\"responseSchema\":{\"type\":\"OBJECT\",\"description\":\"one answer\",\"properties\":{\"answer\":{\"type\":\"STRING\",\"nullable\":true},\"tags\":{\"type\":\"ARRAY\",\"items\":{\"type\":\"STRING\"}},\"score\":{\"type\":\"NUMBER\",\"format\":\"float\"},\"kind\":{\"type\":\"STRING\",\"enum\":[\"a\",\"b\"]},\"maybe\":{\"nullable\":true,\"type\":\"BOOLEAN\"},\"pick\":{\"anyOf\":[{\"type\":\"STRING\"},{\"type\":\"NUMBER\"}]},\"raw\":{\"allOf\":[{\"type\":\"string\"}]}},\"required\":[\"answer\"]},\"responseJsonSchema\":{\"type\":\"object\",\"properties\":{\"answer\":{\"type\":\"string\"}}}}}"
+    }
+  ],
+  "outcome": {
+    "kind": "chunks",
+    "chunks": [
+      {
+        "json": {
+          "candidates": [
+            {
+              "content": {
+                "parts": [
+                  {
+                    "text": "{}"
+                  }
+                ],
+                "role": "model"
+              },
+              "finishReason": "STOP"
+            }
+          ]
+        },
+        "text": "{}",
+        "functionCalls": null
+      }
+    ],
+    "ended": "clean"
+  }
+}

@@ -1,0 +1,94 @@
+{
+  "case": {
+    "id": "embed-batch",
+    "kind": "embed",
+    "mode": "value",
+    "request": {
+      "model": "text-embedding-004",
+      "contents": [
+        {
+          "parts": [
+            {
+              "text": "alpha"
+            }
+          ]
+        },
+        {
+          "parts": [
+            {
+              "text": "beta"
+            }
+          ]
+        }
+      ]
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "content-type": "application/json"
+      },
+      "chunks": [
+        "{\"embeddings\":[{\"values\":[0.1,0.2]},{\"values\":[0.3,0.4]}]}"
+      ]
+    }
+  },
+  "sdkPackage": "@google/genai",
+  "sdkVersion": "2.32.0",
+  "node": "v25.0.0",
+  "response": {
+    "status": 200,
+    "headers": {
+      "content-type": "application/json"
+    },
+    "chunks": [
+      "{\"embeddings\":[{\"values\":[0.1,0.2]},{\"values\":[0.3,0.4]}]}"
+    ]
+  },
+  "request": [
+    {
+      "method": "POST",
+      "url": "/v1beta/models/text-embedding-004:batchEmbedContents",
+      "headers": {
+        "accept": "*/*",
+        "content-type": "application/json",
+        "user-agent": "google-genai-sdk/2.32.0 gl-node/v25.0.0",
+        "x-goog-api-client": "google-genai-sdk/2.32.0 gl-node/v25.0.0",
+        "x-goog-api-key": "test-api-key"
+      },
+      "body": "{\"requests\":[{\"content\":{\"parts\":[{\"text\":\"alpha\"}]},\"model\":\"models/text-embedding-004\"},{\"content\":{\"parts\":[{\"text\":\"beta\"}]},\"model\":\"models/text-embedding-004\"}]}"
+    }
+  ],
+  "outcome": {
+    "kind": "value",
+    "value": {
+      "embeddings": [
+        {
+          "values": [
+            0.1,
+            0.2
+          ]
+        },
+        {
+          "values": [
+            0.3,
+            0.4
+          ]
+        }
+      ]
+    },
+    "embeddings": [
+      [
+        0.1,
+        0.2
+      ],
+      [
+        0.3,
+        0.4
+      ]
+    ],
+    "embedding": [
+      0.1,
+      0.2
+    ]
+  }
+}

@@ -1,0 +1,135 @@
+{
+  "case": {
+    "id": "request-config-hoisting",
+    "kind": "stream",
+    "mode": "stream",
+    "request": {
+      "model": "gemini-2.5-pro",
+      "contents": "Hoist every config key",
+      "config": {
+        "systemInstruction": "You are a careful archivist.",
+        "tools": [
+          {
+            "functionDeclarations": [
+              {
+                "name": "lookup",
+                "description": "Find a record",
+                "parameters": {
+                  "type": "OBJECT",
+                  "properties": {
+                    "q": {
+                      "type": "STRING"
+                    }
+                  },
+                  "required": [
+                    "q"
+                  ]
+                }
+              }
+            ]
+          }
+        ],
+        "toolConfig": {
+          "functionCallingConfig": {
+            "mode": "ANY"
+          }
+        },
+        "thinkingConfig": {
+          "thinkingBudget": 512,
+          "thinkingLevel": "high"
+        },
+        "responseMimeType": "application/json",
+        "responseJsonSchema": {
+          "type": "object",
+          "properties": {
+            "answer": {
+              "type": "string"
+            }
+          }
+        },
+        "cachedContent": "cachedContents/x",
+        "safetySettings": [
+          {
+            "category": "HARM_CATEGORY_HATE_SPEECH",
+            "threshold": "BLOCK_LOW_AND_ABOVE"
+          }
+        ],
+        "labels": {
+          "team": "merci"
+        },
+        "seed": 42,
+        "stopSequences": [
+          "END"
+        ],
+        "topP": 0.9,
+        "topK": 5,
+        "presencePenalty": 0.1,
+        "frequencyPenalty": 0.2,
+        "responseLogprobs": true,
+        "logprobs": 2,
+        "temperature": 0.3,
+        "maxOutputTokens": 128
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "content-type": "text/event-stream"
+      },
+      "chunks": [
+        "data: {\"candidates\":[{\"content\":{\"parts\":[{\"text\":\"hoisted\"}],\"role\":\"model\"},\"finishReason\":\"STOP\"}]}\n\n"
+      ]
+    }
+  },
+  "sdkPackage": "@google/genai",
+  "sdkVersion": "2.32.0",
+  "node": "v25.0.0",
+  "response": {
+    "status": 200,
+    "headers": {
+      "content-type": "text/event-stream"
+    },
+    "chunks": [
+      "data: {\"candidates\":[{\"content\":{\"parts\":[{\"text\":\"hoisted\"}],\"role\":\"model\"},\"finishReason\":\"STOP\"}]}\n\n"
+    ]
+  },
+  "request": [
+    {
+      "method": "POST",
+      "url": "/v1beta/models/gemini-2.5-pro:streamGenerateContent?alt=sse",
+      "headers": {
+        "accept": "*/*",
+        "content-type": "application/json",
+        "user-agent": "google-genai-sdk/2.32.0 gl-node/v25.0.0",
+        "x-goog-api-client": "google-genai-sdk/2.32.0 gl-node/v25.0.0",
+        "x-goog-api-key": "test-api-key"
+      },
+      "body": "{\"contents\":[{\"parts\":[{\"text\":\"Hoist every config key\"}],\"role\":\"user\"}],\"systemInstruction\":{\"parts\":[{\"text\":\"You are a careful archivist.\"}],\"role\":\"user\"},\"safetySettings\":[{\"category\":\"HARM_CATEGORY_HATE_SPEECH\",\"threshold\":\"BLOCK_LOW_AND_ABOVE\"}],\"tools\":[{\"functionDeclarations\":[{\"name\":\"lookup\",\"description\":\"Find a record\",\"parameters\":{\"type\":\"OBJECT\",\"properties\":{\"q\":{\"type\":\"STRING\"}},\"required\":[\"q\"]}}]}],\"toolConfig\":{\"functionCallingConfig\":{\"mode\":\"ANY\"}},\"labels\":{\"team\":\"merci\"},\"cachedContent\":\"cachedContents/x\",\"generationConfig\":{\"temperature\":0.3,\"topP\":0.9,\"topK\":5,\"maxOutputTokens\":128,\"stopSequences\":[\"END\"],\"responseLogprobs\":true,\"logprobs\":2,\"presencePenalty\":0.1,\"frequencyPenalty\":0.2,\"seed\":42,\"responseMimeType\":\"application/json\",\"responseJsonSchema\":{\"type\":\"object\",\"properties\":{\"answer\":{\"type\":\"string\"}}},\"thinkingConfig\":{\"thinkingBudget\":512,\"thinkingLevel\":\"high\"}}}"
+    }
+  ],
+  "outcome": {
+    "kind": "chunks",
+    "chunks": [
+      {
+        "json": {
+          "candidates": [
+            {
+              "content": {
+                "parts": [
+                  {
+                    "text": "hoisted"
+                  }
+                ],
+                "role": "model"
+              },
+              "finishReason": "STOP"
+            }
+          ]
+        },
+        "text": "hoisted",
+        "functionCalls": null
+      }
+    ],
+    "ended": "clean"
+  }
+}

@@ -1,0 +1,70 @@
+{
+  "case": {
+    "id": "embeddings-transport-per-call-header",
+    "kind": "transport-embeddings",
+    "mode": "value",
+    "request": {
+      "body": {
+        "model": "embed-test",
+        "input": "headers"
+      },
+      "headers": {
+        "x-case": "1"
+      }
+    },
+    "compare": {
+      "requestHeaders": [
+        "x-case"
+      ]
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "content-type": "application/json"
+      },
+      "chunks": [
+        "{\"object\":\"list\",\"model\":\"embed-test\",\"data\":[{\"object\":\"embedding\",\"index\":0,\"embedding\":\"AADgQA==\"}]}"
+      ]
+    }
+  },
+  "sdkVersion": "7.51.0",
+  "node": "v25.0.0",
+  "response": {
+    "status": 200,
+    "headers": {
+      "content-type": "application/json"
+    },
+    "chunks": [
+      "{\"object\":\"list\",\"model\":\"embed-test\",\"data\":[{\"object\":\"embedding\",\"index\":0,\"embedding\":\"AADgQA==\"}]}"
+    ]
+  },
+  "request": [
+    {
+      "method": "POST",
+      "url": "/v1/embeddings",
+      "headers": {
+        "authorization": "Bearer test-key",
+        "content-type": "application/json",
+        "accept": "application/json",
+        "x-case": "1"
+      },
+      "body": "{\"model\":\"embed-test\",\"input\":\"headers\",\"encoding_format\":\"base64\"}"
+    }
+  ],
+  "outcome": {
+    "kind": "value",
+    "value": {
+      "object": "list",
+      "model": "embed-test",
+      "data": [
+        {
+          "object": "embedding",
+          "index": 0,
+          "embedding": [
+            7
+          ]
+        }
+      ]
+    }
+  }
+}

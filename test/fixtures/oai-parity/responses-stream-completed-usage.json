@@ -1,0 +1,106 @@
+{
+  "case": {
+    "id": "responses-stream-completed-usage",
+    "kind": "responses",
+    "mode": "stream",
+    "request": {
+      "body": {
+        "model": "gpt-test",
+        "input": "usage",
+        "stream": true
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "content-type": "text/event-stream"
+      },
+      "chunks": [
+        "event: response.output_text.delta\ndata: {\"type\":\"response.output_text.delta\",\"delta\":\"answer\"}\n\n",
+        "event: response.completed\ndata: {\"type\":\"response.completed\",\"response\":{\"id\":\"resp_1\",\"object\":\"response\",\"status\":\"completed\",\"usage\":{\"input_tokens\":3,\"output_tokens\":2,\"total_tokens\":5,\"output_tokens_details\":{\"reasoning_tokens\":1}}}}\n\n",
+        "data: [DONE]\n\n"
+      ]
+    }
+  },
+  "sdkVersion": "7.51.0",
+  "node": "v25.0.0",
+  "response": {
+    "status": 200,
+    "headers": {
+      "content-type": "text/event-stream"
+    },
+    "chunks": [
+      "event: response.output_text.delta\ndata: {\"type\":\"response.output_text.delta\",\"delta\":\"answer\"}\n\n",
+      "event: response.completed\ndata: {\"type\":\"response.completed\",\"response\":{\"id\":\"resp_1\",\"object\":\"response\",\"status\":\"completed\",\"usage\":{\"input_tokens\":3,\"output_tokens\":2,\"total_tokens\":5,\"output_tokens_details\":{\"reasoning_tokens\":1}}}}\n\n",
+      "data: [DONE]\n\n"
+    ]
+  },
+  "request": [
+    {
+      "method": "POST",
+      "url": "/v1/responses",
+      "headers": {
+        "authorization": "Bearer test-key",
+        "content-type": "application/json",
+        "accept": "application/json"
+      },
+      "body": "{\"model\":\"gpt-test\",\"input\":\"usage\",\"stream\":true}"
+    },
+    {
+      "method": "POST",
+      "url": "/v1/responses",
+      "headers": {
+        "authorization": "Bearer test-key",
+        "content-type": "application/json",
+        "accept": "application/json"
+      },
+      "body": "{\"model\":\"gpt-test\",\"input\":\"usage\",\"stream\":true}"
+    }
+  ],
+  "outcome": {
+    "kind": "chunks",
+    "chunks": [
+      {
+        "type": "response.output_text.delta",
+        "delta": "answer"
+      },
+      {
+        "type": "response.completed",
+        "response": {
+          "id": "resp_1",
+          "object": "response",
+          "status": "completed",
+          "usage": {
+            "input_tokens": 3,
+            "output_tokens": 2,
+            "total_tokens": 5,
+            "output_tokens_details": {
+              "reasoning_tokens": 1
+            }
+          }
+        }
+      }
+    ],
+    "events": [
+      {
+        "type": "first_token",
+        "latencyMs": 0
+      },
+      {
+        "type": "text",
+        "content": "answer"
+      },
+      {
+        "type": "quota",
+        "data": {
+          "spent": {
+            "amount": 5
+          },
+          "prompt_tokens": 3,
+          "completion_tokens": 2,
+          "reasoning_tokens": 1
+        }
+      }
+    ]
+  }
+}

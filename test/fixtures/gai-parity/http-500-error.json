@@ -1,0 +1,57 @@
+{
+  "case": {
+    "id": "http-500-error",
+    "kind": "stream",
+    "mode": "error",
+    "request": {
+      "model": "gemini-2.5-flash",
+      "contents": "Break the server"
+    },
+    "response": {
+      "status": 500,
+      "headers": {
+        "content-type": "application/json"
+      },
+      "chunks": [
+        "{\"error\":{\"code\":500,\"message\":\"internal failure\",\"status\":\"INTERNAL\"}}"
+      ]
+    }
+  },
+  "sdkPackage": "@google/genai",
+  "sdkVersion": "2.32.0",
+  "node": "v25.0.0",
+  "response": {
+    "status": 500,
+    "headers": {
+      "content-type": "application/json"
+    },
+    "chunks": [
+      "{\"error\":{\"code\":500,\"message\":\"internal failure\",\"status\":\"INTERNAL\"}}"
+    ]
+  },
+  "request": [
+    {
+      "method": "POST",
+      "url": "/v1beta/models/gemini-2.5-flash:streamGenerateContent?alt=sse",
+      "headers": {
+        "accept": "*/*",
+        "content-type": "application/json",
+        "user-agent": "google-genai-sdk/2.32.0 gl-node/v25.0.0",
+        "x-goog-api-client": "google-genai-sdk/2.32.0 gl-node/v25.0.0",
+        "x-goog-api-key": "test-api-key"
+      },
+      "body": "{\"contents\":[{\"parts\":[{\"text\":\"Break the server\"}],\"role\":\"user\"}]}"
+    }
+  ],
+  "outcome": {
+    "kind": "error",
+    "error": {
+      "name": "ApiError",
+      "message": "{\"error\":{\"code\":500,\"message\":\"internal failure\",\"status\":\"INTERNAL\"}}",
+      "status": 500,
+      "code": null,
+      "error": null,
+      "causeName": null
+    }
+  }
+}

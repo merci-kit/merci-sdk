@@ -1,0 +1,95 @@
+{
+  "case": {
+    "id": "chat-stream-done-extra-bytes",
+    "kind": "chat",
+    "mode": "stream",
+    "request": {
+      "body": {
+        "model": "gpt-test",
+        "messages": [
+          {
+            "role": "user",
+            "content": "done"
+          }
+        ],
+        "stream": true
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "content-type": "text/event-stream"
+      },
+      "chunks": [
+        "data: {\"id\":\"chatcmpl-done\",\"object\":\"chat.completion.chunk\",\"created\":1,\"model\":\"gpt-test\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"finished\"},\"finish_reason\":\"stop\"}]}\n\n",
+        "data: [DONE]\n\n",
+        "data: {\"ignored\":true}\n\n"
+      ]
+    }
+  },
+  "sdkVersion": "7.51.0",
+  "node": "v25.0.0",
+  "response": {
+    "status": 200,
+    "headers": {
+      "content-type": "text/event-stream"
+    },
+    "chunks": [
+      "data: {\"id\":\"chatcmpl-done\",\"object\":\"chat.completion.chunk\",\"created\":1,\"model\":\"gpt-test\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"finished\"},\"finish_reason\":\"stop\"}]}\n\n",
+      "data: [DONE]\n\n",
+      "data: {\"ignored\":true}\n\n"
+    ]
+  },
+  "request": [
+    {
+      "method": "POST",
+      "url": "/v1/chat/completions",
+      "headers": {
+        "authorization": "Bearer test-key",
+        "content-type": "application/json",
+        "accept": "application/json"
+      },
+      "body": "{\"model\":\"gpt-test\",\"messages\":[{\"role\":\"user\",\"content\":\"done\"}],\"stream\":true}"
+    },
+    {
+      "method": "POST",
+      "url": "/v1/chat/completions",
+      "headers": {
+        "authorization": "Bearer test-key",
+        "content-type": "application/json",
+        "accept": "application/json"
+      },
+      "body": "{\"model\":\"gpt-test\",\"messages\":[{\"role\":\"user\",\"content\":\"done\"}],\"stream\":true,\"stream_options\":{\"include_usage\":true}}"
+    }
+  ],
+  "outcome": {
+    "kind": "chunks",
+    "chunks": [
+      {
+        "id": "chatcmpl-done",
+        "object": "chat.completion.chunk",
+        "created": 1,
+        "model": "gpt-test",
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": "finished"
+            },
+            "finish_reason": "stop"
+          }
+        ]
+      }
+    ],
+    "events": [
+      {
+        "type": "first_token",
+        "latencyMs": 0
+      },
+      {
+        "type": "text",
+        "content": "finished"
+      }
+    ]
+  }
+}

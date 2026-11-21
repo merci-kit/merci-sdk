@@ -1,0 +1,72 @@
+{
+  "case": {
+    "id": "embed-single-string",
+    "kind": "embed",
+    "mode": "value",
+    "request": {
+      "model": "text-embedding-004",
+      "contents": "hello"
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "content-type": "application/json"
+      },
+      "chunks": [
+        "{\"embeddings\":[{\"values\":[0.5,-1.25,3]}]}"
+      ]
+    }
+  },
+  "sdkPackage": "@google/genai",
+  "sdkVersion": "2.32.0",
+  "node": "v25.0.0",
+  "response": {
+    "status": 200,
+    "headers": {
+      "content-type": "application/json"
+    },
+    "chunks": [
+      "{\"embeddings\":[{\"values\":[0.5,-1.25,3]}]}"
+    ]
+  },
+  "request": [
+    {
+      "method": "POST",
+      "url": "/v1beta/models/text-embedding-004:batchEmbedContents",
+      "headers": {
+        "accept": "*/*",
+        "content-type": "application/json",
+        "user-agent": "google-genai-sdk/2.32.0 gl-node/v25.0.0",
+        "x-goog-api-client": "google-genai-sdk/2.32.0 gl-node/v25.0.0",
+        "x-goog-api-key": "test-api-key"
+      },
+      "body": "{\"requests\":[{\"content\":{\"role\":\"user\",\"parts\":[{\"text\":\"hello\"}]},\"model\":\"models/text-embedding-004\"}]}"
+    }
+  ],
+  "outcome": {
+    "kind": "value",
+    "value": {
+      "embeddings": [
+        {
+          "values": [
+            0.5,
+            -1.25,
+            3
+          ]
+        }
+      ]
+    },
+    "embeddings": [
+      [
+        0.5,
+        -1.25,
+        3
+      ]
+    ],
+    "embedding": [
+      0.5,
+      -1.25,
+      3
+    ]
+  }
+}

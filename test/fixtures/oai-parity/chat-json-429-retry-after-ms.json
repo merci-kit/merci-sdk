@@ -1,0 +1,65 @@
+{
+  "case": {
+    "id": "chat-json-429-retry-after-ms",
+    "kind": "chat",
+    "mode": "json",
+    "request": {
+      "body": {
+        "model": "gpt-test",
+        "messages": [
+          {
+            "role": "user",
+            "content": "millisecond retry"
+          }
+        ]
+      }
+    },
+    "response": {
+      "status": 429,
+      "headers": {
+        "content-type": "application/json",
+        "retry-after-ms": "1500"
+      },
+      "chunks": [
+        "{\"error\":{\"message\":\"slow down\",\"type\":\"rate_limit_error\"}}"
+      ]
+    }
+  },
+  "sdkVersion": "7.51.0",
+  "node": "v25.0.0",
+  "response": {
+    "status": 429,
+    "headers": {
+      "content-type": "application/json",
+      "retry-after-ms": "1500"
+    },
+    "chunks": [
+      "{\"error\":{\"message\":\"slow down\",\"type\":\"rate_limit_error\"}}"
+    ]
+  },
+  "request": [
+    {
+      "method": "POST",
+      "url": "/v1/chat/completions",
+      "headers": {
+        "authorization": "Bearer test-key",
+        "content-type": "application/json",
+        "accept": "application/json"
+      },
+      "body": "{\"model\":\"gpt-test\",\"messages\":[{\"role\":\"user\",\"content\":\"millisecond retry\"}]}"
+    }
+  ],
+  "outcome": {
+    "kind": "error",
+    "error": {
+      "message": "429 slow down",
+      "status": 429,
+      "code": null,
+      "type": "rate_limit_error",
+      "param": null,
+      "retryAfter": null,
+      "retryAfterMs": "1500",
+      "causeName": null
+    }
+  }
+}

@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Lesson 19: State Machine Orchestration — Merci SDK v0.23.0</title>
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link as="style" href="https://fonts.googleapis.com/css2?display=swap&amp;family=Inter%3Awght%40400%3B500%3B600%3B700%3B900&family=Fira+Code%3Awght%40400%3B600" onload="this.rel='stylesheet'" rel="stylesheet"/>
+
+    <!-- Scripts and Styles -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="../assets/css/style.css?v=2" rel="stylesheet">
+</head>
+<body class="overflow-x-hidden">
+<div class="aurora-background"></div>
+
+<div class="flex min-h-screen flex-col">
+    <!-- Header -->
+    <header class="sticky top-0 z-50 w-full border-b border-[var(--border-color)] bg-[var(--header-background)] backdrop-blur-lg transition-colors duration-300">
+        <div class="container mx-auto flex flex-wrap items-center justify-between px-4 lg:px-8">
+            <div class="flex h-16 items-center">
+                <a class="flex items-center gap-3" href="../index.html">
+                    <img src="../merci-sdk-logo.png" alt="Merci SDK Logo" class="h-8 w-12 object-contain">
+                    <div class="flex items-center gap-2">
+                        <h1 class="text-xl font-bold text-[var(--text-primary)] tracking-tight">Merci SDK</h1>
+                        <span class="text-xs font-mono font-semibold px-2 py-0.5 rounded-full bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20">v0.23.0</span>
+                    </div>
+                </a>
+            </div>
+            <div class="lg:hidden">
+                <button id="menu-toggle" class="rounded-lg p-2 text-[var(--text-secondary)] hover:bg-slate-200 dark:hover:bg-slate-800 focus:outline-none">
+                    <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                </button>
+            </div>
+            <div id="menu-content" class="hidden w-full lg:flex lg:w-auto lg:items-center">
+                <nav class="flex w-full flex-col gap-4 border-t border-[var(--border-color)] py-4 lg:w-auto lg:flex-row lg:items-center lg:gap-6 lg:border-none lg:py-0">
+                    <a class="nav-link group" href="../index.html"><span>Overview</span></a>
+                    <a class="nav-link group" href="../getting_started.html"><span>Getting Started</span></a>
+                    <a class="nav-link-active group" href="../tutorials.html"><span>Tutorials (42)</span></a>
+                    <a class="nav-link group" href="../demo.html"><span>Live Demo</span></a>
+                    <a class="nav-link group" href="../api_reference.html"><span>API Reference</span></a>
+                </nav>
+                <div class="w-full pb-4 lg:w-auto lg:pb-0 lg:pl-4">
+                    <button type="button" class="theme-toggle-btn w-full text-sm font-semibold rounded-md px-3 py-1.5 bg-slate-200 text-slate-800 hover:bg-slate-300 dark:bg-slate-800 dark:text-slate-200">
+                        <span class="theme-toggle-text">Dark Mode</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-12 sm:px-6 lg:px-8 flex-grow">
+        <div class="max-w-4xl mx-auto space-y-10">
+            <!-- Breadcrumb Navigation -->
+            <nav class="flex items-center gap-2 text-xs font-semibold text-[var(--text-secondary)]">
+                <a href="../tutorials.html" class="hover:text-[var(--primary-color)]">Tutorials</a>
+                <span>/</span>
+                <span>Advanced Orchestration Engines</span>
+                <span>/</span>
+                <span class="text-[var(--text-primary)]">Lesson 19</span>
+            </nav>
+
+            <!-- Lesson Title and Metadata -->
+            <div>
+                <div class="flex flex-wrap items-center gap-3 mb-3">
+                    <span class="tag-badge bg-purple-500/10 text-purple-600 dark:text-purple-400">Advanced Orchestration Engines</span>
+                    <span class="text-xs font-mono text-slate-400">⏱ 11 min read</span>
+                    <span class="text-xs font-mono text-slate-400">📁 examples/18_state_machine.mjs</span>
+                </div>
+                <h1 class="text-3xl sm:text-4xl font-black text-[var(--text-primary)] tracking-tight">
+                    Lesson 19: State Machine Orchestration
+                </h1>
+                <p class="mt-4 text-base sm:text-lg text-[var(--text-secondary)] leading-relaxed">
+                    Construct LLM-planned finite state machines with deterministic transition evaluation, mid-run graph mutation, and checkpoint/resume capabilities.
+                </p>
+            </div>
+
+            <!-- 1. Architectural Motivation -->
+            <section class="space-y-4">
+                <h2>1. Why This Feature Exists</h2>
+                <div class="border border-[var(--border-color)] rounded-xl p-6 bg-[var(--card-background)] shadow-sm">
+                    <p class="text-sm text-[var(--text-secondary)] leading-relaxed">
+                        Some workflows are cyclical or require complex branching logic that DAGs cannot represent. State machines provide loops, conditional branching, and deterministic transitions for mission-critical processes.
+                    </p>
+                </div>
+            </section>
+
+            <!-- 2. Key Symbols and APIs -->
+            <section class="space-y-4">
+                <h2>2. Key Symbols and Exports</h2>
+                <div class="grid grid-cols-1 gap-3">
+                    
+                    <div class="p-4 border border-[var(--border-color)] rounded-xl bg-[var(--card-background)]">
+                        <div class="font-mono text-xs font-bold text-[var(--primary-color)]">StateMachine</div>
+                        <div class="text-xs text-[var(--text-secondary)] mt-1">Node-based execution graph with explicit state transitions and context memory.</div>
+                    </div>
+                    <div class="p-4 border border-[var(--border-color)] rounded-xl bg-[var(--card-background)]">
+                        <div class="font-mono text-xs font-bold text-[var(--primary-color)]">Mid-Run Graph Mutation</div>
+                        <div class="text-xs text-[var(--text-secondary)] mt-1">Dynamically add, remove, or rewire state transitions based on intermediate evaluation.</div>
+                    </div>
+                    <div class="p-4 border border-[var(--border-color)] rounded-xl bg-[var(--card-background)]">
+                        <div class="font-mono text-xs font-bold text-[var(--primary-color)]">Checkpoint &amp; Resume</div>
+                        <div class="text-xs text-[var(--text-secondary)] mt-1">Serialize state machine execution state to JSON and restore from arbitrary checkpoints.</div>
+                    </div>
+                    <div class="p-4 border border-[var(--border-color)] rounded-xl bg-[var(--card-background)]">
+                        <div class="font-mono text-xs font-bold text-[var(--primary-color)]">Deterministic Transitions</div>
+                        <div class="text-xs text-[var(--text-secondary)] mt-1">Evaluates guard conditions to choose next state with zero prompt ambiguity.</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 3. Implementation Walkthrough -->
+            <section class="space-y-4">
+                <h2>3. Implementation Walkthrough</h2>
+                <div class="code-block-wrapper">
+                    <button class="copy-code-btn absolute top-3 right-3 flex items-center gap-1.5 text-slate-400 hover:text-white p-2 rounded-md bg-slate-800/50 backdrop-blur-sm">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/><path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3z"/></svg>
+                        <span>Copy</span>
+                    </button>
+                    <div class="code-block"><pre><code>import {
+    ProviderType,
+    resolveProvider,
+    initializeClient,
+    loadCredentials,
+    getDefaultModel,
+    StateMachine
+} from &#039;merci-sdk&#039;;
+
+const PROVIDER = resolveProvider();
+const { client } = await initializeClient({ provider: PROVIDER, options: loadCredentials({ provider: PROVIDER }) });
+
+const machine = new StateMachine({
+    client,
+    model: getDefaultModel({ provider: PROVIDER }),
+    initialState: &#039;DRAFT&#039;,
+    states: {
+        DRAFT: {
+            execute: async (ctx) =&gt; ({ draft: &#039;Initial architecture document.&#039; }),
+            transitions: [{ target: &#039;REVIEW&#039; }]
+        },
+        REVIEW: {
+            execute: async (ctx) =&gt; ({ approved: false, feedback: &#039;Needs security hardening.&#039; }),
+            transitions: [
+                { target: &#039;PUBLISH&#039;, condition: (ctx) =&gt; ctx.approved === true },
+                { target: &#039;REVISE&#039;, condition: (ctx) =&gt; ctx.approved === false }
+            ]
+        },
+        REVISE: {
+            execute: async (ctx) =&gt; ({ draft: &#039;Hardened architecture document.&#039;, approved: true }),
+            transitions: [{ target: &#039;REVIEW&#039; }]
+        },
+        PUBLISH: {
+            execute: async (ctx) =&gt; ({ published: true }),
+            terminal: true
+        }
+    }
+});
+
+const finalContext = await machine.run();
+console.log(&#039;Final State Context:&#039;, finalContext);</code></pre></div>
+                </div>
+            </section>
+
+            <!-- 4. Wire and Telemetry Mechanics -->
+            <section class="space-y-4">
+                <h2>4. Wire and Telemetry Mechanics</h2>
+                <div class="border border-[var(--border-color)] rounded-xl p-6 bg-[var(--card-background)] shadow-sm">
+                    <p class="text-sm text-[var(--text-secondary)] leading-relaxed">
+                        State transitions evaluate JavaScript guard conditions locally. Node executions trigger session steps and log 'state_machine:transition' telemetry events.
+                    </p>
+                </div>
+            </section>
+
+            <!-- 5. Run the Example -->
+            <section class="space-y-4">
+                <h2>5. Run the Example</h2>
+                <p class="text-sm text-[var(--text-secondary)]">
+                    Execute the runnable example directly from the repository root:
+                </p>
+                <div class="code-block-wrapper">
+                    <button class="copy-code-btn absolute top-3 right-3 flex items-center gap-1.5 text-slate-400 hover:text-white p-2 rounded-md bg-slate-800/50">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/><path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3z"/></svg>
+                        <span>Copy</span>
+                    </button>
+                    <div class="code-block"><pre><code>node examples/18_state_machine.mjs</code></pre></div>
+                </div>
+                <p class="text-sm text-[var(--text-secondary)]">
+                    <a href="https://github.com/merci-kit/merci-sdk/blob/main/examples/18_state_machine.mjs" class="font-semibold text-[var(--primary-color)] hover:underline">Read the full example: examples/18_state_machine.mjs →</a>
+                </p>
+                <div class="callout-info">
+                    <span class="font-bold">Expected Output:</span> Executes multi-state cycle (Draft -> Review -> Revise -> Review -> Publish) with checkpoint saves and transition logs.
+                </div>
+            </section>
+
+            <!-- Bottom Navigation -->
+            <div class="pt-8 border-t border-[var(--border-color)] flex flex-col sm:flex-row items-center justify-between gap-4">
+                
+                <a href="lesson_18.html" class="w-full sm:w-auto p-4 border border-[var(--border-color)] rounded-xl bg-[var(--card-background)] hover:border-[var(--primary-color)] transition-colors flex items-center gap-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 18-6-6 6-6"/></svg>
+                    <div>
+                        <div class="text-xs font-mono text-slate-400">Previous Lesson</div>
+                        <div class="text-sm font-bold text-[var(--text-primary)]">Lesson 18: DAG Workflows with Shared Task State</div>
+                    </div>
+                </a>
+
+                <a href="../tutorials.html" class="text-xs font-semibold text-[var(--primary-color)] hover:underline">
+                    Back to All 42 Lessons
+                </a>
+
+                
+                <a href="lesson_20.html" class="w-full sm:w-auto p-4 border border-[var(--border-color)] rounded-xl bg-[var(--card-background)] hover:border-[var(--primary-color)] transition-colors flex items-center justify-end gap-3 text-right">
+                    <div>
+                        <div class="text-xs font-mono text-slate-400">Next Lesson</div>
+                        <div class="text-sm font-bold text-[var(--text-primary)]">Lesson 20: Subagent Orchestration and Briefs</div>
+                    </div>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-[var(--border-color)] bg-[var(--card-background)] transition-colors duration-300">
+        <div class="container mx-auto px-4 py-8 sm:px-6 lg:px-8">
+            <div class="flex flex-col items-center justify-between gap-4 sm:flex-row">
+                <div class="flex items-center gap-2">
+                    <img src="../merci-sdk-logo.png" alt="Merci SDK Logo" class="h-6 w-9 object-contain">
+                    <span class="font-bold text-sm text-[var(--text-primary)]">Merci SDK</span>
+                    <span class="text-xs font-mono text-[var(--text-secondary)]">v0.23.0</span>
+                </div>
+                <p class="text-xs text-[var(--text-secondary)]">© 2026 Lukáš Michna (Mobeetle) · Apache-2.0</p>
+                <nav class="flex items-center gap-4 text-xs font-semibold text-[var(--text-secondary)]">
+                    <a href="../getting_started.html" class="hover:text-[var(--primary-color)]">Getting Started</a>
+                    <a href="../tutorials.html" class="hover:text-[var(--primary-color)]">Tutorials</a>
+                    <a href="../api_reference.html" class="hover:text-[var(--primary-color)]">API</a>
+                    <a href="https://github.com/merci-kit/merci-sdk" class="hover:text-[var(--primary-color)]">GitHub</a>
+                </nav>
+            </div>
+        </div>
+    </footer>
+</div>
+
+<script src="../assets/js/script.js"></script>
+</body>
+</html>

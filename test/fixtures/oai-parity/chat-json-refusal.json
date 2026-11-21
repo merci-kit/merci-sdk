@@ -1,0 +1,68 @@
+{
+  "case": {
+    "id": "chat-json-refusal",
+    "kind": "chat",
+    "mode": "json",
+    "request": {
+      "body": {
+        "model": "gpt-test",
+        "messages": [
+          {
+            "role": "user",
+            "content": "refuse"
+          }
+        ]
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "content-type": "application/json"
+      },
+      "chunks": [
+        "{\"id\":\"chatcmpl-refuse\",\"object\":\"chat.completion\",\"choices\":[{\"index\":0,\"message\":{\"role\":\"assistant\",\"content\":null,\"refusal\":\"I cannot do that.\"},\"finish_reason\":\"stop\"}]}"
+      ]
+    }
+  },
+  "sdkVersion": "7.51.0",
+  "node": "v25.0.0",
+  "response": {
+    "status": 200,
+    "headers": {
+      "content-type": "application/json"
+    },
+    "chunks": [
+      "{\"id\":\"chatcmpl-refuse\",\"object\":\"chat.completion\",\"choices\":[{\"index\":0,\"message\":{\"role\":\"assistant\",\"content\":null,\"refusal\":\"I cannot do that.\"},\"finish_reason\":\"stop\"}]}"
+    ]
+  },
+  "request": [
+    {
+      "method": "POST",
+      "url": "/v1/chat/completions",
+      "headers": {
+        "authorization": "Bearer test-key",
+        "content-type": "application/json",
+        "accept": "application/json"
+      },
+      "body": "{\"model\":\"gpt-test\",\"messages\":[{\"role\":\"user\",\"content\":\"refuse\"}]}"
+    }
+  ],
+  "outcome": {
+    "kind": "value",
+    "value": {
+      "id": "chatcmpl-refuse",
+      "object": "chat.completion",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": null,
+            "refusal": "I cannot do that."
+          },
+          "finish_reason": "stop"
+        }
+      ]
+    }
+  }
+}

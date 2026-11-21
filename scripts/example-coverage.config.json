@@ -1,0 +1,447 @@
+{
+  "$comment": "The public SDK surface the examples MUST keep demonstrating. Each capability names the proof symbols that prove it: an imported public name, a method the example CALLS, or an option key the example passes. A capability counts as demonstrated when ALL of its proofs appear in ONE example. The gate (scripts/check-example-coverage.mjs) fails when one does not \u2014 so a feature that loses its example fails CI instead of rotting silently.",
+  "capabilities": [
+    {
+      "capability": "the decision (System One) surface",
+      "proof": [
+        "createDecisionsClient",
+        "noulQuestion",
+        "choiceQuestion",
+        "scoreQuestion",
+        "readDecisionAnswer"
+      ]
+    },
+    {
+      "capability": "client roles and the shared decision gate",
+      "proof": [
+        "createRoleClients",
+        "resolveRole",
+        "createDecisionGate",
+        "createDecisionReranker",
+        "createAgenticRuntime",
+        "withDecisionGate",
+        "decisionCalibration"
+      ]
+    },
+    {
+      "capability": "the ACP v1 agent",
+      "proof": [
+        "createAcpAgent",
+        "permissionAllowed"
+      ]
+    },
+    {
+      "capability": "the ACP session lifecycle",
+      "proof": [
+        "createAcpAgent",
+        "session.new"
+      ]
+    },
+    {
+      "capability": "the A2A peer and the task lifecycle",
+      "proof": [
+        "loadA2ATool",
+        "getA2ATask",
+        "cancelA2ATask"
+      ]
+    },
+    {
+      "capability": "the A2A server",
+      "proof": [
+        "createA2AServer",
+        "createA2AHttpHandler"
+      ]
+    },
+    {
+      "capability": "the MCP client and its tools",
+      "proof": [
+        "McpClient",
+        "loadMcpTools"
+      ]
+    },
+    {
+      "capability": "the MCP server over stdio",
+      "proof": [
+        "createMcpServer"
+      ]
+    },
+    {
+      "capability": "the MCP server over Streamable HTTP",
+      "proof": [
+        "createMcpHttpHandler"
+      ]
+    },
+    {
+      "capability": "the MCP resources and prompts read path",
+      "proof": [
+        "listResources",
+        "readResource",
+        "listPrompts",
+        "getPrompt"
+      ]
+    },
+    {
+      "capability": "the MCP client capabilities (sampling / elicitation / roots)",
+      "proof": [
+        "McpClient",
+        "onSampling",
+        "onElicit",
+        "roots"
+      ]
+    },
+    {
+      "capability": "the guardrail tripwire",
+      "proof": [
+        "withGuardrails"
+      ]
+    },
+    {
+      "capability": "the tool permission rules and the approval modes",
+      "proof": [
+        "withPermissions",
+        "PERMISSION_MODES"
+      ]
+    },
+    {
+      "capability": "the per-tool timeout",
+      "proof": [
+        "withToolTimeout",
+        "toolTimeoutMs"
+      ]
+    },
+    {
+      "capability": "the tool output schema validation",
+      "proof": [
+        "executeTools",
+        "outputSchema"
+      ]
+    },
+    {
+      "capability": "the object output cap",
+      "proof": [
+        "capToolOutputValue"
+      ]
+    },
+    {
+      "capability": "the OpenTelemetry export",
+      "proof": [
+        "createOtlpExporter",
+        "otelAttribute"
+      ]
+    },
+    {
+      "capability": "the API observer composition",
+      "proof": [
+        "CompositeApiObserver"
+      ]
+    },
+    {
+      "capability": "the telemetry wiring on a session",
+      "proof": [
+        "withTelemetry"
+      ]
+    },
+    {
+      "capability": "the token and money budget",
+      "proof": [
+        "withBudget",
+        "maxBudgetUsd"
+      ]
+    },
+    {
+      "capability": "the vendor request knobs",
+      "proof": [
+        "serviceTier",
+        "logprobs",
+        "previousResponseId",
+        "store"
+      ]
+    },
+    {
+      "capability": "the prompt caching",
+      "proof": [
+        "cachePoints",
+        "promptCacheKey"
+      ]
+    },
+    {
+      "capability": "the streamed input",
+      "proof": [
+        "streamedInput",
+        "initialInput"
+      ]
+    },
+    {
+      "capability": "the session fork",
+      "proof": [
+        "forkCheckpoint"
+      ]
+    },
+    {
+      "capability": "the YAML SKILL.md frontmatter and the multi-script selection",
+      "proof": [
+        "loadSkillsFromDirectory",
+        "script"
+      ]
+    },
+    {
+      "capability": "the spawn contract (roster + envelope)",
+      "proof": [
+        "withTaskAgents",
+        "withAgentDelegation",
+        "listSpawns"
+      ]
+    },
+    {
+      "capability": "the evals runner and the cassette",
+      "proof": [
+        "runEvals",
+        "EVAL_SCORERS",
+        "createCassette",
+        "withCassette"
+      ]
+    },
+    {
+      "capability": "the workspace isolation and the bound coding tools",
+      "proof": [
+        "WorkspaceManager",
+        "createWorkspaceTools",
+        "workspaceKeyFor"
+      ]
+    },
+    {
+      "capability": "the scheduler: work items, claims and the tick",
+      "proof": [
+        "WorkScheduler",
+        "createMemoryWorkSource",
+        "createMemoryClaimStore"
+      ]
+    },
+    {
+      "capability": "the operator API: a snapshot over HTTP, the event ring and the status page",
+      "proof": [
+        "createOperatorHttpHandler",
+        "createEventRing",
+        "formatStatus"
+      ]
+    },
+    {
+      "capability": "the workflow contract: a repo-owned file, a strict template and a live reload",
+      "proof": [
+        "WorkflowPolicy",
+        "renderPrompt",
+        "policyToSchedulerOptions"
+      ]
+    },
+    {
+      "capability": "the coordination layer: one call binding the policy, the scheduler, the workspace and the operator",
+      "proof": [
+        "createOrchestration",
+        "policy.snapshot"
+      ]
+    },
+    {
+      "capability": "the work-source adapters, normalization and the claim stores",
+      "proof": [
+        "createMemoryWorkSource",
+        "createJsonFileWorkSource",
+        "createFunctionWorkSource",
+        "createFileClaimStore",
+        "normalizeWorkItem",
+        "sortForDispatch"
+      ]
+    },
+    {
+      "capability": "the engine runner across the four engines",
+      "proof": [
+        "createEngineRunner",
+        "planFor",
+        "graphFor",
+        "agents"
+      ]
+    },
+    {
+      "capability": "the workflow parser, loader and renderer without a policy",
+      "proof": [
+        "parseWorkflowMarkdown",
+        "loadWorkflowFile",
+        "renderPromptTemplate",
+        "WORKFLOW_POLICY_REASONS"
+      ]
+    },
+    {
+      "capability": "the workspace path guards and the hook vocabulary",
+      "proof": [
+        "isInsideRoot",
+        "resolveWorkspacePath",
+        "WORKSPACE_HOOKS"
+      ]
+    },
+    {
+      "capability": "the operator contract version and defaults",
+      "proof": [
+        "OPERATOR_API_VERSION",
+        "OPERATOR_DEFAULTS",
+        "createEventRing",
+        "formatStatus"
+      ]
+    },
+    {
+      "capability": "the scheduler claim vocabulary and defaults",
+      "proof": [
+        "CLAIM_STATES",
+        "SCHEDULER_DEFAULTS",
+        "WorkScheduler"
+      ]
+    },
+    {
+      "capability": "the workspace-bound context and shell tools",
+      "proof": [
+        "withWorkspace"
+      ]
+    },
+    {
+      "capability": "the SDK todo store as a scheduler work source",
+      "proof": [
+        "createTodoWorkSource",
+        "TodoComponent"
+      ]
+    },
+    {
+      "capability": "the operator ring's prefix opt-in for session records",
+      "proof": [
+        "createEventRing",
+        "DEFAULT_PREFIXES",
+        "prefixes"
+      ]
+    },
+    {
+      "capability": "the delegated spend folded into one DAG attempt ledger",
+      "proof": [
+        "createOrchestration",
+        "budget",
+        "planFor"
+      ]
+    },
+    {
+      "capability": "the durable attempt store across a restart",
+      "proof": [
+        "createFileAttemptStore",
+        "WorkScheduler",
+        "attemptStore"
+      ]
+    },
+    {
+      "capability": "configurable limits and the kill switch",
+      "proof": [
+        "getLimits",
+        "setLimits",
+        "resetLimits",
+        "LIMIT_DEFAULTS"
+      ]
+    },
+    {
+      "capability": "the knowledge graph (ASG): record, enrich, feed",
+      "proof": [
+        "buildGraph",
+        "validateGraph",
+        "withKnowledge",
+        "loadGraph",
+        "graphSha"
+      ]
+    },
+    {
+      "capability": "the knowledge wiki projection (import, render, staleness)",
+      "proof": [
+        "wikiSurface",
+        "renderWiki",
+        "readWikiSha",
+        "saveGraph",
+        "applyPatch",
+        "withKnowledge"
+      ]
+    },
+    {
+      "capability": "the knowledge surfaces (document, memory, todos into one store)",
+      "proof": [
+        "memorySurface",
+        "todosSurface",
+        "mergeFragment",
+        "saveGraph",
+        "buildGraph",
+        "withKnowledge"
+      ]
+    },
+    {
+      "capability": "adaptive ontology (measure, propose, adopt)",
+      "proof": [
+        "profileSources",
+        "proposeOntology",
+        "adoptOntology",
+        "adoptedProfile",
+        "ontologySha"
+      ]
+    },
+    {
+      "capability": "knowledge edge shapes (negative, conditional, evidenced)",
+      "proof": [
+        "applyPatch",
+        "edgeText",
+        "renderKnowledgeBlock",
+        "retrieveSubgraph",
+        "buildGraph"
+      ]
+    },
+    {
+      "capability": "decision-gated knowledge edges",
+      "proof": [
+        "createDecisionGate",
+        "withDecisionGate",
+        "getDecisionModel",
+        "providerDescriptorFor"
+      ]
+    },
+    {
+      "capability": "corpus cache: persist, reuse, and detect a source delta",
+      "proof": [
+        "syncCorpus",
+        "loadCorpus",
+        "sourceDelta",
+        "corpusKey",
+        "fingerprintSources",
+        "graphSha"
+      ]
+    },
+    {
+      "capability": "agent definition files: load, resolve the tool model, run",
+      "proof": [
+        "loadAgentFile",
+        "createAgentToolbox",
+        "resolveToolset",
+        "applyAgentSpec",
+        "toTaskAgent"
+      ]
+    },
+    {
+      "capability": "in-flight input: steer the running turn, queue the next, inspect and withdraw",
+      "proof": [
+        "enqueueInput",
+        "getPendingInputs",
+        "cancelInput",
+        "setInputDelivery"
+      ]
+    },
+    {
+      "capability": "the queue of record: drain it, know when it runs, survive a restart",
+      "proof": [
+        "drainInbox",
+        "isRunning",
+        "withInboxStore",
+        "LocalFileInboxStore",
+        "loadInbox",
+        "hasLiveBackgroundWork",
+        "waitForBackgroundWork"
+      ]
+    }
+  ]
+}

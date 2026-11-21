@@ -1,0 +1,24 @@
+# pnpm workspace settings (pnpm 11 reads overrides here, not in package.json).
+#
+# `overrides` pins the transitive packages that carry published advisories to
+# their patched releases. `pnpm audit --prod` must report zero advisories;
+# `pnpm run audit:deps` fails the build otherwise.
+#
+# `minimumReleaseAgeExclude` lets the patched releases above through pnpm's
+# supply-chain minimum-release-age window (they are newer than the window).
+minimumReleaseAgeExclude:
+  - '@hono/node-server@2.1.6'
+  - body-parser@2.4.0
+  - fast-uri@3.1.9
+  - hono@4.13.16
+  - ip-address@10.7.4
+  - proxy-addr@2.0.8
+  - qs@6.16.1
+overrides:
+  '@hono/node-server': ^2.1.6
+  body-parser: ^2.4.0
+  fast-uri: ^3.1.9
+  hono: ^4.13.16
+  ip-address: ^10.7.4
+  proxy-addr: ^2.0.8
+  qs: ^6.16.1

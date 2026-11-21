@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Getting Started — Merci SDK v0.23.0</title>
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link as="style" href="https://fonts.googleapis.com/css2?display=swap&amp;family=Inter%3Awght%40400%3B500%3B600%3B700%3B900&family=Fira+Code%3Awght%40400%3B600" onload="this.rel='stylesheet'" rel="stylesheet"/>
+
+    <!-- Scripts and Styles -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="assets/css/style.css?v=2" rel="stylesheet">
+</head>
+<body class="overflow-x-hidden">
+<div class="aurora-background"></div>
+
+<div class="flex min-h-screen flex-col">
+    <!-- Header -->
+    <header class="sticky top-0 z-50 w-full border-b border-[var(--border-color)] bg-[var(--header-background)] backdrop-blur-lg transition-colors duration-300">
+        <div class="container mx-auto flex flex-wrap items-center justify-between px-4 lg:px-8">
+            <div class="flex h-16 items-center">
+                <a class="flex items-center gap-3" href="index.html">
+                    <img src="merci-sdk-logo.png" alt="Merci SDK Logo" class="h-8 w-12 object-contain">
+                    <div class="flex items-center gap-2">
+                        <h1 class="text-xl font-bold text-[var(--text-primary)] tracking-tight">Merci SDK</h1>
+                        <span class="text-xs font-mono font-semibold px-2 py-0.5 rounded-full bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20">v0.23.0</span>
+                    </div>
+                </a>
+            </div>
+            <div class="lg:hidden">
+                <button id="menu-toggle" class="rounded-lg p-2 text-[var(--text-secondary)] hover:bg-slate-200 dark:hover:bg-slate-800 focus:outline-none">
+                    <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                </button>
+            </div>
+            <div id="menu-content" class="hidden w-full lg:flex lg:w-auto lg:items-center">
+                <nav class="flex w-full flex-col gap-4 border-t border-[var(--border-color)] py-4 lg:w-auto lg:flex-row lg:items-center lg:gap-6 lg:border-none lg:py-0">
+                    <a class="nav-link group" href="index.html"><span>Overview</span></a>
+                    <a class="nav-link-active group" href="getting_started.html"><span>Getting Started</span></a>
+                    <a class="nav-link group" href="tutorials.html"><span>Tutorials (42)</span></a>
+                    <a class="nav-link group" href="demo.html"><span>Live Demo</span></a>
+                    <a class="nav-link group" href="api_reference.html"><span>API Reference</span></a>
+                </nav>
+                <div class="w-full pb-4 lg:w-auto lg:pb-0 lg:pl-4">
+                    <button type="button" class="theme-toggle-btn w-full text-sm font-semibold rounded-md px-3 py-1.5 bg-slate-200 text-slate-800 hover:bg-slate-300 dark:bg-slate-800 dark:text-slate-200">
+                        <span class="theme-toggle-text">Dark Mode</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-12 sm:px-6 lg:px-8 flex-grow">
+        <div class="max-w-4xl mx-auto space-y-12">
+            <div>
+                <h1 class="text-4xl font-extrabold text-[var(--text-primary)] tracking-tight">Getting Started with Merci SDK</h1>
+                <p class="mt-4 text-lg text-[var(--text-secondary)]">
+                    Merci SDK is a lightweight, minimal-dependency, multi-provider AI framework for Node.js. Three API standards cover seven providers — OpenAI, Anthropic Claude, Google Gemini, Vertex AI, OpenRouter, OpenCode, and Local Stack — under a single fluent interface.
+                </p>
+            </div>
+
+            <!-- Installation -->
+            <section id="installation" class="space-y-4">
+                <h2>1. Installation and Environment</h2>
+                <p class="text-[var(--text-secondary)]">
+                    Merci SDK requires <strong>Node.js v22+</strong> (or modern Node with native ES Modules). Pure ES Modules — no build pipeline, and no orchestration framework underneath.
+                </p>
+                <div class="code-block-wrapper">
+                    <button class="copy-code-btn absolute top-3 right-3 flex items-center gap-1.5 text-slate-400 hover:text-white p-2 rounded-md bg-slate-800/50">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/><path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3z"/></svg>
+                        <span>Copy</span>
+                    </button>
+                    <div class="code-block"><pre><code><span style="color: #8b949e;"># Using pnpm (recommended)</span>
+pnpm add merci-sdk
+
+<span style="color: #8b949e;"># Or using npm</span>
+npm install merci-sdk</code></pre></div>
+                </div>
+            </section>
+
+            <!-- Provider Configuration -->
+            <section id="configuration" class="space-y-4">
+                <h2>2. Configuring Provider Credentials</h2>
+                <p class="text-[var(--text-secondary)]">
+                    Copy the shipped template to <code class="inline">secret.env</code> in your project root (<code class="inline">secret.env</code> is gitignored) and fill in one provider. Set <code class="inline">PROVIDER</code> to choose your active provider:
+                </p>
+                <div class="code-block-wrapper">
+                    <button class="copy-code-btn absolute top-3 right-3 flex items-center gap-1.5 text-slate-400 hover:text-white p-2 rounded-md bg-slate-800/50">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/><path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3z"/></svg>
+                        <span>Copy</span>
+                    </button>
+                    <div class="code-block"><pre><code><span style="color: #8b949e;"># Active provider: openai | anthropic | google_genai | vertex | openrouter | opencode | local</span>
+PROVIDER=openai
+
+<span style="color: #8b949e;"># OpenAI</span>
+OPENAI_API_KEY=sk-...
+
+<span style="color: #8b949e;"># Google Gemini</span>
+GEMINI_API_KEY=AIzaSy...
+
+<span style="color: #8b949e;"># Anthropic Claude</span>
+ANTHROPIC_API_KEY=sk-ant-...
+
+<span style="color: #8b949e;"># Local Stack</span>
+LM_STUDIO_URL=http://localhost:1234/v1</code></pre></div>
+                </div>
+                <div class="callout-info">
+                    <span class="font-bold">Tip:</span> The SDK automatically resolves credentials from environment variables or <code class="inline">secret.env</code> via <code class="inline">loadCredentials({ provider })</code>.
+                </div>
+            </section>
+
+            <!-- Quickstart Code -->
+            <section id="first-call" class="space-y-4">
+                <h2>3. Your First Completion Stream</h2>
+                <p class="text-[var(--text-secondary)]">
+                    Initialize a client, spawn a fluent session, configure system directives, and stream responses with real-time token tracking:
+                </p>
+                <div class="code-block-wrapper">
+                    <button class="copy-code-btn absolute top-3 right-3 flex items-center gap-1.5 text-slate-400 hover:text-white p-2 rounded-md bg-slate-800/50">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/><path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3z"/></svg>
+                        <span>Copy</span>
+                    </button>
+                    <div class="code-block"><pre><code><span style="color: #ff7b72;">import</span> {
+    ProviderType,
+    resolveProvider,
+    initializeClient,
+    loadCredentials,
+    getDefaultModel,
+    createUserMessage
+} <span style="color: #ff7b72;">from</span> <span style="color: #a5d6ff;">'merci-sdk'</span>;
+
+<span style="color: #8b949e;">// 1. Resolve the provider from env </span>
+<span style="color: #ff7b72;">const</span> <span style="color: #79c0ff;">provider</span> = <span style="color: #d2a8ff;">resolveProvider</span>();
+<span style="color: #ff7b72;">const</span> { <span style="color: #79c0ff;">client</span> } = <span style="color: #ff7b72;">await</span> <span style="color: #d2a8ff;">initializeClient</span>({ provider, <span style="color: #d2a8ff;">options</span>: <span style="color: #d2a8ff;">loadCredentials</span>({ provider }) });
+
+<span style="color: #8b949e;">// 2. Build a session with system directives and parameters</span>
+<span style="color: #ff7b72;">const</span> <span style="color: #79c0ff;">session</span> = client.<span style="color: #d2a8ff;">session</span>(getDefaultModel({ provider }))
+    .<span style="color: #d2a8ff;">withSystemMessage</span>(<span style="color: #a5d6ff;">'You are a high-performance cloud architecture specialist.'</span>);
+
+<span style="color: #8b949e;">// 3. Step through the stream</span>
+<span style="color: #ff7b72;">const</span> <span style="color: #79c0ff;">stream</span> = session.<span style="color: #d2a8ff;">step</span>({ messages: [
+    <span style="color: #d2a8ff;">createUserMessage</span>({ provider, <span style="color: #d2a8ff;">content</span>: <span style="color: #a5d6ff;">'Summarize the core principles of stateless microservices.'</span> })
+] });
+
+<span style="color: #ff7b72;">for</span> <span style="color: #ff7b72;">await</span> (<span style="color: #ff7b72;">const</span> <span style="color: #79c0ff;">event</span> <span style="color: #ff7b72;">of</span> stream) {
+    <span style="color: #ff7b72;">if</span> (event.<span style="color: #c9d1d9;">type</span> === <span style="color: #a5d6ff;">'text'</span>) process.stdout.write(event.content);
+}</code></pre></div>
+                </div>
+            </section>
+
+            <!-- Architectural Principles -->
+            <section id="principles" class="space-y-4">
+                <h2>4. Core Architectural Guarantees</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                    <div class="border border-[var(--border-color)] p-4 rounded-xl bg-[var(--card-background)]">
+                        <h3 class="font-bold text-[var(--text-primary)] !mt-0 text-base">Model Tiering Rule</h3>
+                        <p class="text-sm text-[var(--text-secondary)] mt-1">
+                            Use <code class="inline">getDefaultModel()</code> for orchestrator brains, planners, and judges. Use <code class="inline">getToolModel()</code> for cheap leaf subagents and simple tool transforms.
+                        </p>
+                    </div>
+                    <div class="border border-[var(--border-color)] p-4 rounded-xl bg-[var(--card-background)]">
+                        <h3 class="font-bold text-[var(--text-primary)] !mt-0 text-base">Stateless Resend</h3>
+                        <p class="text-sm text-[var(--text-secondary)] mt-1">
+                            History lives in your application array. Replace history with <code class="inline">finalState.messages</code> from each turn — never push duplicates to keep wire state honest.
+                        </p>
+                    </div>
+                    <div class="border border-[var(--border-color)] p-4 rounded-xl bg-[var(--card-background)]">
+                        <h3 class="font-bold text-[var(--text-primary)] !mt-0 text-base">Per-Wire Normalization</h3>
+                        <p class="text-sm text-[var(--text-secondary)] mt-1">
+                            Provider quirks (e.g. Gemini <code class="inline">anyOf</code> rejection, Anthropic system prompt separation) are handled invisibly inside adapters, never in your business logic.
+                        </p>
+                    </div>
+                    <div class="border border-[var(--border-color)] p-4 rounded-xl bg-[var(--card-background)]">
+                        <h3 class="font-bold text-[var(--text-primary)] !mt-0 text-base">Visible Truncation</h3>
+                        <p class="text-sm text-[var(--text-secondary)] mt-1">
+                            The SDK never drops context silently. Context compaction and folding always inject explicit loss markers into the conversation stream.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Next Steps -->
+            <section id="next-steps" class="space-y-4 pt-6 border-t border-[var(--border-color)]">
+                <h2>5. Where to Go Next</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <a href="tutorials.html" class="p-4 border border-[var(--border-color)] rounded-xl bg-[var(--card-background)] hover:border-[var(--primary-color)] transition-colors">
+                        <div class="text-xs font-mono font-semibold text-blue-500 uppercase">42 Lessons</div>
+                        <div class="font-bold text-[var(--text-primary)] mt-1">Browse Tutorials</div>
+                        <div class="text-xs text-[var(--text-secondary)] mt-1">Core, Agentic, and Advanced orchestration patterns.</div>
+                    </a>
+                    <a href="demo.html" class="p-4 border border-[var(--border-color)] rounded-xl bg-[var(--card-background)] hover:border-[var(--primary-color)] transition-colors">
+                        <div class="text-xs font-mono font-semibold text-blue-500 uppercase">Interactive</div>
+                        <div class="font-bold text-[var(--text-primary)] mt-1">Code and Output Preview</div>
+                        <div class="text-xs text-[var(--text-secondary)] mt-1">Generate ESM driver snippets and preview telemetry.</div>
+                    </a>
+                    <a href="api_reference.html" class="p-4 border border-[var(--border-color)] rounded-xl bg-[var(--card-background)] hover:border-[var(--primary-color)] transition-colors">
+                        <div class="text-xs font-mono font-semibold text-blue-500 uppercase">Reference</div>
+                        <div class="font-bold text-[var(--text-primary)] mt-1">API Documentation</div>
+                        <div class="text-xs text-[var(--text-secondary)] mt-1">Full exported class, method, and event catalog.</div>
+                    </a>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-[var(--border-color)] bg-[var(--card-background)] transition-colors duration-300">
+        <div class="container mx-auto px-4 py-8 sm:px-6 lg:px-8">
+            <div class="flex flex-col items-center justify-between gap-4 sm:flex-row">
+                <div class="flex items-center gap-2">
+                    <img src="merci-sdk-logo.png" alt="Merci SDK Logo" class="h-6 w-9 object-contain">
+                    <span class="font-bold text-sm text-[var(--text-primary)]">Merci SDK</span>
+                    <span class="text-xs font-mono text-[var(--text-secondary)]">v0.23.0</span>
+                </div>
+                <p class="text-xs text-[var(--text-secondary)]">© 2026 Lukáš Michna (Mobeetle) · Apache-2.0</p>
+                <nav class="flex items-center gap-4 text-xs font-semibold text-[var(--text-secondary)]">
+                    <a href="getting_started.html" class="hover:text-[var(--primary-color)]">Getting Started</a>
+                    <a href="tutorials.html" class="hover:text-[var(--primary-color)]">Tutorials</a>
+                    <a href="api_reference.html" class="hover:text-[var(--primary-color)]">API</a>
+                    <a href="https://github.com/merci-kit/merci-sdk" class="hover:text-[var(--primary-color)]">GitHub</a>
+                </nav>
+            </div>
+        </div>
+    </footer>
+</div>
+
+<script src="assets/js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,95 @@
+{
+  "case": {
+    "id": "responses-json-full-no-output-text",
+    "kind": "responses",
+    "mode": "json",
+    "request": {
+      "body": {
+        "model": "gpt-test",
+        "input": "everything"
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "content-type": "application/json"
+      },
+      "chunks": [
+        "{\"id\":\"resp_json\",\"object\":\"response\",\"created_at\":1,\"status\":\"completed\",\"model\":\"gpt-test\",\"output\":[{\"type\":\"message\",\"id\":\"msg_1\",\"status\":\"completed\",\"role\":\"assistant\",\"content\":[{\"type\":\"output_text\",\"text\":\"Hello \",\"annotations\":[]},{\"type\":\"output_text\",\"text\":\"world\",\"annotations\":[]}]},{\"type\":\"function_call\",\"id\":\"fc_1\",\"call_id\":\"call_1\",\"name\":\"lookup\",\"arguments\":\"{\\\"q\\\":\\\"x\\\"}\",\"status\":\"completed\"},{\"type\":\"reasoning\",\"id\":\"rs_1\",\"summary\":[],\"status\":\"completed\"}],\"usage\":{\"input_tokens\":5,\"output_tokens\":4,\"total_tokens\":9}}"
+      ]
+    }
+  },
+  "sdkVersion": "7.51.0",
+  "node": "v25.0.0",
+  "response": {
+    "status": 200,
+    "headers": {
+      "content-type": "application/json"
+    },
+    "chunks": [
+      "{\"id\":\"resp_json\",\"object\":\"response\",\"created_at\":1,\"status\":\"completed\",\"model\":\"gpt-test\",\"output\":[{\"type\":\"message\",\"id\":\"msg_1\",\"status\":\"completed\",\"role\":\"assistant\",\"content\":[{\"type\":\"output_text\",\"text\":\"Hello \",\"annotations\":[]},{\"type\":\"output_text\",\"text\":\"world\",\"annotations\":[]}]},{\"type\":\"function_call\",\"id\":\"fc_1\",\"call_id\":\"call_1\",\"name\":\"lookup\",\"arguments\":\"{\\\"q\\\":\\\"x\\\"}\",\"status\":\"completed\"},{\"type\":\"reasoning\",\"id\":\"rs_1\",\"summary\":[],\"status\":\"completed\"}],\"usage\":{\"input_tokens\":5,\"output_tokens\":4,\"total_tokens\":9}}"
+    ]
+  },
+  "request": [
+    {
+      "method": "POST",
+      "url": "/v1/responses",
+      "headers": {
+        "authorization": "Bearer test-key",
+        "content-type": "application/json",
+        "accept": "application/json"
+      },
+      "body": "{\"model\":\"gpt-test\",\"input\":\"everything\"}"
+    }
+  ],
+  "outcome": {
+    "kind": "value",
+    "value": {
+      "id": "resp_json",
+      "object": "response",
+      "created_at": 1,
+      "status": "completed",
+      "model": "gpt-test",
+      "output": [
+        {
+          "type": "message",
+          "id": "msg_1",
+          "status": "completed",
+          "role": "assistant",
+          "content": [
+            {
+              "type": "output_text",
+              "text": "Hello ",
+              "annotations": []
+            },
+            {
+              "type": "output_text",
+              "text": "world",
+              "annotations": []
+            }
+          ]
+        },
+        {
+          "type": "function_call",
+          "id": "fc_1",
+          "call_id": "call_1",
+          "name": "lookup",
+          "arguments": "{\"q\":\"x\"}",
+          "status": "completed"
+        },
+        {
+          "type": "reasoning",
+          "id": "rs_1",
+          "summary": [],
+          "status": "completed"
+        }
+      ],
+      "usage": {
+        "input_tokens": 5,
+        "output_tokens": 4,
+        "total_tokens": 9
+      },
+      "output_text": "Hello world"
+    }
+  }
+}

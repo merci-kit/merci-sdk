@@ -1,0 +1,74 @@
+{
+  "case": {
+    "id": "responses-per-call-header",
+    "kind": "responses",
+    "mode": "json",
+    "request": {
+      "body": {
+        "model": "gpt-test",
+        "input": "headers"
+      },
+      "headers": {
+        "x-case": "1"
+      }
+    },
+    "compare": {
+      "requestHeaders": [
+        "x-case"
+      ]
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "content-type": "application/json"
+      },
+      "chunks": [
+        "{\"id\":\"resp_h2\",\"object\":\"response\",\"status\":\"completed\",\"output\":[{\"type\":\"message\",\"content\":[{\"type\":\"output_text\",\"text\":\"ok\"}]}]}"
+      ]
+    }
+  },
+  "sdkVersion": "7.51.0",
+  "node": "v25.0.0",
+  "response": {
+    "status": 200,
+    "headers": {
+      "content-type": "application/json"
+    },
+    "chunks": [
+      "{\"id\":\"resp_h2\",\"object\":\"response\",\"status\":\"completed\",\"output\":[{\"type\":\"message\",\"content\":[{\"type\":\"output_text\",\"text\":\"ok\"}]}]}"
+    ]
+  },
+  "request": [
+    {
+      "method": "POST",
+      "url": "/v1/responses",
+      "headers": {
+        "authorization": "Bearer test-key",
+        "content-type": "application/json",
+        "accept": "application/json",
+        "x-case": "1"
+      },
+      "body": "{\"model\":\"gpt-test\",\"input\":\"headers\"}"
+    }
+  ],
+  "outcome": {
+    "kind": "value",
+    "value": {
+      "id": "resp_h2",
+      "object": "response",
+      "status": "completed",
+      "output": [
+        {
+          "type": "message",
+          "content": [
+            {
+              "type": "output_text",
+              "text": "ok"
+            }
+          ]
+        }
+      ],
+      "output_text": "ok"
+    }
+  }
+}

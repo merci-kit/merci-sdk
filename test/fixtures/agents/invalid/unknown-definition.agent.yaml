@@ -1,0 +1,15 @@
+apiVersion: merci.dev/v1alpha1
+kind: Agent
+metadata:
+  name: unknown-definition
+  description: A definition with one unknown definition key.
+spec:
+  instructions: Do nothing.
+  tools:
+    definitions:
+      - name: echo_args
+        description: Echoes the arguments back.
+        script: scripts/echo.mjs
+        bogus: true
+        parameters:
+          type: object

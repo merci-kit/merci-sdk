@@ -1,0 +1,46 @@
+{
+  "case": {
+    "id": "chat-json-204",
+    "kind": "chat",
+    "mode": "json",
+    "request": {
+      "body": {
+        "model": "gpt-test",
+        "messages": [
+          {
+            "role": "user",
+            "content": "empty"
+          }
+        ]
+      }
+    },
+    "response": {
+      "status": 204,
+      "headers": {},
+      "chunks": []
+    }
+  },
+  "sdkVersion": "7.51.0",
+  "node": "v25.0.0",
+  "response": {
+    "status": 204,
+    "headers": {},
+    "chunks": []
+  },
+  "request": [
+    {
+      "method": "POST",
+      "url": "/v1/chat/completions",
+      "headers": {
+        "authorization": "Bearer test-key",
+        "content-type": "application/json",
+        "accept": "application/json"
+      },
+      "body": "{\"model\":\"gpt-test\",\"messages\":[{\"role\":\"user\",\"content\":\"empty\"}]}"
+    }
+  ],
+  "outcome": {
+    "kind": "value",
+    "value": null
+  }
+}

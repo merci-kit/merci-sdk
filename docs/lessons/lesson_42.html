@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Lesson 42: Agent definition files: one YAML, a live tool-using agent, a live subagent — Merci SDK v0.23.0</title>
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link as="style" href="https://fonts.googleapis.com/css2?display=swap&amp;family=Inter%3Awght%40400%3B500%3B600%3B700%3B900&family=Fira+Code%3Awght%40400%3B600" onload="this.rel='stylesheet'" rel="stylesheet"/>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="../assets/css/style.css?v=2" rel="stylesheet">
+</head>
+<body class="overflow-x-hidden">
+<div class="aurora-background"></div>
+<div class="flex min-h-screen flex-col">
+    <header class="sticky top-0 z-50 w-full border-b border-[var(--border-color)] bg-[var(--header-background)] backdrop-blur-lg transition-colors duration-300">
+        <div class="container mx-auto flex flex-wrap items-center justify-between px-4 lg:px-8">
+            <div class="flex h-16 items-center">
+                <a class="flex items-center gap-3" href="../index.html">
+                    <img src="../merci-sdk-logo.png" alt="Merci SDK Logo" class="h-8 w-12 object-contain">
+                    <div class="flex items-center gap-2">
+                        <h1 class="text-xl font-bold text-[var(--text-primary)] tracking-tight">Merci SDK</h1>
+                        <span class="text-xs font-mono font-semibold px-2 py-0.5 rounded-full bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20">v0.23.0</span>
+                    </div>
+                </a>
+            </div>
+            <div class="lg:hidden">
+                <button id="menu-toggle" class="rounded-lg p-2 text-[var(--text-secondary)] hover:bg-slate-200 dark:hover:bg-slate-800 focus:outline-none">
+                    <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                </button>
+            </div>
+            <div id="menu-content" class="hidden w-full lg:flex lg:w-auto lg:items-center">
+                <nav class="flex w-full flex-col gap-4 border-t border-[var(--border-color)] py-4 lg:w-auto lg:flex-row lg:items-center lg:gap-6 lg:border-none lg:py-0">
+                    <a class="nav-link group" href="../index.html"><span>Overview</span></a>
+                    <a class="nav-link group" href="../getting_started.html"><span>Getting Started</span></a>
+                    <a class="nav-link-active group" href="../tutorials.html"><span>Tutorials (42)</span></a>
+                    <a class="nav-link group" href="../demo.html"><span>Live Demo</span></a>
+                    <a class="nav-link group" href="../api_reference.html"><span>API Reference</span></a>
+                </nav>
+            </div>
+        </div>
+    </header>
+    <main class="container mx-auto px-4 py-12 sm:px-6 lg:px-8 flex-grow">
+        <div class="max-w-4xl mx-auto space-y-10">
+            <nav class="flex items-center gap-2 text-xs font-semibold text-[var(--text-secondary)]">
+                <a href="../tutorials.html" class="hover:text-[var(--primary-color)]">Tutorials</a>
+                <span>/</span>
+                <span>The coordination layer</span>
+                <span>/</span>
+                <span class="text-[var(--text-primary)]">Lesson 42</span>
+            </nav>
+            <div>
+                <div class="flex flex-wrap items-center gap-3 mb-3">
+                    <span class="tag-badge bg-purple-500/10 text-purple-600 dark:text-purple-400">Advanced</span>
+                    <span class="text-xs font-mono text-slate-400">⏱ 8 min read</span>
+                    <span class="text-xs font-mono text-slate-400">📁 examples/32_agent_files.mjs</span>
+                </div>
+                <h1 class="text-3xl sm:text-4xl font-black text-[var(--text-primary)] tracking-tight">
+                    Lesson 42: Agent definition files: one YAML, a live tool-using agent, a live subagent
+                </h1>
+                <p class="mt-4 text-base sm:text-lg text-[var(--text-secondary)] leading-relaxed">
+                    <code class="inline">*.agent.yaml</code> definitions: load, freeze, resolve the toolset, run live, delegate live
+                </p>
+            </div>
+            <section class="space-y-4">
+                <h2>1. Why This Feature Exists</h2>
+                <div class="border border-[var(--border-color)] rounded-xl p-6 bg-[var(--card-background)] shadow-sm">
+                    <p class="text-sm text-[var(--text-secondary)] leading-relaxed">A non-coder writes one <code class="inline">agents/&lt;name&gt;.agent.yaml</code>. This program uses that file for real — every model call below goes to the provider in <code class="inline">secret.env</code>:</p>
+                </div>
+            </section>
+            <section class="space-y-4">
+                <h2>2. What the Example Demonstrates</h2>
+                <div class="grid grid-cols-1 gap-3">
+                    <div class="p-4 border border-[var(--border-color)] rounded-xl bg-[var(--card-background)]">
+                        <div class="font-mono text-xs font-bold text-[var(--primary-color)]">A — THE FILE</div>
+                        <div class="text-xs text-[var(--text-secondary)] mt-1">the YAML, on screen, plus the one script it declares. Nothing in the file builds a client, names a secret or defines a server: a definition selects what the host already provides.</div>
+                    </div>
+                    <div class="p-4 border border-[var(--border-color)] rounded-xl bg-[var(--card-background)]">
+                        <div class="font-mono text-xs font-bold text-[var(--primary-color)]">B — LOAD</div>
+                        <div class="text-xs text-[var(--text-secondary)] mt-1"><code class="inline">loadAgentFile</code> validates every field, resolves the script on disk (contained, hashed) and returns a deep-frozen spec.</div>
+                    </div>
+                    <div class="p-4 border border-[var(--border-color)] rounded-xl bg-[var(--card-background)]">
+                        <div class="font-mono text-xs font-bold text-[var(--primary-color)]">C — THE TOOLBOX</div>
+                        <div class="text-xs text-[var(--text-secondary)] mt-1"><code class="inline">createAgentToolbox</code> supplies a real workspace and a real host tool; <code class="inline">resolveToolset</code> turns <code class="inline">use: [files]</code>, <code class="inline">host:lookup_policy</code> and the declared script into the exact tool list.</div>
+                    </div>
+                    <div class="p-4 border border-[var(--border-color)] rounded-xl bg-[var(--card-background)]">
+                        <div class="font-mono text-xs font-bold text-[var(--primary-color)]">D — LIVE SESSION: <code class="inline">applyAgentSpec</code> wires a real session. The mod</div>
+                        <div class="text-xs text-[var(--text-secondary)] mt-1">LIVE SESSION: <code class="inline">applyAgentSpec</code> wires a real session. The model reads the note, runs the declared script tool, consults the host tool, and answers with the exact word count. The tool events below are the model's own.</div>
+                    </div>
+                    <div class="p-4 border border-[var(--border-color)] rounded-xl bg-[var(--card-background)]">
+                        <div class="font-mono text-xs font-bold text-[var(--primary-color)]">E — LIVE PROFILE: the SAME spec becomes a subagent profile via `</div>
+                        <div class="text-xs text-[var(--text-secondary)] mt-1">LIVE PROFILE: the SAME spec becomes a subagent profile via <code class="inline">toTaskAgent</code>. A parent session delegates to it, and the child runs the same tools under the same approval policy. Public API: <code class="inline">merci-sdk/agents</code> — <code class="inline">loadAgentFile</code>, <code class="inline">createAgentToolbox</code>, <code class="inline">resolveToolset</code>, <code class="inline">applyAgentSpec</code>, <code class="inline">toTaskAgent</code>; <code class="inline">merci-sdk</code> — the client, <code class="inline">EVENTS</code>, <code class="inline">log</code>. Run: <code class="inline">node examples/32_agent_files.mjs</code> Needs: <code class="inline">PROVIDER</code> plus its credentials in <code class="inline">secret.env</code>. @version 0.23.0</div>
+                    </div>
+                </div>
+                <div class="border border-[var(--border-color)] rounded-xl p-4 bg-[var(--card-background)]">
+                    <div class="font-mono text-xs font-bold text-[var(--primary-color)]">imported from &#039;merci-sdk&#039;</div>
+                    <div class="text-xs text-[var(--text-secondary)] mt-1 font-mono break-words">EVENTS, initializeClient, loadCredentials, log</div>
+                </div>
+            </section>
+            <section class="space-y-4">
+                <h2>3. How the Core Call Works</h2>
+                <p class="text-sm text-[var(--text-secondary)]">The entry point, condensed. The full runnable file is linked below.</p>
+                <div class="code-block-wrapper">
+                    <div class="code-block"><pre><code>import { mkdir, readFile, rm, writeFile } from 'node:fs/promises';
+import { join } from 'node:path';
+import { EVENTS, initializeClient, loadCredentials, log } from 'merci-sdk';
+import {
+    applyAgentSpec,
+    createAgentToolbox,
+    loadAgentFile,
+    resolveToolset,
+    toTaskAgent
+} from 'merci-sdk/agents';
+import { reportUsage, resolveExample, runMain, trackUsage, warnEmptyAnswer } from './_shared/example-utils.mjs';
+import { SCRATCH_DIR } from './_shared/real-tools.mjs';
+
+const WORK_DIR = join(SCRATCH_DIR, '48-agent-files');
+const AGENTS_DIR = join(WORK_DIR, 'agents');
+const SCRIPTS_DIR = join(AGENTS_DIR, 'scripts');
+const WORKSPACE_DIR = join(WORK_DIR, 'workspace');
+const NOTE_PATH = join(WORKSPACE_DIR, 'staging-note.md');
+
+/** 40 words, so the house rule below has something real to judge. */
+const NOTE = [
+    'The staging cluster failed twice this week.',
+    'Both failures began with a configuration drift in the ingress rules.',
+    'Roll back the last change, pin the controller version, and add a check that compares the live rules with the reviewed manifest.'
+].join(' ');
+
+/** The declared script tool: one file, one JSON argv, one JSON answer. */
+const WORD_COUNT_SCRIPT = `import { readFileSync } from 'node:fs';
+
+const { path } = JSON.parse(process.argv[2] ?? '{}');
+const text = readFileSync(path, 'utf8');
+const words = text.trim().split(/\\s+/).filter(Boolean).length;
+process.stdout.write(JSON.stringify({ path, words }));
+`;
+
+/** The definition a non-coder edits. Groups for beginners, a selector for power users. */
+const AGENT_YAML = `apiVersion: merci.dev/v1alpha1
+kind: Agent
+metadata:
+  name: reviewer
+  description: Reviews a short engineering note — reads it, counts its words, and checks the house style rule.
+spec:</code></pre></div>
+                </div>
+                <p class="text-sm text-[var(--text-secondary)]">
+                    <a href="https://github.com/merci-kit/merci-sdk/blob/main/examples/32_agent_files.mjs" class="font-semibold text-[var(--primary-color)] hover:underline">Read the full example: examples/32_agent_files.mjs →</a>
+                </p>
+            </section>
+            <section class="space-y-4">
+                <h2>4. Behavior the Code Fixes</h2>
+                <div class="border border-[var(--border-color)] rounded-xl p-6 bg-[var(--card-background)] shadow-sm">
+                    <p class="text-sm text-[var(--text-secondary)] leading-relaxed"><code class="inline">*.agent.yaml</code> definitions: load, freeze, resolve the toolset, run live, delegate live</p>
+                </div>
+            </section>
+            <section class="space-y-4">
+                <h2>5. Run the Example</h2>
+                <p class="text-sm text-[var(--text-secondary)]">Execute the runnable example from the repository root:</p>
+                <div class="code-block-wrapper">
+                    <div class="code-block"><pre><code>node examples/32_agent_files.mjs</code></pre></div>
+                </div>
+                <div class="callout-info">
+                    <span class="font-bold">What it does:</span> <code class="inline">*.agent.yaml</code> definitions: load, freeze, resolve the toolset, run live, delegate live
+                </div>
+            </section>
+            <div class="pt-8 border-t border-[var(--border-color)] flex flex-col sm:flex-row items-center justify-between gap-4">
+                <a href="lesson_41.html" class="w-full sm:w-auto p-4 border border-[var(--border-color)] rounded-xl bg-[var(--card-background)] hover:border-[var(--primary-color)] transition-colors flex items-center gap-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 18-6-6 6-6"/></svg>
+                    <div>
+                        <div class="text-xs font-mono text-slate-400">Previous Lesson</div>
+                        <div class="text-sm font-bold text-[var(--text-primary)]">Lesson 41</div>
+                    </div>
+                </a>
+                <a href="../tutorials.html" class="text-xs font-semibold text-[var(--primary-color)] hover:underline">
+                    Back to All 42 Lessons
+                </a>
+                <div></div>
+            </div>
+        </div>
+    </main>
+    <footer class="border-t border-[var(--border-color)] bg-[var(--card-background)] transition-colors duration-300">
+        <div class="container mx-auto px-4 py-8 sm:px-6 lg:px-8">
+            <div class="flex flex-col items-center justify-between gap-4 sm:flex-row">
+                <div class="flex items-center gap-2">
+                    <img src="../merci-sdk-logo.png" alt="Merci SDK Logo" class="h-6 w-9 object-contain">
+                    <span class="font-bold text-sm text-[var(--text-primary)]">Merci SDK</span>
+                    <span class="text-xs font-mono text-[var(--text-secondary)]">v0.23.0</span>
+                </div>
+                <p class="text-xs text-[var(--text-secondary)]">© 2026 Lukáš Michna (Mobeetle) · Apache-2.0</p>
+                <nav class="flex items-center gap-4 text-xs font-semibold text-[var(--text-secondary)]">
+                    <a href="../getting_started.html" class="hover:text-[var(--primary-color)]">Getting Started</a>
+                    <a href="../tutorials.html" class="hover:text-[var(--primary-color)]">Tutorials</a>
+                    <a href="../api_reference.html" class="hover:text-[var(--primary-color)]">API</a>
+                    <a href="https://github.com/merci-kit/merci-sdk" class="hover:text-[var(--primary-color)]">GitHub</a>
+                </nav>
+            </div>
+        </div>
+    </footer>
+</div>
+<script src="../assets/js/script.js"></script>
+</body>
+</html>

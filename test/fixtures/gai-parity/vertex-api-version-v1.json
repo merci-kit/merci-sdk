@@ -1,0 +1,77 @@
+{
+  "case": {
+    "id": "vertex-api-version-v1",
+    "kind": "stream",
+    "mode": "stream",
+    "client": {
+      "vertexai": true,
+      "project": "merci-project",
+      "location": "global",
+      "apiVersion": "v1"
+    },
+    "request": {
+      "model": "gemini-2.5-flash",
+      "contents": "Pin the API version"
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "content-type": "text/event-stream"
+      },
+      "chunks": [
+        "data: {\"candidates\":[{\"content\":{\"parts\":[{\"text\":\"v1\"}],\"role\":\"model\"},\"finishReason\":\"STOP\"}]}\n\n"
+      ]
+    }
+  },
+  "sdkPackage": "@google/genai",
+  "sdkVersion": "2.32.0",
+  "node": "v25.0.0",
+  "response": {
+    "status": 200,
+    "headers": {
+      "content-type": "text/event-stream"
+    },
+    "chunks": [
+      "data: {\"candidates\":[{\"content\":{\"parts\":[{\"text\":\"v1\"}],\"role\":\"model\"},\"finishReason\":\"STOP\"}]}\n\n"
+    ]
+  },
+  "request": [
+    {
+      "method": "POST",
+      "url": "/v1/projects/merci-project/locations/global/publishers/google/models/gemini-2.5-flash:streamGenerateContent?alt=sse",
+      "headers": {
+        "accept": "*/*",
+        "content-type": "application/json",
+        "user-agent": "google-genai-sdk/2.32.0 gl-node/v25.0.0",
+        "x-goog-api-client": "google-genai-sdk/2.32.0 gl-node/v25.0.0",
+        "x-goog-api-key": "test-api-key"
+      },
+      "body": "{\"contents\":[{\"parts\":[{\"text\":\"Pin the API version\"}],\"role\":\"user\"}]}"
+    }
+  ],
+  "outcome": {
+    "kind": "chunks",
+    "chunks": [
+      {
+        "json": {
+          "candidates": [
+            {
+              "content": {
+                "parts": [
+                  {
+                    "text": "v1"
+                  }
+                ],
+                "role": "model"
+              },
+              "finishReason": "STOP"
+            }
+          ]
+        },
+        "text": "v1",
+        "functionCalls": null
+      }
+    ],
+    "ended": "clean"
+  }
+}

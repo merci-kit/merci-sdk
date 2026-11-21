@@ -1,0 +1,85 @@
+{
+  "case": {
+    "id": "vertex-predict-config",
+    "kind": "embed",
+    "mode": "value",
+    "client": {
+      "vertexai": true,
+      "project": "merci-project",
+      "location": "global"
+    },
+    "request": {
+      "model": "gemini-embedding-001",
+      "contents": "hello",
+      "config": {
+        "taskType": "RETRIEVAL_DOCUMENT",
+        "title": "merci doc",
+        "outputDimensionality": 4
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "content-type": "application/json"
+      },
+      "chunks": [
+        "{\"predictions\":[{\"embeddings\":{\"values\":[0.5,0.25,-0.125,1]}}]}"
+      ]
+    }
+  },
+  "sdkPackage": "@google/genai",
+  "sdkVersion": "2.32.0",
+  "node": "v25.0.0",
+  "response": {
+    "status": 200,
+    "headers": {
+      "content-type": "application/json"
+    },
+    "chunks": [
+      "{\"predictions\":[{\"embeddings\":{\"values\":[0.5,0.25,-0.125,1]}}]}"
+    ]
+  },
+  "request": [
+    {
+      "method": "POST",
+      "url": "/v1beta1/projects/merci-project/locations/global/publishers/google/models/gemini-embedding-001:predict",
+      "headers": {
+        "accept": "*/*",
+        "content-type": "application/json",
+        "user-agent": "google-genai-sdk/2.32.0 gl-node/v25.0.0",
+        "x-goog-api-client": "google-genai-sdk/2.32.0 gl-node/v25.0.0",
+        "x-goog-api-key": "test-api-key"
+      },
+      "body": "{\"instances\":[{\"content\":\"hello\",\"task_type\":\"RETRIEVAL_DOCUMENT\",\"title\":\"merci doc\"}],\"parameters\":{\"outputDimensionality\":4}}"
+    }
+  ],
+  "outcome": {
+    "kind": "value",
+    "value": {
+      "embeddings": [
+        {
+          "values": [
+            0.5,
+            0.25,
+            -0.125,
+            1
+          ]
+        }
+      ]
+    },
+    "embeddings": [
+      [
+        0.5,
+        0.25,
+        -0.125,
+        1
+      ]
+    ],
+    "embedding": [
+      0.5,
+      0.25,
+      -0.125,
+      1
+    ]
+  }
+}

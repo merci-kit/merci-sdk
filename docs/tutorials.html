@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Tutorials and Lessons (01–42) — Merci SDK v0.23.0</title>
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link as="style" href="https://fonts.googleapis.com/css2?display=swap&amp;family=Inter%3Awght%40400%3B500%3B600%3B700%3B900&family=Fira+Code%3Awght%40400%3B600" onload="this.rel='stylesheet'" rel="stylesheet"/>
+
+    <!-- Scripts and Styles -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="assets/css/style.css?v=2" rel="stylesheet">
+</head>
+<body class="overflow-x-hidden">
+<div class="aurora-background"></div>
+
+<div class="flex min-h-screen flex-col">
+    <!-- Header -->
+    <header class="sticky top-0 z-50 w-full border-b border-[var(--border-color)] bg-[var(--header-background)] backdrop-blur-lg transition-colors duration-300">
+        <div class="container mx-auto flex flex-wrap items-center justify-between px-4 lg:px-8">
+            <div class="flex h-16 items-center">
+                <a class="flex items-center gap-3" href="index.html">
+                    <img src="merci-sdk-logo.png" alt="Merci SDK Logo" class="h-8 w-12 object-contain">
+                    <div class="flex items-center gap-2">
+                        <h1 class="text-xl font-bold text-[var(--text-primary)] tracking-tight">Merci SDK</h1>
+                        <span class="text-xs font-mono font-semibold px-2 py-0.5 rounded-full bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20">v0.23.0</span>
+                    </div>
+                </a>
+            </div>
+            <div class="lg:hidden">
+                <button id="menu-toggle" class="rounded-lg p-2 text-[var(--text-secondary)] hover:bg-slate-200 dark:hover:bg-slate-800 focus:outline-none">
+                    <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                </button>
+            </div>
+            <div id="menu-content" class="hidden w-full lg:flex lg:w-auto lg:items-center">
+                <nav class="flex w-full flex-col gap-4 border-t border-[var(--border-color)] py-4 lg:w-auto lg:flex-row lg:items-center lg:gap-6 lg:border-none lg:py-0">
+                    <a class="nav-link group" href="index.html"><span>Overview</span></a>
+                    <a class="nav-link group" href="getting_started.html"><span>Getting Started</span></a>
+                    <a class="nav-link-active group" href="tutorials.html"><span>Tutorials (42)</span></a>
+                    <a class="nav-link group" href="demo.html"><span>Live Demo</span></a>
+                    <a class="nav-link group" href="api_reference.html"><span>API Reference</span></a>
+                </nav>
+                <div class="w-full pb-4 lg:w-auto lg:pb-0 lg:pl-4">
+                    <button type="button" class="theme-toggle-btn w-full text-sm font-semibold rounded-md px-3 py-1.5 bg-slate-200 text-slate-800 hover:bg-slate-300 dark:bg-slate-800 dark:text-slate-200">
+                        <span class="theme-toggle-text">Dark Mode</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-12 sm:px-6 lg:px-8 flex-grow">
+        <div class="max-w-6xl mx-auto">
+            <!-- Header -->
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20 text-xs font-semibold uppercase tracking-wider mb-3">
+                    Comprehensive Curriculum • 42 Lessons • 32 Examples
+                </div>
+                <h1 class="text-4xl font-extrabold tracking-tight text-[var(--text-primary)]">Merci SDK Tutorials</h1>
+                <p class="text-lg text-[var(--text-secondary)] mt-3">
+                    A complete, progressive tour from foundational streaming to distributed multi-agent swarms. Each tutorial explains the core architecture, wire behavior, and runnable patterns.
+                </p>
+            </div>
+
+            <!-- Search and Filter Controls -->
+            <div class="border border-[var(--border-color)] rounded-xl p-4 bg-[var(--card-background)] mb-10 shadow-sm flex flex-col md:flex-row items-center justify-between gap-4">
+                <div class="w-full md:w-72 relative">
+                    <input type="text" id="tutorial-search" placeholder="Search 42 lessons..." class="search-input w-full px-4 py-2 pl-9 text-xs rounded-lg font-medium">
+                    <svg class="w-4 h-4 absolute left-3 top-2.5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                </div>
+                <div class="flex flex-wrap items-center gap-2 w-full md:w-auto">
+                    <button class="tutorial-filter-btn filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold active bg-blue-600 text-white" data-filter="all">All (42)</button>
+                    <button class="tutorial-filter-btn filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300" data-filter="core">Core (10)</button>
+                    <button class="tutorial-filter-btn filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300" data-filter="agentic">Agentic (11)</button>
+                    <button class="tutorial-filter-btn filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300" data-filter="advanced">Advanced (21)</button>
+                </div>
+            </div>
+
+            <!-- Empty State -->
+            <div id="no-lessons-found" class="hidden text-center py-16">
+                <div class="text-lg font-bold text-[var(--text-primary)]">No matching tutorials found</div>
+                <p class="text-sm text-[var(--text-secondary)] mt-1">Try refining your search query or filter selection.</p>
+            </div>
+
+            <!-- Tutorials Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="tutorials-container">
+
+                <!-- 01 Quickstart -->
+                <a class="lesson-card border border-[var(--border-color)] rounded-xl p-6 bg-[var(--card-background)] shadow-sm flex flex-col hover:shadow-lg hover:border-blue-500/50 hover:-translate-y-1 transition-all duration-200" href="lessons/lesson_1.html" data-category="core" data-title="01. Quickstart" data-tags="quickstart stream init provider tokens">
+                    <div class="flex-grow">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-xs font-mono font-bold text-blue-500">LESSON 01</span>
+                            <span class="tag-badge bg-blue-500/10 text-blue-600 dark:text-blue-400">Core</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-[var(--text-primary)]">Quickstart and Streaming</h3>
+                        <p class="text-sm text-[var(--text-secondary)] mt-2">Initialize client, configure session, stream response with system message, and track token usage.</p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-[var(--border-color)] text-xs text-slate-400 font-mono">examples/01_quickstart.mjs</div>
+                </a>
+
+                <!-- 02 Chat -->
+                <a class="lesson-card border border-[var(--border-color)] rounded-xl p-6 bg-[var(--card-background)] shadow-sm flex flex-col hover:shadow-lg hover:border-blue-500/50 hover:-translate-y-1 transition-all duration-200" href="lessons/lesson_2.html" data-category="core" data-title="02. Chat and Parameters" data-tags="chat repl parameters builder thought history">
+                    <div class="flex-grow">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-xs font-mono font-bold text-blue-500">LESSON 02</span>
+                            <span class="tag-badge bg-blue-500/10 text-blue-600 dark:text-blue-400">Core</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-[var(--text-primary)]">Multi-Turn Chat and Parameters</h3>
+                        <p class="text-sm text-[var(--text-secondary)] mt-2">ParameterBuilder, thoughtSignature propagation, message identity with MERCI_ID_KEY, and manual turn loop.</p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-[var(--border-color)] text-xs text-slate-400 font-mono">examples/02_conversation.mjs</div>
+                </a>
+
+                <!-- 03 Data Extraction -->
+                <a class="lesson-card border border-[var(--border-color)] rounded-xl p-6 bg-[var(--card-background)] shadow-sm flex flex-col hover:shadow-lg hover:border-blue-500/50 hover:-translate-y-1 transition-all duration-200" href="lessons/lesson_3.html" data-category="core" data-title="03. Data Extraction" data-tags="json schema extraction asJson asTool structured">
+                    <div class="flex-grow">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-xs font-mono font-bold text-blue-500">LESSON 03</span>
+                            <span class="tag-badge bg-blue-500/10 text-blue-600 dark:text-blue-400">Core</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-[var(--text-primary)]">Structured Data Extraction</h3>
+                        <p class="text-sm text-[var(--text-secondary)] mt-2">Four approaches compared: response_format JSON schema, parallel tools, summary tools, and forced tool output.</p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-[var(--border-color)] text-xs text-slate-400 font-mono">examples/03_structured_output.mjs</div>
+                </a>
+
+                <!-- 04 Tools -->
+                <a class="lesson-card border border-[var(--border-color)] rounded-xl p-6 bg-[var(--card-background)] shadow-sm flex flex-col hover:shadow-lg hover:border-blue-500/50 hover:-translate-y-1 transition-all duration-200" href="lessons/lesson_4.html" data-category="core" data-title="04. Tools and Thinking" data-tags="tools function calling parallel thinking budget stages">
+                    <div class="flex-grow">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-xs font-mono font-bold text-blue-500">LESSON 04</span>
+                            <span class="tag-badge bg-blue-500/10 text-blue-600 dark:text-blue-400">Core</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-[var(--text-primary)]">Function Calling and Thinking</h3>
+                        <p class="text-sm text-[var(--text-secondary)] mt-2">Auto/parallel/manual loops, forced tool control, thinking budget reasoning, and staged review reminders.</p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-[var(--border-color)] text-xs text-slate-400 font-mono">examples/05_tool_calling.mjs</div>
+                </a>
+
+                <!-- 05 Multimodal -->
+                <a class="lesson-card border border-[var(--border-color)] rounded-xl p-6 bg-[var(--card-background)] shadow-sm flex flex-col hover:shadow-lg hover:border-blue-500/50 hover:-translate-y-1 transition-all duration-200" href="lessons/lesson_5.html" data-category="core" data-title="05. Multimodal Vision" data-tags="multimodal vision images media unified">
+                    <div class="flex-grow">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-xs font-mono font-bold text-blue-500">LESSON 05</span>
+                            <span class="tag-badge bg-blue-500/10 text-blue-600 dark:text-blue-400">Core</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-[var(--text-primary)]">Multimodal Vision and Media</h3>
+                        <p class="text-sm text-[var(--text-secondary)] mt-2">Process image and document inputs across providers via createUnifiedMediaMessages with cross-wire normalization.</p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-[var(--border-color)] text-xs text-slate-400 font-mono">examples/10_multimodal.mjs</div>
+                </a>
+
+                <!-- 06 Embeddings and Model Tiers -->
+                <a class="lesson-card border border-[var(--border-color)] rounded-xl p-6 bg-[var(--card-background)] shadow-sm flex flex-col hover:shadow-lg hover:border-blue-500/50 hover:-translate-y-1 transition-all duration-200" href="lessons/lesson_6.html" data-category="core" data-title="06. Embeddings and Model Tiers" data-tags="embeddings vectors model tiers configuration">
+                    <div class="flex-grow">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-xs font-mono font-bold text-blue-500">LESSON 06</span>
+                            <span class="tag-badge bg-blue-500/10 text-blue-600 dark:text-blue-400">Core</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-[var(--text-primary)]">Embeddings and Model Tiers</h3>
+                        <p class="text-sm text-[var(--text-secondary)] mt-2">The embedding surface, batch semantics, and the three environment-resolved model tiers that keep vendor ids out of your code.</p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-[var(--border-color)] text-xs text-slate-400 font-mono">examples/09_memory_and_todos.mjs</div>
+                </a>
+
+                <!-- 07 Observability -->
+                <a class="lesson-card border border-[var(--border-color)] rounded-xl p-6 bg-[var(--card-background)] shadow-sm flex flex-col hover:shadow-lg hover:border-blue-500/50 hover:-translate-y-1 transition-all duration-200" href="lessons/lesson_7.html" data-category="core" data-title="07. Observability and Abort" data-tags="observability events errors abort typed telemetry">
+                    <div class="flex-grow">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-xs font-mono font-bold text-blue-500">LESSON 07</span>
+                            <span class="tag-badge bg-blue-500/10 text-blue-600 dark:text-blue-400">Core</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-[var(--text-primary)]">Observability and Error Handling</h3>
+                        <p class="text-sm text-[var(--text-secondary)] mt-2">Client event subscriptions, typed error hierarchy (MerciError, BackendError), custom API observers, and AbortSignal.</p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-[var(--border-color)] text-xs text-slate-400 font-mono">examples/21_observability.mjs</div>
+                </a>
+
+                <!-- 28 Events -->
+                <a class="lesson-card border border-[var(--border-color)] rounded-xl p-6 bg-[var(--card-background)] shadow-sm flex flex-col hover:shadow-lg hover:border-blue-500/50 hover:-translate-y-1 transition-all duration-200" href="lessons/lesson_28.html" data-category="core" data-title="28. Universal Event Surface" data-tags="events runId correlation telemetry lifecycle">
+                    <div class="flex-grow">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-xs font-mono font-bold text-blue-500">LESSON 28</span>
+                            <span class="tag-badge bg-blue-500/10 text-blue-600 dark:text-blue-400">Core</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-[var(--text-primary)]">Universal Event Telemetry</h3>
+                        <p class="text-sm text-[var(--text-secondary)] mt-2">Full event surface inspection across all families with runId / parentRunId hierarchical correlation.</p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-[var(--border-color)] text-xs text-slate-400 font-mono">examples/21_observability.mjs</div>
+                </a>
+
+                <!-- 08 Agent Loop -->
+                <a class="lesson-card border border-[var(--border-color)] rounded-xl p-6 bg-[var(--card-background)] shadow-sm flex flex-col hover:shadow-lg hover:border-emerald-500/50 hover:-translate-y-1 transition-all duration-200" href="lessons/lesson_8.html" data-category="agentic" data-title="08. Agent Loop and Skills" data-tags="agent skills repl hitl launcher session">
+                    <div class="flex-grow">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-xs font-mono font-bold text-emerald-500">LESSON 08</span>
+                            <span class="tag-badge bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">Agentic</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-[var(--text-primary)]">Agent Loops and Skills</h3>
+                        <p class="text-sm text-[var(--text-secondary)] mt-2">AgentLauncher REPL, skills library discovery, slash commands, Human-in-the-Loop gates, and checkpoint persistence.</p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-[var(--border-color)] text-xs text-slate-400 font-mono">examples/07_agent_loop.mjs</div>
+                </a>
+
+                <!-- 09 Shell Tools -->
+                <a class="lesson-card border border-[var(--border-color)] rounded-xl p-6 bg-[var(--card-background)] shadow-sm flex flex-col hover:shadow-lg hover:border-emerald-500/50 hover:-translate-y-1 transition-all duration-200" href="lessons/lesson_9.html" data-category="agentic" data-title="09. Shell Security Gate" data-tags="shell security gate sandbox hitl blocked">
+                    <div class="flex-grow">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-xs font-mono font-bold text-emerald-500">LESSON 09</span>
+                            <span class="tag-badge bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">Agentic</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-[var(--text-primary)]">Shell Tool Security Gate</h3>
+                        <p class="text-sm text-[var(--text-secondary)] mt-2">Three-layer security gate (safe, blocked, and HITL approval) for shell execution with synthesis fallback.</p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-[var(--border-color)] text-xs text-slate-400 font-mono">examples/14_coding_agent.mjs</div>
+                </a>
+
+                <!-- 10 MCP -->
+                <a class="lesson-card border border-[var(--border-color)] rounded-xl p-6 bg-[var(--card-background)] shadow-sm flex flex-col hover:shadow-lg hover:border-emerald-500/50 hover:-translate-y-1 transition-all duration-200" href="lessons/lesson_10.html" data-category="agentic" data-title="10. MCP Protocol" data-tags="mcp model context protocol client server tools">
+                    <div class="flex-grow">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-xs font-mono font-bold text-emerald-500">LESSON 10</span>
+                            <span class="tag-badge bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">Agentic</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-[var(--text-primary)]">Model Context Protocol (MCP)</h3>
+                        <p class="text-sm text-[var(--text-secondary)] mt-2">McpClient integration: spawn local/remote MCP servers, discover schema tools, and flatten content for Gemini.</p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-[var(--border-color)] text-xs text-slate-400 font-mono">examples/24_mcp_client.mjs</div>
+                </a>
+
+                <!-- 11 A2A -->
+                <a class="lesson-card border border-[var(--border-color)] rounded-xl p-6 bg-[var(--card-background)] shadow-sm flex flex-col hover:shadow-lg hover:border-emerald-500/50 hover:-translate-y-1 transition-all duration-200" href="lessons/lesson_11.html" data-category="agentic" data-title="11. Agent-to-Agent Delegation" data-tags="a2a agent card json-rpc delegation remote">
+                    <div class="flex-grow">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-xs font-mono font-bold text-emerald-500">LESSON 11</span>
+                            <span class="tag-badge bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">Agentic</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-[var(--text-primary)]">Agent-to-Agent (A2A) Protocol</h3>
+                        <p class="text-sm text-[var(--text-secondary)] mt-2">Agent cards discovery, HTTP JSON-RPC delegation, and cross-agent event telemetry tracing.</p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-[var(--border-color)] text-xs text-slate-400 font-mono">examples/26_a2a.mjs</div>
+                </a>
+
+                <!-- 12 Memory -->
+                <a class="lesson-card border border-[var(--border-color)] rounded-xl p-6 bg-[var(--card-background)] shadow-sm flex flex-col hover:shadow-lg hover:border-emerald-500/50 hover:-translate-y-1 transition-all duration-200" href="lessons/lesson_12.html" data-category="agentic" data-title="12. Persistent Memory" data-tags="memory distillation providers preload recency">
+                    <div class="flex-grow">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-xs font-mono font-bold text-emerald-500">LESSON 12</span>
+                            <span class="tag-badge bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">Agentic</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-[var(--text-primary)]">Persistent Memory and Distillation</h3>
+                        <p class="text-sm text-[var(--text-secondary)] mt-2">LocalFile and Composite memory providers, asynchronous background distillation, eager preload, and recency fallback.</p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-[var(--border-color)] text-xs text-slate-400 font-mono">examples/09_memory_and_todos.mjs</div>
+                </a>
+
+                <!-- 17 Todos -->
+                <a class="lesson-card border border-[var(--border-color)] rounded-xl p-6 bg-[var(--card-background)] shadow-sm flex flex-col hover:shadow-lg hover:border-emerald-500/50 hover:-translate-y-1 transition-all duration-200" href="lessons/lesson_17.html" data-category="agentic" data-title="17. Todo Management" data-tags="todos compaction tasks lifecycle loss">
+                    <div class="flex-grow">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-xs font-mono font-bold text-emerald-500">LESSON 17</span>
+                            <span class="tag-badge bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">Agentic</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-[var(--text-primary)]">Todos and Compaction</h3>
+                        <p class="text-sm text-[var(--text-secondary)] mt-2">Task state management with withTodos, progress tracking, and custom history compaction with loss markers.</p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-[var(--border-color)] text-xs text-slate-400 font-mono">examples/09_memory_and_todos.mjs</div>
+                </a>
+
+                <!-- 13 DAG Workflow -->
+                <a class="lesson-card border border-[var(--border-color)] rounded-xl p-6 bg-[var(--card-background)] shadow-sm flex flex-col hover:shadow-lg hover:border-purple-500/50 hover:-translate-y-1 transition-all duration-200" href="lessons/lesson_13.html" data-category="advanced" data-title="13. DAG Workflows" data-tags="dag workflow planner executor evaluator replan">
+                    <div class="flex-grow">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-xs font-mono font-bold text-purple-500">LESSON 13</span>
+                            <span class="tag-badge bg-purple-500/10 text-purple-600 dark:text-purple-400">Advanced</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-[var(--text-primary)]">DAG Workflows and Replan</h3>
+                        <p class="text-sm text-[var(--text-secondary)] mt-2">WorkflowPlanner, WorkflowExecutor, and WorkflowEvaluator: automated plan generation, step execution, and replanning.</p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-[var(--border-color)] text-xs text-slate-400 font-mono">examples/17_dag_workflow.mjs</div>
+                </a>
+
+                <!-- 14 Hierarchical -->
+                <a class="lesson-card border border-[var(--border-color)] rounded-xl p-6 bg-[var(--card-background)] shadow-sm flex flex-col hover:shadow-lg hover:border-purple-500/50 hover:-translate-y-1 transition-all duration-200" href="lessons/lesson_14.html" data-category="advanced" data-title="14. Hierarchical DAG" data-tags="hierarchical sub-dag y-axis x-axis nested">
+                    <div class="flex-grow">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-xs font-mono font-bold text-purple-500">LESSON 14</span>
+                            <span class="tag-badge bg-purple-500/10 text-purple-600 dark:text-purple-400">Advanced</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-[var(--text-primary)]">Hierarchical Sub-DAG Workflows</h3>
+                        <p class="text-sm text-[var(--text-secondary)] mt-2">Nested Y/X-axis planners with a first-class nested DAG (engine: dag), objective inheritance, and depth-capped sub-DAGs.</p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-[var(--border-color)] text-xs text-slate-400 font-mono">examples/17_dag_workflow.mjs</div>
+                </a>
+
+                <!-- 15 Discussion -->
+                <a class="lesson-card border border-[var(--border-color)] rounded-xl p-6 bg-[var(--card-background)] shadow-sm flex flex-col hover:shadow-lg hover:border-purple-500/50 hover:-translate-y-1 transition-all duration-200" href="lessons/lesson_15.html" data-category="advanced" data-title="15. Multi-Agent Discussion" data-tags="discussion swarm consensus debate judge">
+                    <div class="flex-grow">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-xs font-mono font-bold text-purple-500">LESSON 15</span>
+                            <span class="tag-badge bg-purple-500/10 text-purple-600 dark:text-purple-400">Advanced</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-[var(--text-primary)]">Multi-Agent Discussion and Consensus</h3>
+                        <p class="text-sm text-[var(--text-secondary)] mt-2">DiscussionSession: structured debate rounds, passing criteria, LLM judge evaluation, and synthesis aggregation.</p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-[var(--border-color)] text-xs text-slate-400 font-mono">examples/19_discussion.mjs</div>
+                </a>
+
+                <!-- 16 Distributed Discussion -->
+                <a class="lesson-card border border-[var(--border-color)] rounded-xl p-6 bg-[var(--card-background)] shadow-sm flex flex-col hover:shadow-lg hover:border-purple-500/50 hover:-translate-y-1 transition-all duration-200" href="lessons/lesson_16.html" data-category="advanced" data-title="16. Distributed Discussion" data-tags="distributed discussion a2a remote mesh">
+                    <div class="flex-grow">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-xs font-mono font-bold text-purple-500">LESSON 16</span>
+                            <span class="tag-badge bg-purple-500/10 text-purple-600 dark:text-purple-400">Advanced</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-[var(--text-primary)]">Distributed Multi-Agent Swarms</h3>
+                        <p class="text-sm text-[var(--text-secondary)] mt-2">Unify local and remote A2A HTTP agents into one cohesive discussion swarm with mesh coordination.</p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-[var(--border-color)] text-xs text-slate-400 font-mono">examples/26_a2a.mjs</div>
+                </a>
+
+                <!-- 18 DAG Todos -->
+                <a class="lesson-card border border-[var(--border-color)] rounded-xl p-6 bg-[var(--card-background)] shadow-sm flex flex-col hover:shadow-lg hover:border-purple-500/50 hover:-translate-y-1 transition-all duration-200" href="lessons/lesson_18.html" data-category="advanced" data-title="18. DAG with Shared Todos" data-tags="dag todos shared state pipeline">
+                    <div class="flex-grow">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-xs font-mono font-bold text-purple-500">LESSON 18</span>
+                            <span class="tag-badge bg-purple-500/10 text-purple-600 dark:text-purple-400">Advanced</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-[var(--text-primary)]">DAG Workflows with Shared Task State</h3>
+                        <p class="text-sm text-[var(--text-secondary)] mt-2">Synchronize task state across independent DAG steps using a shared TodoStore for discovery and remediation.</p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-[var(--border-color)] text-xs text-slate-400 font-mono">examples/17_dag_workflow.mjs</div>
+                </a>
+
+                <!-- 19 State Machine -->
+                <a class="lesson-card border border-[var(--border-color)] rounded-xl p-6 bg-[var(--card-background)] shadow-sm flex flex-col hover:shadow-lg hover:border-purple-500/50 hover:-translate-y-1 transition-all duration-200" href="lessons/lesson_19.html" data-category="advanced" data-title="19. State Machine" data-tags="state machine graph transitions checkpoint">
+                    <div class="flex-grow">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-xs font-mono font-bold text-purple-500">LESSON 19</span>
+                            <span class="tag-badge bg-purple-500/10 text-purple-600 dark:text-purple-400">Advanced</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-[var(--text-primary)]">State Machine Orchestration</h3>
+                        <p class="text-sm text-[var(--text-secondary)] mt-2">LLM-planned state machines, mid-run transition mutation, checkpoint/resume, and deterministic graph evaluation.</p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-[var(--border-color)] text-xs text-slate-400 font-mono">examples/18_state_machine.mjs</div>
+                </a>
+
+                <!-- 20 Subagents -->
+                <a class="lesson-card border border-[var(--border-color)] rounded-xl p-6 bg-[var(--card-background)] shadow-sm flex flex-col hover:shadow-lg hover:border-purple-500/50 hover:-translate-y-1 transition-all duration-200" href="lessons/lesson_20.html" data-category="advanced" data-title="20. Subagent Orchestration" data-tags="subagents task tool briefs delegation artifacts">
+                    <div class="flex-grow">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-xs font-mono font-bold text-purple-500">LESSON 20</span>
+                            <span class="tag-badge bg-purple-500/10 text-purple-600 dark:text-purple-400">Advanced</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-[var(--text-primary)]">Subagent Orchestration and Briefs</h3>
+                        <p class="text-sm text-[var(--text-secondary)] mt-2">Agentic orchestration using the task tool, specialized profiles, structured briefs, withObjective, and artifacts.</p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-[var(--border-color)] text-xs text-slate-400 font-mono">examples/15_delegation.mjs</div>
+                </a>
+
+                <!-- 21 Plan Build -->
+                <a class="lesson-card border border-[var(--border-color)] rounded-xl p-6 bg-[var(--card-background)] shadow-sm flex flex-col hover:shadow-lg hover:border-purple-500/50 hover:-translate-y-1 transition-all duration-200" href="lessons/lesson_21.html" data-category="advanced" data-title="21. Plan-and-Execute" data-tags="plan build approval execute handoff">
+                    <div class="flex-grow">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-xs font-mono font-bold text-purple-500">LESSON 21</span>
+                            <span class="tag-badge bg-purple-500/10 text-purple-600 dark:text-purple-400">Advanced</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-[var(--text-primary)]">Plan-and-Execute Architecture</h3>
+                        <p class="text-sm text-[var(--text-secondary)] mt-2">Split planning and execution stages with withPlan/withExecute, human approval checkpoints, and store handoffs.</p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-[var(--border-color)] text-xs text-slate-400 font-mono">examples/16_plan_and_execute.mjs</div>
+                </a>
+
+                <!-- 22 State Machine Verified -->
+                <a class="lesson-card border border-[var(--border-color)] rounded-xl p-6 bg-[var(--card-background)] shadow-sm flex flex-col hover:shadow-lg hover:border-purple-500/50 hover:-translate-y-1 transition-all duration-200" href="lessons/lesson_22.html" data-category="advanced" data-title="22. Verified State Machines" data-tags="verified state machine retry ledger fingerprints judge">
+                    <div class="flex-grow">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-xs font-mono font-bold text-purple-500">LESSON 22</span>
+                            <span class="tag-badge bg-purple-500/10 text-purple-600 dark:text-purple-400">Advanced</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-[var(--text-primary)]">Verified State Machines</h3>
+                        <p class="text-sm text-[var(--text-secondary)] mt-2">Verification gates on nodes, completion fingerprints, RetryLedger loop prevention, and LLM-as-a-judge validation.</p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-[var(--border-color)] text-xs text-slate-400 font-mono">examples/18_state_machine.mjs</div>
+                </a>
+
+                <!-- 23 DAG Stage Planner -->
+                <a class="lesson-card border border-[var(--border-color)] rounded-xl p-6 bg-[var(--card-background)] shadow-sm flex flex-col hover:shadow-lg hover:border-purple-500/50 hover:-translate-y-1 transition-all duration-200" href="lessons/lesson_23.html" data-category="advanced" data-title="23. DAG Stage Engines" data-tags="dag stage planner engines stateMachine discussion">
+                    <div class="flex-grow">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-xs font-mono font-bold text-purple-500">LESSON 23</span>
+                            <span class="tag-badge bg-purple-500/10 text-purple-600 dark:text-purple-400">Advanced</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-[var(--text-primary)]">Multi-Engine DAG Stage Planning</h3>
+                        <p class="text-sm text-[var(--text-secondary)] mt-2">Dynamic per-step engine execution: embed nested StateMachines and Discussion sessions inside DAG steps.</p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-[var(--border-color)] text-xs text-slate-400 font-mono">examples/17_dag_workflow.mjs</div>
+                </a>
+
+                <!-- 24 MAA Vertical -->
+                <a class="lesson-card border border-[var(--border-color)] rounded-xl p-6 bg-[var(--card-background)] shadow-sm flex flex-col hover:shadow-lg hover:border-purple-500/50 hover:-translate-y-1 transition-all duration-200" href="lessons/lesson_24.html" data-category="advanced" data-title="24. MAA Vertical Planning" data-tags="maa vertical runTasks planForEach conclude verdict">
+                    <div class="flex-grow">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-xs font-mono font-bold text-purple-500">LESSON 24</span>
+                            <span class="tag-badge bg-purple-500/10 text-purple-600 dark:text-purple-400">Advanced</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-[var(--text-primary)]">MAA Vertical Planning</h3>
+                        <p class="text-sm text-[var(--text-secondary)] mt-2">Multi-Agent Architecture: runTasks with subagent_type and verification, planForEach sub-pipelines, and conclude verdict.</p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-[var(--border-color)] text-xs text-slate-400 font-mono">examples/19_discussion.mjs</div>
+                </a>
+
+                <!-- 25 Subagents in Action -->
+                <a class="lesson-card border border-[var(--border-color)] rounded-xl p-6 bg-[var(--card-background)] shadow-sm flex flex-col hover:shadow-lg hover:border-purple-500/50 hover:-translate-y-1 transition-all duration-200" href="lessons/lesson_25.html" data-category="advanced" data-title="25. Subagents in Action" data-tags="subagents comparison naive dag sm maa background">
+                    <div class="flex-grow">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-xs font-mono font-bold text-purple-500">LESSON 25</span>
+                            <span class="tag-badge bg-purple-500/10 text-purple-600 dark:text-purple-400">Advanced</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-[var(--text-primary)]">Subagents Across 4 Engines</h3>
+                        <p class="text-sm text-[var(--text-secondary)] mt-2">Benchmark delegation across Naive, DAG, StateMachine, and MAA engines with background detached subagents.</p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-[var(--border-color)] text-xs text-slate-400 font-mono">examples/15_delegation.mjs</div>
+                </a>
+
+                <!-- 26 Context Management -->
+                <a class="lesson-card border border-[var(--border-color)] rounded-xl p-6 bg-[var(--card-background)] shadow-sm flex flex-col hover:shadow-lg hover:border-purple-500/50 hover:-translate-y-1 transition-all duration-200" href="lessons/lesson_26.html" data-category="advanced" data-title="26. Context Management" data-tags="context objective foldContext compaction sliding window artifacts">
+                    <div class="flex-grow">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-xs font-mono font-bold text-purple-500">LESSON 26</span>
+                            <span class="tag-badge bg-purple-500/10 text-purple-600 dark:text-purple-400">Advanced</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-[var(--text-primary)]">Context Management and Compaction</h3>
+                        <p class="text-sm text-[var(--text-secondary)] mt-2">Objective threading, foldContext deterministic markers, compaction loss markers, SM context window, and save_artifact.</p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-[var(--border-color)] text-xs text-slate-400 font-mono">examples/15_delegation.mjs</div>
+                </a>
+
+                <!-- 27 Resilience -->
+                <a class="lesson-card border border-[var(--border-color)] rounded-xl p-6 bg-[var(--card-background)] shadow-sm flex flex-col hover:shadow-lg hover:border-purple-500/50 hover:-translate-y-1 transition-all duration-200" href="lessons/lesson_27.html" data-category="advanced" data-title="27. Resilience and Policies" data-tags="resilience retry backoff timeout sliding parameter redaction">
+                    <div class="flex-grow">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-xs font-mono font-bold text-purple-500">LESSON 27</span>
+                            <span class="tag-badge bg-purple-500/10 text-purple-600 dark:text-purple-400">Advanced</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-[var(--text-primary)]">Resilience, Retry Policies and Security</h3>
+                        <p class="text-sm text-[var(--text-secondary)] mt-2">Retry error classification, abort-aware exponential backoff, sliding-window stream timeouts, and credential redaction.</p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-[var(--border-color)] text-xs text-slate-400 font-mono">examples/08_resilience.mjs</div>
+                </a>
+
+                <!-- 29 Evals -->
+                <a class="lesson-card border border-[var(--border-color)] rounded-xl p-6 bg-[var(--card-background)] shadow-sm flex flex-col hover:shadow-lg hover:border-purple-500/50 hover:-translate-y-1 transition-all duration-200" href="lessons/lesson_29.html" data-category="advanced" data-title="29. Evals and the Cassette" data-tags="evals scorers judge passRate cassette record replay offline">
+                    <div class="flex-grow">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-xs font-mono font-bold text-purple-500">LESSON 29</span>
+                            <span class="tag-badge bg-purple-500/10 text-purple-600 dark:text-purple-400">Advanced</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-[var(--text-primary)]">Evals and the Cassette</h3>
+                        <p class="text-sm text-[var(--text-secondary)] mt-2">Score a suite of runs with runEvals and the built-in scorers, record the vendor calls once, and replay the suite offline with the same verdicts.</p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-[var(--border-color)] text-xs text-slate-400 font-mono">examples/23_evals.mjs</div>
+                </a>
+                <!-- 30 Judgment: typed answers, then a gate in code -->
+                <a class="lesson-card border border-[var(--border-color)] rounded-xl p-6 bg-[var(--card-background)] shadow-sm flex flex-col hover:shadow-lg hover:border-blue-500/50 hover:-translate-y-1 transition-all duration-200" href="lessons/lesson_30.html" data-category="core" data-title="30. Judgment: typed answers, then a gate in code" data-tags="judgment">
+                    <div class="flex-grow">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-xs font-mono font-bold text-blue-500">LESSON 30</span>
+                            <span class="tag-badge bg-blue-500/10 text-blue-600 dark:text-blue-400">Core</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-[var(--text-primary)]">Judgment: typed answers, then a gate in code</h3>
+                        <p class="text-sm text-[var(--text-secondary)] mt-2">discriminative models: &lt;code class=&quot;inline&quot;&gt;noul&lt;/code&gt;/&lt;code class=&quot;inline&quot;&gt;choice&lt;/code&gt;/&lt;code class=&quot;inline&quot;&gt;score&lt;/code&gt;, the typed read, role clients, one decision gate</p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-[var(--border-color)] text-xs text-slate-400 font-mono">examples/04_judgment.mjs</div>
+                </a>
+
+                <!-- 31 Approvals and safety: the refund agent that must be stopped -->
+                <a class="lesson-card border border-[var(--border-color)] rounded-xl p-6 bg-[var(--card-background)] shadow-sm flex flex-col hover:shadow-lg hover:border-blue-500/50 hover:-translate-y-1 transition-all duration-200" href="lessons/lesson_31.html" data-category="core" data-title="31. Approvals and safety: the refund agent that must be stopped" data-tags="approvals and safety">
+                    <div class="flex-grow">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-xs font-mono font-bold text-blue-500">LESSON 31</span>
+                            <span class="tag-badge bg-blue-500/10 text-blue-600 dark:text-blue-400">Core</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-[var(--text-primary)]">Approvals and safety: the refund agent that must be stopped</h3>
+                        <p class="text-sm text-[var(--text-secondary)] mt-2">guardrails, permission rules, approval modes, per-tool timeout, money budget</p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-[var(--border-color)] text-xs text-slate-400 font-mono">examples/06_approvals_and_safety.mjs</div>
+                </a>
+
+                <!-- 32 Web tools: search, scrape, and the headless browser -->
+                <a class="lesson-card border border-[var(--border-color)] rounded-xl p-6 bg-[var(--card-background)] shadow-sm flex flex-col hover:shadow-lg hover:border-emerald-500/50 hover:-translate-y-1 transition-all duration-200" href="lessons/lesson_32.html" data-category="agentic" data-title="32. Web tools: search, scrape, and the headless browser" data-tags="web tools">
+                    <div class="flex-grow">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-xs font-mono font-bold text-emerald-500">LESSON 32</span>
+                            <span class="tag-badge bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">Agentic</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-[var(--text-primary)]">Web tools: search, scrape, and the headless browser</h3>
+                        <p class="text-sm text-[var(--text-secondary)] mt-2">web search, scrape, and the headless browser</p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-[var(--border-color)] text-xs text-slate-400 font-mono">examples/11_web_tools.mjs</div>
+                </a>
+
+                <!-- 33 The knowledge graph: a contract that can say no -->
+                <a class="lesson-card border border-[var(--border-color)] rounded-xl p-6 bg-[var(--card-background)] shadow-sm flex flex-col hover:shadow-lg hover:border-emerald-500/50 hover:-translate-y-1 transition-all duration-200" href="lessons/lesson_33.html" data-category="agentic" data-title="33. The knowledge graph: a contract that can say no" data-tags="knowledge graph">
+                    <div class="flex-grow">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-xs font-mono font-bold text-emerald-500">LESSON 33</span>
+                            <span class="tag-badge bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">Agentic</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-[var(--text-primary)]">The knowledge graph: a contract that can say no</h3>
+                        <p class="text-sm text-[var(--text-secondary)] mt-2">the typed graph: mechanical pass, model enrichment, negative/conditional/evidenced edges, the decision gate, a budgeted answer</p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-[var(--border-color)] text-xs text-slate-400 font-mono">examples/12_knowledge_graph.mjs</div>
+                </a>
+
+                <!-- 34 A corpus that becomes a wiki, and survives an edit -->
+                <a class="lesson-card border border-[var(--border-color)] rounded-xl p-6 bg-[var(--card-background)] shadow-sm flex flex-col hover:shadow-lg hover:border-emerald-500/50 hover:-translate-y-1 transition-all duration-200" href="lessons/lesson_34.html" data-category="agentic" data-title="34. A corpus that becomes a wiki, and survives an edit" data-tags="knowledge corpus">
+                    <div class="flex-grow">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-xs font-mono font-bold text-emerald-500">LESSON 34</span>
+                            <span class="tag-badge bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">Agentic</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-[var(--text-primary)]">A corpus that becomes a wiki, and survives an edit</h3>
+                        <p class="text-sm text-[var(--text-secondary)] mt-2">one corpus → surfaces → wiki projection → adopted ontology → a cache that survives an edit</p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-[var(--border-color)] text-xs text-slate-400 font-mono">examples/13_knowledge_corpus.mjs</div>
+                </a>
+
+                <!-- 35 A crash mid-run, resumed exactly once -->
+                <a class="lesson-card border border-[var(--border-color)] rounded-xl p-6 bg-[var(--card-background)] shadow-sm flex flex-col hover:shadow-lg hover:border-emerald-500/50 hover:-translate-y-1 transition-all duration-200" href="lessons/lesson_35.html" data-category="agentic" data-title="35. A crash mid-run, resumed exactly once" data-tags="durability">
+                    <div class="flex-grow">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-xs font-mono font-bold text-emerald-500">LESSON 35</span>
+                            <span class="tag-badge bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">Agentic</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-[var(--text-primary)]">A crash mid-run, resumed exactly once</h3>
+                        <p class="text-sm text-[var(--text-secondary)] mt-2">session checkpoints, the at-most-once execution journal, the session fork</p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-[var(--border-color)] text-xs text-slate-400 font-mono">examples/20_durability.mjs</div>
+                </a>
+
+                <!-- 36 Telemetry: the same run, as an OTLP envelope on disk -->
+                <a class="lesson-card border border-[var(--border-color)] rounded-xl p-6 bg-[var(--card-background)] shadow-sm flex flex-col hover:shadow-lg hover:border-emerald-500/50 hover:-translate-y-1 transition-all duration-200" href="lessons/lesson_36.html" data-category="agentic" data-title="36. Telemetry: the same run, as an OTLP envelope on disk" data-tags="telemetry">
+                    <div class="flex-grow">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-xs font-mono font-bold text-emerald-500">LESSON 36</span>
+                            <span class="tag-badge bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">Agentic</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-[var(--text-primary)]">Telemetry: the same run, as an OTLP envelope on disk</h3>
+                        <p class="text-sm text-[var(--text-secondary)] mt-2">the OTLP envelope, the gen_ai span tree, redaction, batching</p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-[var(--border-color)] text-xs text-slate-400 font-mono">examples/22_telemetry.mjs</div>
+                </a>
+
+                <!-- 37 Your SDK is the MCP server -->
+                <a class="lesson-card border border-[var(--border-color)] rounded-xl p-6 bg-[var(--card-background)] shadow-sm flex flex-col hover:shadow-lg hover:border-purple-500/50 hover:-translate-y-1 transition-all duration-200" href="lessons/lesson_37.html" data-category="advanced" data-title="37. Your SDK is the MCP server" data-tags="mcp server http">
+                    <div class="flex-grow">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-xs font-mono font-bold text-purple-500">LESSON 37</span>
+                            <span class="tag-badge bg-purple-500/10 text-purple-600 dark:text-purple-400">Advanced</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-[var(--text-primary)]">Your SDK is the MCP server</h3>
+                        <p class="text-sm text-[var(--text-secondary)] mt-2">your SDK as an MCP server over Streamable HTTP, capabilities, artifacts, loadable components</p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-[var(--border-color)] text-xs text-slate-400 font-mono">examples/25_mcp_server_http.mjs</div>
+                </a>
+
+                <!-- 38 merci behind an editor protocol -->
+                <a class="lesson-card border border-[var(--border-color)] rounded-xl p-6 bg-[var(--card-background)] shadow-sm flex flex-col hover:shadow-lg hover:border-purple-500/50 hover:-translate-y-1 transition-all duration-200" href="lessons/lesson_38.html" data-category="advanced" data-title="38. merci behind an editor protocol" data-tags="acp agent">
+                    <div class="flex-grow">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-xs font-mono font-bold text-purple-500">LESSON 38</span>
+                            <span class="tag-badge bg-purple-500/10 text-purple-600 dark:text-purple-400">Advanced</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-[var(--text-primary)]">merci behind an editor protocol</h3>
+                        <p class="text-sm text-[var(--text-secondary)] mt-2">the ACP v1 agent: session lifecycle, updates, the fail-closed permission model</p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-[var(--border-color)] text-xs text-slate-400 font-mono">examples/27_acp_agent.mjs</div>
+                </a>
+
+                <!-- 39 The workflow contract: one repo-owned file, from config to prompt -->
+                <a class="lesson-card border border-[var(--border-color)] rounded-xl p-6 bg-[var(--card-background)] shadow-sm flex flex-col hover:shadow-lg hover:border-purple-500/50 hover:-translate-y-1 transition-all duration-200" href="lessons/lesson_39.html" data-category="advanced" data-title="39. The workflow contract: one repo-owned file, from config to prompt" data-tags="workflow contract">
+                    <div class="flex-grow">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-xs font-mono font-bold text-purple-500">LESSON 39</span>
+                            <span class="tag-badge bg-purple-500/10 text-purple-600 dark:text-purple-400">Advanced</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-[var(--text-primary)]">The workflow contract: one repo-owned file, from config to prompt</h3>
+                        <p class="text-sm text-[var(--text-secondary)] mt-2">a repo-owned &lt;code class=&quot;inline&quot;&gt;WORKFLOW.md&lt;/code&gt;: strict parsing, the template subset, last-known-good reload</p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-[var(--border-color)] text-xs text-slate-400 font-mono">examples/29_workflow_contract.mjs</div>
+                </a>
+
+                <!-- 40 An unattended queue that retries, parks and resumes -->
+                <a class="lesson-card border border-[var(--border-color)] rounded-xl p-6 bg-[var(--card-background)] shadow-sm flex flex-col hover:shadow-lg hover:border-purple-500/50 hover:-translate-y-1 transition-all duration-200" href="lessons/lesson_40.html" data-category="advanced" data-title="40. An unattended queue that retries, parks and resumes" data-tags="scheduler">
+                    <div class="flex-grow">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-xs font-mono font-bold text-purple-500">LESSON 40</span>
+                            <span class="tag-badge bg-purple-500/10 text-purple-600 dark:text-purple-400">Advanced</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-[var(--text-primary)]">An unattended queue that retries, parks and resumes</h3>
+                        <p class="text-sm text-[var(--text-secondary)] mt-2">work sources, normalization, claims, the single-flight tick, retry/park, the durable attempt store, four engines</p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-[var(--border-color)] text-xs text-slate-400 font-mono">examples/30_scheduler.mjs</div>
+                </a>
+
+                <!-- 41 One call: policy + scheduler + workspace + operator -->
+                <a class="lesson-card border border-[var(--border-color)] rounded-xl p-6 bg-[var(--card-background)] shadow-sm flex flex-col hover:shadow-lg hover:border-purple-500/50 hover:-translate-y-1 transition-all duration-200" href="lessons/lesson_41.html" data-category="advanced" data-title="41. One call: policy + scheduler + workspace + operator" data-tags="orchestration">
+                    <div class="flex-grow">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-xs font-mono font-bold text-purple-500">LESSON 41</span>
+                            <span class="tag-badge bg-purple-500/10 text-purple-600 dark:text-purple-400">Advanced</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-[var(--text-primary)]">One call: policy + scheduler + workspace + operator</h3>
+                        <p class="text-sm text-[var(--text-secondary)] mt-2">one &lt;code class=&quot;inline&quot;&gt;createOrchestration&lt;/code&gt; call binding policy, scheduler, workspace and operator; the spend ledger</p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-[var(--border-color)] text-xs text-slate-400 font-mono">examples/31_orchestration.mjs</div>
+                </a>
+
+                <!-- 42 Agent definition files: one YAML, a live tool-using agent, a live subagent -->
+                <a class="lesson-card border border-[var(--border-color)] rounded-xl p-6 bg-[var(--card-background)] shadow-sm flex flex-col hover:shadow-lg hover:border-purple-500/50 hover:-translate-y-1 transition-all duration-200" href="lessons/lesson_42.html" data-category="advanced" data-title="42. Agent definition files: one YAML, a live tool-using agent, a live subagent" data-tags="agent files">
+                    <div class="flex-grow">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-xs font-mono font-bold text-purple-500">LESSON 42</span>
+                            <span class="tag-badge bg-purple-500/10 text-purple-600 dark:text-purple-400">Advanced</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-[var(--text-primary)]">Agent definition files: one YAML, a live tool-using agent, a live subagent</h3>
+                        <p class="text-sm text-[var(--text-secondary)] mt-2">&lt;code class=&quot;inline&quot;&gt;*.agent.yaml&lt;/code&gt; definitions: load, freeze, resolve the toolset, run live, delegate live</p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-[var(--border-color)] text-xs text-slate-400 font-mono">examples/32_agent_files.mjs</div>
+                </a>
+            </div>
+            <!-- Every example, generated from examples/README.md -->
+            <section id="examples" class="mt-16 pt-10 border-t border-[var(--border-color)]">
+                <div class="max-w-3xl mb-8">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 text-xs font-semibold uppercase tracking-wider mb-3">
+                        32 runnable examples
+                    </div>
+                    <h2 class="text-2xl font-extrabold tracking-tight text-[var(--text-primary)]">Every example in the repository</h2>
+                    <p class="text-sm text-[var(--text-secondary)] mt-2">
+                        The 42 lessons above tell the story; these are the files you run. Each links to its source, and
+                        <code class="inline">pnpm run test:examples</code> audits them offline.
+                    </p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <a class="example-card border border-[var(--border-color)] rounded-xl p-4 bg-[var(--card-background)] hover:border-[var(--primary-color)] transition-colors" href="https://github.com/merci-kit/merci-sdk/blob/main/examples/01_quickstart.mjs">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-xs font-mono font-bold text-[var(--primary-color)]">01</span>
+                        <span class="text-[10px] font-mono text-slate-400">.mjs</span>
+                    </div>
+                    <div class="font-mono text-xs font-bold text-[var(--text-primary)] break-all">01_quickstart.mjs</div>
+                    <p class="text-xs text-[var(--text-secondary)] mt-2 leading-relaxed">initialize a client, discover models, stream one turn, read usage</p>
+                </a>
+                <a class="example-card border border-[var(--border-color)] rounded-xl p-4 bg-[var(--card-background)] hover:border-[var(--primary-color)] transition-colors" href="https://github.com/merci-kit/merci-sdk/blob/main/examples/02_conversation.mjs">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-xs font-mono font-bold text-[var(--primary-color)]">02</span>
+                        <span class="text-[10px] font-mono text-slate-400">.mjs</span>
+                    </div>
+                    <div class="font-mono text-xs font-bold text-[var(--text-primary)] break-all">02_conversation.mjs</div>
+                    <p class="text-xs text-[var(--text-secondary)] mt-2 leading-relaxed">one carried history, request parameters, the vendor knobs, prompt caching, a stdin-safe REPL</p>
+                </a>
+                <a class="example-card border border-[var(--border-color)] rounded-xl p-4 bg-[var(--card-background)] hover:border-[var(--primary-color)] transition-colors" href="https://github.com/merci-kit/merci-sdk/blob/main/examples/03_structured_output.mjs">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-xs font-mono font-bold text-[var(--primary-color)]">03</span>
+                        <span class="text-[10px] font-mono text-slate-400">.mjs</span>
+                    </div>
+                    <div class="font-mono text-xs font-bold text-[var(--text-primary)] break-all">03_structured_output.mjs</div>
+                    <p class="text-xs text-[var(--text-secondary)] mt-2 leading-relaxed">JSON Schema and Zod output with bounded corrections</p>
+                </a>
+                <a class="example-card border border-[var(--border-color)] rounded-xl p-4 bg-[var(--card-background)] hover:border-[var(--primary-color)] transition-colors" href="https://github.com/merci-kit/merci-sdk/blob/main/examples/04_judgment.mjs">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-xs font-mono font-bold text-[var(--primary-color)]">04</span>
+                        <span class="text-[10px] font-mono text-slate-400">.mjs</span>
+                    </div>
+                    <div class="font-mono text-xs font-bold text-[var(--text-primary)] break-all">04_judgment.mjs</div>
+                    <p class="text-xs text-[var(--text-secondary)] mt-2 leading-relaxed">discriminative models: noul/choice/score, the typed read, role clients, one decision gate</p>
+                </a>
+                <a class="example-card border border-[var(--border-color)] rounded-xl p-4 bg-[var(--card-background)] hover:border-[var(--primary-color)] transition-colors" href="https://github.com/merci-kit/merci-sdk/blob/main/examples/05_tool_calling.mjs">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-xs font-mono font-bold text-[var(--primary-color)]">05</span>
+                        <span class="text-[10px] font-mono text-slate-400">.mjs</span>
+                    </div>
+                    <div class="font-mono text-xs font-bold text-[var(--text-primary)] break-all">05_tool_calling.mjs</div>
+                    <p class="text-xs text-[var(--text-secondary)] mt-2 leading-relaxed">autonomous, parallel and manual tool calls, output schemas, the object cap</p>
+                </a>
+                <a class="example-card border border-[var(--border-color)] rounded-xl p-4 bg-[var(--card-background)] hover:border-[var(--primary-color)] transition-colors" href="https://github.com/merci-kit/merci-sdk/blob/main/examples/06_approvals_and_safety.mjs">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-xs font-mono font-bold text-[var(--primary-color)]">06</span>
+                        <span class="text-[10px] font-mono text-slate-400">.mjs</span>
+                    </div>
+                    <div class="font-mono text-xs font-bold text-[var(--text-primary)] break-all">06_approvals_and_safety.mjs</div>
+                    <p class="text-xs text-[var(--text-secondary)] mt-2 leading-relaxed">guardrails, permission rules, approval modes, per-tool timeout, money budget</p>
+                </a>
+                <a class="example-card border border-[var(--border-color)] rounded-xl p-4 bg-[var(--card-background)] hover:border-[var(--primary-color)] transition-colors" href="https://github.com/merci-kit/merci-sdk/blob/main/examples/07_agent_loop.mjs">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-xs font-mono font-bold text-[var(--primary-color)]">07</span>
+                        <span class="text-[10px] font-mono text-slate-400">.mjs</span>
+                    </div>
+                    <div class="font-mono text-xs font-bold text-[var(--text-primary)] break-all">07_agent_loop.mjs</div>
+                    <p class="text-xs text-[var(--text-secondary)] mt-2 leading-relaxed">the agentic loop, staged follow-ups, streamed input, in-flight steering, a leased durable inbox (drainInbox), abort, budgets, limits</p>
+                </a>
+                <a class="example-card border border-[var(--border-color)] rounded-xl p-4 bg-[var(--card-background)] hover:border-[var(--primary-color)] transition-colors" href="https://github.com/merci-kit/merci-sdk/blob/main/examples/08_resilience.mjs">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-xs font-mono font-bold text-[var(--primary-color)]">08</span>
+                        <span class="text-[10px] font-mono text-slate-400">.mjs</span>
+                    </div>
+                    <div class="font-mono text-xs font-bold text-[var(--text-primary)] break-all">08_resilience.mjs</div>
+                    <p class="text-xs text-[var(--text-secondary)] mt-2 leading-relaxed">retries, fan-out limits, the circuit breaker, stream timeouts</p>
+                </a>
+                <a class="example-card border border-[var(--border-color)] rounded-xl p-4 bg-[var(--card-background)] hover:border-[var(--primary-color)] transition-colors" href="https://github.com/merci-kit/merci-sdk/blob/main/examples/09_memory_and_todos.mjs">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-xs font-mono font-bold text-[var(--primary-color)]">09</span>
+                        <span class="text-[10px] font-mono text-slate-400">.mjs</span>
+                    </div>
+                    <div class="font-mono text-xs font-bold text-[var(--text-primary)] break-all">09_memory_and_todos.mjs</div>
+                    <p class="text-xs text-[var(--text-secondary)] mt-2 leading-relaxed">a persistent memory bank with embeddings, lazy vs preloaded recall, durable todos</p>
+                </a>
+                <a class="example-card border border-[var(--border-color)] rounded-xl p-4 bg-[var(--card-background)] hover:border-[var(--primary-color)] transition-colors" href="https://github.com/merci-kit/merci-sdk/blob/main/examples/10_multimodal.mjs">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-xs font-mono font-bold text-[var(--primary-color)]">10</span>
+                        <span class="text-[10px] font-mono text-slate-400">.mjs</span>
+                    </div>
+                    <div class="font-mono text-xs font-bold text-[var(--text-primary)] break-all">10_multimodal.mjs</div>
+                    <p class="text-xs text-[var(--text-secondary)] mt-2 leading-relaxed">vision and document ingestion into structured output</p>
+                </a>
+                <a class="example-card border border-[var(--border-color)] rounded-xl p-4 bg-[var(--card-background)] hover:border-[var(--primary-color)] transition-colors" href="https://github.com/merci-kit/merci-sdk/blob/main/examples/11_web_tools.mjs">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-xs font-mono font-bold text-[var(--primary-color)]">11</span>
+                        <span class="text-[10px] font-mono text-slate-400">.mjs</span>
+                    </div>
+                    <div class="font-mono text-xs font-bold text-[var(--text-primary)] break-all">11_web_tools.mjs</div>
+                    <p class="text-xs text-[var(--text-secondary)] mt-2 leading-relaxed">web search, scrape, and the headless browser</p>
+                </a>
+                <a class="example-card border border-[var(--border-color)] rounded-xl p-4 bg-[var(--card-background)] hover:border-[var(--primary-color)] transition-colors" href="https://github.com/merci-kit/merci-sdk/blob/main/examples/12_knowledge_graph.mjs">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-xs font-mono font-bold text-[var(--primary-color)]">12</span>
+                        <span class="text-[10px] font-mono text-slate-400">.mjs</span>
+                    </div>
+                    <div class="font-mono text-xs font-bold text-[var(--text-primary)] break-all">12_knowledge_graph.mjs</div>
+                    <p class="text-xs text-[var(--text-secondary)] mt-2 leading-relaxed">the typed graph: mechanical pass, model enrichment, negative/conditional/evidenced edges, the decision gate, a budgeted answer</p>
+                </a>
+                <a class="example-card border border-[var(--border-color)] rounded-xl p-4 bg-[var(--card-background)] hover:border-[var(--primary-color)] transition-colors" href="https://github.com/merci-kit/merci-sdk/blob/main/examples/13_knowledge_corpus.mjs">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-xs font-mono font-bold text-[var(--primary-color)]">13</span>
+                        <span class="text-[10px] font-mono text-slate-400">.mjs</span>
+                    </div>
+                    <div class="font-mono text-xs font-bold text-[var(--text-primary)] break-all">13_knowledge_corpus.mjs</div>
+                    <p class="text-xs text-[var(--text-secondary)] mt-2 leading-relaxed">one corpus → surfaces → wiki projection → adopted ontology → a cache that survives an edit</p>
+                </a>
+                <a class="example-card border border-[var(--border-color)] rounded-xl p-4 bg-[var(--card-background)] hover:border-[var(--primary-color)] transition-colors" href="https://github.com/merci-kit/merci-sdk/blob/main/examples/14_coding_agent.mjs">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-xs font-mono font-bold text-[var(--primary-color)]">14</span>
+                        <span class="text-[10px] font-mono text-slate-400">.mjs</span>
+                    </div>
+                    <div class="font-mono text-xs font-bold text-[var(--text-primary)] break-all">14_coding_agent.mjs</div>
+                    <p class="text-xs text-[var(--text-secondary)] mt-2 leading-relaxed">a workspace-scoped coding agent: context tools, the shell gate, YAML skills</p>
+                </a>
+                <a class="example-card border border-[var(--border-color)] rounded-xl p-4 bg-[var(--card-background)] hover:border-[var(--primary-color)] transition-colors" href="https://github.com/merci-kit/merci-sdk/blob/main/examples/15_delegation.mjs">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-xs font-mono font-bold text-[var(--primary-color)]">15</span>
+                        <span class="text-[10px] font-mono text-slate-400">.mjs</span>
+                    </div>
+                    <div class="font-mono text-xs font-bold text-[var(--text-primary)] break-all">15_delegation.mjs</div>
+                    <p class="text-xs text-[var(--text-secondary)] mt-2 leading-relaxed">the task tool, the spawn roster and registry, one context-transfer policy for every hand-off</p>
+                </a>
+                <a class="example-card border border-[var(--border-color)] rounded-xl p-4 bg-[var(--card-background)] hover:border-[var(--primary-color)] transition-colors" href="https://github.com/merci-kit/merci-sdk/blob/main/examples/16_plan_and_execute.mjs">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-xs font-mono font-bold text-[var(--primary-color)]">16</span>
+                        <span class="text-[10px] font-mono text-slate-400">.mjs</span>
+                    </div>
+                    <div class="font-mono text-xs font-bold text-[var(--text-primary)] break-all">16_plan_and_execute.mjs</div>
+                    <p class="text-xs text-[var(--text-secondary)] mt-2 leading-relaxed">plan → approve → execute with a durable handoff</p>
+                </a>
+                <a class="example-card border border-[var(--border-color)] rounded-xl p-4 bg-[var(--card-background)] hover:border-[var(--primary-color)] transition-colors" href="https://github.com/merci-kit/merci-sdk/blob/main/examples/17_dag_workflow.mjs">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-xs font-mono font-bold text-[var(--primary-color)]">17</span>
+                        <span class="text-[10px] font-mono text-slate-400">.mjs</span>
+                    </div>
+                    <div class="font-mono text-xs font-bold text-[var(--text-primary)] break-all">17_dag_workflow.mjs</div>
+                    <p class="text-xs text-[var(--text-secondary)] mt-2 leading-relaxed">DAG plan → execute → evaluate, a replan, a nested child DAG</p>
+                </a>
+                <a class="example-card border border-[var(--border-color)] rounded-xl p-4 bg-[var(--card-background)] hover:border-[var(--primary-color)] transition-colors" href="https://github.com/merci-kit/merci-sdk/blob/main/examples/18_state_machine.mjs">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-xs font-mono font-bold text-[var(--primary-color)]">18</span>
+                        <span class="text-[10px] font-mono text-slate-400">.mjs</span>
+                    </div>
+                    <div class="font-mono text-xs font-bold text-[var(--text-primary)] break-all">18_state_machine.mjs</div>
+                    <p class="text-xs text-[var(--text-secondary)] mt-2 leading-relaxed">a node graph with a completion contract</p>
+                </a>
+                <a class="example-card border border-[var(--border-color)] rounded-xl p-4 bg-[var(--card-background)] hover:border-[var(--primary-color)] transition-colors" href="https://github.com/merci-kit/merci-sdk/blob/main/examples/19_discussion.mjs">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-xs font-mono font-bold text-[var(--primary-color)]">19</span>
+                        <span class="text-[10px] font-mono text-slate-400">.mjs</span>
+                    </div>
+                    <div class="font-mono text-xs font-bold text-[var(--text-primary)] break-all">19_discussion.mjs</div>
+                    <p class="text-xs text-[var(--text-secondary)] mt-2 leading-relaxed">a decision group: task DAG → debate → judge → conclude</p>
+                </a>
+                <a class="example-card border border-[var(--border-color)] rounded-xl p-4 bg-[var(--card-background)] hover:border-[var(--primary-color)] transition-colors" href="https://github.com/merci-kit/merci-sdk/blob/main/examples/20_durability.mjs">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-xs font-mono font-bold text-[var(--primary-color)]">20</span>
+                        <span class="text-[10px] font-mono text-slate-400">.mjs</span>
+                    </div>
+                    <div class="font-mono text-xs font-bold text-[var(--text-primary)] break-all">20_durability.mjs</div>
+                    <p class="text-xs text-[var(--text-secondary)] mt-2 leading-relaxed">session checkpoints, the at-most-once execution journal, the session fork</p>
+                </a>
+                <a class="example-card border border-[var(--border-color)] rounded-xl p-4 bg-[var(--card-background)] hover:border-[var(--primary-color)] transition-colors" href="https://github.com/merci-kit/merci-sdk/blob/main/examples/21_observability.mjs">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-xs font-mono font-bold text-[var(--primary-color)]">21</span>
+                        <span class="text-[10px] font-mono text-slate-400">.mjs</span>
+                    </div>
+                    <div class="font-mono text-xs font-bold text-[var(--text-primary)] break-all">21_observability.mjs</div>
+                    <p class="text-xs text-[var(--text-secondary)] mt-2 leading-relaxed">correlation (runId/parentRunId), hooks, phases, custom observers, typed errors, abort</p>
+                </a>
+                <a class="example-card border border-[var(--border-color)] rounded-xl p-4 bg-[var(--card-background)] hover:border-[var(--primary-color)] transition-colors" href="https://github.com/merci-kit/merci-sdk/blob/main/examples/22_telemetry.mjs">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-xs font-mono font-bold text-[var(--primary-color)]">22</span>
+                        <span class="text-[10px] font-mono text-slate-400">.mjs</span>
+                    </div>
+                    <div class="font-mono text-xs font-bold text-[var(--text-primary)] break-all">22_telemetry.mjs</div>
+                    <p class="text-xs text-[var(--text-secondary)] mt-2 leading-relaxed">the OTLP envelope, the gen_ai span tree, redaction, batching</p>
+                </a>
+                <a class="example-card border border-[var(--border-color)] rounded-xl p-4 bg-[var(--card-background)] hover:border-[var(--primary-color)] transition-colors" href="https://github.com/merci-kit/merci-sdk/blob/main/examples/23_evals.mjs">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-xs font-mono font-bold text-[var(--primary-color)]">23</span>
+                        <span class="text-[10px] font-mono text-slate-400">.mjs</span>
+                    </div>
+                    <div class="font-mono text-xs font-bold text-[var(--text-primary)] break-all">23_evals.mjs</div>
+                    <p class="text-xs text-[var(--text-secondary)] mt-2 leading-relaxed">a scored suite, a recorded cassette, an LLM judge, the failure taxonomy</p>
+                </a>
+                <a class="example-card border border-[var(--border-color)] rounded-xl p-4 bg-[var(--card-background)] hover:border-[var(--primary-color)] transition-colors" href="https://github.com/merci-kit/merci-sdk/blob/main/examples/24_mcp_client.mjs">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-xs font-mono font-bold text-[var(--primary-color)]">24</span>
+                        <span class="text-[10px] font-mono text-slate-400">.mjs</span>
+                    </div>
+                    <div class="font-mono text-xs font-bold text-[var(--text-primary)] break-all">24_mcp_client.mjs + 24_mcp_server.mjs</div>
+                    <p class="text-xs text-[var(--text-secondary)] mt-2 leading-relaxed">an MCP stdio server&#x27;s tools, sampling/elicitation/roots, resources and prompts</p>
+                </a>
+                <a class="example-card border border-[var(--border-color)] rounded-xl p-4 bg-[var(--card-background)] hover:border-[var(--primary-color)] transition-colors" href="https://github.com/merci-kit/merci-sdk/blob/main/examples/25_mcp_server_http.mjs">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-xs font-mono font-bold text-[var(--primary-color)]">25</span>
+                        <span class="text-[10px] font-mono text-slate-400">.mjs</span>
+                    </div>
+                    <div class="font-mono text-xs font-bold text-[var(--text-primary)] break-all">25_mcp_server_http.mjs</div>
+                    <p class="text-xs text-[var(--text-secondary)] mt-2 leading-relaxed">your SDK as an MCP server over Streamable HTTP, capabilities, artifacts, loadable components</p>
+                </a>
+                <a class="example-card border border-[var(--border-color)] rounded-xl p-4 bg-[var(--card-background)] hover:border-[var(--primary-color)] transition-colors" href="https://github.com/merci-kit/merci-sdk/blob/main/examples/26_a2a.mjs">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-xs font-mono font-bold text-[var(--primary-color)]">26</span>
+                        <span class="text-[10px] font-mono text-slate-400">.mjs</span>
+                    </div>
+                    <div class="font-mono text-xs font-bold text-[var(--text-primary)] break-all">26_a2a.mjs + 26_a2a_server.mjs</div>
+                    <p class="text-xs text-[var(--text-secondary)] mt-2 leading-relaxed">discover an A2A peer, delegate to it, drive its task lifecycle</p>
+                </a>
+                <a class="example-card border border-[var(--border-color)] rounded-xl p-4 bg-[var(--card-background)] hover:border-[var(--primary-color)] transition-colors" href="https://github.com/merci-kit/merci-sdk/blob/main/examples/27_acp_agent.mjs">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-xs font-mono font-bold text-[var(--primary-color)]">27</span>
+                        <span class="text-[10px] font-mono text-slate-400">.mjs</span>
+                    </div>
+                    <div class="font-mono text-xs font-bold text-[var(--text-primary)] break-all">27_acp_agent.mjs</div>
+                    <p class="text-xs text-[var(--text-secondary)] mt-2 leading-relaxed">the ACP v1 agent: session lifecycle, updates, the fail-closed permission model</p>
+                </a>
+                <a class="example-card border border-[var(--border-color)] rounded-xl p-4 bg-[var(--card-background)] hover:border-[var(--primary-color)] transition-colors" href="https://github.com/merci-kit/merci-sdk/blob/main/examples/28_workspace_isolation.mjs">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-xs font-mono font-bold text-[var(--primary-color)]">28</span>
+                        <span class="text-[10px] font-mono text-slate-400">.mjs</span>
+                    </div>
+                    <div class="font-mono text-xs font-bold text-[var(--text-primary)] break-all">28_workspace_isolation.mjs</div>
+                    <p class="text-xs text-[var(--text-secondary)] mt-2 leading-relaxed">one directory or git worktree per item, hooks, path confinement, withWorkspace, a todo store as a work source</p>
+                </a>
+                <a class="example-card border border-[var(--border-color)] rounded-xl p-4 bg-[var(--card-background)] hover:border-[var(--primary-color)] transition-colors" href="https://github.com/merci-kit/merci-sdk/blob/main/examples/29_workflow_contract.mjs">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-xs font-mono font-bold text-[var(--primary-color)]">29</span>
+                        <span class="text-[10px] font-mono text-slate-400">.mjs</span>
+                    </div>
+                    <div class="font-mono text-xs font-bold text-[var(--text-primary)] break-all">29_workflow_contract.mjs</div>
+                    <p class="text-xs text-[var(--text-secondary)] mt-2 leading-relaxed">a repo-owned WORKFLOW.md: strict parsing, the template subset, last-known-good reload</p>
+                </a>
+                <a class="example-card border border-[var(--border-color)] rounded-xl p-4 bg-[var(--card-background)] hover:border-[var(--primary-color)] transition-colors" href="https://github.com/merci-kit/merci-sdk/blob/main/examples/30_scheduler.mjs">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-xs font-mono font-bold text-[var(--primary-color)]">30</span>
+                        <span class="text-[10px] font-mono text-slate-400">.mjs</span>
+                    </div>
+                    <div class="font-mono text-xs font-bold text-[var(--text-primary)] break-all">30_scheduler.mjs</div>
+                    <p class="text-xs text-[var(--text-secondary)] mt-2 leading-relaxed">work sources, normalization, claims, the single-flight tick, retry/park, the durable attempt store, four engines</p>
+                </a>
+                <a class="example-card border border-[var(--border-color)] rounded-xl p-4 bg-[var(--card-background)] hover:border-[var(--primary-color)] transition-colors" href="https://github.com/merci-kit/merci-sdk/blob/main/examples/31_orchestration.mjs">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-xs font-mono font-bold text-[var(--primary-color)]">31</span>
+                        <span class="text-[10px] font-mono text-slate-400">.mjs</span>
+                    </div>
+                    <div class="font-mono text-xs font-bold text-[var(--text-primary)] break-all">31_orchestration.mjs</div>
+                    <p class="text-xs text-[var(--text-secondary)] mt-2 leading-relaxed">one createOrchestration call binding policy, scheduler, workspace and operator; the spend ledger</p>
+                </a>
+                <a class="example-card border border-[var(--border-color)] rounded-xl p-4 bg-[var(--card-background)] hover:border-[var(--primary-color)] transition-colors" href="https://github.com/merci-kit/merci-sdk/blob/main/examples/32_agent_files.mjs">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-xs font-mono font-bold text-[var(--primary-color)]">32</span>
+                        <span class="text-[10px] font-mono text-slate-400">.mjs</span>
+                    </div>
+                    <div class="font-mono text-xs font-bold text-[var(--text-primary)] break-all">32_agent_files.mjs</div>
+                    <p class="text-xs text-[var(--text-secondary)] mt-2 leading-relaxed">*.agent.yaml definitions: load, freeze, resolve the toolset, run live, delegate live</p>
+                </a>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-[var(--border-color)] bg-[var(--card-background)] transition-colors duration-300">
+        <div class="container mx-auto px-4 py-8 sm:px-6 lg:px-8">
+            <div class="flex flex-col items-center justify-between gap-4 sm:flex-row">
+                <div class="flex items-center gap-2">
+                    <img src="merci-sdk-logo.png" alt="Merci SDK Logo" class="h-6 w-9 object-contain">
+                    <span class="font-bold text-sm text-[var(--text-primary)]">Merci SDK</span>
+                    <span class="text-xs font-mono text-[var(--text-secondary)]">v0.23.0</span>
+                </div>
+                <p class="text-xs text-[var(--text-secondary)]">© 2026 Lukáš Michna (Mobeetle) · Apache-2.0</p>
+                <nav class="flex items-center gap-4 text-xs font-semibold text-[var(--text-secondary)]">
+                    <a href="getting_started.html" class="hover:text-[var(--primary-color)]">Getting Started</a>
+                    <a href="tutorials.html" class="hover:text-[var(--primary-color)]">Tutorials</a>
+                    <a href="api_reference.html" class="hover:text-[var(--primary-color)]">API</a>
+                    <a href="https://github.com/merci-kit/merci-sdk" class="hover:text-[var(--primary-color)]">GitHub</a>
+                </nav>
+            </div>
+        </div>
+    </footer>
+</div>
+
+<script src="assets/js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,82 @@
+{
+  "case": {
+    "id": "stream-grounding-retrieved-context",
+    "kind": "stream",
+    "mode": "stream",
+    "request": {
+      "model": "gemini-2.5-flash",
+      "contents": "Look in the corpus"
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "content-type": "text/event-stream"
+      },
+      "chunks": [
+        "data: {\"candidates\":[{\"content\":{\"parts\":[{\"text\":\"The corpus says so.\"}],\"role\":\"model\"},\"finishReason\":\"STOP\",\"groundingMetadata\":{\"groundingChunks\":[{\"retrievedContext\":{\"uri\":\"gs://merci-corpus/doc.txt\",\"title\":\"Doc\",\"text\":\"the retrieved excerpt\"}}]}}]}\n\n"
+      ]
+    }
+  },
+  "sdkPackage": "@google/genai",
+  "sdkVersion": "2.32.0",
+  "node": "v25.0.0",
+  "response": {
+    "status": 200,
+    "headers": {
+      "content-type": "text/event-stream"
+    },
+    "chunks": [
+      "data: {\"candidates\":[{\"content\":{\"parts\":[{\"text\":\"The corpus says so.\"}],\"role\":\"model\"},\"finishReason\":\"STOP\",\"groundingMetadata\":{\"groundingChunks\":[{\"retrievedContext\":{\"uri\":\"gs://merci-corpus/doc.txt\",\"title\":\"Doc\",\"text\":\"the retrieved excerpt\"}}]}}]}\n\n"
+    ]
+  },
+  "request": [
+    {
+      "method": "POST",
+      "url": "/v1beta/models/gemini-2.5-flash:streamGenerateContent?alt=sse",
+      "headers": {
+        "accept": "*/*",
+        "content-type": "application/json",
+        "user-agent": "google-genai-sdk/2.32.0 gl-node/v25.0.0",
+        "x-goog-api-client": "google-genai-sdk/2.32.0 gl-node/v25.0.0",
+        "x-goog-api-key": "test-api-key"
+      },
+      "body": "{\"contents\":[{\"parts\":[{\"text\":\"Look in the corpus\"}],\"role\":\"user\"}]}"
+    }
+  ],
+  "outcome": {
+    "kind": "chunks",
+    "chunks": [
+      {
+        "json": {
+          "candidates": [
+            {
+              "content": {
+                "parts": [
+                  {
+                    "text": "The corpus says so."
+                  }
+                ],
+                "role": "model"
+              },
+              "finishReason": "STOP",
+              "groundingMetadata": {
+                "groundingChunks": [
+                  {
+                    "retrievedContext": {
+                      "uri": "gs://merci-corpus/doc.txt",
+                      "title": "Doc",
+                      "text": "the retrieved excerpt"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "text": "The corpus says so.",
+        "functionCalls": null
+      }
+    ],
+    "ended": "clean"
+  }
+}
