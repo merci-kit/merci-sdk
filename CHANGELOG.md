@@ -16,6 +16,37 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   `truncatedBy: 'premature_end'` for a premature end and `'length'` for a real
   token-limit cut, so an unclassified early stop gets the provider-truncation
   note instead of the moderation notice or the token-limit note.
+- **A JAI premature end no longer burns two retries on a result that cannot
+  change.** A `content_filter` stop is not retried, and a second attempt cut at
+  exactly the same offset as the first is treated as deterministic and not
+  retried a third time (`STREAM_PREMATURE_NO_RETRY`). Empty cuts still use the
+  full `MAX_PREMATURE_ATTEMPTS` budget.
+- **A content-filtered fragment is removed from the transcript and the
+  deliverable.** When the provider says `content_filter`, every assistant-text
+  row the step appended is stripped from the transcript (so the next turn and
+  any checkpoint never re-send it), and the run returns the prior good answer
+  or the moderation fallback (JetBrains AI Platform doc 031). Text deltas
+  already streamed to `onEvent` cannot be un-sent; the `content_filtered` event
+  marks them for a live consumer.
+- **`run:end` reports `finishReason: 'premature_end'`** for a provider-closed
+  stream instead of folding it into `'length'`.
+- **JAI request headers now match the shipped gateway contract.** Debug info is
+  requested with `Grazie-Provide-Debug-Info` (was `X-Provide-Debug-Info`), and
+  impersonation uses `Grazie-Original-User-JWT`, `Grazie-Original-Service-JWT`,
+  `Grazie-Original-Application-JWT` and `Grazie-Application-User-ID` (were the
+  `-Token`/`-User` spellings). Both old and new names stay redacted in
+  telemetry.
+- **A JAI stream that ends without `FinishMetadata` is a truncation.** The
+  vendor stream synthesizes `PrematureEnd(reason: missing_finish)` when content
+  arrived and the terminal event never did, instead of reporting a partial
+  answer as complete.
+- **Premature-end diagnostics survive.** The parser now carries the gateway's
+  `message` and `event_type`, and the retry warning and final event carry
+  `Grazie-Trace-Id`, so an incident can be handed to JetBrains support with the
+  id that matches its logs.
+- **`getProfiles()` publishes the profile's limits.** The JAI roster now returns
+  `contextLimit` and `maxOutputTokens` alongside `id`/`name` (both `null` when
+  the gateway omits them).
 
 ## [0.23.0] - 2026-11-21
 

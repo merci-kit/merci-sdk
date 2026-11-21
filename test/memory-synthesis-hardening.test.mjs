@@ -26,6 +26,8 @@ function reasoningValue(paramCall) {
 function loopSession({ provider = ProviderType.JAI, script }) {
     /** @type {any[]} */
     const paramCalls = [];
+    /** @type {any[]} */
+    const seen = [];
     let calls = 0;
     const s = {
         provider,
@@ -35,6 +37,7 @@ function loopSession({ provider = ProviderType.JAI, script }) {
         /** @param {{messages: any}} arg0 */
         async *step({ messages }) {
             const entry = script[Math.min(calls, script.length - 1)];
+            seen.push(messages);
             calls += 1;
             if (entry.tool) {
                 return { done: false, messages: [...messages, { role: 'assistant', content: null, tool_calls: [{ id: '1', type: 'function', function: { name: 'load_memory', arguments: '{}' } }] }] };
@@ -42,7 +45,7 @@ function loopSession({ provider = ProviderType.JAI, script }) {
             return { done: true, content: entry.content, ...(entry.truncated ? { truncated: true } : {}), ...(entry.truncatedBy ? { truncatedBy: entry.truncatedBy } : {}), ...(entry.contentFiltered ? { contentFiltered: true } : {}), messages: [...messages, { role: 'assistant', content: entry.content ?? '' }] };
         },
     };
-    return { s, paramCalls };
+    return { s, paramCalls, seen };
 }
 
 describe('memory distillation skips a run that produced no answer', () => {
@@ -205,5 +208,40 @@ describe('agentic loop surfaces a JAI content-moderation block distinctly', () =
         assert.ok(!events.includes('truncated'), 'a moderation stop must not emit the token-limit truncation event');
         assert.equal(ends[0]?.finishReason, 'content_filtered', 'run:end reflects moderation, not length');
         assert.equal(ends[0]?.truncated, false, 'moderation is not a token-limit truncation');
+    });
+
+    test('a content-filtered partial is removed, not delivered as the answer', async () => {
+        const { s } = loopSession({ script: [{ content: 'the fragment the provider refused to finish', truncated: true, truncatedBy: 'premature_end', contentFiltered: true }] });
+        const out = await runAgenticLoop({ session: s, messages: [{ role: 'user', content: 'q' }], opts: { maxIterations: 2 } });
+        assert.equal(out, FALLBACK_MESSAGE.CONTENT_FILTERED);
+        assert.ok(!out.includes('the fragment'), 'the moderation-blocked fragment must not reach the consumer');
+        assert.ok(!JSON.stringify((/** @type {any} */ (s))._lastStepMessages ?? []).includes('the fragment'), 'the blocked row is stripped from the transcript');
+    });
+
+    test('a content-filtered synthesis does not re-send the blocked fragment on recovery', async () => {
+        const { s, seen } = loopSession({ script: [
+            { tool: true },
+            { content: 'BLOCKED-FRAGMENT', truncated: true, truncatedBy: 'premature_end', contentFiltered: true },
+            { content: 'clean answer' },
+        ] });
+        const out = await runAgenticLoop({ session: s, messages: [{ role: 'user', content: 'q' }], opts: { maxIterations: 4 } });
+        assert.equal(out, 'clean answer');
+        assert.ok(!JSON.stringify(seen.at(-1)).includes('BLOCKED-FRAGMENT'), 'the retry request must not carry the moderation-blocked text');
+        assert.ok(!JSON.stringify((/** @type {any} */ (s))._lastStepMessages ?? []).includes('BLOCKED-FRAGMENT'), 'the transcript must not carry the blocked row');
+    });
+
+    test('a premature end reports finishReason premature_end, not length', async () => {
+        const { EventEmitter } = await import('node:events');
+        const { EVENTS } = await import('../lib/core/events.mjs');
+        const emitter = new EventEmitter();
+        /** @type {any[]} */
+        const ends = [];
+        emitter.on(EVENTS.CLIENT.RUN_END, (/** @type {any} */ e) => ends.push(e));
+        const { s } = loopSession({ script: [{ content: 'partial answer', truncated: true, truncatedBy: 'premature_end' }] });
+        (/** @type {any} */ (s)).eventEmitter = emitter;
+        const out = await runAgenticLoop({ session: s, messages: [{ role: 'user', content: 'q' }], opts: { maxIterations: 2 } });
+        assert.equal(ends[0]?.finishReason, 'premature_end');
+        assert.equal(ends[0]?.truncatedBy, 'premature_end');
+        assert.ok(out.endsWith(FALLBACK_MESSAGE.TRUNCATED_BY_PROVIDER));
     });
 });

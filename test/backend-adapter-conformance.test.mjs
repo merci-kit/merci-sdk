@@ -352,7 +352,8 @@ describe('ChatSessionAdapter — vendor request wire execution', () => {
                 captured.opts = options;
                 return new Response(sseBody({ lines: [
                     'data: {"type":"Content","content":"hello"}\n\n',
-                    'data: {"type":"Content","content":"world"}\n\n'
+                    'data: {"type":"Content","content":"world"}\n\n',
+                    'data: {"type":"FinishMetadata","reason":"stop"}\n\n'
                 ] }), { status: 200 });
             }
         };
@@ -377,7 +378,8 @@ describe('ChatSessionAdapter — vendor request wire execution', () => {
         for await (const e of raw) events.push(e);
         assert.equal(events[0].type, 'text');
         assert.equal(events[0].content, 'hello', 'the chunk buffered at the factory call is replayed first');
-        assert.deepEqual(events.map((/** @type {any} */ e) => e.content), ['hello', 'world'], 'the SSE feed is fully consumed and terminates');
+        assert.deepEqual(events.map((/** @type {any} */ e) => e.type), ['text', 'text', 'finish'], 'the SSE feed is fully consumed and terminates');
+        assert.deepEqual(events.filter((/** @type {any} */ e) => e.type === 'text').map((/** @type {any} */ e) => e.content), ['hello', 'world']);
     });
 });
 

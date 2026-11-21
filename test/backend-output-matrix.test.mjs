@@ -626,12 +626,17 @@ describe('JAI — native V9 signature / delta / finish parity', () => {
         assert.deepEqual(
              /** @type {any} */
                           (parse({ json: '{"type":"PrematureEnd","reason":"Unknown","event_type":"premature_end"}' })),
-            { type: 'premature_end', reason: 'Unknown', choiceIndex: 0 }
+            { type: 'premature_end', reason: 'Unknown', choiceIndex: 0, eventType: 'premature_end' }
         );
         assert.deepEqual(
              /** @type {any} */
                           (parse({ json: '{"type":"PrematureEnd","reason":"Timeout","choiceIndex":1}' })),
             { type: 'premature_end', reason: 'Timeout', choiceIndex: 1 }
+        );
+        assert.deepEqual(
+             /** @type {any} */
+                          (parse({ json: '{"type":"PrematureEnd","reason":"Unknown","message":"upstream closed"}' })),
+            { type: 'premature_end', reason: 'Unknown', choiceIndex: 0, message: 'upstream closed' }
         );
     });
 

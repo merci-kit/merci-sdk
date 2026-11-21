@@ -487,7 +487,11 @@ test('GAI step: per-part thoughtSignature uses last-wins policy', async () => {
  */
 /** @param {{sseLines: *}} arg0 */
 const buildJaiHttp = ({ sseLines }) => {
-    const body = sseLines.map(/** @type {(...args: any[]) => any} */ (( l) => `data: ${l}\n\n`)).join('') + 'data: end\n\n';
+    // Real JAI streams always terminate with FinishMetadata before `end`; a
+    // fixture without one is an abnormal cut.
+    const body = sseLines.map(/** @type {(...args: any[]) => any} */ (( l) => `data: ${l}\n\n`)).join('')
+        + 'data: {"type":"FinishMetadata","reason":"stop"}\n\n'
+        + 'data: end\n\n';
     return {
         streamTimeout: 5000,
         _fetchWithRetry: async () => {

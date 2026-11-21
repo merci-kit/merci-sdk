@@ -260,7 +260,7 @@ describe('3. JAI Transport & Session Fixes', () => {
                 return {
                     body: new ReadableStream({
                         start(controller) {
-                            controller.enqueue(new TextEncoder().encode('data: {"type":"Content","content":"ok"}\ndata: end\n'));
+                            controller.enqueue(new TextEncoder().encode('data: {"type":"Content","content":"ok"}\ndata: {"type":"FinishMetadata","reason":"stop"}\ndata: end\n'));
                             controller.close();
                         }
                     })

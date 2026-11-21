@@ -159,11 +159,11 @@ test('api_request events redact the JWT and original-user tokens', async () => {
         await c._fetchWithRetry({ path: '/llm/chat/stream/v9', options: { method: 'POST', body: '{}' } });
         assert.ok(seen, 'api_request emitted');
         assert.equal(seen.headers['Grazie-Authenticate-JWT'], '[REDACTED]');
-        assert.equal(seen.headers['Grazie-Original-User-Token'], '[REDACTED]');
-        assert.equal(seen.headers['Grazie-Original-Service-Token'], '[REDACTED]');
+        assert.equal(seen.headers['Grazie-Original-User-JWT'], '[REDACTED]');
+        assert.equal(seen.headers['Grazie-Original-Service-JWT'], '[REDACTED]');
         assert.ok(!seen.headers['Grazie-Authenticate-JWT'].includes('jwt-secret-abc'));
-        assert.ok(!seen.headers['Grazie-Original-User-Token'].includes('user-tok'));
-        assert.ok(!seen.headers['Grazie-Original-Service-Token'].includes('svc-tok'));
+        assert.ok(!seen.headers['Grazie-Original-User-JWT'].includes('user-tok'));
+        assert.ok(!seen.headers['Grazie-Original-Service-JWT'].includes('svc-tok'));
     } finally { globalThis.fetch = real; }
 });
 

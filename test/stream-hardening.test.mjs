@@ -192,6 +192,7 @@ describe('JAI transport hardening', () => {
                 const body = new ReadableStream({
                     start(controller) {
                         controller.enqueue(new TextEncoder().encode('data: {"type":"Content","content":"recovered"}\n'));
+                        controller.enqueue(new TextEncoder().encode('data: {"type":"FinishMetadata","reason":"stop"}\n'));
                         controller.close();
                     }
                 });
