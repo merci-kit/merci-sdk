@@ -7,7 +7,7 @@
 
 - **Version:** 0.23.0
 - **Files:** 238 `.mjs`
-- **Exports:** 1041 declared, 557 re-exported
+- **Exports:** 1043 declared, 557 re-exported
 - **Types:** 553 `@typedef`s
 
 `Kind` is one of `class`, `error class`, `function`, `const`, `default`, `barrel` or a resolved `re-export`. `↩` marks a symbol re-exported from another module.
@@ -318,12 +318,12 @@ lib/
 
 | Area | Files | Declared | Re-exported | Types | Responsibility |
 | --- | --- | --- | --- | --- | --- |
-| `core` | 35 | 216 | 4 | 29 | Foundation: constant tables, typed errors, events, prompt text, loadable component base |
+| `core` | 35 | 217 | 4 | 29 | Foundation: constant tables, typed errors, events, prompt text, loadable component base |
 | `messaging` | 5 | 36 | 13 | 27 | Unified message model, factories and per-backend history normalizers |
 | `backends` | 35 | 87 | 2 | 61 | Provider clients (JAI, OAI, GAI, AAI) and their protocol adapters |
 | `support` | 22 | 102 | 1 | 37 | Cross-cutting utilities: retry, timeouts, JSON, logger, limits |
 | `tools` | 13 | 53 | 34 | 41 | Tool system: execution, MCP client/server, A2A, shell, skills, context tools |
-| `agentic` | 127 | 542 | 196 | 355 | Orchestration: sessions, loops, planning, memory, state machine, web components |
+| `agentic` | 127 | 543 | 196 | 355 | Orchestration: sessions, loops, planning, memory, state machine, web components |
 | `root` | 1 | 5 | 307 | 3 | Public barrel that defines the package entry surface (lib/index.mjs) |
 
 ## 4. Symbols by area
@@ -475,6 +475,7 @@ lib/
 
 | Symbol | Kind | Signature / Source | Summary |
 | --- | --- | --- | --- |
+| `TRUNCATION_MARKER` | const | `const TRUNCATION_MARKER = '…[truncated]'` | Appended to text the `max_error_message_chars` cap cut, so a cut diagnostic is never mistaken for the vendor's whole words. |
 | `TRANSPORT_LIMITS` | const | `const TRANSPORT_LIMITS = Object.freeze({ jai_header_timeout_ms: defineLimit({ env: 'J …` |  |
 
 #### `lib/core/constants/memory.mjs` — Memory-subsystem constants.
@@ -1648,6 +1649,7 @@ lib/
 
 | Symbol | Kind | Signature / Source | Summary |
 | --- | --- | --- | --- |
+| `isContentFilterReason` | function | `function isContentFilterReason({ reason })` | True for the JAI `PrematureEnd` reason that means moderation: the gateway sends `content_filter` (or `ContentFilter`); every other reason, notably `Unknown`, is an unclassified early stop, not a moderation block. |
 | `AbstractChatSession` | class | `class AbstractChatSession extends ChatSessionBuilder` | The abstract ChatSession: builder configuration plus the step() generator. |
 | `BaseChatSession` | class | `class BaseChatSession extends AbstractChatSession` | Shared OAI-family ChatSession (oai/gai/aai). |
 
@@ -4064,7 +4066,7 @@ Counts of relative import/re-export specifiers between top-level areas. This is 
 | --- | --- |
 | `agentic → core` | 237 |
 | `agentic → support` | 94 |
-| `backends → core` | 51 |
+| `backends → core` | 53 |
 | `root → agentic` | 51 |
 | `tools → core` | 42 |
 | `backends → support` | 40 |
