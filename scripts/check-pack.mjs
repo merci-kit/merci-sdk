@@ -44,7 +44,9 @@ function fail(message) {
 let pack;
 try {
     const raw = execFileSync(NPM, ['pack', '--dry-run', '--json'], { cwd: ROOT, encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] });
-    pack = JSON.parse(raw)[0];
+    const parsed = JSON.parse(raw);
+    // npm <= 11 prints an array; npm >= 12 prints an object keyed by package name.
+    pack = Array.isArray(parsed) ? parsed[0] : Object.values(parsed)[0];
 } catch (err) {
     process.stderr.write(`pack-check gate — npm pack failed: ${/** @type {any} */ (err)?.message ?? err}\n`);
     process.exit(1);
