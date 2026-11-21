@@ -21,7 +21,7 @@ function reasoningValue(paramCall) {
 /**
  * A scripted session: each entry is either a tool round, a text answer, an
  * empty response, or a truncated (PrematureEnd) response.
- * @param {{provider?: string, script: Array<{ tool?: boolean, content?: string, truncated?: boolean, contentFiltered?: boolean }>}} arg0
+ * @param {{provider?: string, script: Array<{ tool?: boolean, content?: string, truncated?: boolean, truncatedBy?: 'length'|'premature_end', contentFiltered?: boolean }>}} arg0
  */
 function loopSession({ provider = ProviderType.JAI, script }) {
     /** @type {any[]} */
@@ -39,7 +39,7 @@ function loopSession({ provider = ProviderType.JAI, script }) {
             if (entry.tool) {
                 return { done: false, messages: [...messages, { role: 'assistant', content: null, tool_calls: [{ id: '1', type: 'function', function: { name: 'load_memory', arguments: '{}' } }] }] };
             }
-            return { done: true, content: entry.content, ...(entry.truncated ? { truncated: true } : {}), ...(entry.contentFiltered ? { contentFiltered: true } : {}), messages: [...messages, { role: 'assistant', content: entry.content ?? '' }] };
+            return { done: true, content: entry.content, ...(entry.truncated ? { truncated: true } : {}), ...(entry.truncatedBy ? { truncatedBy: entry.truncatedBy } : {}), ...(entry.contentFiltered ? { contentFiltered: true } : {}), messages: [...messages, { role: 'assistant', content: entry.content ?? '' }] };
         },
     };
     return { s, paramCalls };
@@ -145,6 +145,22 @@ describe('agentic loop recovers a JAI truncated synthesis after a tool round', (
         const out = await runAgenticLoop({ session: s, messages: [{ role: 'user', content: 'q' }], opts: { maxIterations: 4 } });
         assert.equal(paramCalls.length, 0);
         assert.notEqual(out, 'should not run');
+    });
+});
+
+describe('agentic loop distinguishes a provider early stop from a token-limit cut', () => {
+    test('a premature-end partial carries the provider note, not the token-limit note', async () => {
+        const { s } = loopSession({ script: [{ content: 'half a sentence', truncated: true, truncatedBy: 'premature_end' }] });
+        const out = await runAgenticLoop({ session: s, messages: [{ role: 'user', content: 'q' }], opts: { maxIterations: 2 } });
+        assert.ok(out.startsWith('half a sentence'));
+        assert.ok(out.endsWith(FALLBACK_MESSAGE.TRUNCATED_BY_PROVIDER));
+        assert.ok(!out.includes('output token limit'));
+    });
+
+    test('a genuine length cut keeps the token-limit note', async () => {
+        const { s } = loopSession({ script: [{ content: 'half a sentence', truncated: true, truncatedBy: 'length' }] });
+        const out = await runAgenticLoop({ session: s, messages: [{ role: 'user', content: 'q' }], opts: { maxIterations: 2 } });
+        assert.ok(out.endsWith(FALLBACK_MESSAGE.TRUNCATED));
     });
 });
 

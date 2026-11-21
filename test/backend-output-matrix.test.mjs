@@ -816,6 +816,21 @@ describe('step() — refusal error classification', () => {
         assert.equal(state.content, 'partial');
     });
 
+    test('a JAI premature_end(reason=Unknown) is a provider truncation, not content moderation', async () => {
+        const session = new StubSession({ adapter: makeEventAdapter({ events: [{ type: 'text', content: 'partial' }, { type: 'premature_end', reason: 'Unknown' }] }), emitter: new EventEmitter(), retryPolicy: { shouldRetry: () => ({ retry: false, delayMs: 0 }) } });
+        const state = await drain({ gen: session.step({ messages: [{ role: 'user', content: 'go' }] }) });
+        assert.equal(state.truncated, true);
+        assert.equal(state.truncatedBy, 'premature_end');
+        assert.ok(!state.contentFiltered, 'reason Unknown is not moderation');
+    });
+
+    test('a JAI premature_end(reason=content_filter) is content moderation', async () => {
+        const session = new StubSession({ adapter: makeEventAdapter({ events: [{ type: 'premature_end', reason: 'content_filter' }] }), emitter: new EventEmitter(), retryPolicy: { shouldRetry: () => ({ retry: false, delayMs: 0 }) } });
+        const state = await drain({ gen: session.step({ messages: [{ role: 'user', content: 'go' }] }) });
+        assert.equal(state.truncated, true);
+        assert.equal(state.contentFiltered, true);
+    });
+
     test('a JAI premature_end with no content is an empty truncated turn', async () => {
         const session = new StubSession({ adapter: makeEventAdapter({ events: [{ type: 'premature_end', reason: 'Unknown' }] }), emitter: new EventEmitter(), retryPolicy: { shouldRetry: () => ({ retry: false, delayMs: 0 }) } });
         const state = await drain({ gen: session.step({ messages: [{ role: 'user', content: 'go' }] }) });

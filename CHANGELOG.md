@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- **A JAI `PrematureEnd` is no longer reported as content moderation.** The V9
+  gateway sends `PrematureEnd` with a reason: only `content_filter` is
+  moderation, while `Unknown` is any other early stop (the shipped JetBrains
+  client models exactly those two reasons). The step now carries
+  `truncatedBy: 'premature_end'` for a premature end and `'length'` for a real
+  token-limit cut, so an unclassified early stop gets the provider-truncation
+  note instead of the moderation notice or the token-limit note.
+
 ## [0.23.0] - 2026-11-21
 
 ### Added
