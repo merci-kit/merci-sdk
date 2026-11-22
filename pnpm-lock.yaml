@@ -59,7 +59,7 @@ importers:
         version: 8.19.0
       pnpm:
         specifier: ^11.11.0
-        version: 11.11.0
+        version: 11.28.13
       typescript:
         specifier: ^7.0.2
         version: 7.0.2
@@ -539,8 +539,8 @@ packages:
     engines: {node: '>=20'}
     hasBin: true
 
-  pnpm@11.11.0:
-    resolution: {integrity: sha512-RGP2X9gO2A1pvB1L8WPulPYFxzgPwxi7Wy6+FfjNEtScUaTVnpUbQB52TTtsp1HL9RvFDtcAGmvLSTXmhMNIgg==}
+  pnpm@11.28.13:
+    resolution: {integrity: sha512-1cqpzc1gZ6wpAvn0TaoAsSiKc7q/Hpj083Wzp1g7GJS01J91J9qPXhUwGYuxDgOtujIaHwFUKdwpRs6KepqMZQ==}
     engines: {node: '>=22.13'}
     hasBin: true
 
@@ -1046,7 +1046,7 @@ snapshots:
   playwright-core@1.64.1:
     optional: true
 
-  pnpm@11.11.0: {}
+  pnpm@11.28.13: {}
 
   proxy-addr@2.0.8:
     dependencies:
