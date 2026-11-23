@@ -829,6 +829,14 @@ Two behaviour notes for anyone who wired the primitives by hand:
 **No existing call is removed or changed in meaning.** A consumer that does not
 use the coordination layer has nothing to edit.
 
+## 0.23.1 — Packaging, docs and licensing
+
+No API change. `0.23.1` ships the JAI premature-end behaviour fixes listed in
+`CHANGELOG.md` together with the public package layout, regenerated docs and
+the licensing note: the TypeScript/JavaScript SDK is Apache-2.0, a Rust
+implementation is licensed separately, and support, development and
+professional services are paid engagements. Nothing to edit.
+
 ## 0.23.0 — Agent definition files
 
 No API is removed or renamed. `0.23.0` is additive plus the behaviour fixes

@@ -118,7 +118,14 @@ Conventions for generated and contributed code live in
 
 ---
 
-## License
+## License and commercial services
 
-Apache-2.0 — see [`LICENSE`](https://github.com/merci-kit/merci-sdk/blob/main/LICENSE). The **Merci SDK** name and logo are trademarks of
-Lukáš Michna (Mobeetle); see [`TRADEMARK.md`](https://github.com/merci-kit/merci-sdk/blob/main/TRADEMARK.md).
+The TypeScript/JavaScript SDK in this repository is released under
+[Apache-2.0](https://github.com/merci-kit/merci-sdk/blob/main/LICENSE). The
+**Merci SDK** name and logo are trademarks of Lukáš Michna (Mobeetle); see
+[`TRADEMARK.md`](https://github.com/merci-kit/merci-sdk/blob/main/TRADEMARK.md).
+
+A **Rust implementation** of the SDK is available separately under a
+**commercial license**. **Support, development and professional services** for
+Merci SDK are available as **paid engagements** — contact
+[Lukáš Michna (Mobeetle)](https://github.com/mobeetle) to discuss scope.

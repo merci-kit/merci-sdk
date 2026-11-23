@@ -1,7 +1,7 @@
-# Merci SDK v0.23.0
+# Merci SDK v0.23.1
 
 [![View on GitHub](https://img.shields.io/badge/View%20on-GitHub-blue?logo=github)](https://github.com/merci-kit/merci-sdk/)
-[![Version](https://img.shields.io/badge/version-0.23.0-blue)](package.json)
+[![Version](https://img.shields.io/badge/version-0.23.1-blue)](package.json)
 
 **Unified, fluent, multi-provider and multi-standard agentic SDK for Node.js. Minimal dependencies. Streaming, function calling, persistent memory, DAG workflows, and multi-agent swarms.**
 
@@ -331,6 +331,11 @@ Visit the interactive web documentation in the `docs/` folder:
 
 ---
 
-## 📜 License
+## 📜 License and commercial services
 
-Apache 2.0. © 2026 Lukáš Michna (Mobeetle). All rights reserved.
+The TypeScript/JavaScript SDK is released under Apache 2.0. © 2026 Lukáš
+Michna (Mobeetle).
+
+A **Rust implementation** is available separately under a **commercial
+license**. **Support, development and professional services** are available as
+**paid engagements**.

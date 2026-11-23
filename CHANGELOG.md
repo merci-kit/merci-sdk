@@ -7,6 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.23.1] - 2026-11-23
+
+### Added
+
+- **Commercial services and a separate Rust license are documented.** Support,
+  development and professional services are offered as paid engagements, and a
+  Rust implementation of the SDK is available under a separate commercial
+  license. The TypeScript/JavaScript SDK remains Apache-2.0.
+
+### Changed
+
+- **The public repository ships the library, the examples and the docs.** The
+  test suite and internal tooling stay in the private workspace; the npm
+  tarball surface is unchanged.
+
 ### Fixed
 
 - **A JAI `PrematureEnd` is no longer reported as content moderation.** The V9
@@ -2361,7 +2376,9 @@ therefore starts here.
 - The tool output cap bounds a result of any shape, so a runaway tool cannot
   push an unbounded payload into the model's context.
 
-[Unreleased]: https://github.com/mobeetle/merci-sdk/compare/v0.12.0...HEAD
+[Unreleased]: https://github.com/merci-kit/merci-sdk/compare/v0.23.1...HEAD
+[0.23.1]: https://github.com/merci-kit/merci-sdk/releases/tag/v0.23.1
+[0.23.0]: https://github.com/merci-kit/merci-sdk/releases/tag/v0.23.0
 [0.12.0]: https://github.com/mobeetle/merci-sdk/releases/tag/v0.12.0
 [0.11.0]: https://github.com/mobeetle/merci-sdk/releases/tag/v0.11.0
 [0.10.0]: https://github.com/mobeetle/merci-sdk/releases/tag/v0.10.0

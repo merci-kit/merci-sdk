@@ -1,11 +1,11 @@
 <!-- GENERATED FILE — do not edit by hand. Run `pnpm build:structure` to regenerate. -->
 
-# Merci SDK v0.23.0 — Library Structure & Symbols
+# Merci SDK v0.23.1 — Library Structure & Symbols
 
 > Structural reference: the `lib/` file tree and the symbols each module exports.
 > Generated from the current source by `scripts/build-structure.mjs`.
 
-- **Version:** 0.23.0
+- **Version:** 0.23.1
 - **Files:** 238 `.mjs`
 - **Exports:** 1043 declared, 557 re-exported
 - **Types:** 553 `@typedef`s
