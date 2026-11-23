@@ -8,8 +8,10 @@
  *
  *   - only the top-level entries in PUBLIC_PATHS are exported (fail-closed:
  *     a new internal directory is excluded until it is listed here)
- *   - EXCLUDED_PATHS are withheld inside an exported entry
- *   - package.json loses the scripts that need private directories
+ *   - inside `docs/`, markdown is published only when it is named in
+ *     PUBLIC_DOCS, and EXCLUDED_PATHS is withheld
+ *   - package.json loses the scripts that need private directories; a leftover
+ *     reference fails the export instead of shipping a broken script
  *
  * Run: `node scripts/export-public.mjs [--from <rev>] [--push]`
  * Without `--push` the commit only moves local `public`; `--push`
@@ -34,14 +36,15 @@ const PUBLIC_PATHS = new Set([
     'skills', 'test', 'tsconfig.build.json', 'tsconfig.json', 'types',
 ]);
 
+/** Markdown under `docs/` that is published. A new .md stays local until it is listed. */
+const PUBLIC_DOCS = new Set([
+    'AGENT_FILES.md', 'CONTRIBUTING.md', 'LIMITS.md', 'MIGRATION.md', 'OPERATOR_API.md',
+    'ORCHESTRATION.md', 'PROVIDERS.md', 'README.md', 'SCHEDULER.md', 'SPAWNING.md',
+    'WORKFLOW_POLICY.md', 'WORKSPACES.md',
+]);
+
 /** Internal paths inside a published entry. */
-const EXCLUDED_PATHS = [
-    '.github/workflows/release.yml',
-    'docs/.htaccess',
-    'docs/back',
-    'docs/COMMERCIALIZATION.md',
-    'docs/DEPLOY-mercisdk.com.md',
-];
+const EXCLUDED_PATHS = ['.github/workflows/release.yml', 'docs/back'];
 
 /** Scripts that need a private directory, so the public package.json drops them. */
 const PRIVATE_SCRIPTS = ['greet', 'quant', 'visual', 'check:specs'];
@@ -49,7 +52,17 @@ const PRIVATE_SCRIPTS = ['greet', 'quant', 'visual', 'check:specs'];
 /** Entries whose absence means `--from` pointed at the wrong tree. */
 const REQUIRED_PATHS = ['lib', 'examples', 'package.json'];
 
-const git = ({ args, index, input } = {}) =>
+/**
+ * @param {{ text?: string }} [options]
+ * @returns {string}
+ */
+const escapeRegExp = ({ text = '' } = {}) => text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
+/**
+ * @param {{ args?: string[], index?: string, input?: string }} [options]
+ * @returns {string}
+ */
+const git = ({ args = [], index, input } = {}) =>
     execFileSync('git', args, {
         cwd: ROOT,
         encoding: 'utf8',
@@ -57,7 +70,11 @@ const git = ({ args, index, input } = {}) =>
         input,
     });
 
-const gitOrNull = ({ args } = {}) => {
+/**
+ * @param {{ args?: string[] }} [options]
+ * @returns {string | null}
+ */
+const gitOrNull = ({ args = [] } = {}) => {
     try {
         return git({ args }).trim();
     } catch {
@@ -65,11 +82,30 @@ const gitOrNull = ({ args } = {}) => {
     }
 };
 
-const isPublic = ({ path } = {}) =>
-    PUBLIC_PATHS.has(path.split('/')[0]) &&
-    !EXCLUDED_PATHS.some((excluded) => path === excluded || path.startsWith(`${excluded}/`));
+/**
+ * @param {{ path?: string }} [options]
+ * @returns {boolean}
+ */
+const isPublicDoc = ({ path = '' } = {}) => {
+    const name = path.slice('docs/'.length);
+    if (name.endsWith('.md')) return PUBLIC_DOCS.has(name);
+    return !name.split('/').pop()?.startsWith('.');
+};
 
-const stripPrivateScripts = ({ source } = {}) => {
+/**
+ * @param {{ path?: string }} [options]
+ * @returns {boolean}
+ */
+const isPublic = ({ path = '' } = {}) =>
+    PUBLIC_PATHS.has(path.split('/')[0]) &&
+    !EXCLUDED_PATHS.some((excluded) => path === excluded || path.startsWith(`${excluded}/`)) &&
+    (path === 'docs' || !path.startsWith('docs/') || isPublicDoc({ path }));
+
+/**
+ * @param {{ source?: string }} [options]
+ * @returns {string}
+ */
+const stripPrivateScripts = ({ source = '' } = {}) => {
     const pkg = JSON.parse(source);
     for (const name of PRIVATE_SCRIPTS) delete pkg.scripts[name];
     for (const name of PRIVATE_SCRIPTS) {
@@ -78,14 +114,20 @@ const stripPrivateScripts = ({ source } = {}) => {
             pkg.scripts[key] = pkg.scripts[key].split(token).join('');
         }
     }
-    const leaked = Object.entries(pkg.scripts)
-        .filter(([, command]) => /(^|[\s"'=])(apps|specs|visual_examples)\//.test(command));
-    if (leaked.length) {
-        throw new Error(`public package.json still references a private path: ${leaked.map(([key]) => key).join(', ')}`);
+    const leaks = Object.entries(pkg.scripts)
+        .filter(([, command]) =>
+            /(^|[\s"'=])(apps|specs|visual_examples)\//.test(command) ||
+            PRIVATE_SCRIPTS.some((name) => new RegExp(`\\bpnpm run ${escapeRegExp({ text: name })}\\b`).test(command)));
+    if (leaks.length) {
+        throw new Error(`public package.json still calls a private script or path: ${leaks.map(([key]) => key).join(', ')}`);
     }
     return `${JSON.stringify(pkg, null, 2)}\n`;
 };
 
+/**
+ * @param {{ argv?: string[] }} [options]
+ * @returns {void}
+ */
 const main = ({ argv = process.argv.slice(2) } = {}) => {
     if (argv.includes('--help')) {
         console.log('node scripts/export-public.mjs [--from <rev>] [--push]');
@@ -95,6 +137,10 @@ const main = ({ argv = process.argv.slice(2) } = {}) => {
     const source = fromIndex === -1 ? 'HEAD' : argv[fromIndex + 1];
     if (!source || source.startsWith('--')) throw new Error('--from needs a revision');
     const push = argv.includes('--push');
+    if (push) {
+        const url = git({ args: ['remote', 'get-url', REMOTE] }).trim();
+        if (!REMOTE_PATTERN.test(url)) throw new Error(`${REMOTE} is ${url}, not merci-kit/merci-sdk; refusing to push`);
+    }
 
     const tempDir = mkdtempSync(join(tmpdir(), 'merci-public-'));
     const index = join(tempDir, 'index');
@@ -131,13 +177,11 @@ const main = ({ argv = process.argv.slice(2) } = {}) => {
                 args: ['commit-tree', tree, ...parentArgs, '-m', `chore(public): export ${sha} ${subject}`],
             }).trim();
         }
+        if (commit === null) throw new Error('export produced no commit');
         git({ args: ['update-ref', `refs/heads/${BRANCH}`, commit] });
         console.log(`${BRANCH} = ${commit.slice(0, 8)}: ${unchanged ? 'already in sync' : 'content changed'}, ${tracked.length - withheld.length} files exported, ${withheld.length} internal paths withheld`);
 
-        if (!push) return;
-        const url = git({ args: ['remote', 'get-url', REMOTE] }).trim();
-        if (!REMOTE_PATTERN.test(url)) throw new Error(`${REMOTE} is ${url}, not merci-kit/merci-sdk; refusing to push`);
-        execFileSync('git', ['push', REMOTE, `${BRANCH}:main`], { cwd: ROOT, stdio: 'inherit' });
+        if (push) execFileSync('git', ['push', REMOTE, `${BRANCH}:main`], { cwd: ROOT, stdio: 'inherit' });
     } finally {
         rmSync(tempDir, { recursive: true, force: true });
     }
@@ -146,6 +190,6 @@ const main = ({ argv = process.argv.slice(2) } = {}) => {
 try {
     main();
 } catch (error) {
-    console.error(`export-public: ${error.message}`);
+    console.error(`export-public: ${error instanceof Error ? error.message : String(error)}`);
     process.exitCode = 1;
 }

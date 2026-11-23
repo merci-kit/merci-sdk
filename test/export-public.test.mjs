@@ -15,6 +15,7 @@ import { fileURLToPath } from 'node:url';
 
 const SCRIPT = resolve(dirname(fileURLToPath(import.meta.url)), '..', 'scripts', 'export-public.mjs');
 
+/** @type {Record<string, string>} */
 const FILES = {
     'package.json': `${JSON.stringify({
         name: 'fixture',
@@ -28,8 +29,9 @@ const FILES = {
     'lib/index.mjs': 'export const answer = 42;\n',
     'examples/01.mjs': 'console.log(1);\n',
     'docs/index.html': '<html></html>\n',
+    'docs/AGENT_FILES.md': '# public\n',
+    'docs/internal-plan.md': '# internal\n',
     'docs/back/index.html': '<html></html>\n',
-    'docs/COMMERCIALIZATION.md': '# internal\n',
     'docs/.htaccess': 'deny\n',
     '.github/workflows/ci.yml': 'name: CI\n',
     '.github/workflows/release.yml': 'name: Release\n',
@@ -40,8 +42,16 @@ const FILES = {
     'visual_examples/serve.mjs': 'export {};\n',
 };
 
-const git = ({ cwd, args } = {}) => execFileSync('git', args, { cwd, encoding: 'utf8' }).trim();
+/**
+ * @param {{ cwd: string, args: string[] }} options
+ * @returns {string}
+ */
+const git = ({ cwd, args }) => execFileSync('git', args, { cwd, encoding: 'utf8' }).trim();
 
+/**
+ * @param {{ files?: Record<string, string> }} [options]
+ * @returns {string}
+ */
 const makeRepo = ({ files = FILES } = {}) => {
     const dir = mkdtempSync(join(tmpdir(), 'merci-export-test-'));
     for (const [path, content] of Object.entries(files)) {
@@ -56,14 +66,26 @@ const makeRepo = ({ files = FILES } = {}) => {
     return dir;
 };
 
+/**
+ * @param {{ dir: string, files?: Record<string, string>, args?: string[] }} options
+ * @returns {void}
+ */
+const exportPublic = ({ dir, files, args = [] }) => {
+    if (files) {
+        for (const [path, content] of Object.entries(files)) writeFileSync(join(dir, path), content);
+    }
+    execFileSync(process.execPath, [SCRIPT, ...args], { cwd: dir, encoding: 'utf8', stdio: 'pipe' });
+};
+
 test('export-public publishes only the curated paths and strips private scripts', () => {
     const dir = makeRepo();
     try {
-        execFileSync(process.execPath, [SCRIPT], { cwd: dir, encoding: 'utf8' });
+        exportPublic({ dir });
 
         const exported = git({ cwd: dir, args: ['ls-tree', '-r', '--name-only', 'public'] }).split('\n').filter(Boolean).sort();
         assert.deepEqual(exported, [
             '.github/workflows/ci.yml',
+            'docs/AGENT_FILES.md',
             'docs/index.html',
             'examples/01.mjs',
             'lib/index.mjs',
@@ -83,7 +105,33 @@ test('export-public refuses when there is nothing private to filter', () => {
         ['package.json', 'lib/index.mjs', 'examples/01.mjs'].includes(path)));
     const dir = makeRepo({ files });
     try {
-        assert.throws(() => execFileSync(process.execPath, [SCRIPT], { cwd: dir, stdio: 'pipe' }));
+        assert.throws(() => exportPublic({ dir }));
+        assert.equal(git({ cwd: dir, args: ['branch', '--list', 'public'] }), '');
+    } finally {
+        rmSync(dir, { recursive: true, force: true });
+    }
+});
+
+test('export-public refuses a leftover call to a private script', () => {
+    const dir = makeRepo();
+    try {
+        writeFileSync(join(dir, 'package.json'), `${JSON.stringify({
+            name: 'fixture',
+            scripts: { 'check:specs': 'node specs/verify.mjs', check: 'pnpm run check:specs && pnpm test' },
+        }, null, 2)}\n`);
+        git({ cwd: dir, args: ['add', '-A'] });
+        git({ cwd: dir, args: ['commit', '-q', '-m', 'drift'] });
+        assert.throws(() => exportPublic({ dir }));
+    } finally {
+        rmSync(dir, { recursive: true, force: true });
+    }
+});
+
+test('export-public refuses to push anywhere but merci-kit/merci-sdk', () => {
+    const dir = makeRepo();
+    try {
+        git({ cwd: dir, args: ['remote', 'add', 'origin', 'https://example.com/other/repo.git'] });
+        assert.throws(() => exportPublic({ dir, args: ['--push'] }));
         assert.equal(git({ cwd: dir, args: ['branch', '--list', 'public'] }), '');
     } finally {
         rmSync(dir, { recursive: true, force: true });
