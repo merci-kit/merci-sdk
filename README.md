@@ -4,7 +4,7 @@
 
 # Merci SDK
 
-[![npm version](https://img.shields.io/npm/v/merci-sdk.svg)](https://www.npmjs.com/package/merci-sdk)
+[![npm version](https://img.shields.io/npm/v/merci-sdk.svg?color=brightgreen)](https://www.npmjs.com/package/merci-sdk)
 
 **Agentic SDK for OpenAI, Gemini and Anthropic compatible endpoints.**
 
