@@ -121,7 +121,8 @@
     "check:examples": "node scripts/check-example-coverage.mjs",
     "check:skill": "node scripts/check-skill.mjs",
     "check:limits": "node scripts/check-limits.mjs",
-    "check:agents": "node scripts/check-agent-catalog.mjs"
+    "check:agents": "node scripts/check-agent-catalog.mjs",
+    "export:public": "node scripts/export-public.mjs"
   },
   "keywords": [
     "agent",
