@@ -20,6 +20,8 @@ jobs:
         with:
           node-version: ${{ matrix.node }}
           cache: pnpm
+      # The suite exercises the grep/glob tools, which shell out to ripgrep.
+      - run: sudo apt-get update && sudo apt-get install -y ripgrep
       - run: pnpm install --frozen-lockfile
       - run: pnpm typecheck
       - run: pnpm run check:type-surface
@@ -41,6 +43,8 @@ jobs:
         with:
           node-version: '22'
           cache: pnpm
+      # docs:check --with-tests runs the suite, which needs ripgrep.
+      - run: sudo apt-get update && sudo apt-get install -y ripgrep
       - run: pnpm install --frozen-lockfile
       - run: pnpm run build:structure
       - run: pnpm run build:matrix
@@ -64,6 +68,8 @@ jobs:
         with:
           node-version: '22'
           cache: pnpm
+      # The instrumented suite also needs ripgrep.
+      - run: sudo apt-get update && sudo apt-get install -y ripgrep
       - run: pnpm install --frozen-lockfile
       # The coverage ratchet: the suite runs instrumented and the gate fails
       # when any metric drops below its recorded floor.
