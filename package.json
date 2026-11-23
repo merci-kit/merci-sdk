@@ -1,6 +1,6 @@
 {
   "name": "merci-sdk",
-  "version": "0.23.1",
+  "version": "0.23.2",
   "description": "Merci SDK - Agentic SDK for OpenAI, Gemini and Anthropic compatible endpoints",
   "type": "module",
   "main": "lib/index.mjs",

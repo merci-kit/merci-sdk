@@ -7,6 +7,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.23.2] - 2026-11-23
+
+### Fixed
+
+- **The README quickstart is model-agnostic and verified end to end.** It now
+  imports `getDefaultModel`, resolves the model from the selected provider, and
+  passes it to `client.session()`, so the block no longer pins the obsolete
+  `gpt-4o` id. Switching `PROVIDER` alone changes the backend. The exact
+  snippet was executed against the published package and streamed a real
+  answer before this release.
+- **A docs gate stops the literal from returning.** `check-docs` rule D9 reads
+  the quickstart block in `README.md` and fails when it does not call
+  `getDefaultModel()`, or when it passes a quoted model to `client.session()`.
+- **The discussion example follows the same rule.** `docs/PROVIDERS.md` builds
+  both agents from the provider default instead of a pinned model id.
+
 ## [0.23.1] - 2026-11-23
 
 ### Added
@@ -2376,7 +2392,8 @@ therefore starts here.
 - The tool output cap bounds a result of any shape, so a runaway tool cannot
   push an unbounded payload into the model's context.
 
-[Unreleased]: https://github.com/merci-kit/merci-sdk/compare/v0.23.1...HEAD
+[Unreleased]: https://github.com/merci-kit/merci-sdk/compare/v0.23.2...HEAD
+[0.23.2]: https://github.com/merci-kit/merci-sdk/releases/tag/v0.23.2
 [0.23.1]: https://github.com/merci-kit/merci-sdk/releases/tag/v0.23.1
 [0.23.0]: https://github.com/merci-kit/merci-sdk/releases/tag/v0.23.0
 [0.12.0]: https://github.com/mobeetle/merci-sdk/releases/tag/v0.12.0

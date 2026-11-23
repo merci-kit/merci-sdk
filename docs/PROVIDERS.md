@@ -962,11 +962,12 @@ own entries become assistant rows, its peers' become `[author]: …` user rows.
 The engine adds a judge, a self-termination rule and a turn DAG.
 
 ```js
-import { DiscussionSession } from 'merci-sdk';
+import { DiscussionSession, getDefaultModel } from 'merci-sdk';
 
+const model = getDefaultModel({ provider: 'openai' });
 const group = new DiscussionSession({ client, options: { objective: 'Should we ship it?' } });
-group.addAgent({ name: 'analyst', persona: 'Argues the case for shipping.', model: 'gpt-4o', provider: 'openai' });
-group.addAgent({ name: 'critic', persona: 'Argues the case against.', model: 'gpt-4o', provider: 'openai' });
+group.addAgent({ name: 'analyst', persona: 'Argues the case for shipping.', model, provider: 'openai' });
+group.addAgent({ name: 'critic', persona: 'Argues the case against.', model, provider: 'openai' });
 
 const conclusion = await group.conclude({ instruction: 'Should we ship the price-table removal?' });
 ```

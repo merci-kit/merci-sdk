@@ -18,6 +18,9 @@
  *      (HTML comments are masked: a lesson label is not a claim).
  *   D8 limit-count parity — an "N bounded numbers" claim equals the limit registry
  *      size reported by `lib/core/constants/limits.mjs`.
+ *   D9 model-agnostic quickstart — the root README's quickstart (the block every
+ *      npm visitor reads) resolves the model with `getDefaultModel()` and never
+ *      passes a model literal to `client.session()`, so it cannot drift stale.
  *
  * Run: `node scripts/check-docs.mjs [--with-tests] [--json]`
  * Exit 1 when any violation remains.
@@ -233,6 +236,23 @@ function main() {
             if (Number(m[1].replace(/,/g, '')) !== limitCount) {
                 push({ violations, rule: 'D8', file: abs, text, index: m.index ?? 0, detail: `claims ${m[1]} bounded numbers; the registry has ${limitCount}` });
             }
+        }
+    }
+
+    // D9 — the root README quickstart derives the model from the provider. A
+    // literal there is the one snippet every npm visitor reads: it drifts (a
+    // stale model id) and it contradicts the provider-agnostic API.
+    const rootReadme = join(ROOT, 'README.md');
+    if (existsSync(rootReadme)) {
+        const readmeText = readFileSync(rootReadme, 'utf8');
+        const quickstartAt = Math.max(0, readmeText.indexOf('## Quickstart'));
+        const section = readmeText.slice(quickstartAt + '## Quickstart'.length).split(/^## /m)[0];
+        const code = [...section.matchAll(/```js\n([\s\S]*?)```/g)].map((m) => m[1]).join('\n');
+        if (!code.includes('getDefaultModel(')) {
+            push({ violations, rule: 'D9', file: rootReadme, text: readmeText, index: quickstartAt, detail: 'the quickstart does not resolve the model with getDefaultModel()' });
+        }
+        for (const m of code.matchAll(/\.session\(\s*['"][^'"]+['"]\s*\)/g)) {
+            push({ violations, rule: 'D9', file: rootReadme, text: readmeText, index: quickstartAt, detail: `the quickstart hardcodes a model: ${m[0].replace(/\s+/g, ' ')}` });
         }
     }
 

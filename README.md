@@ -36,18 +36,30 @@ cp node_modules/merci-sdk/secret.env.example secret.env
 ```
 
 ```js
-import { createUserMessage, initializeClient, loadCredentials, resolveProvider } from 'merci-sdk';
+import {
+    createUserMessage,
+    getDefaultModel,
+    initializeClient,
+    loadCredentials,
+    resolveProvider,
+} from 'merci-sdk';
 
-const provider = resolveProvider();                              // reads PROVIDER from secret.env
+// PROVIDER comes from secret.env; the model comes from that provider's descriptor.
+const provider = resolveProvider();
+const model = getDefaultModel({ provider });
 const { client } = await initializeClient({ provider, options: loadCredentials({ provider }) });
 
-const session = client.session('gpt-4o').withSystemMessage('You are terse.');
+const session = client.session(model).withSystemMessage('You are terse.');
 const stream = session.step({ messages: [createUserMessage({ provider, content: 'Hello!' })] });
 
 for await (const event of stream) {
-    if (event.type === 'text') process.stdout.write(event.content);
+    if (event.type === 'text') process.stdout.write(String(event.content ?? ''));
 }
 ```
+
+Switch backends by editing `PROVIDER` alone: the session keeps the same code and
+`getDefaultModel` resolves that provider's brain tier (`getToolModel` is the
+cheap leaf tier for tool sessions). No model name is hardcoded.
 
 `secret.env` is read from `MERCI_ENV_FILE` if set, else from `./secret.env`
 in the directory you start the process in, else from the package's own checkout.

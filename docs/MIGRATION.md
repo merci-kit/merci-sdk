@@ -829,6 +829,13 @@ Two behaviour notes for anyone who wired the primitives by hand:
 **No existing call is removed or changed in meaning.** A consumer that does not
 use the coordination layer has nothing to edit.
 
+## 0.23.2 — Docs truth
+
+No API change. `0.23.2` fixes the README quickstart: the model now comes from
+`getDefaultModel({ provider })` instead of a stale literal, the discussion
+example follows the same rule, and a docs gate rejects a hardcoded model in
+that block. Nothing to edit.
+
 ## 0.23.1 — Packaging, docs and licensing
 
 No API change. `0.23.1` ships the JAI premature-end behaviour fixes listed in
