@@ -266,6 +266,8 @@ test('component threads config.timeoutMs into the curl engine as a signal', asyn
     global.fetch = /** @type {any} */ ((/** @type {any} */ url, /** @type {any} */ opts) => new Promise((_, reject) => {
         opts.signal.addEventListener('abort', () => reject(opts.signal.reason));
     }));
+    // AbortSignal.timeout() is unref'd, so hold the loop open until it fires.
+    const keepAlive = setTimeout(() => {}, 250);
     try {
         const comp = new WebScrapeComponent({
             provider: 'openai',
@@ -273,7 +275,7 @@ test('component threads config.timeoutMs into the curl engine as a signal', asyn
         });
         const out = JSON.parse(await comp.load({ url: 'https://example.com' }));
         assert.match(out.results[0].error, /timeout/i);
-    } finally { global.fetch = orig; }
+    } finally { clearTimeout(keepAlive); global.fetch = orig; }
 });
 
 test('pure native returns a JSON note instead of scraping', async () => {

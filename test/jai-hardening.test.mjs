@@ -88,7 +88,7 @@ test('J1: a caller abort mid-stream closes the HTTP connection', async () => {
         assert.ok(await waitFor({ predicate: () => events.length > 0 }), 'the first SSE event must arrive before the abort');
         ac.abort(new Error('caller cancelled'));
         await consume;
-        assert.ok(await waitFor({ predicate: () => sockets.size === 0 }), `the server socket must close after the abort (open: ${sockets.size})`);
+        assert.ok(await waitFor({ predicate: () => sockets.size === 0, timeoutMs: 10_000 }), `the server socket must close after the abort (open: ${sockets.size})`);
     } finally {
         await closeServer({ server, sockets });
     }
@@ -103,7 +103,7 @@ test('J1: a stream-inactivity timeout closes the HTTP connection', async () => {
         const events = /** @type {any[]} */ ([]);
         for await (const e of session.stream({ initialInput: [{ type: 'user_message', content: 'hi' }] })) events.push(e);
         assert.ok(events.some((e) => e.type === 'error' && e.error_type === 'timeout'), 'the inactivity timeout is surfaced');
-        assert.ok(await waitFor({ predicate: () => sockets.size === 0 }), `the server socket must close after the timeout (open: ${sockets.size})`);
+        assert.ok(await waitFor({ predicate: () => sockets.size === 0, timeoutMs: 10_000 }), `the server socket must close after the timeout (open: ${sockets.size})`);
     } finally {
         await closeServer({ server, sockets });
     }

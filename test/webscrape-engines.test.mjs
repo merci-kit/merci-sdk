@@ -245,10 +245,13 @@ test('CurlEngine honours timeoutMs by passing an aborting signal', async () => {
     const m = mockFetch({ handler: (/** @type {any} */ url, /** @type {any} */ opts) => new Promise((_, reject) => {
         opts.signal.addEventListener('abort', () => reject(opts.signal.reason));
     }) });
+    // AbortSignal.timeout() is unref'd, so without another handle node 22 drains
+    // the loop before the abort can fire and the test runner cancels the file.
+    const keepAlive = setTimeout(() => {}, 250);
     try {
         const [out] = /** @type {any[]} */ (await curlFetch({ input: 'https://example.com', opts: { timeoutMs: 20 } }));
         assert.match(out.error, /timeout/i);
-    } finally { m.restore(); }
+    } finally { clearTimeout(keepAlive); m.restore(); }
 });
 
 test('TavilyExtractEngine maps timeoutMs to body timeout seconds (clamped 1..60)', async () => {
