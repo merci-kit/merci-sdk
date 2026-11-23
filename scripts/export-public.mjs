@@ -88,6 +88,7 @@ const gitOrNull = ({ args = [] } = {}) => {
  */
 const isPublicDoc = ({ path = '' } = {}) => {
     const name = path.slice('docs/'.length);
+    if (name === '.nojekyll') return true;
     if (name.endsWith('.md')) return PUBLIC_DOCS.has(name);
     return !name.split('/').pop()?.startsWith('.');
 };

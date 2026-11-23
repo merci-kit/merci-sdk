@@ -33,6 +33,7 @@ const FILES = {
     'docs/internal-plan.md': '# internal\n',
     'docs/back/index.html': '<html></html>\n',
     'docs/.htaccess': 'deny\n',
+    'docs/.nojekyll': '\n',
     '.github/workflows/ci.yml': 'name: CI\n',
     '.github/workflows/release.yml': 'name: Release\n',
     '.dev-team/plan.md': '# internal\n',
@@ -85,6 +86,7 @@ test('export-public publishes only the curated paths and strips private scripts'
         const exported = git({ cwd: dir, args: ['ls-tree', '-r', '--name-only', 'public'] }).split('\n').filter(Boolean).sort();
         assert.deepEqual(exported, [
             '.github/workflows/ci.yml',
+            'docs/.nojekyll',
             'docs/AGENT_FILES.md',
             'docs/index.html',
             'examples/01.mjs',
