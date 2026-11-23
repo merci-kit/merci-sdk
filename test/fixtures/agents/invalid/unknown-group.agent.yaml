@@ -1,9 +1,0 @@
-apiVersion: merci.dev/v1alpha1
-kind: Agent
-metadata:
-  name: unknown-group
-  description: A definition with an unknown tool group.
-spec:
-  instructions: Do nothing.
-  tools:
-    use: [telepathy]

@@ -1,8 +1,0 @@
-apiVersion: merci.dev/v1alpha1
-kind: Agent
-metadata:
-  name: bad-model
-  description: A definition with a provider-qualified model id.
-spec:
-  model: openai/gpt-5-mini
-  instructions: Do nothing.

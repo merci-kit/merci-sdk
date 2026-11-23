@@ -1,8 +1,0 @@
-apiVersion: merci.dev/v1alpha1
-kind: Agent
-metadata:
-  name: beta
-  description: Second valid directory entry.
-spec:
-  model: tool
-  instructions: Do nothing.

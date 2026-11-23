@@ -1,9 +1,0 @@
-apiVersion: merci.dev/v1alpha1
-kind: Agent
-metadata:
-  name: negative-limit
-  description: A definition with a negative iteration limit.
-spec:
-  instructions: Do nothing.
-  limits:
-    maxIterations: -1

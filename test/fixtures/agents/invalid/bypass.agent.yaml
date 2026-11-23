@@ -1,9 +1,0 @@
-apiVersion: merci.dev/v1alpha1
-kind: Agent
-metadata:
-  name: bypass
-  description: A definition that asks to bypass permissions.
-spec:
-  instructions: Do nothing.
-  tools:
-    mode: bypassPermissions

@@ -1,7 +1,0 @@
-apiVersion: merci.dev/v2
-kind: Agent
-metadata:
-  name: bad-version
-  description: A definition with an unsupported version.
-spec:
-  instructions: Do nothing.

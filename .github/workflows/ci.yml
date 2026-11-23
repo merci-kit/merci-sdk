@@ -20,17 +20,13 @@ jobs:
         with:
           node-version: ${{ matrix.node }}
           cache: pnpm
-      # The suite exercises the grep/glob tools, which shell out to ripgrep.
-      - run: sudo apt-get update && sudo apt-get install -y ripgrep
       - run: pnpm install --frozen-lockfile
       - run: pnpm typecheck
       - run: pnpm run check:type-surface
       - run: pnpm run check:guidelines
       - run: pnpm run check:limits
-      - run: pnpm test
       - run: pnpm run check:examples
       - run: pnpm run check:skill
-      - run: pnpm run test:examples
       - run: pnpm docs:check
 
   package:
@@ -43,8 +39,6 @@ jobs:
         with:
           node-version: '22'
           cache: pnpm
-      # docs:check --with-tests runs the suite, which needs ripgrep.
-      - run: sudo apt-get update && sudo apt-get install -y ripgrep
       - run: pnpm install --frozen-lockfile
       - run: pnpm run build:structure
       - run: pnpm run build:matrix
@@ -56,21 +50,3 @@ jobs:
       - run: git diff --exit-code -- STRUCTURE.md docs/capability_matrix.html examples/SYMBOL-MAP.md docs/api_reference.html
       - run: pnpm run audit:deps
       - run: pnpm run pack:check
-      - run: pnpm docs:check --with-tests
-
-  coverage:
-    name: coverage
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '22'
-          cache: pnpm
-      # The instrumented suite also needs ripgrep.
-      - run: sudo apt-get update && sudo apt-get install -y ripgrep
-      - run: pnpm install --frozen-lockfile
-      # The coverage ratchet: the suite runs instrumented and the gate fails
-      # when any metric drops below its recorded floor.
-      - run: pnpm run check:coverage

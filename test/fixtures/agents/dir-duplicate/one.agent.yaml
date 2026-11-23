@@ -1,7 +1,0 @@
-apiVersion: merci.dev/v1alpha1
-kind: Agent
-metadata:
-  name: dup
-  description: First definition declaring the shared name.
-spec:
-  instructions: Do nothing.

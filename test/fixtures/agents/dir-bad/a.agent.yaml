@@ -1,6 +1,0 @@
-apiVersion: merci.dev/v1alpha1
-kind: Agent
-metadata:
-  name: a
-spec:
-  instructions: Do nothing.

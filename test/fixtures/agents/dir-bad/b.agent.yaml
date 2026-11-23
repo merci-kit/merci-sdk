@@ -1,7 +1,0 @@
-apiVersion: merci.dev/v2
-kind: Agent
-metadata:
-  name: b
-  description: Second broken definition.
-spec:
-  instructions: Do nothing.

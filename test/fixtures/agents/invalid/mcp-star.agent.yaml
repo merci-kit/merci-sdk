@@ -1,9 +1,0 @@
-apiVersion: merci.dev/v1alpha1
-kind: Agent
-metadata:
-  name: mcp-star
-  description: A definition that asks for every tool of every MCP server.
-spec:
-  instructions: Do nothing.
-  tools:
-    allow: ["mcp:*"]

@@ -3,15 +3,17 @@
 
 /**
  * @file Builds the curated public branch (`public`) for
- * github.com/merci-kit/merci-sdk from a local revision. The public repo is a
- * filtered view of this workspace: internal material never leaves the disk.
+ * github.com/merci-kit/merci-sdk from a local revision. The public repo carries
+ * the library, the examples and the docs; the tests and internal material stay
+ * on disk.
  *
  *   - only the top-level entries in PUBLIC_PATHS are exported (fail-closed:
  *     a new internal directory is excluded until it is listed here)
  *   - inside `docs/`, markdown is published only when it is named in
  *     PUBLIC_DOCS, and EXCLUDED_PATHS is withheld
- *   - package.json loses the scripts that need private directories; a leftover
- *     reference fails the export instead of shipping a broken script
+ *   - package.json loses the scripts that need private directories or the
+ *     test suite; a leftover reference fails the export instead of shipping a
+ *     broken script
  *
  * Run: `node scripts/export-public.mjs [--from <rev>] [--push]`
  * Without `--push` the commit only moves local `public`; `--push`
@@ -33,7 +35,7 @@ const PUBLIC_PATHS = new Set([
     '.github', '.gitignore', 'CHANGELOG.md', 'GUIDELINES.md', 'LICENSE', 'README.md',
     'STRUCTURE.md', 'TRADEMARK.md', 'docs', 'examples', 'lib', 'package.json',
     'pnpm-lock.yaml', 'pnpm-workspace.yaml', 'scripts', 'secret.env.example',
-    'skills', 'test', 'tsconfig.build.json', 'tsconfig.json', 'types',
+    'skills', 'tsconfig.build.json', 'tsconfig.json', 'types',
 ]);
 
 /** Markdown under `docs/` that is published. A new .md stays local until it is listed. */
@@ -46,11 +48,11 @@ const PUBLIC_DOCS = new Set([
 /** Internal paths inside a published entry. */
 const EXCLUDED_PATHS = ['.github/workflows/release.yml', 'docs/back'];
 
-/** Tests that import a withheld directory stay local; a new one is caught by this rule. */
-const PRIVATE_TEST_PATTERN = String.raw`(\.\./(apps|specs)/|specs/providers/)`;
-
-/** Scripts that need a private directory, so the public package.json drops them. */
-const PRIVATE_SCRIPTS = ['greet', 'quant', 'visual', 'check:specs'];
+/**
+ * Scripts that need a private directory or the local test suite, so the public
+ * package.json drops them (and any `&& pnpm ... <name>` chain that calls them).
+ */
+const PRIVATE_SCRIPTS = ['greet', 'quant', 'visual', 'check:specs', 'pretest', 'test', 'test:examples', 'check:coverage'];
 
 /** Entries whose absence means `--from` pointed at the wrong tree. */
 const REQUIRED_PATHS = ['lib', 'examples', 'package.json'];
@@ -86,20 +88,6 @@ const gitOrNull = ({ args = [] } = {}) => {
 };
 
 /**
- * `git grep` exits 1 when nothing matches; that is not an error here.
- * @param {{ args?: string[], index?: string }} [options]
- * @returns {string[]}
- */
-const gitGrepFiles = ({ args = [], index } = {}) => {
-    try {
-        return git({ args, index }).split('\n').filter(Boolean);
-    } catch (error) {
-        if (/** @type {{ status?: number }} */ (error).status === 1) return [];
-        throw error;
-    }
-};
-
-/**
  * @param {{ path?: string }} [options]
  * @returns {boolean}
  */
@@ -127,15 +115,17 @@ const stripPrivateScripts = ({ source = '' } = {}) => {
     const pkg = JSON.parse(source);
     for (const name of PRIVATE_SCRIPTS) delete pkg.scripts[name];
     for (const name of PRIVATE_SCRIPTS) {
-        const token = ` && pnpm run ${name}`;
+        const escaped = escapeRegExp({ text: name });
         for (const key of Object.keys(pkg.scripts)) {
-            pkg.scripts[key] = pkg.scripts[key].split(token).join('');
+            pkg.scripts[key] = pkg.scripts[key]
+                .split(` && pnpm run ${name}`).join('')
+                .replace(new RegExp(`\\s*&&\\s*pnpm ${escaped}\\b`, 'g'), '');
         }
     }
     const leaks = Object.entries(pkg.scripts)
         .filter(([, command]) =>
-            /(^|[\s"'=])(apps|specs|visual_examples)\//.test(command) ||
-            PRIVATE_SCRIPTS.some((name) => new RegExp(`\\bpnpm run ${escapeRegExp({ text: name })}\\b`).test(command)));
+            /(^|[\s"'=])(apps|specs|visual_examples|test)\//.test(command) ||
+            PRIVATE_SCRIPTS.some((name) => new RegExp(`\\bpnpm (?:run )?${escapeRegExp({ text: name })}\\b`).test(command)));
     if (leaks.length) {
         throw new Error(`public package.json still calls a private script or path: ${leaks.map(([key]) => key).join(', ')}`);
     }
@@ -171,12 +161,7 @@ const main = ({ argv = process.argv.slice(2) } = {}) => {
 
         const withheld = tracked.filter((path) => !isPublic({ path }));
         if (!withheld.length) throw new Error('every tracked path is public; refusing to export the public repo onto itself');
-        const privateTests = gitGrepFiles({
-            index,
-            args: ['grep', '--cached', '-l', '-E', PRIVATE_TEST_PATTERN, '--', 'test/*.mjs'],
-        });
-        const withheldSet = new Set([...withheld, ...privateTests]);
-        const removals = [...withheldSet].map((path) => `0 ${'0'.repeat(40)}\t${path}\n`).join('');
+        const removals = withheld.map((path) => `0 ${'0'.repeat(40)}\t${path}\n`).join('');
         git({ args: ['update-index', '--index-info'], index, input: removals });
 
         const transformed = stripPrivateScripts({ source: git({ args: ['show', ':package.json'], index }) });
@@ -202,7 +187,7 @@ const main = ({ argv = process.argv.slice(2) } = {}) => {
         }
         if (commit === null) throw new Error('export produced no commit');
         git({ args: ['update-ref', `refs/heads/${BRANCH}`, commit] });
-        console.log(`${BRANCH} = ${commit.slice(0, 8)}: ${unchanged ? 'already in sync' : 'content changed'}, ${tracked.length - withheldSet.size} files exported, ${withheldSet.size} internal paths withheld`);
+        console.log(`${BRANCH} = ${commit.slice(0, 8)}: ${unchanged ? 'already in sync' : 'content changed'}, ${tracked.length - withheld.length} files exported, ${withheld.length} internal paths withheld`);
 
         if (push) execFileSync('git', ['push', REMOTE, `${BRANCH}:main`], { cwd: ROOT, stdio: 'inherit' });
     } finally {
