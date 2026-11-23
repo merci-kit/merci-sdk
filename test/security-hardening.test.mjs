@@ -5,7 +5,7 @@ import assert from 'node:assert/strict';
 import { createServer } from 'node:http';
 import { execFileSync } from 'node:child_process';
 import { EventEmitter } from 'node:events';
-import { mkdtemp, mkdir, writeFile, rm, symlink, chmod } from 'node:fs/promises';
+import { mkdtemp, mkdir, writeFile, rm, chmod } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 
@@ -163,10 +163,10 @@ test('C6 a timeout rejects with a dedicated code and does not hang', async () =>
 
 /**
  * Spawns a script that backgrounds a uniquely-named sleeper. The sleeper is a
- * symlink so its command line carries a per-test marker: a process assertion
- * can then be scoped to THIS test's marker instead of a global `ps` scan that
- * any concurrently running test file (node runs test files in parallel) can
- * contaminate.
+ * script named after the marker, so its command line carries a per-test
+ * marker: a process assertion can then be scoped to THIS test's marker instead
+ * of a global `ps` scan that any concurrently running test file (node runs
+ * test files in parallel) can contaminate.
  *
  * The script takes a `--warm` argument that exits without forking: macOS pays
  * a first-exec penalty (measured 372 ms) for a freshly created executable, so
@@ -180,9 +180,12 @@ test('C6 a timeout rejects with a dedicated code and does not hang', async () =>
 async function spawnBackgroundSleeper({ ignoreTerm = false } = {}) {
     const dir = await mkdtemp(join(tmpdir(), 'merci-c6-'));
     const marker = join(dir, 'merci-c6-sleeper');
-    await symlink('/bin/sleep', marker);
+    // A script (not a symlink to /bin/sleep) keeps the marker in argv on every
+    // platform and holds the inherited pipes while it waits.
+    await writeFile(marker, `#!/bin/sh\n${ignoreTerm ? "trap '' TERM\n" : ''}sleep 30\n`);
+    await chmod(marker, 0o755);
     const script = join(dir, 'spawner.sh');
-    await writeFile(script, `#!/bin/sh\n[ "$1" = "--warm" ] && exit 0\n${ignoreTerm ? "trap '' TERM\n" : ''}"${marker}" 30 &\necho done\n`);
+    await writeFile(script, `#!/bin/sh\n[ "$1" = "--warm" ] && exit 0\n"${marker}" &\necho done\n`);
     await chmod(script, 0o755);
     execFileSync(script, ['--warm'], { stdio: 'ignore' });
     return { marker, script, cleanup: () => rm(dir, { recursive: true, force: true }) };
@@ -226,7 +229,8 @@ test('C6 a descendant that inherits the pipes cannot hang the promise (group kil
         const alive = await waitForMarker({ marker, predicate: (c) => c > 0, timeoutMs: 1200 });
         if (!(alive > 0)) {
             const snapshot = await runCommand({ command: 'ps', args: ['-axo', 'pid,command'] });
-            assert.fail(`the backgrounded grandchild must be alive before the timeout fires (marker ${marker}, ps:\n${String(snapshot.stdout).slice(0, 4000)})`);
+            const matches = String(snapshot.stdout).split('\n').filter((line) => /merci-c6|spawner/.test(line));
+            assert.fail(`the backgrounded grandchild must be alive before the timeout fires (marker ${marker}, matches:\n${matches.join('\n').slice(0, 2000) || '(none)'})`);
         }
         await assert.rejects(pending, (/** @type {any} */ e) => e.code === 'CMD_TIMEOUT' && e.name !== 'AbortError');
         const remaining = await waitForMarker({ marker, predicate: (c) => c === 0, timeoutMs: 5000 });
@@ -243,7 +247,8 @@ test('C6 a descendant that ignores SIGTERM is still killed by the SIGKILL escala
         const alive = await waitForMarker({ marker, predicate: (c) => c > 0, timeoutMs: 1200 });
         if (!(alive > 0)) {
             const snapshot = await runCommand({ command: 'ps', args: ['-axo', 'pid,command'] });
-            assert.fail(`the backgrounded grandchild must be alive before the timeout fires (marker ${marker}, ps:\n${String(snapshot.stdout).slice(0, 4000)})`);
+            const matches = String(snapshot.stdout).split('\n').filter((line) => /merci-c6|spawner/.test(line));
+            assert.fail(`the backgrounded grandchild must be alive before the timeout fires (marker ${marker}, matches:\n${matches.join('\n').slice(0, 2000) || '(none)'})`);
         }
         await assert.rejects(pending, (/** @type {any} */ e) => e.code === 'CMD_TIMEOUT' && e.name !== 'AbortError');
         const remaining = await waitForMarker({ marker, predicate: (c) => c === 0, timeoutMs: 5000 });

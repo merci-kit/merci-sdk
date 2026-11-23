@@ -20,6 +20,11 @@ const MACHINE = new URL('../lib/agentic/state-machine/machine.mjs', import.meta.
 const ERRORS = new URL('../lib/core/errors.mjs', import.meta.url).href;
 const EVALUATOR = new URL('../lib/agentic/state-machine/condition-evaluator.mjs', import.meta.url).href;
 
+// The OOM probes need more than the 500 ms safety guard to reach the heap cap
+// on a loaded CI runner; the guard accepts this documented opt-out.
+process.env.MERCI_LIMITS_ALLOW_GUARD_OFF = '1';
+process.env.MERCI_LIMIT_CONDITION_TIMEOUT_MS = '5000';
+
 /** The review's host-kill probe. 14 × 80 MB arrays. */
 const OOM_SRC = '(() => { const keep = []; for (let i = 0; i < 14; i++) keep.push(new Array(10_000_000).fill(i)); return keep.length > 0; })()';
 
