@@ -81,7 +81,7 @@ test('resolution: the role provider key wins over PROVIDER', async () => {
 
 test('resolution: an unset role provider key inherits PROVIDER', async () => {
     await withEnv({
-        assign: { PROVIDER: 'vertex', GENERATIVE_PROVIDER: undefined },
+        assign: { PROVIDER: 'vertex', GENERATIVE_PROVIDER: undefined, GENERATIVE_MODEL: undefined, DEFAULT_VERTEX_MODEL: 'vertex-default' },
         fn: () => {
             const resolved = resolveRole({ role: ClientRole.GENERATIVE });
             assert.equal(resolved.provider, 'vertex');

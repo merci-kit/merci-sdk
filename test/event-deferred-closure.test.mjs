@@ -10,6 +10,7 @@ import { EVENTS } from '../lib/core/events.mjs';
 import { MerciEventEmitter } from '../lib/core/emitter.mjs';
 import { BaseChatSession } from '../lib/agentic/chat-session.mjs';
 import { ProviderType } from '../lib/core/constants/index.mjs';
+import './embed-env.mjs';
 
 test('embed_error fires on a hard embed failure, not on the soft-fail path', async () => {
     const client = /** @type {any} */ (new OaiClient({ options: { apiKey: 'test-key', baseURL: 'https://example.test/v1', embedMaxRetries: 0 } }));

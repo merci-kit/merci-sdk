@@ -9,6 +9,7 @@ import { MerciClient as OaiClient } from '../lib/backends/oai.mjs';
 import { MerciClient as GaiClient } from '../lib/backends/gai.mjs';
 import { MerciClient as JaiClient } from '../lib/backends/jai.mjs';
 import { LocalFileMemoryProvider } from '../lib/agentic/memory/providers.mjs';
+import './embed-env.mjs';
 
 function oai() {
     return new OaiClient({ options: { apiKey: 'test-key', baseURL: 'https://example.test/v1', embedMaxRetries: 0 } });

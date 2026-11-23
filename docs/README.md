@@ -1,7 +1,7 @@
 # Merci SDK v0.23.0
 
 [![View on GitHub](https://img.shields.io/badge/View%20on-GitHub-blue?logo=github)](https://github.com/merci-kit/merci-sdk/)
-[![Tests](https://img.shields.io/badge/tests-5402%20passing-brightgreen)](test/)
+[![Tests](https://img.shields.io/badge/tests-6116%20passing-brightgreen)](test/)
 [![Version](https://img.shields.io/badge/version-0.23.0-blue)](package.json)
 
 **Unified, fluent, multi-provider and multi-standard agentic SDK for Node.js. Minimal dependencies. Streaming, function calling, persistent memory, DAG workflows, and multi-agent swarms.**

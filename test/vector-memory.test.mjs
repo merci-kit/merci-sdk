@@ -17,6 +17,7 @@ import {
 import { cosineSimilarity, isEmbeddingUnsupportedStatus, grpcToHttpStatus } from '../lib/support/utils.mjs';
 import { MerciClient as OaiClient } from '../lib/backends/oai.mjs';
 import { MerciClient as GaiClient } from '../lib/backends/gai.mjs';
+import './embed-env.mjs';
 
 const BASIS = /** @type {Record<string, number[]>} */ ({
     car: [1, 0.9, 0, 0, 0, 0],

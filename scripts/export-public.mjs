@@ -46,6 +46,9 @@ const PUBLIC_DOCS = new Set([
 /** Internal paths inside a published entry. */
 const EXCLUDED_PATHS = ['.github/workflows/release.yml', 'docs/back'];
 
+/** Tests that import a withheld directory stay local; a new one is caught by this rule. */
+const PRIVATE_TEST_PATTERN = String.raw`(\.\./(apps|specs)/|specs/providers/)`;
+
 /** Scripts that need a private directory, so the public package.json drops them. */
 const PRIVATE_SCRIPTS = ['greet', 'quant', 'visual', 'check:specs'];
 
@@ -79,6 +82,20 @@ const gitOrNull = ({ args = [] } = {}) => {
         return git({ args }).trim();
     } catch {
         return null;
+    }
+};
+
+/**
+ * `git grep` exits 1 when nothing matches; that is not an error here.
+ * @param {{ args?: string[], index?: string }} [options]
+ * @returns {string[]}
+ */
+const gitGrepFiles = ({ args = [], index } = {}) => {
+    try {
+        return git({ args, index }).split('\n').filter(Boolean);
+    } catch (error) {
+        if (/** @type {{ status?: number }} */ (error).status === 1) return [];
+        throw error;
     }
 };
 
@@ -154,7 +171,12 @@ const main = ({ argv = process.argv.slice(2) } = {}) => {
 
         const withheld = tracked.filter((path) => !isPublic({ path }));
         if (!withheld.length) throw new Error('every tracked path is public; refusing to export the public repo onto itself');
-        const removals = withheld.map((path) => `0 ${'0'.repeat(40)}\t${path}\n`).join('');
+        const privateTests = gitGrepFiles({
+            index,
+            args: ['grep', '--cached', '-l', '-E', PRIVATE_TEST_PATTERN, '--', 'test/*.mjs'],
+        });
+        const withheldSet = new Set([...withheld, ...privateTests]);
+        const removals = [...withheldSet].map((path) => `0 ${'0'.repeat(40)}\t${path}\n`).join('');
         git({ args: ['update-index', '--index-info'], index, input: removals });
 
         const transformed = stripPrivateScripts({ source: git({ args: ['show', ':package.json'], index }) });
@@ -180,7 +202,7 @@ const main = ({ argv = process.argv.slice(2) } = {}) => {
         }
         if (commit === null) throw new Error('export produced no commit');
         git({ args: ['update-ref', `refs/heads/${BRANCH}`, commit] });
-        console.log(`${BRANCH} = ${commit.slice(0, 8)}: ${unchanged ? 'already in sync' : 'content changed'}, ${tracked.length - withheld.length} files exported, ${withheld.length} internal paths withheld`);
+        console.log(`${BRANCH} = ${commit.slice(0, 8)}: ${unchanged ? 'already in sync' : 'content changed'}, ${tracked.length - withheldSet.size} files exported, ${withheldSet.size} internal paths withheld`);
 
         if (push) execFileSync('git', ['push', REMOTE, `${BRANCH}:main`], { cwd: ROOT, stdio: 'inherit' });
     } finally {
