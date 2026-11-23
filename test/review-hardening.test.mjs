@@ -344,7 +344,9 @@ describe('R11: SIGKILL escalation survives every settle path', () => {
 
     /** @param {string} script */
     const aliveCount = (script) =>
-        execFileSync('/bin/sh', ['-c', `pgrep -f ${script} | wc -l`]).toString().trim();
+        execFileSync('ps', ['-axo', 'pid=,command='], { encoding: 'utf8' })
+            .split('\n')
+            .filter((line) => line.includes(script)).length.toString();
 
     it('a deadline still escalates, and a noisy command is truncated, not killed', { timeout: 20_000 }, async () => {
         // F2-9: the output cap bounds the buffer, not the child, so the two

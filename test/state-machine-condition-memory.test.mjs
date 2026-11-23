@@ -41,7 +41,7 @@ describe('D-8: condition memory isolation', () => {
             encoding: 'utf8',
             timeout: 30_000,
             // A small worker heap makes the probe OOM quickly (~350 ms).
-            env: { ...process.env, MERCI_LIMIT_CONDITION_MEMORY_MB: '32' },
+            env: { ...process.env, MERCI_LIMIT_CONDITION_MEMORY_MB: '32', MERCI_LIMIT_CONDITION_TIMEOUT_MS: '10000' },
         });
         assert.equal(res.error, undefined, String(res.error));
         assert.equal(res.signal, null, 'the host process itself must not be killed');
@@ -80,10 +80,12 @@ describe('D-8: condition memory isolation', () => {
 
     it('resolves condition_memory_mb per call, respawning the child under the new cap', () => {
         const prev = LIMITS.condition_memory_mb;
+        const prevTimeout = LIMITS.condition_timeout_ms;
         // ~40M packed elements trips a 16 MB heap, and is cheap enough to run.
         const big = '(() => { const a = new Array(40_000_000).fill(1); return a.length > 0; })()';
         try {
-            setLimits({ values: { condition_memory_mb: 16 } });
+            // A slow CI box must reach the heap cap before the time budget fires.
+            setLimits({ values: { condition_memory_mb: 16, condition_timeout_ms: 5000 } });
             assert.throws(() => compileCondition({ src: big })(ctx), (err) => err instanceof ConfigurationError && /memory budget/i.test(String(err.message)));
             const before = conditionEvaluatorStats().spawns;
             setLimits({ values: { condition_memory_mb: prev } });
@@ -92,7 +94,7 @@ describe('D-8: condition memory isolation', () => {
             assert.equal(compileCondition({ src: 'true' })(ctx), true);
             assert.ok(conditionEvaluatorStats().spawns > before, 'a changed memory cap respawns the child');
         } finally {
-            setLimits({ values: { condition_memory_mb: prev } });
+            setLimits({ values: { condition_memory_mb: prev, condition_timeout_ms: prevTimeout } });
         }
     });
 
@@ -147,7 +149,7 @@ describe('D-8 residual: one persistent evaluator child, not one start per condit
         const res = spawnSync(process.execPath, ['--max-old-space-size=512', '--input-type=module', '-e', script], {
             encoding: 'utf8',
             timeout: 30_000,
-            env: { ...process.env, MERCI_LIMIT_CONDITION_MEMORY_MB: '32' },
+            env: { ...process.env, MERCI_LIMIT_CONDITION_MEMORY_MB: '32', MERCI_LIMIT_CONDITION_TIMEOUT_MS: '10000' },
         });
         assert.equal(res.signal, null, 'the host process itself must not be killed');
         assert.equal(res.status, 0, `host exit code (stderr: ${res.stderr.slice(0, 400)})`);

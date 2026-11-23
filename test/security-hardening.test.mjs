@@ -224,7 +224,10 @@ test('C6 a descendant that inherits the pipes cannot hang the promise (group kil
         // The subject must be alive BEFORE the timeout kills the group, otherwise
         // the assertion below would pass with nothing to kill.
         const alive = await waitForMarker({ marker, predicate: (c) => c > 0, timeoutMs: 1200 });
-        assert.ok(alive > 0, 'the backgrounded grandchild must be alive before the timeout fires');
+        if (!(alive > 0)) {
+            const snapshot = await runCommand({ command: 'ps', args: ['-axo', 'pid,command'] });
+            assert.fail(`the backgrounded grandchild must be alive before the timeout fires (marker ${marker}, ps:\n${String(snapshot.stdout).slice(0, 4000)})`);
+        }
         await assert.rejects(pending, (/** @type {any} */ e) => e.code === 'CMD_TIMEOUT' && e.name !== 'AbortError');
         const remaining = await waitForMarker({ marker, predicate: (c) => c === 0, timeoutMs: 5000 });
         assert.equal(remaining, 0, 'the detached grandchild must be killed with the group');
@@ -238,7 +241,10 @@ test('C6 a descendant that ignores SIGTERM is still killed by the SIGKILL escala
     try {
         const pending = runCommand({ command: script, args: [], timeoutMs: 1500 });
         const alive = await waitForMarker({ marker, predicate: (c) => c > 0, timeoutMs: 1200 });
-        assert.ok(alive > 0, 'the backgrounded grandchild must be alive before the timeout fires');
+        if (!(alive > 0)) {
+            const snapshot = await runCommand({ command: 'ps', args: ['-axo', 'pid,command'] });
+            assert.fail(`the backgrounded grandchild must be alive before the timeout fires (marker ${marker}, ps:\n${String(snapshot.stdout).slice(0, 4000)})`);
+        }
         await assert.rejects(pending, (/** @type {any} */ e) => e.code === 'CMD_TIMEOUT' && e.name !== 'AbortError');
         const remaining = await waitForMarker({ marker, predicate: (c) => c === 0, timeoutMs: 5000 });
         assert.equal(remaining, 0, 'a SIGTERM-ignoring grandchild must not outlive the escalation');
