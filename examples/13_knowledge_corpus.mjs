@@ -20,9 +20,10 @@
  *   E — ONTOLOGY : `profileSources()` measures the corpus, `proposeOntology()`
  *       proposes kinds and relations with the evidence for each, adoption is
  *       versioned and compare-and-swapped, and the graph is rebuilt inside it.
- *   F — CACHE    : `syncCorpus()` writes `manifest.json`; an unchanged corpus
- *       costs nothing, and an edited file rebuilds only the mechanical layer
- *       while the model's nodes are re-anchored by content key.
+ *   F — CACHE    : `syncCorpus()` writes `manifest.json` with an explicit
+ *       builder version; an unchanged corpus costs nothing, and an edited file
+ *       rebuilds only the mechanical layer while the model's nodes are
+ *       re-anchored by content key.
  *   G — ORPHAN   : remove the paragraph a node was derived from and the node is
  *       dropped — provenance that no longer resolves is not kept.
  *
@@ -35,7 +36,7 @@
  * Run: `node examples/13_knowledge_corpus.mjs`
  * Needs: `PROVIDER` plus its credentials in `secret.env`.
  *
- * @version 0.23.0
+ * @version 0.24.0
  */
 import { mkdir, readFile, rm, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
@@ -54,6 +55,7 @@ const STATE_DIR = join(SCRATCH_DIR, '13-knowledge-corpus');
 const CORPUS_DIR = join(STATE_DIR, 'corpus');
 const STORE_DIR = join(STATE_DIR, 'store');
 const CACHE_DIR = join(STATE_DIR, 'cache');
+const CORPUS_BUILD_VERSION = 7;
 
 /** @type {Record<string, string>} */
 const PAGES = {
@@ -262,14 +264,22 @@ async function main() {
 
     // ── F: the corpus cache — build once, then pay only for the delta ───────
     log.section({ t: 'F — cache: fingerprints, a free reload, a delta rebuild that keeps the model’s work' });
+    let corpusBuilds = 0;
+    /** @param {{sources: Array<any>, profile: any, title?: string}} arg0 */
+    const buildCorpus = ({ sources: buildSources, profile, title }) => {
+        corpusBuilds++;
+        return buildGraph({ sources: buildSources, profile, title });
+    };
+    log.option({ name: 'cache.buildVersion', value: CORPUS_BUILD_VERSION, source: 'syncCorpus({ build, buildVersion })' });
     const fingerprints = fingerprintSources({ sources });
-    const key = corpusKey({ sources: fingerprints, profile: vocabulary });
+    const key = corpusKey({ sources: fingerprints, profile: vocabulary, buildVersion: CORPUS_BUILD_VERSION });
     log.event({ type: 'fingerprinted', payload: { sources: fingerprints.length, key: key.slice(0, 12) } });
-    const first = await syncCorpus({ dir: CACHE_DIR, paths, profile: vocabulary });
+    const first = await syncCorpus({ dir: CACHE_DIR, paths, profile: vocabulary, build: buildCorpus, buildVersion: CORPUS_BUILD_VERSION });
     const stored = await loadCorpus({ dir: CACHE_DIR });
     if (!stored.manifest) throw new Error('syncCorpus wrote no manifest');
     check({ name: 'F: manifest.json fingerprints every source', ok: stored.manifest.sources.length === paths.length && stored.manifest.sources.every((source) => source.sha256.length === 64), detail: `${stored.manifest.sources.length} source(s)` });
     check({ name: 'F: the manifest key is the content key', ok: stored.manifest.key === key && first.key === key && first.reused === false && first.written === true, detail: `nodes=${first.graph.nodes.length}` });
+    check({ name: 'F: the manifest records the custom builder version', ok: stored.manifest.buildVersion === CORPUS_BUILD_VERSION, detail: `buildVersion=${stored.manifest.buildVersion}` });
 
     // The map is rendered into the system prompt here instead of being preloaded
     // by `withKnowledge`: a preloaded graph also registers its tools, and a model
@@ -318,10 +328,10 @@ async function main() {
     check({ name: 'F: the model’s node names its evidence', ok: derived.length >= 1 && derived.every((node) => (node.derivedFrom?.length ?? 0) > 0), detail: `${derived.length} derived, anchor=${derived[0]?.derivedFrom?.[0]}` });
 
     const startedReload = Date.now();
-    const second = await syncCorpus({ dir: CACHE_DIR, paths, profile: vocabulary });
+    const second = await syncCorpus({ dir: CACHE_DIR, paths, profile: vocabulary, build: buildCorpus, buildVersion: CORPUS_BUILD_VERSION });
     const reloadMs = Date.now() - startedReload;
     log.event({ type: 'cache hit', payload: { ms: reloadMs, reused: second.reused, written: second.written } });
-    check({ name: 'F: an unchanged corpus costs nothing', ok: second.reused === true && second.written === false && second.delta.clean, detail: `${reloadMs} ms, added=${second.delta.added.length} changed=${second.delta.changed.length}` });
+    check({ name: 'F: an unchanged corpus costs nothing', ok: second.reused === true && second.written === false && second.delta.clean && corpusBuilds === 1, detail: `${reloadMs} ms, added=${second.delta.added.length} changed=${second.delta.changed.length} builds=${corpusBuilds}` });
     check({ name: 'F: the hit kept the same graph and every derived node', ok: graphSha({ graph: second.graph }) === graphSha({ graph: /** @type {any} */ (corpus.graph) }) && second.graph.nodes.filter((node) => node.derived).length === derived.length });
 
     const anchorSourceId = String(second.graph.nodes.find((node) => node.id === derived[0]?.derivedFrom?.[0])?.source?.sourceId ?? 'S2');
@@ -331,7 +341,7 @@ async function main() {
     const delta = sourceDelta({ stored: stored.manifest.sources, current: fingerprintSources({ sources: readSources({ paths }) }) });
     log.event({ type: 'delta', payload: { edited: editedName, changed: delta.changed.length, unchanged: delta.unchanged.length } });
     check({ name: 'F: the delta names exactly the edited file', ok: delta.changed.length === 1 && delta.unchanged.length === paths.length - 1 && delta.added.length === 0 });
-    const third = await syncCorpus({ dir: CACHE_DIR, paths, profile: vocabulary });
+    const third = await syncCorpus({ dir: CACHE_DIR, paths, profile: vocabulary, build: buildCorpus, buildVersion: CORPUS_BUILD_VERSION });
     check({ name: 'F: only the mechanical layer was rebuilt', ok: third.reused === false && third.delta.changed.length === 1 && third.graph.nodes.some((node) => String(node.text ?? '').includes('six years')) });
     const survived = third.graph.nodes.find((node) => node.derived && node.label === derivedLabel);
     check({ name: 'F: a node anchored elsewhere survived by content key', ok: Boolean(survived) && third.derived.kept >= 1, detail: `kept=${third.derived.kept} dropped=${third.derived.dropped} edited=${editedName}` });
@@ -344,7 +354,7 @@ async function main() {
     const anchorIndex = Number(anchorSource.replace('S', '')) - 1;
     const anchorName = names[anchorIndex] ?? names[0] ?? 'retries.md';
     await writeFile(join(CORPUS_DIR, anchorName), '# Rewritten\n\nNo earlier guidance survives here.\n', 'utf8');
-    const fourth = await syncCorpus({ dir: CACHE_DIR, paths, profile: vocabulary });
+    const fourth = await syncCorpus({ dir: CACHE_DIR, paths, profile: vocabulary, build: buildCorpus, buildVersion: CORPUS_BUILD_VERSION });
     log.event({ type: 'orphan check', payload: { file: anchorName, kept: fourth.derived.kept, dropped: fourth.derived.dropped } });
     check({ name: 'G: the node whose evidence is gone is dropped', ok: fourth.derived.dropped >= 1 && !fourth.graph.nodes.some((node) => node.derived && node.label === derivedLabel), detail: `dropped=${fourth.derived.dropped}` });
     check({ name: 'G: the rebuilt corpus still validates', ok: validateGraph({ graph: fourth.graph, profile: vocabulary }).status !== 'fail' && fourth.graph.nodes.length > 0, detail: `${fourth.graph.nodes.length} node(s)` });

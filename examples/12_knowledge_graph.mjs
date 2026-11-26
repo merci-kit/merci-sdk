@@ -19,16 +19,19 @@
  *   E — closed     : gatePolicy: 'closed' refuses to read an uncalibrated `null`
  *       verdict as approval.
  *   F — read       : a fresh session answers from the budgeted block alone.
+ *   G — curated    : a frozen read-only graph validates its sources, ranks a
+ *       folded bigram with BM25, and follows only weighted outgoing edges.
  *
  * Public API: `buildGraph`, `validateGraph`, `applyPatch`, `edgeText`,
- * `renderKnowledgeBlock`, `retrieveSubgraph`, `graphSha`, `loadGraph`,
+ * `renderKnowledgeBlock`, `retrieveSubgraph`, `queryGraph`, `rankNodes`,
+ * `bm25Scores`, `tokensOf`, `KnowledgeComponent`, `graphSha`, `loadGraph`,
  * `saveGraph`, `createDecisionGate`, `getDecisionModel`, `providerDescriptorFor`,
  * `.withKnowledge`, `.withDecisionGate`.
  *
  * Run: `node examples/12_knowledge_graph.mjs`
  * Needs: `PROVIDER` plus its credentials in `secret.env`.
  *
- * @version 0.23.0
+ * @version 0.24.0
  */
 import { mkdir, rm } from 'node:fs/promises';
 import { join } from 'node:path';
@@ -41,15 +44,18 @@ import {
     getDecisionModel,
     graphSha,
     initializeClient,
+    KnowledgeComponent,
     loadCredentials,
     loadGraph,
     log,
     providerDescriptorFor,
+    queryGraph,
     renderKnowledgeBlock,
     retrieveSubgraph,
     saveGraph,
     validateGraph,
 } from 'merci-sdk';
+import { bm25Scores, rankNodes, tokensOf } from 'merci-sdk/knowledge';
 import { reportUsage, resolveExample, runMain, trackUsage, warnEmptyAnswer, wireClient } from './_shared/example-utils.mjs';
 import { SCRATCH_DIR } from './_shared/real-tools.mjs';
 
@@ -80,6 +86,19 @@ Each party's liability is limited to EUR 50,000.
 `;
 
 const QUESTION = 'May the Supplier suspend work, and under what condition? Separately: does the agreement require the Supplier to offer alternative work instead of suspending?';
+
+const CURATED_QUERY = 'Černý suspension';
+const CURATED_PRIMARY = 'The Supplier may suspend delivery only after a missed payment.';
+const CURATED_REVIEW = 'The Customer may request a Černý review before work stops.';
+const CURATED_BACKGROUND = 'Routine invoice reminders do not change the suspension right.';
+const CURATED_SOURCE = `# Černý suspension protocol
+
+${CURATED_PRIMARY}
+
+${CURATED_REVIEW}
+
+${CURATED_BACKGROUND}
+`;
 
 const ENRICH_SYSTEM = [
     'You enrich a knowledge graph. You are given a map of nodes with their ids.',
@@ -310,8 +329,9 @@ async function main() {
 
     // ── F: a fresh session answers from the budgeted block alone ────────────
     log.section({ t: 'F — read: a fresh session answers from the injected block only' });
+    const storedRead = await loadGraph({ dir: STATE_DIR });
     const readSession = client.session(defaultModel)
-        .withKnowledge({ dir: STATE_DIR, preload: true })
+        .withKnowledge({ dir: STATE_DIR, graph: storedRead.graph, preload: true, access: 'read-only', persist: false })
         .withSystemMessage(READ_SYSTEM)
         .withExecute({ options: { rules: { task: 'deny' } } });
     log.user({ m: QUESTION });
@@ -320,6 +340,72 @@ async function main() {
     check({ name: 'F: the answer names a graph node', ok: /\[[A-Za-z0-9._:-]+\]/.test(answer), detail: log.truncate({ text: answer, n: 150 }) });
     check({ name: 'F: the answer states the condition', ok: /late|payment|overdue/i.test(answer), detail: log.truncate({ text: answer, n: 150 }) });
     check({ name: 'F: the answer denies the alternative-work duty', ok: /\b(no|not|does not|doesn't|no such)\b/i.test(answer) && /alternative/i.test(answer), detail: log.truncate({ text: answer, n: 150 }) });
+
+    // ── G: a curated graph is a precise, read-only retrieval boundary ───────
+    log.section({ t: 'G — curated: strict sources, folded BM25, weighted outgoing reads' });
+    const built = buildGraph({ sources: [{ id: 'S1', name: 'curated.md', text: CURATED_SOURCE }], title: 'Curated suspension protocol' });
+    const curated = {
+        ...built,
+        nodes: built.nodes.filter((node) => node.kind === 'permission'),
+        edges: [],
+    };
+    const primary = curated.nodes.find((node) => node.kind === 'permission' && node.text === CURATED_PRIMARY);
+    const review = curated.nodes.find((node) => node.kind === 'permission' && node.text === CURATED_REVIEW);
+    if (!primary || !review) throw new Error('the curated fixture lost a clause');
+    applyPatch({ graph: curated, patch: {
+        nodes: [{ id: 'Q1', kind: 'issue', label: CURATED_QUERY, derivedFrom: [primary.id], salience: 'core', confidence: 'high', tier: 'A' }],
+        edges: [
+            { from: 'Q1', to: primary.id, rel: 'depends_on', note: 'the primary suspension clause', weight: 0.9 },
+            { from: 'Q1', to: review.id, rel: 'mentions', note: 'review context only', weight: 0.1 },
+        ],
+    } });
+    curated.sha = graphSha({ graph: curated });
+    const curatedSources = { S1: CURATED_SOURCE };
+    const sourceReport = validateGraph({ graph: curated, sources: curatedSources, sourcePolicy: 'error' });
+    check({ name: 'G: strict validation accepts the registered source spans', ok: sourceReport.status !== 'fail', detail: `status=${sourceReport.status} errors=${sourceReport.summary.errors}` });
+
+    const untrusted = structuredClone(curated);
+    const badPrimary = untrusted.nodes.find((node) => node.id === primary.id);
+    const badReview = untrusted.nodes.find((node) => node.id === review.id);
+    if (!badPrimary || !badReview?.source) throw new Error('the invalid fixture lost a clause');
+    badPrimary.text = 'Tampered text outside its source span.';
+    badReview.source.sourceId = 'MISSING';
+    const rejectedSources = validateGraph({ graph: untrusted, sources: curatedSources, sourcePolicy: 'error' });
+    const sourceCodes = new Set(rejectedSources.findings.map((finding) => finding.code));
+    check({ name: 'G: strict validation refuses tampered text and an unknown source', ok: rejectedSources.status === 'fail' && sourceCodes.has('node-roundtrip') && sourceCodes.has('source-registry'), detail: [...sourceCodes].join(',') });
+
+    const phraseTokens = tokensOf({ text: CURATED_QUERY, normalize: 'fold', ngrams: 2 }).filter((token) => token.includes(' '));
+    // With no text or ids, the custom scorer is the only seed channel.
+    /** @param {{nodes: Array<any>}} arg0 */
+    const scorer = ({ nodes }) => {
+        const documents = nodes.map((node) => tokensOf({ text: `${node.label ?? ''} ${node.text ?? ''} ${(node.terms ?? []).join(' ')} ${(node.tags ?? []).join(' ')}`, normalize: 'fold', ngrams: 2 }));
+        const scores = bm25Scores({ documents, query: phraseTokens });
+        return new Map(nodes.map((node, index) => [node.id, scores[index] ?? 0]));
+    };
+    /** @param {any} edge */
+    const edgeFilter = (edge) => typeof edge.weight === 'number' && edge.weight >= 0.5;
+    log.event({ type: 'folded phrase query', payload: { query: CURATED_QUERY, tokens: phraseTokens } });
+    const retrieved = await retrieveSubgraph({ graph: curated, scorer, edgeFilter, direction: 'outgoing', hubDamping: false, depth: 1, limit: 3 });
+    const retrievedIds = retrieved.nodes.map((entry) => entry.node.id);
+    check({ name: 'G: BM25 seeds the folded bigram and keeps the weighted outgoing edge', ok: phraseTokens.includes('cerny suspension') && retrievedIds.join(',') === `Q1,${primary.id}` && retrieved.edges.length === 1 && retrieved.edges[0]?.weight === 0.9, detail: `${retrievedIds.join(',')} edges=${retrieved.edges.length}` });
+
+    const neighbourhood = queryGraph({ graph: curated, id: 'Q1', depth: 1, maxNodes: 2, edgeFilter, direction: 'outgoing' });
+    check({ name: 'G: the explicit-id query applies the same bound and outgoing filter', ok: neighbourhood.nodes.map((node) => node.id).join(',') === `Q1,${primary.id}` && neighbourhood.edges.length === 1 });
+    const exact = rankNodes({ graph: curated, candidates: [primary], similarity: new Map([[primary.id, 1]]), hubDamping: false });
+    const damped = rankNodes({ graph: curated, candidates: [primary], similarity: new Map([[primary.id, 1]]) });
+    check({ name: 'G: hub damping can be disabled without changing the caller score', ok: exact[0]?.score === 1 && (damped[0]?.score ?? 1) < 1, detail: `exact=${exact[0]?.score} damped=${damped[0]?.score}` });
+
+    const readOnly = new KnowledgeComponent({ dir: join(STATE_DIR, 'curated'), graph: curated, sources: curatedSources, access: 'read-only', persist: false, scorer, edgeFilter, direction: 'outgoing', hubDamping: false });
+    const frozen = await readOnly.graph();
+    check({ name: 'G: the curated component freezes its validated graph', ok: Object.isFrozen(frozen) && Object.isFrozen(frozen.nodes) });
+    check({ name: 'G: read-only knowledge registers no patch tool', ok: readOnly.toSaveTool() === null });
+    let saveRefused = false;
+    try {
+        await readOnly.save({ args: { nodes: [{ id: 'X1', kind: 'note', label: 'not allowed' }] } });
+    } catch (error) {
+        saveRefused = /read-only/i.test(String(/** @type {Error} */ (error).message));
+    }
+    check({ name: 'G: a direct save is refused', ok: saveRefused });
 
     reportUsage({ provider, usage });
     log.totals({ entries: { checks, failed: failures } });

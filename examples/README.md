@@ -49,8 +49,8 @@ The machine-readable **example → SDK symbol map** lives in
 | 09 | [`09_memory_and_todos.mjs`](./09_memory_and_todos.mjs) | a persistent memory bank with embeddings, lazy vs preloaded recall, durable todos |
 | 10 | [`10_multimodal.mjs`](./10_multimodal.mjs) | vision and document ingestion into structured output |
 | 11 | [`11_web_tools.mjs`](./11_web_tools.mjs) | web search, scrape, and the headless browser |
-| 12 | [`12_knowledge_graph.mjs`](./12_knowledge_graph.mjs) | the typed graph: mechanical pass, model enrichment, negative/conditional/evidenced edges, the decision gate, a budgeted answer |
-| 13 | [`13_knowledge_corpus.mjs`](./13_knowledge_corpus.mjs) | one corpus → surfaces → wiki projection → adopted ontology → a cache that survives an edit |
+| 12 | [`12_knowledge_graph.mjs`](./12_knowledge_graph.mjs) | the typed graph: mechanical pass, model enrichment, edge shapes, the decision gate, read-only curated BM25 retrieval |
+| 13 | [`13_knowledge_corpus.mjs`](./13_knowledge_corpus.mjs) | one corpus → surfaces → wiki projection → adopted ontology → a versioned custom-builder cache that survives an edit |
 
 ### 4. Agent patterns
 

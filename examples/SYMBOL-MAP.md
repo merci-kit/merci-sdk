@@ -2,7 +2,7 @@
 
 # Merci SDK — Example → SDK symbol map
 
-> 34 demo modules (numbered examples + server children), 350 public symbols. Generated from the current `examples/*.mjs` by `scripts/build-example-map.mjs`.
+> 34 demo modules (numbered examples + server children), 357 public symbols. Generated from the current `examples/*.mjs` by `scripts/build-example-map.mjs`.
 > Every example here is **live** (it needs a backend); deterministic, backend-free proofs are tests under `test/examples/`. Every example imports only public entry points.
 > The map sees the **demonstrated** surface, not only the imports: the imported symbols plus the builder methods, the session methods, the parameter-builder methods and the methods of the SDK objects the example constructs.
 
@@ -21,7 +21,7 @@
 | 09 | `09_memory_and_todos.mjs` | Memory and todos: the persistent agent state. | live | `EVENTS`, `LocalFileMemoryProvider`, `ProviderType`, `defaultDisplay`, `getEmbeddingDimensions`, `getEmbeddingModel`, `guardedParse`, `initializeClient`, `loadCredentials`, `log`, `run`, `store`, `withExecute`, `withMemory`, `withSystemMessage`, `withTodos` |
 | 10 | `10_multimodal.mjs` | Multimodal intake: vision, document ingestion, structured output. | live | `ConfigurationError`, `PDF_MEDIA_PROVIDERS`, `ProviderType`, `asJsonSchema`, `createUnifiedMediaMessages`, `extractAndParseJson`, `ingestDocument`, `initializeClient`, `loadCredentials`, `log`, `next`, `run`, `step`, `withParameters`, `withSystemMessage` |
 | 11 | `11_web_tools.mjs` | Web tools: search, scrape, and the headless browser. | live | `EVENTS`, `defaultDisplay`, `initializeClient`, `loadCredentials`, `log`, `resolveBrowserMode`, `resolveScrapeMode`, `resolveSearchMode`, `run`, `withBrowser`, `withSystemMessage`, `withWebScrape`, `withWebSearch` |
-| 12 | `12_knowledge_graph.mjs` | The knowledge graph: a contract that can say no. | live | `applyPatch`, `buildGraph`, `createDecisionGate`, `defaultDisplay`, `edgeText`, `getDecisionModel`, `graphSha`, `initializeClient`, `loadCredentials`, `loadGraph`, `log`, `providerDescriptorFor`, `renderKnowledgeBlock`, `retrieveSubgraph`, `run`, `saveGraph`, `validateGraph`, `withDecisionGate`, `withExecute`, `withKnowledge`, `withSystemMessage` |
+| 12 | `12_knowledge_graph.mjs` | The knowledge graph: a contract that can say no. | live | `KnowledgeComponent`, `applyPatch`, `bm25Scores`, `buildGraph`, `createDecisionGate`, `defaultDisplay`, `edgeText`, `getDecisionModel`, `graph`, `graphSha`, `initializeClient`, `loadCredentials`, `loadGraph`, `log`, `providerDescriptorFor`, `queryGraph`, `rankNodes`, `renderKnowledgeBlock`, `retrieveSubgraph`, `run`, `save`, `saveGraph`, `toSaveTool`, `tokensOf`, `validateGraph`, `withDecisionGate`, `withExecute`, `withKnowledge`, `withSystemMessage` |
 | 13 | `13_knowledge_corpus.mjs` | A corpus that becomes a wiki, and survives an edit. | live | `adoptOntology`, `adoptedProfile`, `applyPatch`, `buildGraph`, `corpusKey`, `defaultDisplay`, `extractAndParseJson`, `fingerprintSources`, `graphSha`, `initializeClient`, `loadCorpus`, `loadCredentials`, `log`, `memorySurface`, `mergeFragment`, `ontologySha`, `profileSources`, `proposeOntology`, `readSources`, `readWikiSha`, `renderKnowledgeBlock`, `renderWiki`, `run`, `saveGraph`, `sourceDelta`, `surfaceFragment`, `syncCorpus`, `todosSurface`, `validateGraph`, `wikiSurface`, `withExecute`, `withKnowledge`, `withSystemMessage` |
 | 14 | `14_coding_agent.mjs` | A workspace-scoped coding agent (REPL). | live | `EVENTS`, `createContextTools`, `createShellTool`, `defaultDisplay`, `initializeClient`, `loadCredentials`, `loadSkillsFromDirectory`, `log`, `run`, `withApproval`, `withAutoContext`, `withSkills`, `withSystemMessage`, `withTools` |
 | 15 | `15_delegation.mjs` | Delegation: a lead agent, two specialists, one contract. | live | `AgentContext`, `ConfigurationError`, `EVENTS`, `HANDOFF_CONTEXT_MODES`, `HANDOFF_GOAL_MODES`, `InMemorySessionStore`, `TASK_TOOL_NAME`, `compactHistory`, `contextFromMerciEnvelope`, `continueSpawn`, `createTaskTool`, `foldContext`, `forkSpawn`, `getBudgetPool`, `getSpawn`, `goalBlockForHandoff`, `initializeClient`, `listSpawns`, `loadCredentials`, `log`, `merciEnvelope`, `normalizeDelegationEnvelope`, `normalizeHandoff`, `resolveAgentClient`, `run`, `sendToSpawn`, `spawnThreadId`, `sumSpawnUsage`, `withAgentDelegation`, `withBudget`, `withObjective`, `withSessionStore`, `withSystemMessage`, `withTaskAgents` |
@@ -55,6 +55,7 @@ Symbols not on the `merci-sdk` barrel, imported from a published subpath:
 | `03_structured_output.mjs` | `merci-sdk/json → guardedParse, zodSchemaToJsonSchema` |
 | `09_memory_and_todos.mjs` | `merci-sdk/json → guardedParse` |
 | `10_multimodal.mjs` | `merci-sdk/json → extractAndParseJson` |
+| `12_knowledge_graph.mjs` | `merci-sdk/knowledge → bm25Scores, rankNodes, tokensOf` |
 | `13_knowledge_corpus.mjs` | `merci-sdk/json → extractAndParseJson` |
 | `17_dag_workflow.mjs` | `merci-sdk/planning → TaskState, WorkflowEvaluator, WorkflowExecutor, WorkflowPlanner, assertStateSchema, collectTemplateRefs, validateTemplateRefs` |
 | `24_mcp_client.mjs` | `merci-sdk/json → guardedParse` |
@@ -94,6 +95,7 @@ Symbols not on the `merci-sdk` barrel, imported from a published subpath:
 | `BackendError` | `21_observability.mjs` |
 | `beforeRun` | `28_workspace_isolation.mjs` |
 | `begin` | `20_durability.mjs` |
+| `bm25Scores` | `12_knowledge_graph.mjs` |
 | `BREAKER_OPEN_CODE` | `08_resilience.mjs` |
 | `BudgetExceededError` | `06_approvals_and_safety.mjs`, `07_agent_loop.mjs` |
 | `buildEnvironmentBlock` | `25_mcp_server_http.mjs` |
@@ -216,6 +218,7 @@ Symbols not on the `merci-sdk` barrel, imported from a published subpath:
 | `getToolCallArguments` | `05_tool_calling.mjs` |
 | `getToolCallName` | `02_conversation.mjs`, `05_tool_calling.mjs` |
 | `goalBlockForHandoff` | `15_delegation.mjs` |
+| `graph` | `12_knowledge_graph.mjs` |
 | `graphSha` | `12_knowledge_graph.mjs`, `13_knowledge_corpus.mjs` |
 | `guardedParse` | `02_conversation.mjs`, `03_structured_output.mjs`, `09_memory_and_todos.mjs`, `24_mcp_client.mjs` |
 | `GuardrailViolationError` | `06_approvals_and_safety.mjs` |
@@ -234,6 +237,7 @@ Symbols not on the `merci-sdk` barrel, imported from a published subpath:
 | `join` | `30_scheduler.mjs` |
 | `JOURNAL_STATUS` | `20_durability.mjs` |
 | `judge` | `19_discussion.mjs` |
+| `KnowledgeComponent` | `12_knowledge_graph.mjs` |
 | `LIMIT_DEFAULTS` | `07_agent_loop.mjs` |
 | `listPrompts` | `24_mcp_client.mjs` |
 | `listResources` | `24_mcp_client.mjs` |
@@ -297,6 +301,8 @@ Symbols not on the `merci-sdk` barrel, imported from a published subpath:
 | `proposeOntology` | `13_knowledge_corpus.mjs` |
 | `providerDescriptorFor` | `12_knowledge_graph.mjs` |
 | `ProviderType` | `09_memory_and_todos.mjs`, `10_multimodal.mjs`, `21_observability.mjs` |
+| `queryGraph` | `12_knowledge_graph.mjs` |
+| `rankNodes` | `12_knowledge_graph.mjs` |
 | `readDecisionAnswer` | `04_judgment.mjs` |
 | `readResource` | `24_mcp_client.mjs` |
 | `readSources` | `13_knowledge_corpus.mjs` |
@@ -327,7 +333,7 @@ Symbols not on the `merci-sdk` barrel, imported from a published subpath:
 | `runEvals` | `23_evals.mjs` |
 | `runGuardedStep` | `08_resilience.mjs` |
 | `runTasks` | `19_discussion.mjs` |
-| `save` | `17_dag_workflow.mjs`, `18_state_machine.mjs`, `28_workspace_isolation.mjs` |
+| `save` | `12_knowledge_graph.mjs`, `17_dag_workflow.mjs`, `18_state_machine.mjs`, `28_workspace_isolation.mjs` |
 | `saveCheckpoint` | `16_plan_and_execute.mjs`, `20_durability.mjs` |
 | `saveGraph` | `12_knowledge_graph.mjs`, `13_knowledge_corpus.mjs` |
 | `SCHEDULER_DEFAULTS` | `30_scheduler.mjs` |
@@ -365,11 +371,13 @@ Symbols not on the `merci-sdk` barrel, imported from a published subpath:
 | `tick` | `30_scheduler.mjs` |
 | `TodoComponent` | `28_workspace_isolation.mjs` |
 | `todosSurface` | `13_knowledge_corpus.mjs` |
+| `tokensOf` | `12_knowledge_graph.mjs` |
 | `TOOL_OUTPUT_TRUNCATION_SUFFIX` | `25_mcp_server_http.mjs` |
 | `toolJournalKey` | `20_durability.mjs` |
 | `tools` | `25_mcp_server_http.mjs` |
 | `topK` | `08_resilience.mjs` |
 | `topP` | `02_conversation.mjs` |
+| `toSaveTool` | `12_knowledge_graph.mjs` |
 | `toTaskAgent` | `32_agent_files.mjs` |
 | `validateGraph` | `12_knowledge_graph.mjs`, `13_knowledge_corpus.mjs` |
 | `validateTemplateRefs` | `17_dag_workflow.mjs` |

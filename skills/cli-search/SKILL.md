@@ -1,7 +1,7 @@
 ---
 name: cli-search
 description: Search a repository for a symbol, definition, call site, string, or file. Use when the user says find, search, grep, ripgrep, rg, where is, which files, how many, or before editing code you have not read. Routes between the native grep/glob/read tools and shell ripgrep, and states which forms need human approval.
-version: 0.23.2
+version: 0.24.0
 ---
 
 # CLI search

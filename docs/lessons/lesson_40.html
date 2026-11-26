@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <title>Lesson 40: An unattended queue that retries, parks and resumes — Merci SDK v0.23.2</title>
+    <title>Lesson 40: An unattended queue that retries, parks and resumes — Merci SDK v0.24.0</title>
     <link href="https://fonts.googleapis.com" rel="preconnect"/>
     <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
     <link as="style" href="https://fonts.googleapis.com/css2?display=swap&amp;family=Inter%3Awght%40400%3B500%3B600%3B700%3B900&family=Fira+Code%3Awght%40400%3B600" onload="this.rel='stylesheet'" rel="stylesheet"/>
@@ -20,7 +20,7 @@
                     <img src="../merci-sdk-logo.png" alt="Merci SDK Logo" class="h-8 w-12 object-contain">
                     <div class="flex items-center gap-2">
                         <h1 class="text-xl font-bold text-[var(--text-primary)] tracking-tight">Merci SDK</h1>
-                        <span class="text-xs font-mono font-semibold px-2 py-0.5 rounded-full bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20">v0.23.2</span>
+                        <span class="text-xs font-mono font-semibold px-2 py-0.5 rounded-full bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20">v0.24.0</span>
                     </div>
                 </a>
             </div>
@@ -85,7 +85,7 @@
                     </div>
                     <div class="p-4 border border-[var(--border-color)] rounded-xl bg-[var(--card-background)]">
                         <div class="font-mono text-xs font-bold text-[var(--primary-color)]">D — four engines</div>
-                        <div class="text-xs text-[var(--text-secondary)] mt-1">one attempt, four engines — agentic, dag (<code class="inline">planFor</code>), stateMachine (<code class="inline">graphFor</code>), discussion (<code class="inline">agents</code>) — and a DAG checkpoint that resumes with no model call and no usage. What this shows: - the board is a read-only source; the scheduler never writes it - retry vs park is decided by the failure class, not by a counter - the attempt store carries the budget and the park, never the queue - one runner result is this attempt's spend, not a running total Run: <code class="inline">node examples/30_scheduler.mjs</code> Needs: provider credentials in <code class="inline">secret.env</code> (<code class="inline">PROVIDER=google_genai</code>). @version 0.23.2</div>
+                        <div class="text-xs text-[var(--text-secondary)] mt-1">one attempt, four engines — agentic, dag (<code class="inline">planFor</code>), stateMachine (<code class="inline">graphFor</code>), discussion (<code class="inline">agents</code>) — and a DAG checkpoint that resumes with no model call and no usage. What this shows: - the board is a read-only source; the scheduler never writes it - retry vs park is decided by the failure class, not by a counter - the attempt store carries the budget and the park, never the queue - one runner result is this attempt's spend, not a running total Run: <code class="inline">node examples/30_scheduler.mjs</code> Needs: provider credentials in <code class="inline">secret.env</code> (<code class="inline">PROVIDER=google_genai</code>). @version 0.24.0</div>
                     </div>
                 </div>
                 <div class="border border-[var(--border-color)] rounded-xl p-4 bg-[var(--card-background)]">
@@ -186,7 +186,7 @@ const createClock = () =&gt; ({
                 <div class="flex items-center gap-2">
                     <img src="../merci-sdk-logo.png" alt="Merci SDK Logo" class="h-6 w-9 object-contain">
                     <span class="font-bold text-sm text-[var(--text-primary)]">Merci SDK</span>
-                    <span class="text-xs font-mono text-[var(--text-secondary)]">v0.23.2</span>
+                    <span class="text-xs font-mono text-[var(--text-secondary)]">v0.24.0</span>
                 </div>
                 <p class="text-xs text-[var(--text-secondary)]">© 2026 Lukáš Michna (Mobeetle) · Apache-2.0</p>
                 <nav class="flex items-center gap-4 text-xs font-semibold text-[var(--text-secondary)]">

@@ -1,14 +1,14 @@
 <!-- GENERATED FILE — do not edit by hand. Run `pnpm build:structure` to regenerate. -->
 
-# Merci SDK v0.23.2 — Library Structure & Symbols
+# Merci SDK v0.24.0 — Library Structure & Symbols
 
 > Structural reference: the `lib/` file tree and the symbols each module exports.
 > Generated from the current source by `scripts/build-structure.mjs`.
 
-- **Version:** 0.23.2
+- **Version:** 0.24.0
 - **Files:** 238 `.mjs`
-- **Exports:** 1043 declared, 557 re-exported
-- **Types:** 553 `@typedef`s
+- **Exports:** 1045 declared, 558 re-exported
+- **Types:** 558 `@typedef`s
 
 `Kind` is one of `class`, `error class`, `function`, `const`, `default`, `barrel` or a resolved `re-export`. `↩` marks a symbol re-exported from another module.
 
@@ -321,9 +321,9 @@ lib/
 | `core` | 35 | 217 | 4 | 29 | Foundation: constant tables, typed errors, events, prompt text, loadable component base |
 | `messaging` | 5 | 36 | 13 | 27 | Unified message model, factories and per-backend history normalizers |
 | `backends` | 35 | 87 | 2 | 61 | Provider clients (JAI, OAI, GAI, AAI) and their protocol adapters |
-| `support` | 22 | 102 | 1 | 37 | Cross-cutting utilities: retry, timeouts, JSON, logger, limits |
+| `support` | 22 | 103 | 1 | 37 | Cross-cutting utilities: retry, timeouts, JSON, logger, limits |
 | `tools` | 13 | 53 | 34 | 41 | Tool system: execution, MCP client/server, A2A, shell, skills, context tools |
-| `agentic` | 127 | 543 | 196 | 355 | Orchestration: sessions, loops, planning, memory, state machine, web components |
+| `agentic` | 127 | 544 | 197 | 360 | Orchestration: sessions, loops, planning, memory, state machine, web components |
 | `root` | 1 | 5 | 307 | 3 | Public barrel that defines the package entry surface (lib/index.mjs) |
 
 ## 4. Symbols by area
@@ -1180,6 +1180,7 @@ lib/
 | Symbol | Kind | Signature / Source | Summary |
 | --- | --- | --- | --- |
 | `asRecord` | function | `function asRecord({ value })` | The value as a keyed record, or `null` when it is not a non-null, non-array object. |
+| `deepFreeze` | function | `function deepFreeze({ value })` | Freezes a value and every object or array it owns. |
 
 #### `lib/support/options.mjs` — options — the closed-key options reader.
 
@@ -1800,7 +1801,7 @@ lib/
 | `loadManifest` | function | `async function loadManifest({ dir = DEFAULT_KNOWLEDGE_DIR } = {})` |  |
 | `loadCorpus` | function | `async function loadCorpus({ dir = DEFAULT_KNOWLEDGE_DIR } = {})` | Loads the persisted graph and its manifest. |
 | `reanchorDerived` | function | `function reanchorDerived({ stored = null, fresh = null } = {})` | Moves the agent's nodes from an old graph onto a freshly built one. |
-| `syncCorpus` | function | `async function syncCorpus({ dir = DEFAULT_KNOWLEDGE_DIR, paths = [], sources = null, profile = null, now = new Date() } = {})` | Load-or-build. |
+| `syncCorpus` | function | `async function syncCorpus({ dir = DEFAULT_KNOWLEDGE_DIR, paths = [], sources = null, profile = null, now = new Date(), build = buildGraph, buildVersion } = {})` | Load-or-build. |
 
 #### `lib/agentic/knowledge/component.mjs` — The knowledge capability component: ASG + wiki as one capability.
 
@@ -1860,15 +1861,16 @@ lib/
 | `adoptOntology` | function | ↩ `lib/agentic/knowledge/store.mjs` | Adopts a proposal as the vocabulary. |
 | `adoptedProfile` | function | ↩ `lib/agentic/knowledge/store.mjs` | The adopted vocabulary as a profile a graph can be validated against, or null when nothing was adopted. |
 | `tokensOf` | function | ↩ `lib/agentic/knowledge/query.mjs` |  |
+| `bm25Scores` | function | ↩ `lib/agentic/knowledge/query.mjs` | BM25 scores aligned with `documents`. |
 | `lexicalScore` | function | ↩ `lib/agentic/knowledge/query.mjs` | Overlap score in [0, 1]: how much of the query the node covers. |
 | `salienceWeight` | function | ↩ `lib/agentic/knowledge/query.mjs` |  |
 | `confidenceWeight` | function | ↩ `lib/agentic/knowledge/query.mjs` |  |
 | `tierWeight` | function | ↩ `lib/agentic/knowledge/query.mjs` | Evidence tier, keeping the corpus's hedging in the ranking. |
 | `hubDivisor` | function | ↩ `lib/agentic/knowledge/query.mjs` |  |
-| `rankNodes` | function | ↩ `lib/agentic/knowledge/query.mjs` | Ranks candidates by similarity, salience, confidence and tier, damped by inbound degree. |
+| `rankNodes` | function | ↩ `lib/agentic/knowledge/query.mjs` | Ranks candidates by similarity, salience, confidence and tier, damped by inbound degree unless the caller supplies an already-calibrated ranking. |
 | `seedNodes` | function | ↩ `lib/agentic/knowledge/query.mjs` | Picks seed nodes from three channels. |
 | `expandSubgraph` | function | ↩ `lib/agentic/knowledge/query.mjs` | Bounded BFS. |
-| `queryGraph` | function | ↩ `lib/agentic/knowledge/query.mjs` | The undirected neighbourhood of one node, for the explicit-id query form. |
+| `queryGraph` | function | ↩ `lib/agentic/knowledge/query.mjs` | The bounded neighbourhood of one node, for the explicit-id query form. |
 | `retrieveSubgraph` | function | ↩ `lib/agentic/knowledge/query.mjs` | The whole read path: seed → expand → rank. |
 | `graphTextSize` | function | ↩ `lib/agentic/knowledge/render.mjs` | Total characters of node text — the size signal the budget tiers read. |
 | `renderSectionMap` | function | ↩ `lib/agentic/knowledge/render.mjs` | The map: headings when the graph has them, otherwise the most load-bearing nodes. |
@@ -1933,7 +1935,7 @@ lib/
 | `statsOf` | function | `function statsOf({ nodes, edges })` | Counts nodes, edges, kinds and relation usage. |
 | `nodeErrors` | function | `function nodeErrors({ node, ids, profile, sources = null })` | The per-node checks of `validateGraph`, in its order. |
 | `edgeErrors` | function | `function edgeErrors({ edge, ids, edgeIds, profile })` | The per-edge checks of `validateGraph`, in its order. |
-| `validateGraph` | function | `function validateGraph({ graph = null, profile = null, strict = false, wikiSha = null, sources = null, promoteAfter = LIMITS.knowledge_promote_after } = {})` | Validates a graph. |
+| `validateGraph` | function | `function validateGraph({ graph = null, profile = null, strict = false, wikiSha = null, sources = null, promoteAfter = LIMITS.knowledge_promote_after, sourcePolicy = 'none' } = {})` | Validates a graph. |
 | `sourceSlice` | function | `function sourceSlice({ node, sources })` | The exact source text a node points at, when the caller supplied the sources. |
 | `applyPatch` | function | `function applyPatch({ graph = null, patch = null, profile = null, now = new Date() } = {})` | Applies a patch: add nodes/edges, update node fields, remove by id. |
 
@@ -1950,17 +1952,18 @@ lib/
 
 | Symbol | Kind | Signature / Source | Summary |
 | --- | --- | --- | --- |
-| `tokensOf` | function | `function tokensOf({ text })` |  |
+| `tokensOf` | function | `function tokensOf({ text, normalize = 'none', ngrams = 1, stopwords = STOPWORDS })` |  |
+| `bm25Scores` | function | `function bm25Scores({ documents = [], query, k1 = 1.2, b = 0.75 })` | BM25 scores aligned with `documents`. |
 | `lexicalScore` | function | `function lexicalScore({ query, text })` | Overlap score in [0, 1]: how much of the query the node covers. |
 | `salienceWeight` | function | `function salienceWeight({ node })` |  |
 | `confidenceWeight` | function | `function confidenceWeight({ node })` |  |
 | `tierWeight` | function | `function tierWeight({ node })` | Evidence tier, keeping the corpus's hedging in the ranking. |
 | `hubDivisor` | function | `function hubDivisor({ indegree })` |  |
-| `rankNodes` | function | `function rankNodes({ graph = null, candidates = [], similarity = new Map(), limit = LIMITS.knowledge_query_max_nodes } = {})` | Ranks candidates by similarity, salience, confidence and tier, damped by inbound degree. |
-| `seedNodes` | function | `async function seedNodes({ graph, text = '', ids = [], embedder = null, limit = 12 } = {})` | Picks seed nodes from three channels. |
-| `expandSubgraph` | function | `function expandSubgraph({ graph = null, seeds = [], depth = LIMITS.knowledge_query_default_depth, maxNodes = LIMITS.knowledge_query_max_nodes, depths = null } = {})` | Bounded BFS. |
-| `queryGraph` | function | `function queryGraph({ graph = null, id = '', depth = 1 } = {})` | The undirected neighbourhood of one node, for the explicit-id query form. |
-| `retrieveSubgraph` | function | `async function retrieveSubgraph({ graph, text = '', ids = [], embedder = null, depth, limit } = {})` | The whole read path: seed → expand → rank. |
+| `rankNodes` | function | `function rankNodes({ graph = null, candidates = [], similarity = new Map(), limit = LIMITS.knowledge_query_max_nodes, hubDamping = true, tiePriority = null } = {})` | Ranks candidates by similarity, salience, confidence and tier, damped by inbound degree unless the caller supplies an already-calibrated ranking. |
+| `seedNodes` | function | `async function seedNodes({ graph, text = '', ids = [], embedder = null, limit = 12, scorer = null } = {})` | Picks seed nodes from three channels. |
+| `expandSubgraph` | function | `function expandSubgraph({ graph = null, seeds = [], depth = LIMITS.knowledge_query_default_depth, maxNodes = LIMITS.knowledge_query_max_nodes, depths = null, edgeFilter = null, direction = 'both' } = {})` | Bounded BFS. |
+| `queryGraph` | function | `function queryGraph({ graph = null, id = '', depth = 1, maxNodes = LIMITS.knowledge_query_max_nodes, edgeFilter = null, direction = 'both' } = {})` | The bounded neighbourhood of one node, for the explicit-id query form. |
+| `retrieveSubgraph` | function | `async function retrieveSubgraph({ graph, text = '', ids = [], embedder = null, depth, limit, scorer = null, edgeFilter = null, direction = 'both', hubDamping = true } = {})` | The whole read path: seed → expand → rank. |
 
 #### `lib/agentic/knowledge/render.mjs` — Knowledge rendering — the prompt block and the wiki projection.
 
@@ -2958,7 +2961,7 @@ _No exports._
 | `buildGraph` | function | ↩ `lib/agentic/knowledge/index.mjs` | Builds a graph from one or more documents. |
 | `validateGraph` | function | ↩ `lib/agentic/knowledge/index.mjs` | Validates a graph. |
 | `applyPatch` | function | ↩ `lib/agentic/knowledge/index.mjs` | Applies a patch: add nodes/edges, update node fields, remove by id. |
-| `queryGraph` | function | ↩ `lib/agentic/knowledge/index.mjs` | The undirected neighbourhood of one node, for the explicit-id query form. |
+| `queryGraph` | function | ↩ `lib/agentic/knowledge/index.mjs` | The bounded neighbourhood of one node, for the explicit-id query form. |
 | `retrieveSubgraph` | function | ↩ `lib/agentic/knowledge/index.mjs` | The whole read path: seed → expand → rank. |
 | `renderKnowledgeBlock` | function | ↩ `lib/agentic/knowledge/index.mjs` | Renders a bounded knowledge block for the prompt. |
 | `renderWiki` | function | ↩ `lib/agentic/knowledge/index.mjs` | Renders the wiki. |
@@ -3277,7 +3280,7 @@ Everything importable from the package entry point (`lib/index.mjs`):
 | `buildGraph` | function | ↩ `lib/agentic/knowledge/index.mjs` | Builds a graph from one or more documents. |
 | `validateGraph` | function | ↩ `lib/agentic/knowledge/index.mjs` | Validates a graph. |
 | `applyPatch` | function | ↩ `lib/agentic/knowledge/index.mjs` | Applies a patch: add nodes/edges, update node fields, remove by id. |
-| `queryGraph` | function | ↩ `lib/agentic/knowledge/index.mjs` | The undirected neighbourhood of one node, for the explicit-id query form. |
+| `queryGraph` | function | ↩ `lib/agentic/knowledge/index.mjs` | The bounded neighbourhood of one node, for the explicit-id query form. |
 | `retrieveSubgraph` | function | ↩ `lib/agentic/knowledge/index.mjs` | The whole read path: seed → expand → rank. |
 | `renderKnowledgeBlock` | function | ↩ `lib/agentic/knowledge/index.mjs` | Renders a bounded knowledge block for the prompt. |
 | `renderWiki` | function | ↩ `lib/agentic/knowledge/index.mjs` | Renders the wiki. |
@@ -3821,6 +3824,9 @@ Everything importable from the package entry point (`lib/index.mjs`):
 | `JournalOutcome` | `{Object}` | `lib/agentic/journal.mjs` |
 | `JournalEntry` | `{Object}` | `lib/agentic/journal.mjs` |
 | `KnowledgeSource` | `{Object}` | `lib/agentic/knowledge/build.mjs` |
+| `KnowledgeBuilder` | `{(arg: {sources: Array<{id: string, path?: string\|null, name: string, text: string}>, profile: import('./model.mjs').KnowledgeProfile, title: string}) => import('./model.mjs').KnowledgeGraph\|Promise<import('./model.mjs').KnowledgeGraph>}` | `lib/agentic/knowledge/cache.mjs` |
+| `SyncCorpusBase` | `{{dir?: string, paths?: Array<string>, sources?: Array<{id: string, path?: string\|null, name: string, text: string}>\|null, profile?: string\|object\|null, now?: Date}}` | `lib/agentic/knowledge/cache.mjs` |
+| `SyncCorpusOptions` | `{(SyncCorpusBase & {build?: undefined, buildVersion?: number})\|(SyncCorpusBase & {build: KnowledgeBuilder, buildVersion: number})}` | `lib/agentic/knowledge/cache.mjs` |
 | `SourceFingerprint` | `{Object}` | `lib/agentic/knowledge/cache.mjs` |
 | `CorpusManifest` | `{Object}` | `lib/agentic/knowledge/cache.mjs` |
 | `KnowledgeGate` | `{Object}` | `lib/agentic/knowledge/component.mjs` |
@@ -3838,6 +3844,8 @@ Everything importable from the package entry point (`lib/index.mjs`):
 | `RelationProposal` | `{Object}` | `lib/agentic/knowledge/profile.mjs` |
 | `OntologyProposal` | `{Object}` | `lib/agentic/knowledge/profile.mjs` |
 | `RankedNode` | `{Object}` | `lib/agentic/knowledge/query.mjs` |
+| `KnowledgeScorer` | `{(arg: {graph: import('./model.mjs').KnowledgeGraph\|null\|undefined, nodes: import('./model.mjs').KnowledgeNode[], text: string, ids: string[], query: string[]}) => Map<string, number>}` | `lib/agentic/knowledge/query.mjs` |
+| `KnowledgeEdgeFilter` | `{(edge: import('./model.mjs').KnowledgeEdge) => boolean}` | `lib/agentic/knowledge/query.mjs` |
 | `ProgressSnapshot` | `{Object}` | `lib/agentic/loops/policy.mjs` |
 | `MemoryEngine` | `{Object}` | `lib/agentic/memory/component.mjs` |
 | `MemoryManagerLike` | `{Object}` | `lib/agentic/memory/component.mjs` |
@@ -4065,7 +4073,7 @@ Counts of relative import/re-export specifiers between top-level areas. This is 
 | From → To | Imports |
 | --- | --- |
 | `agentic → core` | 237 |
-| `agentic → support` | 94 |
+| `agentic → support` | 97 |
 | `backends → core` | 53 |
 | `root → agentic` | 51 |
 | `tools → core` | 42 |

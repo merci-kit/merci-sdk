@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <title>Lesson 39: The workflow contract: one repo-owned file, from config to prompt — Merci SDK v0.23.2</title>
+    <title>Lesson 39: The workflow contract: one repo-owned file, from config to prompt — Merci SDK v0.24.0</title>
     <link href="https://fonts.googleapis.com" rel="preconnect"/>
     <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
     <link as="style" href="https://fonts.googleapis.com/css2?display=swap&amp;family=Inter%3Awght%40400%3B500%3B600%3B700%3B900&family=Fira+Code%3Awght%40400%3B600" onload="this.rel='stylesheet'" rel="stylesheet"/>
@@ -20,7 +20,7 @@
                     <img src="../merci-sdk-logo.png" alt="Merci SDK Logo" class="h-8 w-12 object-contain">
                     <div class="flex items-center gap-2">
                         <h1 class="text-xl font-bold text-[var(--text-primary)] tracking-tight">Merci SDK</h1>
-                        <span class="text-xs font-mono font-semibold px-2 py-0.5 rounded-full bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20">v0.23.2</span>
+                        <span class="text-xs font-mono font-semibold px-2 py-0.5 rounded-full bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20">v0.24.0</span>
                     </div>
                 </a>
             </div>
@@ -69,7 +69,7 @@
                     <p class="text-sm text-[var(--text-secondary)] leading-relaxed mt-3">1 — WRITE AND LOAD : <code class="inline">new WorkflowPolicy({ path })</code> then <code class="inline">start()</code> resolves the YAML front matter and the prompt body into one frozen config. <code class="inline">snapshot()</code> is the operator view: health, watch state, prompt size, redacted provider. 2 — RENDER         : <code class="inline">renderPrompt({ issue, attempt })</code> fills the body from variables, <code class="inline">createPolicyRenderer({ policy })</code> maps a scheduler attempt onto the template (1 → first run, N → retry N-1), an unknown variable is a <code class="inline">PolicyError</code>, and the parser/loader/renderer work with no policy at all. 3 — MAP            : <code class="inline">policyToSchedulerOptions({ policy })</code> turns the config into live scheduler options and preflight; <code class="inline">policyToWorkspaceOptions({ policy })</code> yields the workspace strategy and hooks. 4 — BREAK          : an edit with invalid YAML is refused. The last known good prompt still renders, and both preflight paths name the reason. 5 — RELOAD         : the repaired file is applied, and a real model answers the newly rendered prompt — the prompt you saw is the prompt that ran.</p>
                     <p class="text-sm text-[var(--text-secondary)] leading-relaxed mt-3">Public API: <code class="inline">WorkflowPolicy</code>, <code class="inline">createPolicyRenderer</code>, <code class="inline">parseWorkflowMarkdown</code>, <code class="inline">loadWorkflowFile</code>, <code class="inline">renderPromptTemplate</code>, <code class="inline">policyToSchedulerOptions</code>, <code class="inline">policyToWorkspaceOptions</code>, <code class="inline">WORKFLOW_POLICY_REASONS</code>, <code class="inline">PolicyError</code>, <code class="inline">MerciEventEmitter</code>, <code class="inline">EVENTS</code>.</p>
                     <p class="text-sm text-[var(--text-secondary)] leading-relaxed mt-3">Run: <code class="inline">node examples/29_workflow_contract.mjs</code> Needs: <code class="inline">PROVIDER</code> + provider credentials in <code class="inline">secret.env</code>.</p>
-                    <p class="text-sm text-[var(--text-secondary)] leading-relaxed mt-3">@version 0.23.2</p>
+                    <p class="text-sm text-[var(--text-secondary)] leading-relaxed mt-3">@version 0.24.0</p>
                 </div>
             </section>
             <section class="space-y-4">
@@ -179,7 +179,7 @@ const MARKER = 'CONTRACT-MER-29';
                 <div class="flex items-center gap-2">
                     <img src="../merci-sdk-logo.png" alt="Merci SDK Logo" class="h-6 w-9 object-contain">
                     <span class="font-bold text-sm text-[var(--text-primary)]">Merci SDK</span>
-                    <span class="text-xs font-mono text-[var(--text-secondary)]">v0.23.2</span>
+                    <span class="text-xs font-mono text-[var(--text-secondary)]">v0.24.0</span>
                 </div>
                 <p class="text-xs text-[var(--text-secondary)]">© 2026 Lukáš Michna (Mobeetle) · Apache-2.0</p>
                 <nav class="flex items-center gap-4 text-xs font-semibold text-[var(--text-secondary)]">

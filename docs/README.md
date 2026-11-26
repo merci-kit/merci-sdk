@@ -1,7 +1,7 @@
-# Merci SDK v0.23.2
+# Merci SDK v0.24.0
 
 [![View on GitHub](https://img.shields.io/badge/View%20on-GitHub-blue?logo=github)](https://github.com/merci-kit/merci-sdk/)
-[![Version](https://img.shields.io/badge/version-0.23.2-blue)](package.json)
+[![Version](https://img.shields.io/badge/version-0.24.0-blue)](package.json)
 
 **Unified, fluent, multi-provider and multi-standard agentic SDK for Node.js. Minimal dependencies. Streaming, function calling, persistent memory, DAG workflows, and multi-agent swarms.**
 
@@ -20,7 +20,7 @@ Merci SDK covers three API standards (`oai`, `aai`, `gai`) over seven providers:
 - **Agent Client Protocol (ACP)**: `createAcpAgent` exposes a session as an ACP v1 agent — the full session lifecycle (`initialize`, `session/new|load|list|delete|fork|prompt|cancel`) with message, thought, tool-call and plan session updates.
 - **3-Layer Shell Security Gate**: Strict isolation into Safe, Blocked, and Human-in-the-Loop (HITL) gated commands with secret redaction.
 - **Persistent Episodic Memory**: Composite & local file memory providers with non-blocking background distillation and untrusted-fact escaping.
-- **Knowledge Graph (ASG) + Wiki**: `withKnowledge()` attaches one typed graph — 25 core relations plus a namespaced `x-<label>` escape that must carry a note — with a validator, a bounded traversal that damps hubs, a budgeted prompt block, and a generated wiki whose index carries the graph hash. Read-only adapters ingest documents, an existing markdown corpus, memory facts, todos and plan steps when given a `seed`; the wiki is a projection of the graph, never a second store. `syncCorpus()` persists a build with a source manifest, reuses it untouched when the corpus has not changed, and after an edit re-anchors the agent's nodes by content key.
+- **Knowledge Graph (ASG) + Wiki**: `withKnowledge()` attaches one typed graph — 25 core relations plus a namespaced `x-<label>` escape that must carry a note — with a validator, a bounded traversal that damps hubs, a budgeted prompt block, and a generated wiki whose index carries the graph hash. Read-only adapters ingest documents, an existing markdown corpus, memory facts, todos and plan steps when given a `seed`; the wiki is a projection of the graph, never a second store. `syncCorpus()` persists a build with a source manifest, reuses it untouched when the corpus has not changed, and after an edit re-anchors the agent's nodes by content key. Precision retrieval can supply folded n-grams, BM25 or another scorer, filter edges by caller policy, choose traversal direction, and disable hub damping. Curated corpora can use `access: 'read-only'` with `persist: false`; the SDK validates and freezes the graph and refuses direct mutation.
 - **Orchestration Suites**: DAG workflows with evaluator-driven replan, hierarchical sub-DAGs, StateMachines, and Multi-Agent Discussion swarms.
 - **Context Management**: Global objective threading, deterministic `foldContext`, and one opt-in `transfer` policy (text or real rows, windowed, compacted) shared by all four orchestration engines.
 - **Enterprise Resilience**: RetryPolicy with abort-aware jittered backoff, sliding-window stream timeouts, and credential scrubbing.

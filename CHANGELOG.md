@@ -7,6 +7,54 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.24.0] - 2026-11-26
+
+### Added
+
+- **Precision retrieval without replacing the graph engine.** `tokensOf()` now
+  accepts opt-in Unicode diacritic folding and n-grams, and `bm25Scores()` adds
+  deterministic BM25 scoring. `seedNodes()` and `retrieveSubgraph()` accept a
+  caller-supplied `scorer`; scores are normalised before fusion with explicit-ID,
+  lexical, or vector similarity.
+- **Caller-controlled graph traversal.** `expandSubgraph()`, `queryGraph()`, and
+  `retrieveSubgraph()` accept `edgeFilter` and `direction` (`both`, `outgoing`,
+  `incoming`). `rankNodes()` and `retrieveSubgraph()` accept `hubDamping: false`
+  when the caller's ranking is already calibrated. `queryGraph()` defaults to
+  `knowledge_query_max_nodes` and accepts an explicit `maxNodes` override.
+- **Read-only curated knowledge.** `withKnowledge()` and `KnowledgeComponent`
+  accept `access: 'read-only'` and `persist: false`. A supplied or loaded graph is
+  validated, cloned, and deep-frozen; direct `save()`, `ingest()`, and `adopt()`
+  calls are refused, not merely hidden from the model. `view: 'wiki'` remains a compatible
+  read-only alias.
+- **Opt-in strict source validation.** `validateGraph()` accepts
+  `sourcePolicy: 'none' | 'warn' | 'error'`. Strict mode checks source-registry
+  membership, span bounds, required source text when a source map is supplied,
+  evidence source IDs, and salience/confidence/tier/origin vocabularies.
+- **Custom corpus builders.** `syncCorpus()` accepts `build` and `buildVersion`,
+  so structured corpora can keep the SDK's manifest, cache, delta, and re-anchor
+  behavior without using the generic Markdown builder. A custom builder must
+  supply an explicit `buildVersion`; source nodes may omit `key` and are aligned
+  by the SDK's deterministic content key.
+
+### Changed
+
+- `view: 'wiki'` now refuses direct component mutation as well as omitting
+  `knowledge_patch`. Mutable ASG remains the default for existing consumers.
+- `queryGraph()` defaults to the same node cap as the other knowledge query
+  paths. Existing small-neighbourhood calls are unchanged.
+- A custom relation already declared in `profileDefinition.relations` no longer
+  emits the “promote this relation” warning; it still requires a note.
+
+### Compatibility
+
+- Existing tokenization, lexical scoring, seed fusion, traversal direction,
+  hub damping, validation, and persistence defaults are unchanged.
+- New lexical behavior is opt-in. A custom scorer must return a `Map` of node ID
+  to finite numeric scores; positive values are ranked and normalised so the
+  maximum is `1`, while zero and negative values are ignored. With a custom
+  scorer, its positive hits win score ties against other channels before the
+  seed cap is applied.
+
 ## [0.23.2] - 2026-11-23
 
 ### Fixed
@@ -2392,7 +2440,8 @@ therefore starts here.
 - The tool output cap bounds a result of any shape, so a runaway tool cannot
   push an unbounded payload into the model's context.
 
-[Unreleased]: https://github.com/merci-kit/merci-sdk/compare/v0.23.2...HEAD
+[Unreleased]: https://github.com/merci-kit/merci-sdk/compare/v0.24.0...HEAD
+[0.24.0]: https://github.com/merci-kit/merci-sdk/releases/tag/v0.24.0
 [0.23.2]: https://github.com/merci-kit/merci-sdk/releases/tag/v0.23.2
 [0.23.1]: https://github.com/merci-kit/merci-sdk/releases/tag/v0.23.1
 [0.23.0]: https://github.com/merci-kit/merci-sdk/releases/tag/v0.23.0

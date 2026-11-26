@@ -1,7 +1,7 @@
 ---
 name: shell-scripting
 description: Run commands and write scripts inside the Merci SDK shell tool, which takes one command plus an argv array and has no shell. Use when a task needs several file operations, a batch rename or rewrite, a generated report, a repeatable maintenance job, or when a command was refused or asked for approval. Covers the approval tier, pipelines, JS-first scripts, atomic writes, and dry-run defaults.
-version: 0.23.2
+version: 0.24.0
 ---
 
 # Shell scripting

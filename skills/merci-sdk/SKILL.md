@@ -1,7 +1,7 @@
 ---
 name: merci-sdk
 description: Build AI agents with the Merci SDK npm package — multi-provider chat sessions (OpenAI, Anthropic, Google, OpenRouter, OpenCode, local), streaming tool loop, DAG workflows, state machines, subagent delegation, MCP/A2A/ACP protocols, memory, and policy guardrails. Use when the user asks to use, integrate, install, or write code with merci-sdk.
-version: 0.23.2
+version: 0.24.0
 ---
 
 # Merci SDK

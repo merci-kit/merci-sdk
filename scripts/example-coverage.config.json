@@ -351,6 +351,31 @@
       ]
     },
     {
+      "capability": "read-only curated knowledge with precision retrieval",
+      "proof": [
+        "KnowledgeComponent",
+        "tokensOf",
+        "bm25Scores",
+        "rankNodes",
+        "retrieveSubgraph",
+        "queryGraph",
+        "validateGraph",
+        "withKnowledge",
+        "access",
+        "persist",
+        "scorer",
+        "edgeFilter",
+        "direction",
+        "hubDamping",
+        "maxNodes",
+        "normalize",
+        "ngrams",
+        "sourcePolicy",
+        "toSaveTool",
+        "save"
+      ]
+    },
+    {
       "capability": "the knowledge wiki projection (import, render, staleness)",
       "proof": [
         "wikiSurface",
@@ -409,7 +434,9 @@
         "sourceDelta",
         "corpusKey",
         "fingerprintSources",
-        "graphSha"
+        "graphSha",
+        "build",
+        "buildVersion"
       ]
     },
     {

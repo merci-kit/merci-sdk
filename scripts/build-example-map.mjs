@@ -77,7 +77,7 @@ function importsOf({ ast }) {
     return out;
 }
 
-const PUBLIC_SOURCES = new Set(['merci-sdk', 'merci-sdk/tools', 'merci-sdk/planning', 'merci-sdk/json', 'merci-sdk/messaging', 'merci-sdk/oai', 'merci-sdk/jai', 'merci-sdk/gai', 'merci-sdk/aai', 'merci-sdk/workspace', 'merci-sdk/scheduler', 'merci-sdk/operator', 'merci-sdk/workflow-policy', 'merci-sdk/orchestration', 'merci-sdk/agents']);
+const PUBLIC_SOURCES = new Set(['merci-sdk', 'merci-sdk/tools', 'merci-sdk/planning', 'merci-sdk/json', 'merci-sdk/messaging', 'merci-sdk/oai', 'merci-sdk/jai', 'merci-sdk/gai', 'merci-sdk/aai', 'merci-sdk/workspace', 'merci-sdk/scheduler', 'merci-sdk/operator', 'merci-sdk/workflow-policy', 'merci-sdk/orchestration', 'merci-sdk/agents', 'merci-sdk/knowledge']);
 
 
 /**

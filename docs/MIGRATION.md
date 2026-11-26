@@ -829,6 +829,77 @@ Two behaviour notes for anyone who wired the primitives by hand:
 **No existing call is removed or changed in meaning.** A consumer that does not
 use the coordination layer has nothing to edit.
 
+## 0.24.0 — Precision retrieval and curated read-only knowledge
+
+The knowledge graph gains opt-in precision controls and a real read-only access
+mode. Existing calls keep their defaults; the only bounded-behaviour change is
+that `queryGraph()` defaults to `knowledge_query_max_nodes` nodes (60 by default),
+like the other query paths, and accepts an explicit `maxNodes` override.
+
+### Keep the graph engine, supply your own scorer
+
+`rankNodes()` already accepted a similarity map. `seedNodes()` and
+`retrieveSubgraph()` now accept a `scorer` so BM25, a reranker, or another
+deterministic ranker can feed that map without reimplementing traversal:
+
+```js
+import { bm25Scores, retrieveSubgraph, tokensOf } from 'merci-sdk/knowledge';
+
+const result = await retrieveSubgraph({
+  graph,
+  text: query,
+  scorer: ({ nodes, text }) => {
+    const queryTokens = tokensOf({ text, normalize: 'fold', ngrams: 2 });
+    const scores = bm25Scores({
+      documents: nodes.map((node) => tokensOf({
+        text: `${node.label ?? ''} ${node.text ?? ''}`,
+        normalize: 'fold',
+        ngrams: 2,
+      })),
+      query: queryTokens,
+    });
+    return new Map(nodes.map((node, index) => [node.id, scores[index]]));
+  },
+  edgeFilter: (edge) => edge.weight >= 0.5,
+  direction: 'outgoing',
+  hubDamping: false,
+});
+```
+
+The SDK normalises the highest positive scorer value to `1` before fusion. A
+scorer must return a `Map` of finite numeric scores; positive values are ranked,
+while zero and negative values are ignored. With a custom scorer, its positive
+hits win score ties against other channels before the seed cap. Lexical,
+explicit-ID, and embedding behavior is unchanged when no scorer is supplied.
+
+### Curated corpora are read-only all the way down
+
+`view: 'wiki'` used to hide `knowledge_patch` but direct `save()` and `ingest()`
+still worked. Use the explicit access mode for a verified or packaged corpus:
+
+```js
+client.session(model).withKnowledge({
+  graph,
+  access: 'read-only',
+  persist: false,
+  preload: false,
+  surfaces: [],
+});
+```
+
+The graph is validated, cloned, and deep-frozen on first use. Direct `save()`,
+`ingest()`, and `adopt()` calls throw `ConfigurationError`, and no store is read
+or written when `persist: false`. Mutable ASG remains the default.
+
+### Strict provenance and custom builders
+
+`validateGraph({ sourcePolicy: 'error', sources })` checks source IDs, span
+bounds, exact text round-trips when source text is supplied, and evidence/source
+vocabularies. `syncCorpus({ build, buildVersion })` accepts a domain builder while
+keeping the SDK cache and re-anchoring machinery. A custom builder must supply an
+explicit `buildVersion`; source nodes may omit `key` and are aligned by the SDK's
+deterministic content key.
+
 ## 0.23.2 — Docs truth
 
 No API change. `0.23.2` fixes the README quickstart: the model now comes from
