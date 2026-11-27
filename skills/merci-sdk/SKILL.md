@@ -1,7 +1,7 @@
 ---
 name: merci-sdk
 description: Build AI agents with the Merci SDK npm package — multi-provider chat sessions (OpenAI, Anthropic, Google, OpenRouter, OpenCode, local), streaming tool loop, DAG workflows, state machines, subagent delegation, MCP/A2A/ACP protocols, memory, and policy guardrails. Use when the user asks to use, integrate, install, or write code with merci-sdk.
-version: 0.24.0
+version: 0.25.0
 ---
 
 # Merci SDK
@@ -48,7 +48,9 @@ the SDK's built-in `fetch` connector — no vendor SDK is required.
 
 1. **Messages are provider-keyed.** Factories take `{ provider, ... }`
    (`createUserMessage`, `createSystemMessage`, ...). History is normalized
-   per wire (`normalizeHistory`); never hand-shape vendor rows.
+   per wire (`normalizeHistory`); never hand-shape vendor rows. A multi-call
+   assistant turn is `createToolCallMessages({ provider, calls })`: one row for
+   OAI/AAI/GAI, one row per call for JAI.
 2. **History is yours (stateless resend).** The app owns the message array.
    Every `step()` returns immutable rows (`finalState.messages`) — carry them
    into the next turn. No server-side conversation to rely on.

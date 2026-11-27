@@ -53,14 +53,25 @@ Symbols not on the `merci-sdk` barrel, imported from a published subpath:
 | --- | --- |
 | `02_conversation.mjs` | `merci-sdk/json → guardedParse` |
 | `03_structured_output.mjs` | `merci-sdk/json → guardedParse, zodSchemaToJsonSchema` |
+| `05_tool_calling.mjs` | `merci-sdk/tools → capToolOutputValue, executeTools` |
+| `06_approvals_and_safety.mjs` | `merci-sdk/tools → capToolOutputValue, executeTools` |
+| `07_agent_loop.mjs` | `merci-sdk/tools → createShellTool` |
 | `09_memory_and_todos.mjs` | `merci-sdk/json → guardedParse` |
 | `10_multimodal.mjs` | `merci-sdk/json → extractAndParseJson` |
 | `12_knowledge_graph.mjs` | `merci-sdk/knowledge → bm25Scores, rankNodes, tokensOf` |
 | `13_knowledge_corpus.mjs` | `merci-sdk/json → extractAndParseJson` |
+| `14_coding_agent.mjs` | `merci-sdk/tools → createContextTools, createShellTool, loadSkillsFromDirectory` |
+| `16_plan_and_execute.mjs` | `merci-sdk/tools → createContextTools` |
 | `17_dag_workflow.mjs` | `merci-sdk/planning → TaskState, WorkflowEvaluator, WorkflowExecutor, WorkflowPlanner, assertStateSchema, collectTemplateRefs, validateTemplateRefs` |
+| `20_durability.mjs` | `merci-sdk/tools → executeTools` |
+| `24_mcp_client.mjs` | `merci-sdk/tools → McpClient, loadMcpTools` |
 | `24_mcp_client.mjs` | `merci-sdk/json → guardedParse` |
-| `25_mcp_server_http.mjs` | `merci-sdk/tools → TOOL_OUTPUT_TRUNCATION_SUFFIX` |
+| `24_mcp_server.mjs` | `merci-sdk/tools → createMcpServer` |
+| `25_mcp_server_http.mjs` | `merci-sdk/tools → AcpCapability, ExternalToolCapability, McpClient, capToolOutput, capToolOutputValue, createMcpHttpHandler, loadMcpTools, TOOL_OUTPUT_TRUNCATION_SUFFIX` |
 | `26_a2a.mjs` | `merci-sdk/tools → loadA2ATool, getA2ATask, cancelA2ATask, A2A_COMPLETED_STATES` |
+| `26_a2a_server.mjs` | `merci-sdk/tools → createA2AServer, createA2AHttpHandler` |
+| `27_acp_agent.mjs` | `merci-sdk/acp → ACP_AGENT_VERSION, ACP_STOP_REASONS, createAcpAgent, permissionAllowed` |
+| `27_acp_agent.mjs` | `merci-sdk/tools → createContextTools, createShellTool` |
 | `28_workspace_isolation.mjs` | `merci-sdk/scheduler → WorkScheduler, createMemoryClaimStore, createTodoWorkSource` |
 | `28_workspace_isolation.mjs` | `merci-sdk/workspace → WORKSPACE_HOOKS, WORKSPACE_STRATEGIES, WorkspaceManager, createWorkspaceTools, isInsideRoot, resolveWorkspacePath, workspaceKeyFor` |
 | `29_workflow_contract.mjs` | `merci-sdk/workflow-policy → WORKFLOW_POLICY_REASONS, WorkflowPolicy, createPolicyRenderer, loadWorkflowFile, parseWorkflowMarkdown, policyToSchedulerOptions, policyToWorkspaceOptions, renderPromptTemplate` |

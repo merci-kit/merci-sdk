@@ -1,7 +1,7 @@
-# Merci SDK v0.24.0
+# Merci SDK v0.25.0
 
 [![View on GitHub](https://img.shields.io/badge/View%20on-GitHub-blue?logo=github)](https://github.com/merci-kit/merci-sdk/)
-[![Version](https://img.shields.io/badge/version-0.24.0-blue)](package.json)
+[![Version](https://img.shields.io/badge/version-0.25.0-blue)](package.json)
 
 **Unified, fluent, multi-provider and multi-standard agentic SDK for Node.js. Minimal dependencies. Streaming, function calling, persistent memory, DAG workflows, and multi-agent swarms.**
 
@@ -15,12 +15,12 @@ Merci SDK covers three API standards (`oai`, `aai`, `gai`) over seven providers:
 - **Stateless Resend Chat**: Message history lives in your application array. Every step returns an immutable row (`finalState.messages`) — no server-side vendor lock-in.
 - **Model Tiering Rule**: Orchestrators and judges run on `getDefaultModel({ provider })`; cheap subagents run on `getToolModel({ provider })`.
 - **Minimal Dependencies**: Pure ES Modules with no orchestration framework underneath. Every capability — agent loop, DAG engine, state machine, memory, events, retry — is first-party; runtime packages are limited to the official protocol SDKs and validators, with the optional browser engine lazily imported. The `oai`, `aai` and `gai` standards run on a built-in native `fetch` connector, so the OAI providers, Anthropic and Google need no vendor SDK.
-- **Model Context Protocol (MCP)**: Built-in `McpClient` and `loadMcpTools` for external tool servers, and `createMcpHttpHandler` to serve tools, resources and prompts over Streamable HTTP.
+- **Model Context Protocol (MCP)**: `McpClient`, `loadMcpTools`, and `createMcpHttpHandler` from `merci-sdk/tools` for external tool servers and Streamable HTTP.
 - **Agent-to-Agent (A2A)**: Distributed agent delegation over the **A2A v1.0.0** JSON-RPC binding (`SendMessage`, `GetTask`, `CancelTask`, task states, artifacts) with discoverable agent cards and SSRF origin pinning. `createA2AServer` exposes a Merci agent as an A2A peer.
-- **Agent Client Protocol (ACP)**: `createAcpAgent` exposes a session as an ACP v1 agent — the full session lifecycle (`initialize`, `session/new|load|list|delete|fork|prompt|cancel`) with message, thought, tool-call and plan session updates.
+- **Agent Client Protocol (ACP)**: `createAcpAgent` from `merci-sdk/acp` exposes a session as an ACP v1 agent — the full session lifecycle (`initialize`, `session/new|load|list|delete|fork|prompt|cancel`) with message, thought, tool-call and plan session updates.
 - **3-Layer Shell Security Gate**: Strict isolation into Safe, Blocked, and Human-in-the-Loop (HITL) gated commands with secret redaction.
 - **Persistent Episodic Memory**: Composite & local file memory providers with non-blocking background distillation and untrusted-fact escaping.
-- **Knowledge Graph (ASG) + Wiki**: `withKnowledge()` attaches one typed graph — 25 core relations plus a namespaced `x-<label>` escape that must carry a note — with a validator, a bounded traversal that damps hubs, a budgeted prompt block, and a generated wiki whose index carries the graph hash. Read-only adapters ingest documents, an existing markdown corpus, memory facts, todos and plan steps when given a `seed`; the wiki is a projection of the graph, never a second store. `syncCorpus()` persists a build with a source manifest, reuses it untouched when the corpus has not changed, and after an edit re-anchors the agent's nodes by content key. Precision retrieval can supply folded n-grams, BM25 or another scorer, filter edges by caller policy, choose traversal direction, and disable hub damping. Curated corpora can use `access: 'read-only'` with `persist: false`; the SDK validates and freezes the graph and refuses direct mutation.
+- **Knowledge Graph (ASG) + Wiki**: `withKnowledge()` attaches one typed graph — 25 core relations plus a namespaced `x-<label>` escape that must carry a note — with a validator, bounded traversal, a budgeted prompt block, and a generated wiki. Navigation is derived from structural edges: one-dimensional data stays flat, while nested corpora or explicit level descriptions produce arbitrary-depth breadcrumbs, parent/child links, hierarchy indexes and Mermaid maps. The wiki remains a projection, never a second store. `syncCorpus()` persists a source manifest, reuses unchanged builds, and re-anchors agent nodes by content key after edits. Precision retrieval supports folded n-grams, BM25 or custom scorers, edge filters, direction and hub-damping controls; curated corpora can use `access: 'read-only'` with `persist: false`.
 - **Orchestration Suites**: DAG workflows with evaluator-driven replan, hierarchical sub-DAGs, StateMachines, and Multi-Agent Discussion swarms.
 - **Context Management**: Global objective threading, deterministic `foldContext`, and one opt-in `transfer` policy (text or real rows, windowed, compacted) shared by all four orchestration engines.
 - **Enterprise Resilience**: RetryPolicy with abort-aware jittered backoff, sliding-window stream timeouts, and credential scrubbing.

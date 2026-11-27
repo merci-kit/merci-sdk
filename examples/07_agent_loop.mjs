@@ -62,9 +62,10 @@
 import { mkdir, rm } from 'node:fs/promises';
 import { join } from 'node:path';
 import {
-    BudgetExceededError, EVENTS, LIMIT_DEFAULTS, LocalFileInboxStore, countConversationTurns, createShellTool,
+    BudgetExceededError, EVENTS, LIMIT_DEFAULTS, LocalFileInboxStore, countConversationTurns,
     defaultDisplay, getLimits, initializeClient, isAbortError, loadCredentials, log, resetLimits, setLimits,
 } from 'merci-sdk';
+import { createShellTool } from 'merci-sdk/tools';
 import { SCRATCH_DIR } from './_shared/real-tools.mjs';
 import { resolveExample, reportUsage, runMain, trackUsage, warnEmptyAnswer, wireClient } from './_shared/example-utils.mjs';
 

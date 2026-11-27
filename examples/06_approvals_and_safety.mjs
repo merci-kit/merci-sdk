@@ -37,10 +37,11 @@
 import { stdin as input, stdout as output } from 'node:process';
 import * as readline from 'node:readline/promises';
 import {
-    BudgetExceededError, EVENTS, GuardrailViolationError, InMemorySessionStore, PERMISSION_MODES, capToolOutputValue,
-    createGuardrails, executeTools, extractUserText, initializeClient, isToolPermitted, loadCredentials, log,
+    BudgetExceededError, EVENTS, GuardrailViolationError, InMemorySessionStore, PERMISSION_MODES,
+    createGuardrails, extractUserText, initializeClient, isToolPermitted, loadCredentials, log,
     stillRequiresApproval,
 } from 'merci-sdk';
+import { capToolOutputValue, executeTools } from 'merci-sdk/tools';
 import { readlineSafe, reportUsage, resolveExample, runMain, trackUsage, warnEmptyAnswer, wireClient } from './_shared/example-utils.mjs';
 
 /** The credential the customer pasted into the support chat; the order, the amount. */

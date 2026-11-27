@@ -11,6 +11,51 @@ is nothing to migrate — this is version one. For a consumer tracking the
 repository (or a fork of it), the "Before" column is the state you may be on,
 and the "What to do" column says what to change.
 
+## Unreleased entry-point cleanup
+
+The root `merci-sdk` entry no longer eagerly loads optional tool and protocol
+stacks. Their APIs are unchanged, but their import paths are focused:
+
+```js
+// Before
+import { McpClient, createShellTool, createAcpAgent } from 'merci-sdk';
+
+// After
+import { McpClient, createShellTool } from 'merci-sdk/tools';
+import { createAcpAgent } from 'merci-sdk/acp';
+```
+
+Move tool execution, MCP, A2A, shell, skills, and external-capability imports to
+`merci-sdk/tools`. Move ACP agent imports to `merci-sdk/acp`. This is a deliberate
+public-entry change: it keeps the functionality while reducing root import time,
+memory, and module count for consumers that do not use those protocols.
+
+## Unreleased nested wiki behavior
+
+`buildGraph()` and `wikiSurface()` now preserve arbitrary heading/path depth.
+Flat input still produces a flat map. When the input contains hierarchy, the wiki
+renders breadcrumbs, parent/child navigation, hierarchy index paths, and Mermaid
+nodes from the existing graph edges:
+
+```js
+import { buildGraph, renderWiki } from 'merci-sdk/knowledge';
+
+const graph = buildGraph({
+  sources: [{ id: 'book', name: 'book.md', text }],
+  hierarchy: { levels: ['book', 'chapter', 'article'] }
+});
+renderWiki({ graph, dir: '.knowledge' });
+```
+
+For an existing markdown corpus, `wikiSurface({ dir, hierarchy })` derives
+containers from directory depth. Auto nesting activates when the data has at
+least two relative directory levels; `nested: 'true'` forces containers and
+`nested: 'false'` keeps a flat import. No parent/depth fields are persisted.
+
+`KNOWLEDGE_BUILD_VERSION` moves from 1 to 2. Existing corpus caches rebuild once,
+and level-3+ headings now become `subsection` instead of `document` under the
+generic profile.
+
 **What changed and why.** `0.7.2` is a delivery-and-conformance release. The
 protocol layer now speaks the current specifications instead of a private
 dialect (A2A v1.0.0, MCP with resources and prompts, ACP v1), the agentic
@@ -829,6 +874,25 @@ Two behaviour notes for anyone who wired the primitives by hand:
 **No existing call is removed or changed in meaning.** A consumer that does not
 use the coordination layer has nothing to edit.
 
+## 0.25.0 — Leaner root import: tools and ACP move to subpaths
+
+Tool, MCP, A2A, shell, skills, and tool-execution exports move from `merci-sdk`
+to `merci-sdk/tools`; ACP exports move to `merci-sdk/acp`. The APIs are
+unchanged on those focused entry points, and the root no longer loads the
+optional protocol stacks for consumers that do not use them.
+
+```js
+// before
+import { McpClient, loadMcpTools } from 'merci-sdk';
+import { createAcpAgent } from 'merci-sdk';
+// after
+import { McpClient, loadMcpTools } from 'merci-sdk/tools';
+import { createAcpAgent } from 'merci-sdk/acp';
+```
+
+Lazy MCP SDK loading is part of the same change: the MCP client/server modules
+import their underlying SDK only when first used.
+
 ## 0.24.0 — Precision retrieval and curated read-only knowledge
 
 The knowledge graph gains opt-in precision controls and a real read-only access
@@ -1417,9 +1481,13 @@ a per-call predicate, so the instruction read is not gated and a script run is.
 The tool schema lists the script names in an `enum`.
 
 **`session.getLastRun()`.** The last completed run in one object: the
-deliverable, the message rows, and the usage, citations, and sources from
-`RUN_END`. Empty before a run and after a failed one; `run()` still returns the
-string.
+deliverable, the message rows, the usage, citations, and sources from
+`RUN_END`, and the run's outcome — `finishReason`, `truncated` +
+`truncatedBy`, `contentFiltered`, and `fallbackKind`. A fallback sentinel is
+classified by `fallbackKind({ text })` / `isSdkFallbackOutput({ text })` on the
+main entry, beside `FALLBACK_MESSAGE`. Empty before a run. A failed attempt
+clears the previous deliverable and reports `finishReason: 'error'` with only
+that attempt's rows and usage; `run()` still returns the string.
 
 **`TIMEOUT_CODES` is exported.** The single timeout vocabulary
 (`HEADER_TIMEOUT`, `BODY_TIMEOUT`, `STEP_TIMEOUT`, `STREAM_TIMEOUT`,

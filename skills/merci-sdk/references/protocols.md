@@ -42,7 +42,7 @@ The SDK speaks three agent protocols. Runnable proofs:
 - Origin pinning: remote-agent URLs are SSRF-guarded — a peer that redirects
   somewhere unexpected fails loudly instead of being followed silently.
 
-## ACP v1 — Agent Client Protocol
+## ACP v1 — Agent Client Protocol (`merci-sdk/acp`)
 
 - `createAcpAgent` exposes a session as an ACP v1 agent with the full
   session lifecycle: `initialize`, `authenticate`, `session/new`,

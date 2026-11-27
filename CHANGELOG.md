@@ -7,6 +7,85 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.25.0] - 2026-11-27
+
+### Added
+
+- **Data-driven nested wikis.** `hierarchyOf()`, `hierarchyPath()`,
+  `levelKindsFor()`, and `HIERARCHY_RELATIONS` derive navigation from existing
+  `contains`/`part_of` edges. `buildGraph()` and `wikiSurface()` accept optional
+  level descriptions; nested directory corpora produce book/chapter/article (or
+  arbitrary-depth) navigation without persisting parent/depth fields.
+- **Wiki navigation.** `renderNodePage()` renders breadcrumbs, parent and child
+  links; wiki indexes carry hierarchy paths; Mermaid includes every hierarchy
+  participant. `KnowledgeComponent.load({ id, page: true })` returns the same
+  navigation view within its budget.
+- **Focused `merci-sdk/acp` entry point.** `createAcpAgent`,
+  `permissionAllowed`, `ACP_STOP_REASONS`, and `ACP_AGENT_VERSION` now load from
+  their own subpath instead of the root façade.
+- **Public fallback classifier.** `fallbackKind()`, `isSdkFallbackOutput()`,
+  `isTransientFallbackKind()`, and `FALLBACK_MESSAGE` are exported from the main
+  entry, so a consumer can tell an SDK sentinel from model text without matching
+  the English sentence or deep-importing `lib/agentic/agentic-core.mjs`.
+- **Run outcome on `getLastRun()`.** It now returns `finishReason`, `truncated`,
+  `truncatedBy`, `contentFiltered`, and `fallbackKind` beside the text, rows,
+  usage, citations, and sources. `run()` keeps its string return.
+- **`createToolCallMessages({ provider, calls })`.** One model turn's tool calls
+  in every wire shape: one assistant row for OAI/AAI, one model turn for
+  GAI/Vertex, and one row per call for JAI. Returns an array, so a caller
+  spreads it without branching on the provider.
+
+### Fixed
+
+- **Heading depth is preserved.** Level-3+ headings now use `subsection` by
+  default instead of falling back to `document`; explicit level descriptions can
+  name any declared structural kinds.
+- **Wiki path collisions and links.** Nested pages use relative-path ids;
+  duplicate basenames no longer collide, ambiguous wikilinks stay unresolved,
+  and page navigation links resolve beside the page rather than `nodes/nodes/`.
+- **Hierarchy validation is non-destructive.** Cycles and multiple parents are
+  warnings; read-time projection terminates and remains navigable.
+- **`getLastRun()` no longer returns a stale deliverable after failure.** Each
+  attempt clears prior text/rows/usage/metadata, and a thrown attempt reports
+  `finishReason: 'error'` with only that attempt's data.
+- **`createToolCallMessage({ calls })` is provider-neutral.** A parallel tool
+  round on the OAI/Anthropic row shapes now keeps every call's id, name, and
+  arguments instead of producing one anonymous `arguments: "{}"` call.
+- **The JAI vendor session accepts the `withParameters` function form**, so
+  every concrete session offers one parameter contract.
+
+### Changed
+
+- **Leaner root import.** MCP, A2A, shell, skills, and tool-execution exports now
+  live only on `merci-sdk/tools`; ACP lives on `merci-sdk/acp`. The root no longer
+  loads those optional protocol stacks for consumers that do not use them.
+- **Lazy MCP SDK loading.** MCP client/server modules import
+  `@modelcontextprotocol/*` only when a transport or server is created.
+- **Unused import cleanup.** Removed 13 runtime-unused import bindings without
+  changing behavior.
+- **Decision usage reader deduplicated.** OpenAI and keyed decision adapters now
+  share the existing `decisions-common.mjs` helper instead of carrying identical
+  copies.
+- **Dead code removed.** Deleted four unused private executor wrappers, the
+  unreferenced `briefWithObjective`, two dead constants, and the orphan
+  `webscrape/index.mjs` barrel plus its self-referential test.
+- **Existing helpers reused.** Knowledge vector scoring uses
+  `cosineSimilarity`; agent-spec validation uses `isRecordObject`; scheduler
+  ownership checks use `Object.hasOwn`.
+- **Token estimation hot path.** `estimateMessageTokens()` resolves the live
+  character-per-token limit once per call rather than once per row. A local
+  500-row × 1,000-iteration benchmark improved from 334.5 ms to 10.6 ms with
+  identical output; live limit changes between calls still apply.
+- `DEFAULT_SYSTEM_PROMPT` no longer names a version, so it cannot go stale.
+
+### Compatibility
+
+- One-dimensional corpora remain flat. Nested output is inferred only when the
+  data contains hierarchy, or when `nested: true`/a level description is supplied.
+- `KNOWLEDGE_BUILD_VERSION` is now 2, so existing corpus caches rebuild once.
+- Tool/MCP/A2A imports move from `merci-sdk` to `merci-sdk/tools`; ACP imports move
+  to `merci-sdk/acp`. The APIs remain available on those focused entry points.
+
 ## [0.24.0] - 2026-11-26
 
 ### Added
@@ -2440,7 +2519,8 @@ therefore starts here.
 - The tool output cap bounds a result of any shape, so a runaway tool cannot
   push an unbounded payload into the model's context.
 
-[Unreleased]: https://github.com/merci-kit/merci-sdk/compare/v0.24.0...HEAD
+[Unreleased]: https://github.com/merci-kit/merci-sdk/compare/v0.25.0...HEAD
+[0.25.0]: https://github.com/merci-kit/merci-sdk/releases/tag/v0.25.0
 [0.24.0]: https://github.com/merci-kit/merci-sdk/releases/tag/v0.24.0
 [0.23.2]: https://github.com/merci-kit/merci-sdk/releases/tag/v0.23.2
 [0.23.1]: https://github.com/merci-kit/merci-sdk/releases/tag/v0.23.1

@@ -1,14 +1,14 @@
 <!-- GENERATED FILE — do not edit by hand. Run `pnpm build:structure` to regenerate. -->
 
-# Merci SDK v0.24.0 — Library Structure & Symbols
+# Merci SDK v0.25.0 — Library Structure & Symbols
 
 > Structural reference: the `lib/` file tree and the symbols each module exports.
 > Generated from the current source by `scripts/build-structure.mjs`.
 
-- **Version:** 0.24.0
+- **Version:** 0.25.0
 - **Files:** 238 `.mjs`
-- **Exports:** 1045 declared, 558 re-exported
-- **Types:** 558 `@typedef`s
+- **Exports:** 1049 declared, 541 re-exported
+- **Types:** 562 `@typedef`s
 
 `Kind` is one of `class`, `error class`, `function`, `const`, `default`, `barrel` or a resolved `re-export`. `↩` marks a symbol re-exported from another module.
 
@@ -23,6 +23,7 @@
 | `merci-sdk/aai` | `./lib/backends/aai.mjs` |
 | `merci-sdk/json` | `./lib/support/json.mjs` |
 | `merci-sdk/tools` | `./lib/tools/index.mjs` |
+| `merci-sdk/acp` | `./lib/agentic/acp-agent.mjs` |
 | `merci-sdk/planning` | `./lib/agentic/planning/index.mjs` |
 | `merci-sdk/messaging` | `./lib/messaging/unified-message.mjs` |
 | `merci-sdk/evals` | `./lib/agentic/evals.mjs` |
@@ -81,6 +82,7 @@ lib/
 │   │   ├── build.mjs — Knowledge graph construction — the mechanical pass.
 │   │   ├── cache.mjs — Corpus cache — persist a built graph, detect a delta, rebuild only what moved.
 │   │   ├── component.mjs — The knowledge capability component: ASG + wiki as one capability.
+│   │   ├── hierarchy.mjs — Read-only hierarchy derivation for knowledge graphs.
 │   │   ├── index.mjs — Public surface of the knowledge capability (ASG + wiki).
 │   │   ├── model.mjs — Knowledge graph model — node kinds, relation vocabulary, validation, patching and identity. Pure: no I/O, no m …
 │   │   ├── profile.mjs — Structure induction — measure the corpus, propose the shape.
@@ -166,8 +168,7 @@ lib/
 │   ├── web-shared.mjs — Shared web tool helpers (search + scrape + browser).
 │   ├── webscrape/ — Web scrape component and engines
 │   │   ├── component.mjs — WebScrapeComponent — the `web_scrape` function-tool surface.
-│   │   ├── engines.mjs — Web-scrape engines + mode resolution.
-│   │   └── index.mjs — Web-scrape capability barrel.
+│   │   └── engines.mjs — Web-scrape engines + mode resolution.
 │   ├── websearch/ — Web search component and engines
 │   │   ├── component.mjs — WebSearchComponent — the `web_search` function-tool surface.
 │   │   └── engines.mjs — Web-search engines + mode resolution.
@@ -318,13 +319,13 @@ lib/
 
 | Area | Files | Declared | Re-exported | Types | Responsibility |
 | --- | --- | --- | --- | --- | --- |
-| `core` | 35 | 217 | 4 | 29 | Foundation: constant tables, typed errors, events, prompt text, loadable component base |
-| `messaging` | 5 | 36 | 13 | 27 | Unified message model, factories and per-backend history normalizers |
-| `backends` | 35 | 87 | 2 | 61 | Provider clients (JAI, OAI, GAI, AAI) and their protocol adapters |
+| `core` | 35 | 215 | 4 | 29 | Foundation: constant tables, typed errors, events, prompt text, loadable component base |
+| `messaging` | 5 | 37 | 14 | 27 | Unified message model, factories and per-backend history normalizers |
+| `backends` | 35 | 88 | 2 | 61 | Provider clients (JAI, OAI, GAI, AAI) and their protocol adapters |
 | `support` | 22 | 103 | 1 | 37 | Cross-cutting utilities: retry, timeouts, JSON, logger, limits |
 | `tools` | 13 | 53 | 34 | 41 | Tool system: execution, MCP client/server, A2A, shell, skills, context tools |
-| `agentic` | 127 | 544 | 197 | 360 | Orchestration: sessions, loops, planning, memory, state machine, web components |
-| `root` | 1 | 5 | 307 | 3 | Public barrel that defines the package entry surface (lib/index.mjs) |
+| `agentic` | 127 | 548 | 196 | 364 | Orchestration: sessions, loops, planning, memory, state machine, web components |
+| `root` | 1 | 5 | 290 | 3 | Public barrel that defines the package entry surface (lib/index.mjs) |
 
 ## 4. Symbols by area
 
@@ -410,7 +411,6 @@ lib/
 | `DEFAULT_MAX_ITERATIONS` | const | `const DEFAULT_MAX_ITERATIONS = defaultValue('max_iterations')` | Max agentic-loop iterations per run()/step() before forcing a final text answer. |
 | `EMBED_MAX_RETRIES` | const | `const EMBED_MAX_RETRIES = defaultValue('embed_max_retries')` | Max retries for a single embedding call. |
 | `EMBED_INITIAL_DELAY_MS` | const | `const EMBED_INITIAL_DELAY_MS = defaultValue('embed_initial_delay_ms')` | Initial backoff delay (ms) between embedding retries. |
-| `MAX_CONSECUTIVE_EMPTY_RESPONSES` | const | `const MAX_CONSECUTIVE_EMPTY_RESPONSES = defaultValue('max_consecutive_empty')` | Consecutive empty model responses tolerated before giving up. |
 | `DEFAULT_MAX_SCHEMA_RETRIES` | const | `const DEFAULT_MAX_SCHEMA_RETRIES = defaultValue('max_schema_retries')` | Corrective retries for a schema-invalid structured deliverable. |
 | `DEFAULT_MAX_FOLLOW_UPS` | const | `const DEFAULT_MAX_FOLLOW_UPS = defaultValue('max_follow_ups')` | Safety cap on staged follow-up rounds (opts.followUp). |
 | `PROFILE_CACHE_TTL_MS` | const | `const PROFILE_CACHE_TTL_MS = defaultValue('profile_cache_ttl_ms')` | TTL (ms) for cached backend profile lookups. |
@@ -521,7 +521,6 @@ lib/
 | `A2A_PROTOCOL_VERSION` | const | `const A2A_PROTOCOL_VERSION = '1.0'` | A2A protocol version implemented by this SDK. |
 | `A2A_CONTENT_TYPE` | const | `const A2A_CONTENT_TYPE = 'application/a2a+json'` | Content type of an A2A JSON-RPC request or response. |
 | `A2A_VERSION_HEADER` | const | `const A2A_VERSION_HEADER = 'A2A-Version'` | Header carrying the A2A protocol version. |
-| `A2A_EXTENSION_HEADER` | const | `const A2A_EXTENSION_HEADER = 'A2A-Extensions'` | Header carrying A2A extension identifiers. |
 | `A2A_METHODS` | const | `const A2A_METHODS = Object.freeze({ SEND_MESSAGE: 'message/send', STREAM_MESSAGE …` | The A2A JSON-RPC method set (v1.0.0). |
 | `A2A_TASK_STATES` | const | `const A2A_TASK_STATES = Object.freeze({ SUBMITTED: 'TASK_STATE_SUBMITTED', WORKING: …` | A2A task states (v1.0.0 wire values). |
 | `A2A_ROLES` | const | `const A2A_ROLES = Object.freeze({ USER: 'ROLE_USER', AGENT: 'ROLE_AGENT' })` | A2A message roles (v1.0.0 wire values). |
@@ -771,6 +770,7 @@ lib/
 | `createSystemMessage` | function | `function createSystemMessage({ provider, content })` | Creates a system message in the backend's wire shape. |
 | `createAssistantMessage` | function | `function createAssistantMessage({ provider, content, thoughtSignature, reasoningContent, redactedThinking })` | Creates an assistant text message, optionally carrying a thought signature (and DeepSeek-style `reasoning_content` for multi-turn continuity). |
 | `createToolCallMessage` | function | `function createToolCallMessage({ provider, id, name, args, thoughtSignature, calls })` | Creates an assistant tool-call message in the backend's wire shape. |
+| `createToolCallMessages` | function | `function createToolCallMessages({ provider, calls, thoughtSignature })` | Creates the assistant tool-call row(s) for one model turn. |
 | `IMAGE_TOOL_RESULT_BACKENDS` | const | `const IMAGE_TOOL_RESULT_BACKENDS = new Set([ ProviderType.ANTHROPIC, ProviderType.GOOGLE_GENAI, …` | Backends whose tool-result wire can carry an image block. |
 | `createToolResultMessage` | function | `function createToolResultMessage({ provider, result, thoughtSignature = null, protocol = null })` | Creates a tool result message in the target backend's wire shape. |
 | `PDF_MEDIA_PROVIDERS` | const | `const PDF_MEDIA_PROVIDERS = new Set(Object.values(PROVIDERS).filter((d) => d.capabilitie …` | Backends whose wire can carry an `application/pdf` document as one inline media message: JAI (vendor media part), Gemini/Vertex (`inlineData`), Anthropic (`document` block), OpenAI (`file` part). |
@@ -796,6 +796,7 @@ lib/
 | `createSystemMessage` | function | ↩ `lib/messaging/messages.mjs` | Creates a system message in the backend's wire shape. |
 | `createAssistantMessage` | function | ↩ `lib/messaging/messages.mjs` | Creates an assistant text message, optionally carrying a thought signature (and DeepSeek-style `reasoning_content` for multi-turn continuity). |
 | `createToolCallMessage` | function | ↩ `lib/messaging/messages.mjs` | Creates an assistant tool-call message in the backend's wire shape. |
+| `createToolCallMessages` | function | ↩ `lib/messaging/messages.mjs` | Creates the assistant tool-call row(s) for one model turn. |
 | `createToolResultMessage` | function | ↩ `lib/messaging/messages.mjs` | Creates a tool result message in the target backend's wire shape. |
 | `normalizeHistory` | function | ↩ `lib/messaging/messages.mjs` | Normalizes a mixed-shape history to the backend's wire format: the JAI shape for JAI, otherwise the OAI normalizer. |
 | `normalizeToOAI` | function | ↩ `lib/messaging/messages.mjs` | Centralized normalization of JAI-style messages to OpenAI shape. |
@@ -878,6 +879,7 @@ lib/
 | --- | --- | --- | --- |
 | `serializeState` | function | `function serializeState({ state })` | Wires that take text evidence (OpenAI, Gemini) need the state serialized; OpenRouter takes the object as-is. |
 | `numberOrNull` | function | `function numberOrNull(value)` | A vendor number, or `null`. |
+| `readUsage` | function | `function readUsage({ usage })` | The usage envelope shared by the OpenAI and keyed decision wires. |
 | `assertWireLimit` | function | `function assertWireLimit({ count, min, max, what, wire })` | A per-wire request cap, refused before the call instead of by a 400. |
 | `readKeyedAnswer` | function | `function readKeyedAnswer({ name, answer })` | Normalizes one answer of a keyed response (`questions` is an object keyed by name, which OpenRouter, TypeSafe and Gemini all return). |
 
@@ -1274,7 +1276,7 @@ lib/
 | `safeStringify` | function | `function safeStringify({ value })` | references (a node that returns the context itself); a plain stringify throws mid-run. |
 | `strictStringify` | function | `function strictStringify({ value })` | The strict twin of `safeStringify`: same circular handling, but exceeding `safe_stringify_max_nodes` throws instead of substituting `"[truncated]"`. |
 | `truncateForPrompt` | function | `function truncateForPrompt({ text, maxChars })` | data loss from the model). |
-| `estimateTokens` | function | `function estimateTokens({ text })` | truncation decisions. |
+| `estimateTokens` | function | `function estimateTokens({ text, charsPerToken = LIMITS.estimate_tokens_chars_per_token })` | truncation decisions. |
 | `estimateMessageTokens` | function | `function estimateMessageTokens({ messages })` | `estimateTokens` reads only `content ?? |
 | `cosineSimilarity` | function | `function cosineSimilarity({ a, b })` | (never NaN) so vector-retrieval fallback tiers can rely on the result. |
 | `loadCredentials` | function | `function loadCredentials({ provider })` | Reads a backend's credentials from the environment into the options `initializeClient` expects. |
@@ -1479,7 +1481,6 @@ lib/
 | `HANDOFF_GOAL_MODES` | const | `const HANDOFF_GOAL_MODES = ['clean', 'full', 'moderated']` | Valid `goal` modes for a handoff. |
 | `HANDOFF_CONTEXT_MODES` | const | `const HANDOFF_CONTEXT_MODES = ['clean', 'full', 'moderated', 'fork']` | Valid `context` modes for a handoff. |
 | `objectiveBlock` | function | `function objectiveBlock({ ctx, label = 'Global Objective' })` |  |
-| `briefWithObjective` | function | `function briefWithObjective({ prompt, ctx })` |  |
 | `normalizeHandoff` | function | `function normalizeHandoff({ handoff = null } = {})` | Free combination: goal and context vary independently; tools defaults to inherit. |
 | `resolveHandoffTools` | function | `function resolveHandoffTools({ handoff, fallback })` | empties, `'inherit'`/undefined keeps the fallback. |
 | `goalBlockForHandoff` | function | `function goalBlockForHandoff({ ctx, handoff = null, label = 'Global Objective' })` | block when full, the exact full block + marker when moderated. |
@@ -1763,7 +1764,7 @@ lib/
 | --- | --- | --- | --- |
 | `readTextFile` | function | `function readTextFile({ path })` | Reads a text-like file. |
 | `documentSurface` | function | `function documentSurface({ paths, profile = null, title = '' })` | The `document` surface: one graph from one or more text files. |
-| `wikiSurface` | function | `function wikiSurface({ dir, profile = null, title = '' })` | The `wiki` surface: an existing markdown corpus becomes a reference graph. |
+| `wikiSurface` | function | `function wikiSurface({ dir, profile = null, title = '', hierarchy = null, nested = 'auto' })` | The `wiki` surface: an existing markdown corpus becomes a reference graph. |
 | `memorySurface` | function | `function memorySurface({ facts })` | The `memory` surface: bank facts become `fact` nodes. |
 | `todosSurface` | function | `function todosSurface({ store })` | The `todos` surface: tasks and their declared dependencies. |
 | `planSurface` | function | `function planSurface({ plan })` | The `plan` surface: a task DAG becomes `step` nodes. |
@@ -1774,7 +1775,7 @@ lib/
 
 | Symbol | Kind | Signature / Source | Summary |
 | --- | --- | --- | --- |
-| `KNOWLEDGE_BUILD_VERSION` | const | `const KNOWLEDGE_BUILD_VERSION = 1` | Bumped whenever the mechanical pass changes what it emits for the same bytes. |
+| `KNOWLEDGE_BUILD_VERSION` | const | `const KNOWLEDGE_BUILD_VERSION = 2` | Bumped whenever the mechanical pass changes what it emits for the same bytes. |
 | `normalizeText` | function | `function normalizeText({ text })` | Normalises line endings and strips a BOM. |
 | `headingList` | function | `function headingList({ text })` |  |
 | `paragraphList` | function | `function paragraphList({ text, headings })` | Blank-line separated blocks, each attributed to the nearest preceding heading. |
@@ -1782,7 +1783,7 @@ lib/
 | `modalityOf` | function | `function modalityOf({ text })` | The modality a sentence states, or null when it is descriptive. |
 | `extractDefinitions` | function | `function extractDefinitions({ text })` | `"Term" means …` / `Term (the "Alias")` style definitions. |
 | `extractRefs` | function | `function extractRefs({ text })` | Cross-references an agent can anchor: `Section 4.2`, `Clause 7`, `§ 4`, `Annex I`. |
-| `buildGraph` | function | `function buildGraph({ sources = [], profile = null, title = '', now = new Date() } = {})` | Builds a graph from one or more documents. |
+| `buildGraph` | function | `function buildGraph({ sources = [], profile = null, title = '', now = new Date(), hierarchy = null } = {})` | Builds a graph from one or more documents. |
 | `nodeKey` | function | `function nodeKey({ node })` | Stable identity of a node's content, independent of where it sits. |
 | `sourceSha` | function | `function sourceSha({ text })` | Content hash of a whole source, for the corpus manifest. |
 | `slug` | function | `function slug({ value })` | Lowercase, accent-folded, hyphenated key. |
@@ -1797,11 +1798,11 @@ lib/
 | `readSources` | function | `function readSources({ paths = [] } = {})` | Reads the sources from disk, in the order given (the order is part of the key). |
 | `fingerprintSources` | function | `function fingerprintSources({ sources = [] } = {})` |  |
 | `sourceDelta` | function | `function sourceDelta({ stored = [], current = [] } = {})` | What changed between the corpus a graph was built from and the one on disk. |
-| `corpusKey` | function | `function corpusKey({ sources = [], profile = null, buildVersion = KNOWLEDGE_BUILD_VERSION } = {})` | The build identity: sources by path and content, plus the vocabulary that shaped them and the extractor version. |
+| `corpusKey` | function | `function corpusKey({ sources = [], profile = null, buildVersion = KNOWLEDGE_BUILD_VERSION, hierarchy = null } = {})` | The build identity: sources by path and content, plus the vocabulary that shaped them and the extractor version. |
 | `loadManifest` | function | `async function loadManifest({ dir = DEFAULT_KNOWLEDGE_DIR } = {})` |  |
 | `loadCorpus` | function | `async function loadCorpus({ dir = DEFAULT_KNOWLEDGE_DIR } = {})` | Loads the persisted graph and its manifest. |
 | `reanchorDerived` | function | `function reanchorDerived({ stored = null, fresh = null } = {})` | Moves the agent's nodes from an old graph onto a freshly built one. |
-| `syncCorpus` | function | `async function syncCorpus({ dir = DEFAULT_KNOWLEDGE_DIR, paths = [], sources = null, profile = null, now = new Date(), build = buildGraph, buildVersion } = {})` | Load-or-build. |
+| `syncCorpus` | function | `async function syncCorpus({ dir = DEFAULT_KNOWLEDGE_DIR, paths = [], sources = null, profile = null, hierarchy = null, now = new Date(), build = buildGraph, buildVersion } = {})` | Load-or-build. |
 
 #### `lib/agentic/knowledge/component.mjs` — The knowledge capability component: ASG + wiki as one capability.
 
@@ -1809,6 +1810,14 @@ lib/
 | --- | --- | --- | --- |
 | `KnowledgeComponent` | class | `class KnowledgeComponent extends LoadableComponent` | The knowledge capability. |
 | `emptyGraph` | function | `function emptyGraph({ profile = null } = {})` |  |
+
+#### `lib/agentic/knowledge/hierarchy.mjs` — Read-only hierarchy derivation for knowledge graphs.
+
+| Symbol | Kind | Signature / Source | Summary |
+| --- | --- | --- | --- |
+| `HIERARCHY_RELATIONS` | const | `const HIERARCHY_RELATIONS = Object.freeze(['contains', 'part_of'])` | Relations whose direction can describe containment. |
+| `hierarchyOf` | function | `function hierarchyOf({ graph = null, rel = 'contains', maxNodes = LIMITS.knowledge_query_max_nodes } = {})` | Derives a bounded hierarchy from `contains` (parent → child) or `part_of` (child → parent) edges. |
+| `hierarchyPath` | function | `function hierarchyPath({ graph = null, id = '', tree = null })` | The root-to-node path, using the deterministic primary parent. |
 
 #### `lib/agentic/knowledge/index.mjs` — Public surface of the knowledge capability (ASG + wiki).
 
@@ -1830,6 +1839,7 @@ lib/
 | `LEGAL_PROFILE` | const | ↩ `lib/agentic/knowledge/model.mjs` | The legal vocabulary the existing corpus uses (`legalgraph/v1`). |
 | `PROFILES` | const | ↩ `lib/agentic/knowledge/model.mjs` | Every shipped profile by name. |
 | `resolveProfile` | function | ↩ `lib/agentic/knowledge/model.mjs` | Resolves a profile by name, or accepts a caller-supplied shape. |
+| `levelKindsFor` | function | ↩ `lib/agentic/knowledge/model.mjs` | Resolves the kind for a one-based structural level. |
 | `isKnownKind` | function | ↩ `lib/agentic/knowledge/model.mjs` |  |
 | `isKnownRel` | function | ↩ `lib/agentic/knowledge/model.mjs` |  |
 | `isSemanticRel` | function | ↩ `lib/agentic/knowledge/model.mjs` |  |
@@ -1851,6 +1861,9 @@ lib/
 | `KNOWLEDGE_BUILD_VERSION` | const | ↩ `lib/agentic/knowledge/build.mjs` | Bumped whenever the mechanical pass changes what it emits for the same bytes. |
 | `slug` | function | ↩ `lib/agentic/knowledge/build.mjs` | Lowercase, accent-folded, hyphenated key. |
 | `keyOf` | function | ↩ `lib/agentic/knowledge/build.mjs` | Normalised term key: `The Confidential Information` → `confidential information`. |
+| `HIERARCHY_RELATIONS` | const | ↩ `lib/agentic/knowledge/hierarchy.mjs` | Relations whose direction can describe containment. |
+| `hierarchyOf` | function | ↩ `lib/agentic/knowledge/hierarchy.mjs` | Derives a bounded hierarchy from `contains` (parent → child) or `part_of` (child → parent) edges. |
+| `hierarchyPath` | function | ↩ `lib/agentic/knowledge/hierarchy.mjs` | The root-to-node path, using the deterministic primary parent. |
 | `DEFAULT_KNOWLEDGE_DIR` | const | ↩ `lib/agentic/knowledge/store.mjs` | Default directory, matching the `.knowledge` convention of the skill corpus. |
 | `knowledgePaths` | function | ↩ `lib/agentic/knowledge/store.mjs` |  |
 | `loadGraph` | function | ↩ `lib/agentic/knowledge/store.mjs` | Loads the graph. |
@@ -1873,8 +1886,9 @@ lib/
 | `queryGraph` | function | ↩ `lib/agentic/knowledge/query.mjs` | The bounded neighbourhood of one node, for the explicit-id query form. |
 | `retrieveSubgraph` | function | ↩ `lib/agentic/knowledge/query.mjs` | The whole read path: seed → expand → rank. |
 | `graphTextSize` | function | ↩ `lib/agentic/knowledge/render.mjs` | Total characters of node text — the size signal the budget tiers read. |
-| `renderSectionMap` | function | ↩ `lib/agentic/knowledge/render.mjs` | The map: headings when the graph has them, otherwise the most load-bearing nodes. |
+| `renderSectionMap` | function | ↩ `lib/agentic/knowledge/render.mjs` | The map: hierarchy when structural edges justify it, headings when the graph has them, otherwise the most load-bearing nodes. |
 | `renderKnowledgeBlock` | function | ↩ `lib/agentic/knowledge/render.mjs` | Renders a bounded knowledge block for the prompt. |
+| `renderNodePage` | function | ↩ `lib/agentic/knowledge/render.mjs` | One node's wiki page. |
 | `renderWiki` | function | ↩ `lib/agentic/knowledge/render.mjs` | Renders the wiki. |
 | `readWikiSha` | function | ↩ `lib/agentic/knowledge/render.mjs` | The graph hash a previously rendered wiki carries, or null. |
 | `edgeText` | function | ↩ `lib/agentic/knowledge/render.mjs` | The text form of an edge, shared by the prompt block and the wiki so the two cannot drift. |
@@ -1925,6 +1939,7 @@ lib/
 | `LEGAL_PROFILE` | const | `const LEGAL_PROFILE = Object.freeze({ name: 'legal', kinds: Object.freeze([ 'docum …` | The legal vocabulary the existing corpus uses (`legalgraph/v1`). |
 | `PROFILES` | const | `const PROFILES = Object.freeze({ [GENERIC_PROFILE.name]: GENERIC_PROFILE, [LE …` | Every shipped profile by name. |
 | `resolveProfile` | function | `function resolveProfile({ profile = null } = {})` | Resolves a profile by name, or accepts a caller-supplied shape. |
+| `levelKindsFor` | function | `function levelKindsFor({ profile = null, hierarchy = null, level = 1 } = {})` | Resolves the kind for a one-based structural level. |
 | `isKnownKind` | function | `function isKnownKind({ profile, kind })` |  |
 | `isKnownRel` | function | `function isKnownRel({ profile, rel })` |  |
 | `isCustomRel` | function | `function isCustomRel({ rel })` | `x-` plus a label. |
@@ -1971,8 +1986,9 @@ lib/
 | --- | --- | --- | --- |
 | `graphTextSize` | function | `function graphTextSize({ graph = null } = {})` | Total characters of node text — the size signal the budget tiers read. |
 | `edgeText` | function | `function edgeText({ edge, target, arrow })` | The text form of an edge, shared by the prompt block and the wiki so the two cannot drift. |
-| `renderSectionMap` | function | `function renderSectionMap({ graph = null, budget = LIMITS.knowledge_query_budget_chars } = {})` | The map: headings when the graph has them, otherwise the most load-bearing nodes. |
+| `renderSectionMap` | function | `function renderSectionMap({ graph = null, budget = LIMITS.knowledge_query_budget_chars } = {})` | The map: hierarchy when structural edges justify it, headings when the graph has them, otherwise the most load-bearing nodes. |
 | `renderKnowledgeBlock` | function | `function renderKnowledgeBlock({ graph = null, result = null, budget = LIMITS.knowledge_query_budget_chars, query = '' } = {})` | Renders a bounded knowledge block for the prompt. |
+| `renderNodePage` | function | `function renderNodePage({ graph = null, node, tree = null })` | One node's wiki page. |
 | `renderWiki` | function | `function renderWiki({ graph = null, dir = '.knowledge' } = {})` | Renders the wiki. |
 | `readWikiSha` | function | `function readWikiSha({ dir = '.knowledge' } = {})` | The graph hash a previously rendered wiki carries, or null. |
 
@@ -2665,17 +2681,6 @@ _No exports._
 | `TavilyExtractEngine` | class | `class TavilyExtractEngine` | Tavily extract engine — raw global `fetch` POST to https://api.tavily.com/extract. |
 | `JaiScrapeEngine` | class | `class JaiScrapeEngine` | JAI engine — rides `taskApi.executeJson('web-scrape', { url }, { version:'v4' })`. |
 
-#### `lib/agentic/webscrape/index.mjs` — Web-scrape capability barrel.
-
-| Symbol | Kind | Signature / Source | Summary |
-| --- | --- | --- | --- |
-| `WebScrapeComponent` | class | ↩ `lib/agentic/webscrape/component.mjs` | Web-scrape capability surfaced as a `web_scrape` function tool. |
-| `TavilyExtractEngine` | class | ↩ `lib/agentic/webscrape/engines.mjs` | Tavily extract engine — raw global `fetch` POST to https://api.tavily.com/extract. |
-| `JaiScrapeEngine` | class | ↩ `lib/agentic/webscrape/engines.mjs` | JAI engine — rides `taskApi.executeJson('web-scrape', { url }, { version:'v4' })`. |
-| `CurlEngine` | class | ↩ `lib/agentic/webscrape/engines.mjs` | Curl engine — plain `fetch`, strips HTML to text. |
-| `resolveScrapeMode` | function | ↩ `lib/agentic/webscrape/engines.mjs` | Resolves the scrape mode — the strategy the web scraper runs in. |
-| `toUnifiedScrape` | function | ↩ `lib/agentic/webscrape/engines.mjs` | Curl plain text) to the unified `{ url, content, truncated, _vendor? |
-
 #### `lib/agentic/websearch/component.mjs` — WebSearchComponent — the `web_search` function-tool surface.
 
 | Symbol | Kind | Signature / Source | Summary |
@@ -2871,6 +2876,7 @@ _No exports._
 | `REVIEW_STAGE_REMINDER` | const | ↩ `lib/core/constants/index.mjs` | Default followUp stage: review the produced answer, fix gaps, or reply DONE. |
 | `ERROR_CODES` | const | ↩ `lib/core/constants/index.mjs` | Stable machine-readable error codes carried by the MerciError hierarchy. |
 | `TIMEOUT_CODES` | const | ↩ `lib/core/constants/index.mjs` | Every machine-readable code the SDK raises for a timeout. |
+| `FALLBACK_MESSAGE` | const | ↩ `lib/core/constants/index.mjs` | User-visible fallback messages for degenerate responses. |
 | `getEmbeddingModel` | function | ↩ `lib/support/utils.mjs` | Resolves the embedding model for a backend from secret.env. |
 | `getEmbeddingDimensions` | function | ↩ `lib/support/utils.mjs` | Resolves the JAI embedding output dimensionality from `DEFAULT_JAI_EMBEDDING_DIMENSIONS`, defaulting to 1024. |
 | `getDecisionModel` | function | ↩ `lib/support/utils.mjs` | Resolves the decision (System One) model for a backend from secret.env. |
@@ -2883,6 +2889,7 @@ _No exports._
 | `createSystemMessage` | function | ↩ `lib/messaging/messages.mjs` | Creates a system message in the backend's wire shape. |
 | `createAssistantMessage` | function | ↩ `lib/messaging/messages.mjs` | Creates an assistant text message, optionally carrying a thought signature (and DeepSeek-style `reasoning_content` for multi-turn continuity). |
 | `createToolCallMessage` | function | ↩ `lib/messaging/messages.mjs` | Creates an assistant tool-call message in the backend's wire shape. |
+| `createToolCallMessages` | function | ↩ `lib/messaging/messages.mjs` | Creates the assistant tool-call row(s) for one model turn. |
 | `createToolResultMessage` | function | ↩ `lib/messaging/messages.mjs` | Creates a tool result message in the target backend's wire shape. |
 | `createUnifiedMediaMessages` | function | ↩ `lib/backends/media.mjs` | Creates a user turn carrying an image or PDF plus a prompt, per-backend shaped (JAI shapes it natively; GAI/AAI/OAI embed base64 data — a PDF becomes an Anthropic `document` block / an OpenAI `file` part). |
 | `PDF_MEDIA_PROVIDERS` | const | ↩ `lib/messaging/messages.mjs` | Backends whose wire can carry an `application/pdf` document as one inline media message: JAI (vendor media part), Gemini/Vertex (`inlineData`), Anthropic (`document` block), OpenAI (`file` part). |
@@ -2904,6 +2911,9 @@ _No exports._
 | `defaultDisplay` | function | ↩ `lib/agentic/agentic-core.mjs` | Returns the default display `{ onEvent }` for runAgenticLoop consumers: thinking via the logger, text/tool deltas to stdout (the first text delta of each turn is prefixed with `Assistant > ` so the answer is labelled exactly once), newline on stream_end. |
 | `compactHistory` | function | ↩ `lib/agentic/agentic-core.mjs` | a history that already starts with the summary marker is never re-summarized. |
 | `runDueSteps` | function | ↩ `lib/agentic/agentic-core.mjs` | Runs the steps that are due and returns one settled result per step, in input order. |
+| `fallbackKind` | function | ↩ `lib/agentic/agentic-core.mjs` | hard failure), `'empty'` (a transient no-answer — retryable), `'schema'` (an exhausted structured-output correction loop — also transient), `'filtered'` (the provider's content moderation stopped the answer — not retryable), or null for real content. |
+| `isSdkFallbackOutput` | function | ↩ `lib/agentic/agentic-core.mjs` | iteration-limit or schema-validation, so the `(${msg})` and `+TRUNCATED` variants match). |
+| `isTransientFallbackKind` | function | ↩ `lib/agentic/agentic-core.mjs` | answer or an exhausted structured-output correction loop. |
 | `AgentLauncher` | class | ↩ `lib/agentic/cli/launcher.mjs` | Interactive agent CLI: system commands, skill-plugin dispatch, and a tool-fed agentic loop over a backend session. |
 | `DiscussionSession` | class | ↩ `lib/agentic/discussion-session.mjs` | A multi-agent debate group: agents converse on a shared ledger, optionally judged/aggregated into a conclusion. |
 | `StateMachine` | class | ↩ `lib/agentic/state-machine/index.mjs` | A node graph machine with conditional transitions. |
@@ -2937,10 +2947,6 @@ _No exports._
 | `toolJournalKey` | function | ↩ `lib/agentic/journal.mjs` | The journal key of a tool call — the identity its outcome is recorded under. |
 | `journalKey` | function | ↩ `lib/agentic/journal.mjs` | A stable 16-character key for a journal entry, derived from its parts. |
 | `runStep` | function | ↩ `lib/agentic/step.mjs` | Runs ONE agentic step attempt in a fresh session: builds the session with the glue's policy/capabilities, runs the agentic loop, forwards stream events through the glue's event names, and captures the step's full message row + reasoning signature for the next attempt/step. |
-| `createAcpAgent` | function | ↩ `lib/agentic/acp-agent.mjs` | Wraps a merci ChatSession as an ACP agent app. |
-| `permissionAllowed` | function | ↩ `lib/agentic/acp-agent.mjs` | Decides whether an ACP `session/request_permission` response grants the permission. |
-| `ACP_STOP_REASONS` | const | ↩ `lib/agentic/acp-agent.mjs` | The ACP prompt stop reasons. |
-| `ACP_AGENT_VERSION` | const | ↩ `lib/agentic/acp-agent.mjs` | merci version advertised in the ACP initialize handshake. |
 | `ingestDocument` | function | ↩ `lib/agentic/ingest.mjs` | Ingests a document (image or PDF) as Markdown using a vision-capable model. |
 | `TaskState` | class | ↩ `lib/agentic/planning/task-state.mjs` | The serializable state of one workflow (DAG) run. |
 | `CHECKPOINT_KIND` | const | ↩ `lib/agentic/planning/checkpoint.mjs` | Checkpoint payload kinds. |
@@ -2989,6 +2995,12 @@ _No exports._
 | `surfaceFragment` | function | ↩ `lib/agentic/knowledge/index.mjs` | Runs one surface's adapter. |
 | `mergeFragment` | function | ↩ `lib/agentic/knowledge/index.mjs` | Merges adapter output into a graph, skipping ids that already exist. |
 | `edgeText` | function | ↩ `lib/agentic/knowledge/index.mjs` | The text form of an edge, shared by the prompt block and the wiki so the two cannot drift. |
+| `HIERARCHY_RELATIONS` | const | ↩ `lib/agentic/knowledge/index.mjs` | Relations whose direction can describe containment. |
+| `hierarchyOf` | function | ↩ `lib/agentic/knowledge/index.mjs` | Derives a bounded hierarchy from `contains` (parent → child) or `part_of` (child → parent) edges. |
+| `hierarchyPath` | function | ↩ `lib/agentic/knowledge/index.mjs` | The root-to-node path, using the deterministic primary parent. |
+| `levelKindsFor` | function | ↩ `lib/agentic/knowledge/index.mjs` | Resolves the kind for a one-based structural level. |
+| `renderSectionMap` | function | ↩ `lib/agentic/knowledge/index.mjs` | The map: hierarchy when structural edges justify it, headings when the graph has them, otherwise the most load-bearing nodes. |
+| `renderNodePage` | function | ↩ `lib/agentic/knowledge/index.mjs` | One node's wiki page. |
 | `emptyGraph` | function | ↩ `lib/agentic/knowledge/index.mjs` |  |
 | `syncCorpus` | function | ↩ `lib/agentic/knowledge/index.mjs` | Load-or-build. |
 | `loadCorpus` | function | ↩ `lib/agentic/knowledge/index.mjs` | Loads the persisted graph and its manifest. |
@@ -3033,33 +3045,9 @@ _No exports._
 | `AGENT_EXECUTE` | const | ↩ `lib/agentic/plan/component.mjs` | Execute-agent identity (full tool set). |
 | `buildEnvironmentBlock` | function | ↩ `lib/agentic/context.mjs` | Renders the environment block: working directory, git repo, platform, date. |
 | `discoverInstructions` | function | ↩ `lib/agentic/context.mjs` | Discovers and renders AGENTS.md instruction files from `root` up to `stopAt` (inclusive). |
-| `createContextTools` | function | ↩ `lib/tools/index.mjs` | The context tools — read, grep and glob over the working directory, as one tool set. |
-| `createMcpServer` | function | ↩ `lib/tools/index.mjs` | Creates an MCP stdio server exposing the given tools, connected to stdin/stdout. |
-| `createMcpHttpHandler` | function | ↩ `lib/tools/index.mjs` | Creates an MCP server over the Streamable HTTP transport and returns a `node:http` request handler that serves it. |
-| `createShellTool` | function | ↩ `lib/tools/index.mjs` | The shell tool — runs a command in the working directory, behind the approval gate. |
-| `createShellPolicyTool` | function | ↩ `lib/tools/index.mjs` | `describe_shell_policy`: the effective tier of one shell-tool instance, so a model reads the host's real allowlists instead of guessing from the defaults. |
-| `loadMcpTools` | function | ↩ `lib/tools/index.mjs` | (schema normalization + output capping). |
-| `loadMcpToolsFrom` | function | ↩ `lib/tools/index.mjs` | Loads a remote MCP server's tools. |
-| `McpClient` | class | ↩ `lib/tools/index.mjs` | Thin lifecycle wrapper around the MCP client. |
-| `McpTaskStore` | class | ↩ `lib/tools/index.mjs` | In-memory task store: a task record, its abort controller and its retention timer. |
-| `FileMcpTaskStore` | class | ↩ `lib/tools/index.mjs` | A durable store: one JSON record per task under `dir`, reloaded on construction, so a task and its result survive a restart. |
-| `loadA2ATool` | function | ↩ `lib/tools/index.mjs` | (returns []) when the agent card cannot be loaded or the URL is invalid. |
-| `getA2ATask` | function | ↩ `lib/tools/index.mjs` | Reads a remote A2A task by id. |
-| `cancelA2ATask` | function | ↩ `lib/tools/index.mjs` | Cancels a remote A2A task. |
-| `A2A_COMPLETED_STATES` | const | ↩ `lib/tools/index.mjs` | The A2A task states that mean the task has ended, whichever dialect spelled it. |
-| `createA2AServer` | function | ↩ `lib/tools/index.mjs` | Creates an A2A server exposing the given skills. |
-| `createA2AHttpHandler` | function | ↩ `lib/tools/index.mjs` | Mounts an A2A server on a `node:http` server. |
-| `loadSkillsFromDirectory` | function | ↩ `lib/tools/index.mjs` | Missing roots and missing SKILL.md files are normal skips; corruption is surfaced via sdkWarn and the SKILLS.LOAD_ERROR event. |
-| `executeTools` | function | ↩ `lib/tools/index.mjs` | `{ id, tool_call_id, name, success, result\|error }` envelope; tool errors are returned (not thrown), while AbortError rethrows as cancellation. |
-| `withToolTimeout` | function | ↩ `lib/tools/index.mjs` | Caps a tool call that outlives its budget. |
 | `createOperatorHttpHandler` | function | ↩ `lib/agentic/operator/index.mjs` | Create a `(req, res) => Promise<void>` operator handler (§3.3). |
 | `createEventRing` | function | ↩ `lib/agentic/operator/index.mjs` | emitter?: unknown, limit?: number, prefixes?: ReadonlyArray<string>, now?: () => number }} [arg0] |
 | `formatStatus` | function | ↩ `lib/agentic/operator/index.mjs` | Render one snapshot as plain text (§3.7). |
-| `SkillsLibrary` | class | ↩ `lib/tools/skills.mjs` | Loadable component exposing the registered skills to the model via a list-skills load tool. |
-| `ExternalToolCapability` | class | ↩ `lib/tools/external-capability.mjs` | A remote tool family surfaced as a capability: the tool definitions do the work (tools-first), `load()` renders a short catalog listing for the model, and there is no save leg (toSaveTool() is null — no saveToolName passed). |
-| `AcpCapability` | class | ↩ `lib/tools/external-capability.mjs` | Agent Client Protocol (ACP) capability — a duck-typed remote-tool adapter. |
-| `capToolOutput` | function | ↩ `lib/tools/external-capability.mjs` | Non-strings pass through untouched. |
-| `capToolOutputValue` | function | ↩ `lib/tools/external-capability.mjs` | Caps a tool result of **any** shape to a character budget, without changing its type. |
 | `withTaskAgents` | function | ↩ `lib/agentic/task.mjs` | duplicate name wins) and returns the client for chaining. |
 | `withAgentDelegation` | function | ↩ `lib/agentic/task.mjs` | Declares the host's delegation envelope (D1a). |
 | `createTaskTool` | function | ↩ `lib/agentic/task.mjs` | on. |
@@ -3190,6 +3178,7 @@ Everything importable from the package entry point (`lib/index.mjs`):
 | `REVIEW_STAGE_REMINDER` | const | ↩ `lib/core/constants/index.mjs` | Default followUp stage: review the produced answer, fix gaps, or reply DONE. |
 | `ERROR_CODES` | const | ↩ `lib/core/constants/index.mjs` | Stable machine-readable error codes carried by the MerciError hierarchy. |
 | `TIMEOUT_CODES` | const | ↩ `lib/core/constants/index.mjs` | Every machine-readable code the SDK raises for a timeout. |
+| `FALLBACK_MESSAGE` | const | ↩ `lib/core/constants/index.mjs` | User-visible fallback messages for degenerate responses. |
 | `getEmbeddingModel` | function | ↩ `lib/support/utils.mjs` | Resolves the embedding model for a backend from secret.env. |
 | `getEmbeddingDimensions` | function | ↩ `lib/support/utils.mjs` | Resolves the JAI embedding output dimensionality from `DEFAULT_JAI_EMBEDDING_DIMENSIONS`, defaulting to 1024. |
 | `getDecisionModel` | function | ↩ `lib/support/utils.mjs` | Resolves the decision (System One) model for a backend from secret.env. |
@@ -3202,6 +3191,7 @@ Everything importable from the package entry point (`lib/index.mjs`):
 | `createSystemMessage` | function | ↩ `lib/messaging/messages.mjs` | Creates a system message in the backend's wire shape. |
 | `createAssistantMessage` | function | ↩ `lib/messaging/messages.mjs` | Creates an assistant text message, optionally carrying a thought signature (and DeepSeek-style `reasoning_content` for multi-turn continuity). |
 | `createToolCallMessage` | function | ↩ `lib/messaging/messages.mjs` | Creates an assistant tool-call message in the backend's wire shape. |
+| `createToolCallMessages` | function | ↩ `lib/messaging/messages.mjs` | Creates the assistant tool-call row(s) for one model turn. |
 | `createToolResultMessage` | function | ↩ `lib/messaging/messages.mjs` | Creates a tool result message in the target backend's wire shape. |
 | `createUnifiedMediaMessages` | function | ↩ `lib/backends/media.mjs` | Creates a user turn carrying an image or PDF plus a prompt, per-backend shaped (JAI shapes it natively; GAI/AAI/OAI embed base64 data — a PDF becomes an Anthropic `document` block / an OpenAI `file` part). |
 | `PDF_MEDIA_PROVIDERS` | const | ↩ `lib/messaging/messages.mjs` | Backends whose wire can carry an `application/pdf` document as one inline media message: JAI (vendor media part), Gemini/Vertex (`inlineData`), Anthropic (`document` block), OpenAI (`file` part). |
@@ -3223,6 +3213,9 @@ Everything importable from the package entry point (`lib/index.mjs`):
 | `defaultDisplay` | function | ↩ `lib/agentic/agentic-core.mjs` | Returns the default display `{ onEvent }` for runAgenticLoop consumers: thinking via the logger, text/tool deltas to stdout (the first text delta of each turn is prefixed with `Assistant > ` so the answer is labelled exactly once), newline on stream_end. |
 | `compactHistory` | function | ↩ `lib/agentic/agentic-core.mjs` | a history that already starts with the summary marker is never re-summarized. |
 | `runDueSteps` | function | ↩ `lib/agentic/agentic-core.mjs` | Runs the steps that are due and returns one settled result per step, in input order. |
+| `fallbackKind` | function | ↩ `lib/agentic/agentic-core.mjs` | hard failure), `'empty'` (a transient no-answer — retryable), `'schema'` (an exhausted structured-output correction loop — also transient), `'filtered'` (the provider's content moderation stopped the answer — not retryable), or null for real content. |
+| `isSdkFallbackOutput` | function | ↩ `lib/agentic/agentic-core.mjs` | iteration-limit or schema-validation, so the `(${msg})` and `+TRUNCATED` variants match). |
+| `isTransientFallbackKind` | function | ↩ `lib/agentic/agentic-core.mjs` | answer or an exhausted structured-output correction loop. |
 | `AgentLauncher` | class | ↩ `lib/agentic/cli/launcher.mjs` | Interactive agent CLI: system commands, skill-plugin dispatch, and a tool-fed agentic loop over a backend session. |
 | `DiscussionSession` | class | ↩ `lib/agentic/discussion-session.mjs` | A multi-agent debate group: agents converse on a shared ledger, optionally judged/aggregated into a conclusion. |
 | `StateMachine` | class | ↩ `lib/agentic/state-machine/index.mjs` | A node graph machine with conditional transitions. |
@@ -3256,10 +3249,6 @@ Everything importable from the package entry point (`lib/index.mjs`):
 | `toolJournalKey` | function | ↩ `lib/agentic/journal.mjs` | The journal key of a tool call — the identity its outcome is recorded under. |
 | `journalKey` | function | ↩ `lib/agentic/journal.mjs` | A stable 16-character key for a journal entry, derived from its parts. |
 | `runStep` | function | ↩ `lib/agentic/step.mjs` | Runs ONE agentic step attempt in a fresh session: builds the session with the glue's policy/capabilities, runs the agentic loop, forwards stream events through the glue's event names, and captures the step's full message row + reasoning signature for the next attempt/step. |
-| `createAcpAgent` | function | ↩ `lib/agentic/acp-agent.mjs` | Wraps a merci ChatSession as an ACP agent app. |
-| `permissionAllowed` | function | ↩ `lib/agentic/acp-agent.mjs` | Decides whether an ACP `session/request_permission` response grants the permission. |
-| `ACP_STOP_REASONS` | const | ↩ `lib/agentic/acp-agent.mjs` | The ACP prompt stop reasons. |
-| `ACP_AGENT_VERSION` | const | ↩ `lib/agentic/acp-agent.mjs` | merci version advertised in the ACP initialize handshake. |
 | `ingestDocument` | function | ↩ `lib/agentic/ingest.mjs` | Ingests a document (image or PDF) as Markdown using a vision-capable model. |
 | `TaskState` | class | ↩ `lib/agentic/planning/task-state.mjs` | The serializable state of one workflow (DAG) run. |
 | `CHECKPOINT_KIND` | const | ↩ `lib/agentic/planning/checkpoint.mjs` | Checkpoint payload kinds. |
@@ -3308,6 +3297,12 @@ Everything importable from the package entry point (`lib/index.mjs`):
 | `surfaceFragment` | function | ↩ `lib/agentic/knowledge/index.mjs` | Runs one surface's adapter. |
 | `mergeFragment` | function | ↩ `lib/agentic/knowledge/index.mjs` | Merges adapter output into a graph, skipping ids that already exist. |
 | `edgeText` | function | ↩ `lib/agentic/knowledge/index.mjs` | The text form of an edge, shared by the prompt block and the wiki so the two cannot drift. |
+| `HIERARCHY_RELATIONS` | const | ↩ `lib/agentic/knowledge/index.mjs` | Relations whose direction can describe containment. |
+| `hierarchyOf` | function | ↩ `lib/agentic/knowledge/index.mjs` | Derives a bounded hierarchy from `contains` (parent → child) or `part_of` (child → parent) edges. |
+| `hierarchyPath` | function | ↩ `lib/agentic/knowledge/index.mjs` | The root-to-node path, using the deterministic primary parent. |
+| `levelKindsFor` | function | ↩ `lib/agentic/knowledge/index.mjs` | Resolves the kind for a one-based structural level. |
+| `renderSectionMap` | function | ↩ `lib/agentic/knowledge/index.mjs` | The map: hierarchy when structural edges justify it, headings when the graph has them, otherwise the most load-bearing nodes. |
+| `renderNodePage` | function | ↩ `lib/agentic/knowledge/index.mjs` | One node's wiki page. |
 | `emptyGraph` | function | ↩ `lib/agentic/knowledge/index.mjs` |  |
 | `syncCorpus` | function | ↩ `lib/agentic/knowledge/index.mjs` | Load-or-build. |
 | `loadCorpus` | function | ↩ `lib/agentic/knowledge/index.mjs` | Loads the persisted graph and its manifest. |
@@ -3352,33 +3347,9 @@ Everything importable from the package entry point (`lib/index.mjs`):
 | `AGENT_EXECUTE` | const | ↩ `lib/agentic/plan/component.mjs` | Execute-agent identity (full tool set). |
 | `buildEnvironmentBlock` | function | ↩ `lib/agentic/context.mjs` | Renders the environment block: working directory, git repo, platform, date. |
 | `discoverInstructions` | function | ↩ `lib/agentic/context.mjs` | Discovers and renders AGENTS.md instruction files from `root` up to `stopAt` (inclusive). |
-| `createContextTools` | function | ↩ `lib/tools/index.mjs` | The context tools — read, grep and glob over the working directory, as one tool set. |
-| `createMcpServer` | function | ↩ `lib/tools/index.mjs` | Creates an MCP stdio server exposing the given tools, connected to stdin/stdout. |
-| `createMcpHttpHandler` | function | ↩ `lib/tools/index.mjs` | Creates an MCP server over the Streamable HTTP transport and returns a `node:http` request handler that serves it. |
-| `createShellTool` | function | ↩ `lib/tools/index.mjs` | The shell tool — runs a command in the working directory, behind the approval gate. |
-| `createShellPolicyTool` | function | ↩ `lib/tools/index.mjs` | `describe_shell_policy`: the effective tier of one shell-tool instance, so a model reads the host's real allowlists instead of guessing from the defaults. |
-| `loadMcpTools` | function | ↩ `lib/tools/index.mjs` | (schema normalization + output capping). |
-| `loadMcpToolsFrom` | function | ↩ `lib/tools/index.mjs` | Loads a remote MCP server's tools. |
-| `McpClient` | class | ↩ `lib/tools/index.mjs` | Thin lifecycle wrapper around the MCP client. |
-| `McpTaskStore` | class | ↩ `lib/tools/index.mjs` | In-memory task store: a task record, its abort controller and its retention timer. |
-| `FileMcpTaskStore` | class | ↩ `lib/tools/index.mjs` | A durable store: one JSON record per task under `dir`, reloaded on construction, so a task and its result survive a restart. |
-| `loadA2ATool` | function | ↩ `lib/tools/index.mjs` | (returns []) when the agent card cannot be loaded or the URL is invalid. |
-| `getA2ATask` | function | ↩ `lib/tools/index.mjs` | Reads a remote A2A task by id. |
-| `cancelA2ATask` | function | ↩ `lib/tools/index.mjs` | Cancels a remote A2A task. |
-| `A2A_COMPLETED_STATES` | const | ↩ `lib/tools/index.mjs` | The A2A task states that mean the task has ended, whichever dialect spelled it. |
-| `createA2AServer` | function | ↩ `lib/tools/index.mjs` | Creates an A2A server exposing the given skills. |
-| `createA2AHttpHandler` | function | ↩ `lib/tools/index.mjs` | Mounts an A2A server on a `node:http` server. |
-| `loadSkillsFromDirectory` | function | ↩ `lib/tools/index.mjs` | Missing roots and missing SKILL.md files are normal skips; corruption is surfaced via sdkWarn and the SKILLS.LOAD_ERROR event. |
-| `executeTools` | function | ↩ `lib/tools/index.mjs` | `{ id, tool_call_id, name, success, result\|error }` envelope; tool errors are returned (not thrown), while AbortError rethrows as cancellation. |
-| `withToolTimeout` | function | ↩ `lib/tools/index.mjs` | Caps a tool call that outlives its budget. |
 | `createOperatorHttpHandler` | function | ↩ `lib/agentic/operator/index.mjs` | Create a `(req, res) => Promise<void>` operator handler (§3.3). |
 | `createEventRing` | function | ↩ `lib/agentic/operator/index.mjs` | emitter?: unknown, limit?: number, prefixes?: ReadonlyArray<string>, now?: () => number }} [arg0] |
 | `formatStatus` | function | ↩ `lib/agentic/operator/index.mjs` | Render one snapshot as plain text (§3.7). |
-| `SkillsLibrary` | class | ↩ `lib/tools/skills.mjs` | Loadable component exposing the registered skills to the model via a list-skills load tool. |
-| `ExternalToolCapability` | class | ↩ `lib/tools/external-capability.mjs` | A remote tool family surfaced as a capability: the tool definitions do the work (tools-first), `load()` renders a short catalog listing for the model, and there is no save leg (toSaveTool() is null — no saveToolName passed). |
-| `AcpCapability` | class | ↩ `lib/tools/external-capability.mjs` | Agent Client Protocol (ACP) capability — a duck-typed remote-tool adapter. |
-| `capToolOutput` | function | ↩ `lib/tools/external-capability.mjs` | Non-strings pass through untouched. |
-| `capToolOutputValue` | function | ↩ `lib/tools/external-capability.mjs` | Caps a tool result of **any** shape to a character budget, without changing its type. |
 | `withTaskAgents` | function | ↩ `lib/agentic/task.mjs` | duplicate name wins) and returns the client for chaining. |
 | `withAgentDelegation` | function | ↩ `lib/agentic/task.mjs` | Declares the host's delegation envelope (D1a). |
 | `createTaskTool` | function | ↩ `lib/agentic/task.mjs` | on. |
@@ -3824,13 +3795,17 @@ Everything importable from the package entry point (`lib/index.mjs`):
 | `JournalOutcome` | `{Object}` | `lib/agentic/journal.mjs` |
 | `JournalEntry` | `{Object}` | `lib/agentic/journal.mjs` |
 | `KnowledgeSource` | `{Object}` | `lib/agentic/knowledge/build.mjs` |
-| `KnowledgeBuilder` | `{(arg: {sources: Array<{id: string, path?: string\|null, name: string, text: string}>, profile: import('./model.mjs').KnowledgeProfile, title: string}) => import('./model.mjs').KnowledgeGraph\|Promise<import('./model.mjs').KnowledgeGraph>}` | `lib/agentic/knowledge/cache.mjs` |
-| `SyncCorpusBase` | `{{dir?: string, paths?: Array<string>, sources?: Array<{id: string, path?: string\|null, name: string, text: string}>\|null, profile?: string\|object\|null, now?: Date}}` | `lib/agentic/knowledge/cache.mjs` |
+| `KnowledgeBuilder` | `{(arg: {sources: Array<{id: string, path?: string\|null, name: string, text: string}>, profile: import('./model.mjs').KnowledgeProfile, title: string, hierarchy?: {levels?: string[], levelKinds?: Record<number, string>}\|null}) => import('./model.mjs').KnowledgeGraph\|Promise<import('./model.mjs').KnowledgeGraph>}` | `lib/agentic/knowledge/cache.mjs` |
+| `SyncCorpusBase` | `{{dir?: string, paths?: Array<string>, sources?: Array<{id: string, path?: string\|null, name: string, text: string}>\|null, profile?: string\|object\|null, now?: Date, hierarchy?: {levels?: string[], levelKinds?: Record<number, string>}\|null}}` | `lib/agentic/knowledge/cache.mjs` |
 | `SyncCorpusOptions` | `{(SyncCorpusBase & {build?: undefined, buildVersion?: number})\|(SyncCorpusBase & {build: KnowledgeBuilder, buildVersion: number})}` | `lib/agentic/knowledge/cache.mjs` |
 | `SourceFingerprint` | `{Object}` | `lib/agentic/knowledge/cache.mjs` |
 | `CorpusManifest` | `{Object}` | `lib/agentic/knowledge/cache.mjs` |
 | `KnowledgeGate` | `{Object}` | `lib/agentic/knowledge/component.mjs` |
 | `KnowledgeRowLike` | `{Object}` | `lib/agentic/knowledge/component.mjs` |
+| `HierarchyDescription` | `{Object}` | `lib/agentic/knowledge/hierarchy.mjs` |
+| `HierarchyEntry` | `{Object}` | `lib/agentic/knowledge/hierarchy.mjs` |
+| `HierarchyTree` | `{Object}` | `lib/agentic/knowledge/hierarchy.mjs` |
+| `HierarchySortEntry` | `{Object}` | `lib/agentic/knowledge/hierarchy.mjs` |
 | `KnowledgeSourceRef` | `{Object}` | `lib/agentic/knowledge/model.mjs` |
 | `KnowledgeNode` | `{Object}` | `lib/agentic/knowledge/model.mjs` |
 | `KnowledgeEdge` | `{Object}` | `lib/agentic/knowledge/model.mjs` |
@@ -4072,26 +4047,25 @@ Counts of relative import/re-export specifiers between top-level areas. This is 
 
 | From → To | Imports |
 | --- | --- |
-| `agentic → core` | 237 |
-| `agentic → support` | 97 |
+| `agentic → core` | 235 |
+| `agentic → support` | 96 |
 | `backends → core` | 53 |
-| `root → agentic` | 51 |
-| `tools → core` | 42 |
+| `root → agentic` | 50 |
+| `tools → core` | 41 |
 | `backends → support` | 40 |
 | `agentic → messaging` | 29 |
 | `support → core` | 27 |
 | `tools → support` | 21 |
-| `backends → messaging` | 12 |
+| `backends → messaging` | 13 |
 | `root → core` | 10 |
-| `root → support` | 9 |
+| `root → support` | 8 |
 | `agentic → tools` | 7 |
 | `tools → agentic` | 7 |
 | `backends → tools` | 6 |
+| `messaging → core` | 6 |
 | `backends → agentic` | 5 |
-| `messaging → core` | 5 |
 | `messaging → support` | 5 |
 | `root → messaging` | 3 |
-| `root → tools` | 3 |
 | `root → backends` | 2 |
 | `agentic → backends` | 1 |
 

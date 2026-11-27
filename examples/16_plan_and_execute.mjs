@@ -32,9 +32,10 @@ import { dirname, join, resolve, sep } from 'node:path';
 import * as readline from 'node:readline/promises';
 import { stdin as input, stdout as output } from 'node:process';
 import {
-    AGENT_EXECUTE, AGENT_PLAN, EVENTS, LocalFileSessionStore, createContextTools, createPlanStageFollowUp,
+    AGENT_EXECUTE, AGENT_PLAN, EVENTS, LocalFileSessionStore, createPlanStageFollowUp,
     createUserMessage, defaultDisplay, initializeClient, loadCredentials, log,
 } from 'merci-sdk';
+import { createContextTools } from 'merci-sdk/tools';
 import { readlineSafe, reportUsage, resolveExample, runMain, trackUsage, warnEmptyAnswer, wireClient } from './_shared/example-utils.mjs';
 
 const PLAN_GOAL = 'Plan how to write a short operator runbook (markdown, at most 3 sections) for restarting the billing service. Record the plan as tasks and call plan_exit when finalized.';

@@ -41,12 +41,14 @@ import { createServer } from 'node:http';
 import { mkdir, readFile, rm, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import {
-    AcpCapability, ExternalToolCapability, LoadableComponent,
-    buildEnvironmentBlock, capToolOutput, capToolOutputValue, createMcpHttpHandler, createSaveArtifactTool,
-    defaultDisplay, discoverInstructions, initializeClient, loadCredentials, loadMcpTools, log,
-    McpClient,
+    LoadableComponent,
+    buildEnvironmentBlock, createSaveArtifactTool,
+    defaultDisplay, discoverInstructions, initializeClient, loadCredentials, log,
 } from 'merci-sdk';
-import { TOOL_OUTPUT_TRUNCATION_SUFFIX } from 'merci-sdk/tools';
+import {
+    AcpCapability, ExternalToolCapability, McpClient, capToolOutput, capToolOutputValue,
+    createMcpHttpHandler, loadMcpTools, TOOL_OUTPUT_TRUNCATION_SUFFIX,
+} from 'merci-sdk/tools';
 import { SCRATCH_DIR } from './_shared/real-tools.mjs';
 import { reportUsage, resolveExample, runMain, trackUsage, warnEmptyAnswer, wireClient } from './_shared/example-utils.mjs';
 

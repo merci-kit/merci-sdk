@@ -1095,7 +1095,7 @@ as a `session/update` notification: message chunks, thought chunks, tool
 calls, tool-call updates and plan entries.
 
 ```js
-import { createAcpAgent } from 'merci-sdk';
+import { createAcpAgent } from 'merci-sdk/acp';
 
 const app = createAcpAgent({ session: client.session(model) });
 // Mount `app` on the editor's transport.

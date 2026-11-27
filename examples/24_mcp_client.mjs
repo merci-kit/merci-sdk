@@ -31,7 +31,8 @@
  */
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { McpClient, defaultDisplay, initializeClient, loadCredentials, loadMcpTools, log } from 'merci-sdk';
+import { defaultDisplay, initializeClient, loadCredentials, log } from 'merci-sdk';
+import { McpClient, loadMcpTools } from 'merci-sdk/tools';
 import { guardedParse } from 'merci-sdk/json';
 import { reportUsage, resolveExample, runMain, trackUsage, wireClient, warnEmptyAnswer } from './_shared/example-utils.mjs';
 

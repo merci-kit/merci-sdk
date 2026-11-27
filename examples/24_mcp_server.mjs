@@ -24,7 +24,8 @@
  *
  * @version 0.23.0
  */
-import { createMcpServer, log } from 'merci-sdk';
+import { log } from 'merci-sdk';
+import { createMcpServer } from 'merci-sdk/tools';
 import { childLog } from './_shared/example-utils.mjs';
 
 childLog();

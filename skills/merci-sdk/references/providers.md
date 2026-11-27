@@ -84,6 +84,7 @@ Import only what the feature needs — each entry has its own `types`:
 | `merci-sdk/aai` | `aai` standard: `anthropic` |
 | `merci-sdk/json` | JSON support |
 | `merci-sdk/tools` | tools (MCP, A2A, skills, shell) |
+| `merci-sdk/acp` | ACP agent |
 | `merci-sdk/planning` | DAG planning |
 | `merci-sdk/messaging` | unified message shapes |
 

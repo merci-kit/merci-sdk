@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <title>API Reference — Merci SDK v0.24.0</title>
+    <title>API Reference — Merci SDK v0.25.0</title>
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com" rel="preconnect"/>
@@ -27,7 +27,7 @@
                     <img src="merci-sdk-logo.png" alt="Merci SDK Logo" class="h-8 w-12 object-contain">
                     <div class="flex items-center gap-2">
                         <h1 class="text-xl font-bold text-[var(--text-primary)] tracking-tight">Merci SDK</h1>
-                        <span class="text-xs font-mono font-semibold px-2 py-0.5 rounded-full bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20">v0.24.0</span>
+                        <span class="text-xs font-mono font-semibold px-2 py-0.5 rounded-full bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20">v0.25.0</span>
                     </div>
                 </a>
             </div>
@@ -61,7 +61,7 @@
                 <div>
                     <h1 class="text-4xl font-extrabold tracking-tight text-[var(--text-primary)]">Merci SDK API Reference</h1>
                     <p class="mt-4 text-lg text-[var(--text-secondary)]">
-                        The TypeScript surface of Merci SDK v0.24.0, grouped by task. Signatures below use the SDK's single-object argument convention. The full generated export table (§8) is authoritative; §§1–7 explain the calls you actually make.
+                        The TypeScript surface of Merci SDK v0.25.0, grouped by task. Signatures below use the SDK's single-object argument convention. The full generated export table (§8) is authoritative; §§1–7 explain the calls you actually make.
                     </p>
                     <p class="mt-2 text-sm text-[var(--text-secondary)]">Start: <a href="getting_started.html">Getting Started</a> · runnable calls in <a href="https://github.com/merci-kit/merci-sdk/tree/main/examples">examples/ (01–32)</a> · concepts in <a href="tutorials.html">Tutorials (01–42)</a> · provider/engine picks in <a href="PROVIDERS.md">PROVIDERS.md</a>.</p>
                 </div>
@@ -356,7 +356,7 @@ client.session(model)
                         <h3 class="font-bold text-[var(--text-primary)] !mt-0">Every named export of <code class="inline">merci-sdk</code> (main entry)</h3>
                         <input id="export-filter" class="search-input" style="display:block;width:100%;max-width:320px;margin-top:8px;padding:0.375rem 0.75rem;border-radius:0.5rem;font-size:0.8125rem" placeholder="Filter exports… (e.g. withBudget)" aria-label="Filter exports"/>
                         <div class="space-y-4 mt-4 text-sm text-[var(--text-secondary)]">
-                            <div class="export-chips"><code class="inline">A2A_COMPLETED_STATES</code><code class="inline">AbortedError</code><code class="inline">AbstractMethodError</code><code class="inline">ACP_AGENT_VERSION</code><code class="inline">ACP_STOP_REASONS</code><code class="inline">AcpCapability</code><code class="inline">adoptedProfile</code><code class="inline">adoptOntology</code><code class="inline">AGENT_EXECUTE</code><code class="inline">AGENT_PLAN</code><code class="inline">AgentContext</code><code class="inline">AgentFileError</code><code class="inline">AgentLauncher</code><code class="inline">applyPatch</code><code class="inline">assertStateSchema</code><code class="inline">attachEventLogger</code><code class="inline">BackendError</code><code class="inline">BaseChatSession</code><code class="inline">BODY_TIMEOUT_CODE</code><code class="inline">BREAKER_OPEN_CODE</code><code class="inline">BrowserComponent</code><code class="inline">BudgetExceededError</code><code class="inline">buildDecisionRequest</code><code class="inline">buildEnvironmentBlock</code><code class="inline">buildGraph</code><code class="inline">cancelA2ATask</code><code class="inline">canonicalEventNames</code><code class="inline">CAPABILITY</code><code class="inline">capToolOutput</code><code class="inline">capToolOutputValue</code><code class="inline">CASSETTE_MODES</code><code class="inline">cassetteKey</code><code class="inline">certaintyOf</code><code class="inline">ChatSessionBuilder</code><code class="inline">CHECKPOINT_KIND</code><code class="inline">choiceQuestion</code><code class="inline">CircuitBreaker</code><code class="inline">claimReplan</code><code class="inline">classifyFailure</code><code class="inline">ClientRole</code><code class="inline">collectTemplateRefs</code><code class="inline">compactHistory</code><code class="inline">compareProgress</code><code class="inline">CompositeApiObserver</code><code class="inline">CompositeMemoryProvider</code><code class="inline">ConfigurationError</code><code class="inline">configureSdkLog</code><code class="inline">contextFromMerciEnvelope</code><code class="inline">continueSpawn</code><code class="inline">CORE_RELATIONS</code><code class="inline">corpusKey</code><code class="inline">countConversationTurns</code><code class="inline">createA2AHttpHandler</code><code class="inline">createA2AServer</code><code class="inline">createAcpAgent</code><code class="inline">createAgenticRuntime</code><code class="inline">createAssistantMessage</code><code class="inline">createCassette</code><code class="inline">createContextTools</code><code class="inline">createDecisionGate</code><code class="inline">createDecisionReranker</code><code class="inline">createDecisionsClient</code><code class="inline">createEngineRunner</code><code class="inline">createEventRing</code><code class="inline">createGuardrails</code><code class="inline">createHooks</code><code class="inline">createLimiter</code><code class="inline">createLlmJudge</code><code class="inline">createMcpHttpHandler</code><code class="inline">createMcpServer</code><code class="inline">createOperatorHttpHandler</code><code class="inline">createOrchestration</code><code class="inline">createOtlpExporter</code><code class="inline">createPlanStageFollowUp</code><code class="inline">createPolicyRenderer</code><code class="inline">createRoleClients</code><code class="inline">createSaveArtifactTool</code><code class="inline">createScoredJudge</code><code class="inline">createShellPolicyTool</code><code class="inline">createShellTool</code><code class="inline">createStreamingRetryPolicy</code><code class="inline">createStreamLogger</code><code class="inline">createSystemMessage</code><code class="inline">createTaskTool</code><code class="inline">createToolCallMessage</code><code class="inline">createToolResultMessage</code><code class="inline">createUnifiedMediaMessages</code><code class="inline">createUserMessage</code><code class="inline">createWorkspaceTools</code><code class="inline">CurlEngine</code><code class="inline">currentRunContext</code><code class="inline">DECISION_QUESTION_TYPE</code><code class="inline">decisionCalibration</code><code class="inline">decisionTest</code><code class="inline">dedupeMessages</code><code class="inline">defaultDisplay</code><code class="inline">discoverInstructions</code><code class="inline">DiscussionSession</code><code class="inline">documentSurface</code><code class="inline">EDGE_SHAPES</code><code class="inline">edgeText</code><code class="inline">emitEvent</code><code class="inline">emptyGraph</code><code class="inline">enterPhase</code><code class="inline">ERROR_CODES</code><code class="inline">EVAL_SCORERS</code><code class="inline">EventEmitterApiObserver</code><code class="inline">EVENTS</code><code class="inline">executeTools</code><code class="inline">ExecutionJournal</code><code class="inline">ExponentialBackoffPolicy</code><code class="inline">ExternalToolCapability</code><code class="inline">extractUserText</code><code class="inline">FailureClass</code><code class="inline">failureFingerprint</code><code class="inline">FileMcpTaskStore</code><code class="inline">fingerprintSources</code><code class="inline">foldContext</code><code class="inline">forkSpawn</code><code class="inline">formatStatus</code><code class="inline">GENERIC_PROFILE</code><code class="inline">getA2ATask</code><code class="inline">getAvailableModels</code><code class="inline">getBudgetPool</code><code class="inline">getCircuitBreaker</code><code class="inline">getDecisionModel</code><code class="inline">getDefaultModel</code><code class="inline">getEmbeddingDimensions</code><code class="inline">getEmbeddingModel</code><code class="inline">getLimits</code><code class="inline">getSpawn</code><code class="inline">getSpawnRegistry</code><code class="inline">getToolCallArguments</code><code class="inline">getToolCallName</code><code class="inline">getToolModel</code><code class="inline">goalBlockForHandoff</code><code class="inline">GraphError</code><code class="inline">graphSha</code><code class="inline">GuardrailViolationError</code><code class="inline">HANDOFF_CONTEXT_MODES</code><code class="inline">HANDOFF_GOAL_MODES</code><code class="inline">HANDOFF_MODERATED_MARKER</code><code class="inline">hasTimeoutCode</code><code class="inline">HEADER_TIMEOUT_CODE</code><code class="inline">HookRegistry</code><code class="inline">HOOKS</code><code class="inline">InactivityTimeoutPolicy</code><code class="inline">INBOX_STORE_VERSION</code><code class="inline">ingestDocument</code><code class="inline">initializeClient</code><code class="inline">InMemoryInboxStore</code><code class="inline">InMemorySessionStore</code><code class="inline">INTERACTIVE_ACTIONS</code><code class="inline">isAbortError</code><code class="inline">isEditTool</code><code class="inline">isInjection</code><code class="inline">isInsideRoot</code><code class="inline">isStandard</code><code class="inline">isToolPermitted</code><code class="inline">isTransientError</code><code class="inline">JaiEngine</code><code class="inline">JaiScrapeEngine</code><code class="inline">JOURNAL_STATUS</code><code class="inline">journalKey</code><code class="inline">KNOWLEDGE_BUILD_VERSION</code><code class="inline">KNOWLEDGE_SCHEMA</code><code class="inline">KnowledgeComponent</code><code class="inline">LEGAL_PROFILE</code><code class="inline">LIMIT_DEFAULTS</code><code class="inline">LIMIT_REGISTRY</code><code class="inline">LIMITS</code><code class="inline">listSpawns</code><code class="inline">loadA2ATool</code><code class="inline">LoadableComponent</code><code class="inline">loadCorpus</code><code class="inline">loadCredentials</code><code class="inline">loadGraph</code><code class="inline">loadManifest</code><code class="inline">loadMcpTools</code><code class="inline">loadMcpToolsFrom</code><code class="inline">loadOntology</code><code class="inline">loadSkillsFromDirectory</code><code class="inline">LocalFileInboxStore</code><code class="inline">LocalFileMemoryProvider</code><code class="inline">LocalFileSessionStore</code><code class="inline">log</code><code class="inline">MAX_BROWSER_URLS</code><code class="inline">MaxTurnsExceededError</code><code class="inline">McpClient</code><code class="inline">McpTaskStore</code><code class="inline">MemoryComponent</code><code class="inline">MemoryError</code><code class="inline">MemoryManager</code><code class="inline">MemoryProvider</code><code class="inline">memorySurface</code><code class="inline">merciEnvelope</code><code class="inline">MerciError</code><code class="inline">MerciEventEmitter</code><code class="inline">mergeFragment</code><code class="inline">nodeKey</code><code class="inline">NoRetryPolicy</code><code class="inline">normalizeDelegationEnvelope</code><code class="inline">normalizeHandoff</code><code class="inline">normalizeHistory</code><code class="inline">normalizePermissionRules</code><code class="inline">noulQuestion</code><code class="inline">ObscuraEngine</code><code class="inline">ontologySha</code><code class="inline">OrchestrationError</code><code class="inline">OrchestrationExhaustedError</code><code class="inline">OrchestrationFailedError</code><code class="inline">otelAttribute</code><code class="inline">PDF_MEDIA_PROVIDERS</code><code class="inline">PERMISSION_MODES</code><code class="inline">permissionAllowed</code><code class="inline">PHASES</code><code class="inline">planSurface</code><code class="inline">PlaywrightSession</code><code class="inline">PolicyError</code><code class="inline">policyToSchedulerOptions</code><code class="inline">policyToWorkspaceOptions</code><code class="inline">profileSources</code><code class="inline">promotableRelations</code><code class="inline">proposeOntology</code><code class="inline">ProtocolType</code><code class="inline">providerDescriptorFor</code><code class="inline">ProviderMemoryEngine</code><code class="inline">PROVIDERS</code><code class="inline">providersForStandard</code><code class="inline">ProviderType</code><code class="inline">queryGraph</code><code class="inline">readDecisionAnswer</code><code class="inline">readSources</code><code class="inline">readWikiSha</code><code class="inline">reloadLimits</code><code class="inline">renderKnowledgeBlock</code><code class="inline">renderWiki</code><code class="inline">resetLimits</code><code class="inline">resolveAgentClient</code><code class="inline">resolveBrowserMode</code><code class="inline">resolveLimit</code><code class="inline">resolveProvider</code><code class="inline">resolveRole</code><code class="inline">resolveScrapeMode</code><code class="inline">resolveSearchMode</code><code class="inline">resolveWorkspacePath</code><code class="inline">restoreCheckpoint</code><code class="inline">retrieveSubgraph</code><code class="inline">RetryLedger</code><code class="inline">REVIEW_STAGE_REMINDER</code><code class="inline">ROLE_REGISTRY</code><code class="inline">runBatch</code><code class="inline">RunContext</code><code class="inline">runDueSteps</code><code class="inline">runEvals</code><code class="inline">runGuardedStep</code><code class="inline">runStep</code><code class="inline">runWithRunContext</code><code class="inline">saveCheckpoint</code><code class="inline">saveGraph</code><code class="inline">saveOntology</code><code class="inline">SchedulerError</code><code class="inline">scoreQuestion</code><code class="inline">sendToSpawn</code><code class="inline">setLimits</code><code class="inline">SkillsLibrary</code><code class="inline">sourceDelta</code><code class="inline">sourceSha</code><code class="inline">spawnThreadId</code><code class="inline">SqliteMemoryProvider</code><code class="inline">stampEvent</code><code class="inline">stampStreamEvent</code><code class="inline">standardFor</code><code class="inline">STANDARDS</code><code class="inline">StandardType</code><code class="inline">stateFingerprint</code><code class="inline">StateMachine</code><code class="inline">stillRequiresApproval</code><code class="inline">STOP</code><code class="inline">stripInjectionMeta</code><code class="inline">structuredLlmCall</code><code class="inline">sumSpawnUsage</code><code class="inline">surfaceFragment</code><code class="inline">syncCorpus</code><code class="inline">TASK_TOOL_NAME</code><code class="inline">TaskState</code><code class="inline">TavilyEngine</code><code class="inline">TavilyExtractEngine</code><code class="inline">TIMEOUT_CODES</code><code class="inline">TodoComponent</code><code class="inline">todosSurface</code><code class="inline">toolJournalKey</code><code class="inline">toUnified</code><code class="inline">toUnifiedScrape</code><code class="inline">validateGraph</code><code class="inline">validateTemplateRefs</code><code class="inline">VerificationError</code><code class="inline">WebScrapeComponent</code><code class="inline">WebSearchComponent</code><code class="inline">wikiSurface</code><code class="inline">withAgentDelegation</code><code class="inline">withTaskAgents</code><code class="inline">withToolTimeout</code><code class="inline">WorkflowPolicy</code><code class="inline">WorkScheduler</code><code class="inline">WorkSourceError</code><code class="inline">WORKSPACE_HOOKS</code><code class="inline">WORKSPACE_STRATEGIES</code><code class="inline">WorkspaceError</code><code class="inline">workspaceKeyFor</code><code class="inline">WorkspaceManager</code><code class="inline">wrapError</code></div>
+                            <div class="export-chips"><code class="inline">AbortedError</code><code class="inline">AbstractMethodError</code><code class="inline">adoptedProfile</code><code class="inline">adoptOntology</code><code class="inline">AGENT_EXECUTE</code><code class="inline">AGENT_PLAN</code><code class="inline">AgentContext</code><code class="inline">AgentFileError</code><code class="inline">AgentLauncher</code><code class="inline">applyPatch</code><code class="inline">assertStateSchema</code><code class="inline">attachEventLogger</code><code class="inline">BackendError</code><code class="inline">BaseChatSession</code><code class="inline">BODY_TIMEOUT_CODE</code><code class="inline">BREAKER_OPEN_CODE</code><code class="inline">BrowserComponent</code><code class="inline">BudgetExceededError</code><code class="inline">buildDecisionRequest</code><code class="inline">buildEnvironmentBlock</code><code class="inline">buildGraph</code><code class="inline">canonicalEventNames</code><code class="inline">CAPABILITY</code><code class="inline">CASSETTE_MODES</code><code class="inline">cassetteKey</code><code class="inline">certaintyOf</code><code class="inline">ChatSessionBuilder</code><code class="inline">CHECKPOINT_KIND</code><code class="inline">choiceQuestion</code><code class="inline">CircuitBreaker</code><code class="inline">claimReplan</code><code class="inline">classifyFailure</code><code class="inline">ClientRole</code><code class="inline">collectTemplateRefs</code><code class="inline">compactHistory</code><code class="inline">compareProgress</code><code class="inline">CompositeApiObserver</code><code class="inline">CompositeMemoryProvider</code><code class="inline">ConfigurationError</code><code class="inline">configureSdkLog</code><code class="inline">contextFromMerciEnvelope</code><code class="inline">continueSpawn</code><code class="inline">CORE_RELATIONS</code><code class="inline">corpusKey</code><code class="inline">countConversationTurns</code><code class="inline">createAgenticRuntime</code><code class="inline">createAssistantMessage</code><code class="inline">createCassette</code><code class="inline">createDecisionGate</code><code class="inline">createDecisionReranker</code><code class="inline">createDecisionsClient</code><code class="inline">createEngineRunner</code><code class="inline">createEventRing</code><code class="inline">createGuardrails</code><code class="inline">createHooks</code><code class="inline">createLimiter</code><code class="inline">createLlmJudge</code><code class="inline">createOperatorHttpHandler</code><code class="inline">createOrchestration</code><code class="inline">createOtlpExporter</code><code class="inline">createPlanStageFollowUp</code><code class="inline">createPolicyRenderer</code><code class="inline">createRoleClients</code><code class="inline">createSaveArtifactTool</code><code class="inline">createScoredJudge</code><code class="inline">createStreamingRetryPolicy</code><code class="inline">createStreamLogger</code><code class="inline">createSystemMessage</code><code class="inline">createTaskTool</code><code class="inline">createToolCallMessage</code><code class="inline">createToolCallMessages</code><code class="inline">createToolResultMessage</code><code class="inline">createUnifiedMediaMessages</code><code class="inline">createUserMessage</code><code class="inline">createWorkspaceTools</code><code class="inline">CurlEngine</code><code class="inline">currentRunContext</code><code class="inline">DECISION_QUESTION_TYPE</code><code class="inline">decisionCalibration</code><code class="inline">decisionTest</code><code class="inline">dedupeMessages</code><code class="inline">defaultDisplay</code><code class="inline">discoverInstructions</code><code class="inline">DiscussionSession</code><code class="inline">documentSurface</code><code class="inline">EDGE_SHAPES</code><code class="inline">edgeText</code><code class="inline">emitEvent</code><code class="inline">emptyGraph</code><code class="inline">enterPhase</code><code class="inline">ERROR_CODES</code><code class="inline">EVAL_SCORERS</code><code class="inline">EventEmitterApiObserver</code><code class="inline">EVENTS</code><code class="inline">ExecutionJournal</code><code class="inline">ExponentialBackoffPolicy</code><code class="inline">extractUserText</code><code class="inline">FailureClass</code><code class="inline">failureFingerprint</code><code class="inline">FALLBACK_MESSAGE</code><code class="inline">fallbackKind</code><code class="inline">fingerprintSources</code><code class="inline">foldContext</code><code class="inline">forkSpawn</code><code class="inline">formatStatus</code><code class="inline">GENERIC_PROFILE</code><code class="inline">getAvailableModels</code><code class="inline">getBudgetPool</code><code class="inline">getCircuitBreaker</code><code class="inline">getDecisionModel</code><code class="inline">getDefaultModel</code><code class="inline">getEmbeddingDimensions</code><code class="inline">getEmbeddingModel</code><code class="inline">getLimits</code><code class="inline">getSpawn</code><code class="inline">getSpawnRegistry</code><code class="inline">getToolCallArguments</code><code class="inline">getToolCallName</code><code class="inline">getToolModel</code><code class="inline">goalBlockForHandoff</code><code class="inline">GraphError</code><code class="inline">graphSha</code><code class="inline">GuardrailViolationError</code><code class="inline">HANDOFF_CONTEXT_MODES</code><code class="inline">HANDOFF_GOAL_MODES</code><code class="inline">HANDOFF_MODERATED_MARKER</code><code class="inline">hasTimeoutCode</code><code class="inline">HEADER_TIMEOUT_CODE</code><code class="inline">HIERARCHY_RELATIONS</code><code class="inline">hierarchyOf</code><code class="inline">hierarchyPath</code><code class="inline">HookRegistry</code><code class="inline">HOOKS</code><code class="inline">InactivityTimeoutPolicy</code><code class="inline">INBOX_STORE_VERSION</code><code class="inline">ingestDocument</code><code class="inline">initializeClient</code><code class="inline">InMemoryInboxStore</code><code class="inline">InMemorySessionStore</code><code class="inline">INTERACTIVE_ACTIONS</code><code class="inline">isAbortError</code><code class="inline">isEditTool</code><code class="inline">isInjection</code><code class="inline">isInsideRoot</code><code class="inline">isSdkFallbackOutput</code><code class="inline">isStandard</code><code class="inline">isToolPermitted</code><code class="inline">isTransientError</code><code class="inline">isTransientFallbackKind</code><code class="inline">JaiEngine</code><code class="inline">JaiScrapeEngine</code><code class="inline">JOURNAL_STATUS</code><code class="inline">journalKey</code><code class="inline">KNOWLEDGE_BUILD_VERSION</code><code class="inline">KNOWLEDGE_SCHEMA</code><code class="inline">KnowledgeComponent</code><code class="inline">LEGAL_PROFILE</code><code class="inline">levelKindsFor</code><code class="inline">LIMIT_DEFAULTS</code><code class="inline">LIMIT_REGISTRY</code><code class="inline">LIMITS</code><code class="inline">listSpawns</code><code class="inline">LoadableComponent</code><code class="inline">loadCorpus</code><code class="inline">loadCredentials</code><code class="inline">loadGraph</code><code class="inline">loadManifest</code><code class="inline">loadOntology</code><code class="inline">LocalFileInboxStore</code><code class="inline">LocalFileMemoryProvider</code><code class="inline">LocalFileSessionStore</code><code class="inline">log</code><code class="inline">MAX_BROWSER_URLS</code><code class="inline">MaxTurnsExceededError</code><code class="inline">MemoryComponent</code><code class="inline">MemoryError</code><code class="inline">MemoryManager</code><code class="inline">MemoryProvider</code><code class="inline">memorySurface</code><code class="inline">merciEnvelope</code><code class="inline">MerciError</code><code class="inline">MerciEventEmitter</code><code class="inline">mergeFragment</code><code class="inline">nodeKey</code><code class="inline">NoRetryPolicy</code><code class="inline">normalizeDelegationEnvelope</code><code class="inline">normalizeHandoff</code><code class="inline">normalizeHistory</code><code class="inline">normalizePermissionRules</code><code class="inline">noulQuestion</code><code class="inline">ObscuraEngine</code><code class="inline">ontologySha</code><code class="inline">OrchestrationError</code><code class="inline">OrchestrationExhaustedError</code><code class="inline">OrchestrationFailedError</code><code class="inline">otelAttribute</code><code class="inline">PDF_MEDIA_PROVIDERS</code><code class="inline">PERMISSION_MODES</code><code class="inline">PHASES</code><code class="inline">planSurface</code><code class="inline">PlaywrightSession</code><code class="inline">PolicyError</code><code class="inline">policyToSchedulerOptions</code><code class="inline">policyToWorkspaceOptions</code><code class="inline">profileSources</code><code class="inline">promotableRelations</code><code class="inline">proposeOntology</code><code class="inline">ProtocolType</code><code class="inline">providerDescriptorFor</code><code class="inline">ProviderMemoryEngine</code><code class="inline">PROVIDERS</code><code class="inline">providersForStandard</code><code class="inline">ProviderType</code><code class="inline">queryGraph</code><code class="inline">readDecisionAnswer</code><code class="inline">readSources</code><code class="inline">readWikiSha</code><code class="inline">reloadLimits</code><code class="inline">renderKnowledgeBlock</code><code class="inline">renderNodePage</code><code class="inline">renderSectionMap</code><code class="inline">renderWiki</code><code class="inline">resetLimits</code><code class="inline">resolveAgentClient</code><code class="inline">resolveBrowserMode</code><code class="inline">resolveLimit</code><code class="inline">resolveProvider</code><code class="inline">resolveRole</code><code class="inline">resolveScrapeMode</code><code class="inline">resolveSearchMode</code><code class="inline">resolveWorkspacePath</code><code class="inline">restoreCheckpoint</code><code class="inline">retrieveSubgraph</code><code class="inline">RetryLedger</code><code class="inline">REVIEW_STAGE_REMINDER</code><code class="inline">ROLE_REGISTRY</code><code class="inline">runBatch</code><code class="inline">RunContext</code><code class="inline">runDueSteps</code><code class="inline">runEvals</code><code class="inline">runGuardedStep</code><code class="inline">runStep</code><code class="inline">runWithRunContext</code><code class="inline">saveCheckpoint</code><code class="inline">saveGraph</code><code class="inline">saveOntology</code><code class="inline">SchedulerError</code><code class="inline">scoreQuestion</code><code class="inline">sendToSpawn</code><code class="inline">setLimits</code><code class="inline">sourceDelta</code><code class="inline">sourceSha</code><code class="inline">spawnThreadId</code><code class="inline">SqliteMemoryProvider</code><code class="inline">stampEvent</code><code class="inline">stampStreamEvent</code><code class="inline">standardFor</code><code class="inline">STANDARDS</code><code class="inline">StandardType</code><code class="inline">stateFingerprint</code><code class="inline">StateMachine</code><code class="inline">stillRequiresApproval</code><code class="inline">STOP</code><code class="inline">stripInjectionMeta</code><code class="inline">structuredLlmCall</code><code class="inline">sumSpawnUsage</code><code class="inline">surfaceFragment</code><code class="inline">syncCorpus</code><code class="inline">TASK_TOOL_NAME</code><code class="inline">TaskState</code><code class="inline">TavilyEngine</code><code class="inline">TavilyExtractEngine</code><code class="inline">TIMEOUT_CODES</code><code class="inline">TodoComponent</code><code class="inline">todosSurface</code><code class="inline">toolJournalKey</code><code class="inline">toUnified</code><code class="inline">toUnifiedScrape</code><code class="inline">validateGraph</code><code class="inline">validateTemplateRefs</code><code class="inline">VerificationError</code><code class="inline">WebScrapeComponent</code><code class="inline">WebSearchComponent</code><code class="inline">wikiSurface</code><code class="inline">withAgentDelegation</code><code class="inline">withTaskAgents</code><code class="inline">WorkflowPolicy</code><code class="inline">WorkScheduler</code><code class="inline">WorkSourceError</code><code class="inline">WORKSPACE_HOOKS</code><code class="inline">WORKSPACE_STRATEGIES</code><code class="inline">WorkspaceError</code><code class="inline">workspaceKeyFor</code><code class="inline">WorkspaceManager</code><code class="inline">wrapError</code></div>
                         </div>
                         <div class="space-y-4 mt-4 text-sm text-[var(--text-secondary)]">
                             <div class="overflow-x-auto">
@@ -371,12 +371,6 @@ client.session(model)
                                     </thead>
                                     <tbody>
                                         <tr class="border-b border-[var(--border-color)]/60 align-top">
-                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">A2A_COMPLETED_STATES</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/tools/a2a.mjs</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">A2A_COMPLETED_STATES: readonly string[]</td>
-                                            <td class="py-1 text-sm">The A2A task states that mean the task has ended, whichever dialect spelled it. Frozen: it is a shared export, and a consumer that mutated it would change the answer for every other consumer in the process.</td>
-                                        </tr>
-                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
                                             <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">AbortedError</td>
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/core/errors.mjs</td>
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">class AbortedError extends MerciError</td>
@@ -389,27 +383,9 @@ client.session(model)
                                             <td class="py-1 text-sm">A subclass failed to implement an abstract method.</td>
                                         </tr>
                                         <tr class="border-b border-[var(--border-color)]/60 align-top">
-                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">ACP_AGENT_VERSION</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/acp-agent.mjs</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">ACP_AGENT_VERSION: string</td>
-                                            <td class="py-1 text-sm">merci version advertised in the ACP initialize handshake.</td>
-                                        </tr>
-                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
-                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">ACP_STOP_REASONS</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/acp-agent.mjs</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">ACP_STOP_REASONS: Readonly&lt;{ END_TURN: "end_turn"; MAX_TOKENS: "max_tokens"; REFUSAL: "refusal"; CANCELLED: "cancelled"; }&gt;</td>
-                                            <td class="py-1 text-sm">The ACP prompt stop reasons.</td>
-                                        </tr>
-                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
-                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">AcpCapability</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/tools/external-capability.mjs</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">class AcpCapability extends ExternalToolCapability</td>
-                                            <td class="py-1 text-sm">Agent Client Protocol (ACP) capability — a duck-typed remote-tool adapter.</td>
-                                        </tr>
-                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
                                             <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">adoptedProfile</td>
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/knowledge/store.mjs</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">adoptedProfile({ dir }): Promise&lt;{ name: string; kinds: Array&lt;string&gt;; relations: Array&lt;string&gt;; version: number; proposalSha: string | null; } | null&gt;</td>
+                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">adoptedProfile({ dir }): Promise&lt;{ name: string; kinds: Array&lt;string&gt;; relations: Array&lt;string&gt;; levels?: Array&lt;string&gt;; version: number; proposalSha: string | null; } | null&gt;</td>
                                             <td class="py-1 text-sm">The adopted vocabulary as a profile a graph can be validated against, or null when nothing was adopted.</td>
                                         </tr>
                                         <tr class="border-b border-[var(--border-color)]/60 align-top">
@@ -517,14 +493,8 @@ client.session(model)
                                         <tr class="border-b border-[var(--border-color)]/60 align-top">
                                             <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">buildGraph</td>
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/knowledge/build.mjs</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">buildGraph({ sources, profile, title, now }): import('./model.mjs').KnowledgeGraph</td>
+                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">buildGraph({ sources, profile, title, now, hierarchy }): import('./model.mjs').KnowledgeGraph</td>
                                             <td class="py-1 text-sm">Builds a graph from one or more documents.</td>
-                                        </tr>
-                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
-                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">cancelA2ATask</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/tools/a2a.mjs</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">cancelA2ATask({ agentUrl, taskId, headers, timeoutMs, dialect }): Promise&lt;boolean&gt;</td>
-                                            <td class="py-1 text-sm">Cancels a remote A2A task.</td>
                                         </tr>
                                         <tr class="border-b border-[var(--border-color)]/60 align-top">
                                             <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">canonicalEventNames</td>
@@ -537,18 +507,6 @@ client.session(model)
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/core/constants/capability.mjs</td>
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">CAPABILITY: Record&lt;string, string&gt;</td>
                                             <td class="py-1 text-sm">Registry of LoadableComponent capability ids.</td>
-                                        </tr>
-                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
-                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">capToolOutput</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/tools/external-capability.mjs</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">capToolOutput&lt;T&gt;({ text, maxLength }): T</td>
-                                            <td class="py-1 text-sm">Non-strings pass through untouched.</td>
-                                        </tr>
-                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
-                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">capToolOutputValue</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/tools/external-capability.mjs</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">capToolOutputValue({ value, maxLength, maxDepth }): { value: unknown; truncated: boolean; }</td>
-                                            <td class="py-1 text-sm">Caps a tool result of **any** shape to a character budget, without changing its type.</td>
                                         </tr>
                                         <tr class="border-b border-[var(--border-color)]/60 align-top">
                                             <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">CASSETTE_MODES</td>
@@ -673,7 +631,7 @@ client.session(model)
                                         <tr class="border-b border-[var(--border-color)]/60 align-top">
                                             <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">corpusKey</td>
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/knowledge/cache.mjs</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">corpusKey({ sources, profile, buildVersion }): string</td>
+                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">corpusKey({ sources, profile, buildVersion, hierarchy }): string</td>
                                             <td class="py-1 text-sm">The build identity: sources by path and content, plus the vocabulary that shaped them and the extractor version.</td>
                                         </tr>
                                         <tr class="border-b border-[var(--border-color)]/60 align-top">
@@ -681,24 +639,6 @@ client.session(model)
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/messaging/unified-message.mjs</td>
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">countConversationTurns({ messages }): number</td>
                                             <td class="py-1 text-sm">Counts genuine conversation turns (user messages), ignoring SDK row-injections and tool-result carriers (role:'tool' messages, tool_message rows, and tool_result / functionResponse content blocks).</td>
-                                        </tr>
-                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
-                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">createA2AHttpHandler</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/tools/a2a-server.mjs</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">createA2AHttpHandler({ server, path, cardPath, allowedHosts, allowAnyHost, authorize }): (req: import('node:http').IncomingMessage, res: import('node:http').ServerResponse) =&gt; Promise&lt;void&gt;</td>
-                                            <td class="py-1 text-sm">Mounts an A2A server on a `node:http` server.</td>
-                                        </tr>
-                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
-                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">createA2AServer</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/tools/a2a-server.mjs</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">createA2AServer({ name, description, version, skills, documentationUrl, provider, inputModes, outputModes, now, maxTerminalTasks, taskRetentionMs }): { agentCard: (opts?: { baseUrl?: string; }) =&gt; Record&lt;string, unknown&gt;…</td>
-                                            <td class="py-1 text-sm">Creates an A2A server exposing the given skills.</td>
-                                        </tr>
-                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
-                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">createAcpAgent</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/acp-agent.mjs</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">createAcpAgent({ session, createSession, name, version, onTurnContext }): import('@agentclientprotocol/sdk/unstable').AgentApp</td>
-                                            <td class="py-1 text-sm">Wraps a merci ChatSession as an ACP agent app.</td>
                                         </tr>
                                         <tr class="border-b border-[var(--border-color)]/60 align-top">
                                             <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">createAgenticRuntime</td>
@@ -717,12 +657,6 @@ client.session(model)
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/support/cassette.mjs</td>
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">createCassette({ path, script }): Cassette</td>
                                             <td class="py-1 text-sm">Creates a cassette.</td>
-                                        </tr>
-                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
-                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">createContextTools</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/tools/context-tools.mjs</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">createContextTools({ options }): Array&lt;import('./tool-execution.mjs').ReadyTool&gt;</td>
-                                            <td class="py-1 text-sm">The context tools — read, grep and glob over the working directory, as one tool set.</td>
                                         </tr>
                                         <tr class="border-b border-[var(--border-color)]/60 align-top">
                                             <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">createDecisionGate</td>
@@ -779,18 +713,6 @@ client.session(model)
                                             <td class="py-1 text-sm">Returns `(ctx) =&gt; ({ passed, evidence })` ready for a LoopContract `judge`.</td>
                                         </tr>
                                         <tr class="border-b border-[var(--border-color)]/60 align-top">
-                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">createMcpHttpHandler</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/tools/mcp-server.mjs</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">createMcpHttpHandler(options?: { name?: string; version?: string; tools?: Array&lt;import('./tool-execution.mjs').ToolDefinition&gt;; root?: string; resources?: McpResourceDef[]; prompts?: McpPromptDef[]; sessionIdGenerator?:…</td>
-                                            <td class="py-1 text-sm">Creates an MCP server over the Streamable HTTP transport and returns a `node:http` request handler that serves it. Three session models are supported: - **stateful** (default): one server and transport per MCP session.</td>
-                                        </tr>
-                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
-                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">createMcpServer</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/tools/mcp-server.mjs</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">createMcpServer({ name, version, tools, root, resources, prompts, mcpProtocolVersion, legacy, taskStore }): Promise&lt;McpServerHandle&gt;</td>
-                                            <td class="py-1 text-sm">Creates an MCP stdio server exposing the given tools, connected to stdin/stdout.</td>
-                                        </tr>
-                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
                                             <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">createOperatorHttpHandler</td>
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/operator/http.mjs</td>
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">createOperatorHttpHandler({ getSnapshot, getPolicySnapshot, refresh, recentEvents, basePath, statusPath, allowedHosts, allowAnyHost, maxBodyBytes, recentEventsLimit, statusMaxRows, now }): (req: import('node:http').Incom…</td>
@@ -839,18 +761,6 @@ client.session(model)
                                             <td class="py-1 text-sm">A typed, scored grader.</td>
                                         </tr>
                                         <tr class="border-b border-[var(--border-color)]/60 align-top">
-                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">createShellPolicyTool</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/tools/shell-tools.mjs</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">createShellPolicyTool({ options }): import('./tool-execution.mjs').ReadyTool</td>
-                                            <td class="py-1 text-sm">`describe_shell_policy`: the effective tier of one shell-tool instance, so a model reads the host's real allowlists instead of guessing from the defaults.</td>
-                                        </tr>
-                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
-                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">createShellTool</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/tools/shell-tools.mjs</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">createShellTool({ options }): import('./tool-execution.mjs').ReadyTool</td>
-                                            <td class="py-1 text-sm">The shell tool — runs a command in the working directory, behind the approval gate.</td>
-                                        </tr>
-                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
                                             <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">createStreamingRetryPolicy</td>
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/support/retry-policy.mjs</td>
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">createStreamingRetryPolicy({ overrides }): ExponentialBackoffPolicy</td>
@@ -879,6 +789,12 @@ client.session(model)
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/messaging/messages.mjs</td>
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">createToolCallMessage({ provider, id, name, args, thoughtSignature, calls }): MessageRow</td>
                                             <td class="py-1 text-sm">Creates an assistant tool-call message in the backend's wire shape.</td>
+                                        </tr>
+                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
+                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">createToolCallMessages</td>
+                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/messaging/messages.mjs</td>
+                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">createToolCallMessages({ provider, calls, thoughtSignature }): Array&lt;MessageRow&gt;</td>
+                                            <td class="py-1 text-sm">Creates the assistant tool-call row(s) for one model turn.</td>
                                         </tr>
                                         <tr class="border-b border-[var(--border-color)]/60 align-top">
                                             <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">createToolResultMessage</td>
@@ -1019,12 +935,6 @@ client.session(model)
                                             <td class="py-1 text-sm">Canonical event-name registry.</td>
                                         </tr>
                                         <tr class="border-b border-[var(--border-color)]/60 align-top">
-                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">executeTools</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/tools/tool-execution.mjs</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">executeTools({ toolCalls, toolLibrary, signal, emitter, runContext, approval, journal, boundary, hooks, toolTimeoutMs, maxParallelTools, permissionMode }): Promise&lt;Array&lt;Object&gt;&gt;</td>
-                                            <td class="py-1 text-sm">`{ id, tool_call_id, name, success, result|error }` envelope; tool errors are returned (not thrown), while AbortError rethrows as cancellation.</td>
-                                        </tr>
-                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
                                             <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">ExecutionJournal</td>
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/journal.mjs</td>
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">class ExecutionJournal</td>
@@ -1035,12 +945,6 @@ client.session(model)
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/support/retry-policy.mjs</td>
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">class ExponentialBackoffPolicy</td>
                                             <td class="py-1 text-sm">A retry policy that retries on transient errors (connection, rate limit, timeout, HTTP 408, 409, 429 and &gt;= 500) with capped exponential backoff and full jitter (AWS Architecture Blog: sleep = random(0, min(cap, base*2^attempt))).</td>
-                                        </tr>
-                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
-                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">ExternalToolCapability</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/tools/external-capability.mjs</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">class ExternalToolCapability extends LoadableComponent</td>
-                                            <td class="py-1 text-sm">A remote tool family surfaced as a capability: the tool definitions do the work (tools-first), `load()` renders a short catalog listing for the model, and there is no save leg (toSaveTool() is null — no saveToolName passed).</td>
                                         </tr>
                                         <tr class="border-b border-[var(--border-color)]/60 align-top">
                                             <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">extractUserText</td>
@@ -1061,10 +965,16 @@ client.session(model)
                                             <td class="py-1 text-sm">Stable key for "is this the same failed attempt as before?". Action + the exact input we handed the verifier + the failure signature.</td>
                                         </tr>
                                         <tr class="border-b border-[var(--border-color)]/60 align-top">
-                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">FileMcpTaskStore</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/tools/mcp-task-store.mjs</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">class FileMcpTaskStore extends McpTaskStore</td>
-                                            <td class="py-1 text-sm">A durable store: one JSON record per task under `dir`, reloaded on construction, so a task and its result survive a restart.</td>
+                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">FALLBACK_MESSAGE</td>
+                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/core/constants/system-message.mjs</td>
+                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">FALLBACK_MESSAGE: Record&lt;string, string&gt;</td>
+                                            <td class="py-1 text-sm">User-visible fallback messages for degenerate responses.</td>
+                                        </tr>
+                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
+                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">fallbackKind</td>
+                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/agentic-core.mjs</td>
+                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">fallbackKind({ text }): 'max_iterations' | 'empty' | 'schema' | 'filtered' | null</td>
+                                            <td class="py-1 text-sm">hard failure), `'empty'` (a transient no-answer — retryable), `'schema'` (an exhausted structured-output correction loop — also transient), `'filtered'` (the provider's content moderation stopped the answer — not retryable), or null for rea…</td>
                                         </tr>
                                         <tr class="border-b border-[var(--border-color)]/60 align-top">
                                             <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">fingerprintSources</td>
@@ -1095,12 +1005,6 @@ client.session(model)
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/knowledge/model.mjs</td>
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">GENERIC_PROFILE: Readonly&lt;{ name: "generic"; kinds: readonly string[]; relations: readonly string[]; }&gt;</td>
                                             <td class="py-1 text-sm">Domain-neutral vocabulary: documents, claims, evidence, work items.</td>
-                                        </tr>
-                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
-                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">getA2ATask</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/tools/a2a.mjs</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">getA2ATask({ agentUrl, taskId, headers, timeoutMs }): Promise&lt;{ state: string; taskId: string; contextId: string; text: string; artifacts: string[]; }&gt;</td>
-                                            <td class="py-1 text-sm">Reads a remote A2A task by id.</td>
                                         </tr>
                                         <tr class="border-b border-[var(--border-color)]/60 align-top">
                                             <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">getAvailableModels</td>
@@ -1235,6 +1139,24 @@ client.session(model)
                                             <td class="py-1 text-sm">Machine-readable code carried by header-timeout abort errors (JAI gateway accepted the connection but sent no response headers in time).</td>
                                         </tr>
                                         <tr class="border-b border-[var(--border-color)]/60 align-top">
+                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">HIERARCHY_RELATIONS</td>
+                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/knowledge/hierarchy.mjs</td>
+                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">HIERARCHY_RELATIONS: readonly string[]</td>
+                                            <td class="py-1 text-sm">Relations whose direction can describe containment.</td>
+                                        </tr>
+                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
+                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">hierarchyOf</td>
+                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/knowledge/hierarchy.mjs</td>
+                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">hierarchyOf({ graph, rel, maxNodes }): HierarchyTree</td>
+                                            <td class="py-1 text-sm">Derives a bounded hierarchy from `contains` (parent → child) or `part_of` (child → parent) edges.</td>
+                                        </tr>
+                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
+                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">hierarchyPath</td>
+                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/knowledge/hierarchy.mjs</td>
+                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">hierarchyPath({ graph, id, tree }): import('./model.mjs').KnowledgeNode[]</td>
+                                            <td class="py-1 text-sm">The root-to-node path, using the deterministic primary parent.</td>
+                                        </tr>
+                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
                                             <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">HookRegistry</td>
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/core/hooks.mjs</td>
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">class HookRegistry</td>
@@ -1313,6 +1235,12 @@ client.session(model)
                                             <td class="py-1 text-sm">True when `path` is `root` itself or sits below it. A bare string prefix would accept `/root2` for the root `/root`; the separator is part of the test.</td>
                                         </tr>
                                         <tr class="border-b border-[var(--border-color)]/60 align-top">
+                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">isSdkFallbackOutput</td>
+                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/agentic-core.mjs</td>
+                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">isSdkFallbackOutput({ text }): boolean</td>
+                                            <td class="py-1 text-sm">iteration-limit or schema-validation, so the `(${msg})` and `+TRUNCATED` variants match).</td>
+                                        </tr>
+                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
                                             <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">isStandard</td>
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/core/constants/sdk.mjs</td>
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">isStandard({ provider, standard }): boolean</td>
@@ -1329,6 +1257,12 @@ client.session(model)
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/support/retry-policy.mjs</td>
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">isTransientError({ error }): boolean</td>
                                             <td class="py-1 text-sm">predicate): true when a fresh default-policy instance would retry the error on attempt 0.</td>
+                                        </tr>
+                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
+                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">isTransientFallbackKind</td>
+                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/agentic-core.mjs</td>
+                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">isTransientFallbackKind({ kind }): boolean</td>
+                                            <td class="py-1 text-sm">answer or an exhausted structured-output correction loop.</td>
                                         </tr>
                                         <tr class="border-b border-[var(--border-color)]/60 align-top">
                                             <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">JaiEngine</td>
@@ -1357,7 +1291,7 @@ client.session(model)
                                         <tr class="border-b border-[var(--border-color)]/60 align-top">
                                             <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">KNOWLEDGE_BUILD_VERSION</td>
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/knowledge/build.mjs</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">KNOWLEDGE_BUILD_VERSION = 1</td>
+                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">KNOWLEDGE_BUILD_VERSION = 2</td>
                                             <td class="py-1 text-sm">Bumped whenever the mechanical pass changes what it emits for the same bytes.</td>
                                         </tr>
                                         <tr class="border-b border-[var(--border-color)]/60 align-top">
@@ -1377,6 +1311,12 @@ client.session(model)
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/knowledge/model.mjs</td>
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">LEGAL_PROFILE: Readonly&lt;{ name: "legal"; kinds: readonly string[]; relations: readonly string[]; }&gt;</td>
                                             <td class="py-1 text-sm">The legal vocabulary the existing corpus uses (`legalgraph/v1`).</td>
+                                        </tr>
+                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
+                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">levelKindsFor</td>
+                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/knowledge/model.mjs</td>
+                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">levelKindsFor({ profile, hierarchy, level }): string</td>
+                                            <td class="py-1 text-sm">Resolves the kind for a one-based structural level.</td>
                                         </tr>
                                         <tr class="border-b border-[var(--border-color)]/60 align-top">
                                             <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">LIMIT_DEFAULTS</td>
@@ -1401,12 +1341,6 @@ client.session(model)
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/spawn-registry.mjs</td>
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">listSpawns({ client, status, parentId }): Array&lt;SpawnHandle&gt;</td>
                                             <td class="py-1 text-sm">Lists the spawns of a client, newest first.</td>
-                                        </tr>
-                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
-                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">loadA2ATool</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/tools/a2a.mjs</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">loadA2ATool({ agentUrl, eventEmitter, agentContext, headers, timeoutMs }): Promise&lt;A2AToolDef[]&gt;</td>
-                                            <td class="py-1 text-sm">(returns []) when the agent card cannot be loaded or the URL is invalid.</td>
                                         </tr>
                                         <tr class="border-b border-[var(--border-color)]/60 align-top">
                                             <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">LoadableComponent</td>
@@ -1439,28 +1373,10 @@ client.session(model)
                                             <td class="py-1 text-sm">—</td>
                                         </tr>
                                         <tr class="border-b border-[var(--border-color)]/60 align-top">
-                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">loadMcpTools</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/tools/mcp-client.mjs</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">loadMcpTools({ mcpClient }): Promise&lt;McpToolSet&gt;</td>
-                                            <td class="py-1 text-sm">(schema normalization + output capping).</td>
-                                        </tr>
-                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
-                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">loadMcpToolsFrom</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/tools/mcp-client.mjs</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">loadMcpToolsFrom({ command, args, options }): Promise&lt;McpToolSet&gt;</td>
-                                            <td class="py-1 text-sm">Loads a remote MCP server's tools.</td>
-                                        </tr>
-                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
                                             <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">loadOntology</td>
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/knowledge/store.mjs</td>
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">loadOntology({ dir }): Promise&lt;{ kinds: Array&lt;string&gt;; relations: Array&lt;string&gt;; promoted: Array&lt;string&gt;; version: number; status: string; proposalSha: string | null; }&gt;</td>
                                             <td class="py-1 text-sm">Loads the vocabulary.</td>
-                                        </tr>
-                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
-                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">loadSkillsFromDirectory</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/tools/skills.mjs</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">loadSkillsFromDirectory({ directory, eventEmitter, requireScriptApproval, inheritEnv }): Promise&lt;Array&lt;SkillTool&gt;&gt;</td>
-                                            <td class="py-1 text-sm">Missing roots and missing SKILL.md files are normal skips; corruption is surfaced via sdkWarn and the SKILLS.LOAD_ERROR event.</td>
                                         </tr>
                                         <tr class="border-b border-[var(--border-color)]/60 align-top">
                                             <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">LocalFileInboxStore</td>
@@ -1497,18 +1413,6 @@ client.session(model)
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/core/errors.mjs</td>
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">class MaxTurnsExceededError extends MerciError</td>
                                             <td class="py-1 text-sm">The run exhausted its tool-iteration budget without producing a final text response.</td>
-                                        </tr>
-                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
-                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">McpClient</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/tools/mcp-client.mjs</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">class McpClient</td>
-                                            <td class="py-1 text-sm">Thin lifecycle wrapper around the MCP client.</td>
-                                        </tr>
-                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
-                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">McpTaskStore</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/tools/mcp-task-store.mjs</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">class McpTaskStore</td>
-                                            <td class="py-1 text-sm">In-memory task store: a task record, its abort controller and its retention timer.</td>
                                         </tr>
                                         <tr class="border-b border-[var(--border-color)]/60 align-top">
                                             <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">MemoryComponent</td>
@@ -1655,12 +1559,6 @@ client.session(model)
                                             <td class="py-1 text-sm">The permission modes this SDK understands.</td>
                                         </tr>
                                         <tr class="border-b border-[var(--border-color)]/60 align-top">
-                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">permissionAllowed</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/acp-agent.mjs</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">permissionAllowed({ response, options }): boolean</td>
-                                            <td class="py-1 text-sm">Decides whether an ACP `session/request_permission` response grants the permission.</td>
-                                        </tr>
-                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
                                             <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">PHASES</td>
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/core/lifecycle.mjs</td>
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">PHASES: Readonly&lt;{ RUN: "run"; STEP: "step"; WORKFLOW: "workflow"; }&gt;</td>
@@ -1785,6 +1683,18 @@ client.session(model)
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/knowledge/render.mjs</td>
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">renderKnowledgeBlock({ graph, result, budget, query }): string | null</td>
                                             <td class="py-1 text-sm">Renders a bounded knowledge block for the prompt.</td>
+                                        </tr>
+                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
+                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">renderNodePage</td>
+                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/knowledge/render.mjs</td>
+                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">renderNodePage({ graph, node, tree }): string</td>
+                                            <td class="py-1 text-sm">One node's wiki page.</td>
+                                        </tr>
+                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
+                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">renderSectionMap</td>
+                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/knowledge/render.mjs</td>
+                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">renderSectionMap({ graph, budget }): string | null</td>
+                                            <td class="py-1 text-sm">The map: hierarchy when structural edges justify it, headings when the graph has them, otherwise the most load-bearing nodes.</td>
                                         </tr>
                                         <tr class="border-b border-[var(--border-color)]/60 align-top">
                                             <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">renderWiki</td>
@@ -1961,12 +1871,6 @@ client.session(model)
                                             <td class="py-1 text-sm">Applies programmatic overrides.</td>
                                         </tr>
                                         <tr class="border-b border-[var(--border-color)]/60 align-top">
-                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">SkillsLibrary</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/tools/skills.mjs</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">class SkillsLibrary extends LoadableComponent</td>
-                                            <td class="py-1 text-sm">Loadable component exposing the registered skills to the model via a list-skills load tool.</td>
-                                        </tr>
-                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
                                             <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">sourceDelta</td>
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/knowledge/cache.mjs</td>
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">sourceDelta({ stored, current }): { added: Array&lt;string&gt;; changed: Array&lt;string&gt;; removed: Array&lt;string&gt;; unchanged: Array&lt;string&gt;; clean: boolean; }</td>
@@ -2065,13 +1969,13 @@ client.session(model)
                                         <tr class="border-b border-[var(--border-color)]/60 align-top">
                                             <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">surfaceFragment</td>
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/knowledge/adapters.mjs</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">surfaceFragment({ surface, input, profile }): { nodes: Array&lt;import('./model.mjs').KnowledgeNode&gt;; edges: Array&lt;import('./model.mjs').KnowledgeEdge&gt;; sources: Array&lt;import('./model.mjs').KnowledgeSourceRecord&gt;; }</td>
+                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">surfaceFragment({ surface, input, profile }): { nodes: Array&lt;import('./model.mjs').KnowledgeNode&gt;; edges: Array&lt;import('./model.mjs').KnowledgeEdge&gt;; sources: Array&lt;import('./model.mjs').KnowledgeSourceRecord&gt;; profile?:…</td>
                                             <td class="py-1 text-sm">Runs one surface's adapter.</td>
                                         </tr>
                                         <tr class="border-b border-[var(--border-color)]/60 align-top">
                                             <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">syncCorpus</td>
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/knowledge/cache.mjs</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">syncCorpus({ dir, paths, sources, profile, now, build, buildVersion }): Promise&lt;{ graph: import('./model.mjs').KnowledgeGraph; delta: { added: Array&lt;string&gt;; changed: Array&lt;string&gt;; removed: Array&lt;string&gt;; unchanged: Arr…</td>
+                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">syncCorpus({ dir, paths, sources, profile, hierarchy, now, build, buildVersion }): Promise&lt;{ graph: import('./model.mjs').KnowledgeGraph; delta: { added: Array&lt;string&gt;; changed: Array&lt;string&gt;; removed: Array&lt;string&gt;; unc…</td>
                                             <td class="py-1 text-sm">Load-or-build.</td>
                                         </tr>
                                         <tr class="border-b border-[var(--border-color)]/60 align-top">
@@ -2167,7 +2071,7 @@ client.session(model)
                                         <tr class="border-b border-[var(--border-color)]/60 align-top">
                                             <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">wikiSurface</td>
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/knowledge/adapters.mjs</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">wikiSurface({ dir, profile, title }): import('./model.mjs').KnowledgeGraph</td>
+                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">wikiSurface({ dir, profile, title, hierarchy, nested }): import('./model.mjs').KnowledgeGraph</td>
                                             <td class="py-1 text-sm">The `wiki` surface: an existing markdown corpus becomes a reference graph.</td>
                                         </tr>
                                         <tr class="border-b border-[var(--border-color)]/60 align-top">
@@ -2181,12 +2085,6 @@ client.session(model)
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/task.mjs</td>
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">withTaskAgents({ client, agents, options }): TaskClient</td>
                                             <td class="py-1 text-sm">duplicate name wins) and returns the client for chaining.</td>
-                                        </tr>
-                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
-                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">withToolTimeout</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/tools/tool-execution.mjs</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">withToolTimeout&lt;T&gt;({ promise, timeoutMs, signal }): Promise&lt;T&gt;</td>
-                                            <td class="py-1 text-sm">Caps a tool call that outlives its budget.</td>
                                         </tr>
                                         <tr class="border-b border-[var(--border-color)]/60 align-top">
                                             <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">WorkflowPolicy</td>
@@ -2275,6 +2173,52 @@ client.session(model)
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/backends/aai.mjs</td>
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">class MerciClient extends EventEmitter</td>
                                             <td class="py-1 text-sm">Main Merci SDK client for Anthropic.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="api-card">
+                        <h3 class="font-bold text-[var(--text-primary)] !mt-0">Named exports of <code class="inline">merci-sdk/acp</code></h3>
+                        <div class="space-y-4 mt-4 text-sm text-[var(--text-secondary)]">
+                            <div class="export-chips"><code class="inline">ACP_AGENT_VERSION</code><code class="inline">ACP_STOP_REASONS</code><code class="inline">createAcpAgent</code><code class="inline">permissionAllowed</code></div>
+                        </div>
+                        <div class="space-y-4 mt-4 text-sm text-[var(--text-secondary)]">
+                            <div class="overflow-x-auto">
+                                <table class="w-full min-w-[760px] text-left table-fixed">
+                                    <thead>
+                                        <tr class="border-b border-[var(--border-color)]">
+                                            <th class="w-[16%] py-2 pr-4 font-bold text-[var(--text-primary)]">Export</th>
+                                            <th class="w-[20%] py-2 pr-4 font-bold text-[var(--text-primary)]">Module</th>
+                                            <th class="w-[34%] py-2 pr-4 font-bold text-[var(--text-primary)]">Signature</th>
+                                            <th class="w-[30%] py-2 font-bold text-[var(--text-primary)]">Summary</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
+                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">ACP_AGENT_VERSION</td>
+                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/acp-agent.mjs</td>
+                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">ACP_AGENT_VERSION: string</td>
+                                            <td class="py-1 text-sm">merci version advertised in the ACP initialize handshake.</td>
+                                        </tr>
+                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
+                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">ACP_STOP_REASONS</td>
+                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/acp-agent.mjs</td>
+                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">ACP_STOP_REASONS: Readonly&lt;{ END_TURN: "end_turn"; MAX_TOKENS: "max_tokens"; REFUSAL: "refusal"; CANCELLED: "cancelled"; }&gt;</td>
+                                            <td class="py-1 text-sm">The ACP prompt stop reasons.</td>
+                                        </tr>
+                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
+                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">createAcpAgent</td>
+                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/acp-agent.mjs</td>
+                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">createAcpAgent({ session, createSession, name, version, onTurnContext }): import('@agentclientprotocol/sdk/unstable').AgentApp</td>
+                                            <td class="py-1 text-sm">Wraps a merci ChatSession as an ACP agent app.</td>
+                                        </tr>
+                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
+                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">permissionAllowed</td>
+                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/acp-agent.mjs</td>
+                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">permissionAllowed({ response, options }): boolean</td>
+                                            <td class="py-1 text-sm">Decides whether an ACP `session/request_permission` response grants the permission.</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -2638,7 +2582,7 @@ client.session(model)
                     <div class="api-card">
                         <h3 class="font-bold text-[var(--text-primary)] !mt-0">Named exports of <code class="inline">merci-sdk/knowledge</code></h3>
                         <div class="space-y-4 mt-4 text-sm text-[var(--text-secondary)]">
-                            <div class="export-chips"><code class="inline">adoptedProfile</code><code class="inline">adoptOntology</code><code class="inline">AGENT_KINDS</code><code class="inline">applyPatch</code><code class="inline">bm25Scores</code><code class="inline">buildGraph</code><code class="inline">CONFIDENCE</code><code class="inline">confidenceWeight</code><code class="inline">CORE_RELATIONS</code><code class="inline">corpusKey</code><code class="inline">DEFAULT_KNOWLEDGE_DIR</code><code class="inline">documentSurface</code><code class="inline">EDGE_ORIGINS</code><code class="inline">EDGE_POLARITIES</code><code class="inline">EDGE_SHAPES</code><code class="inline">edgeText</code><code class="inline">emptyGraph</code><code class="inline">expandSubgraph</code><code class="inline">extractDefinitions</code><code class="inline">extractRefs</code><code class="inline">fingerprintSources</code><code class="inline">GENERIC_PROFILE</code><code class="inline">graphSha</code><code class="inline">graphTextSize</code><code class="inline">headingList</code><code class="inline">hubDivisor</code><code class="inline">isKnownKind</code><code class="inline">isKnownRel</code><code class="inline">isSemanticRel</code><code class="inline">keyOf</code><code class="inline">KNOWLEDGE_BUILD_VERSION</code><code class="inline">KNOWLEDGE_SCHEMA</code><code class="inline">KNOWLEDGE_VERSION</code><code class="inline">KnowledgeComponent</code><code class="inline">knowledgePaths</code><code class="inline">LEGAL_GRAPH_SCHEMA</code><code class="inline">LEGAL_PROFILE</code><code class="inline">lexicalScore</code><code class="inline">loadCorpus</code><code class="inline">loadGraph</code><code class="inline">loadManifest</code><code class="inline">loadOntology</code><code class="inline">MANIFEST_FILE</code><code class="inline">manifestPath</code><code class="inline">memorySurface</code><code class="inline">mergeFragment</code><code class="inline">modalityOf</code><code class="inline">nodeKey</code><code class="inline">normalizeText</code><code class="inline">ontologySha</code><code class="inline">paragraphList</code><code class="inline">planSurface</code><code class="inline">PROFILES</code><code class="inline">profileSources</code><code class="inline">promotableRelations</code><code class="inline">proposeOntology</code><code class="inline">queryGraph</code><code class="inline">rankNodes</code><code class="inline">readSources</code><code class="inline">readTextFile</code><code class="inline">readWikiSha</code><code class="inline">reanchorDerived</code><code class="inline">renderKnowledgeBlock</code><code class="inline">renderSectionMap</code><code class="inline">renderWiki</code><code class="inline">resolveProfile</code><code class="inline">retrieveSubgraph</code><code class="inline">SALIENCE</code><code class="inline">salienceWeight</code><code class="inline">saveGraph</code><code class="inline">saveOntology</code><code class="inline">seedNodes</code><code class="inline">SEMANTIC_RELATIONS</code><code class="inline">sentenceList</code><code class="inline">slug</code><code class="inline">sourceDelta</code><code class="inline">sourceSha</code><code class="inline">sourceSlice</code><code class="inline">statsOf</code><code class="inline">STRUCTURAL_RELATIONS</code><code class="inline">surfaceFragment</code><code class="inline">syncCorpus</code><code class="inline">TIERS</code><code class="inline">tierWeight</code><code class="inline">todosSurface</code><code class="inline">tokensOf</code><code class="inline">validateGraph</code><code class="inline">wikiSurface</code></div>
+                            <div class="export-chips"><code class="inline">adoptedProfile</code><code class="inline">adoptOntology</code><code class="inline">AGENT_KINDS</code><code class="inline">applyPatch</code><code class="inline">bm25Scores</code><code class="inline">buildGraph</code><code class="inline">CONFIDENCE</code><code class="inline">confidenceWeight</code><code class="inline">CORE_RELATIONS</code><code class="inline">corpusKey</code><code class="inline">DEFAULT_KNOWLEDGE_DIR</code><code class="inline">documentSurface</code><code class="inline">EDGE_ORIGINS</code><code class="inline">EDGE_POLARITIES</code><code class="inline">EDGE_SHAPES</code><code class="inline">edgeText</code><code class="inline">emptyGraph</code><code class="inline">expandSubgraph</code><code class="inline">extractDefinitions</code><code class="inline">extractRefs</code><code class="inline">fingerprintSources</code><code class="inline">GENERIC_PROFILE</code><code class="inline">graphSha</code><code class="inline">graphTextSize</code><code class="inline">headingList</code><code class="inline">HIERARCHY_RELATIONS</code><code class="inline">hierarchyOf</code><code class="inline">hierarchyPath</code><code class="inline">hubDivisor</code><code class="inline">isKnownKind</code><code class="inline">isKnownRel</code><code class="inline">isSemanticRel</code><code class="inline">keyOf</code><code class="inline">KNOWLEDGE_BUILD_VERSION</code><code class="inline">KNOWLEDGE_SCHEMA</code><code class="inline">KNOWLEDGE_VERSION</code><code class="inline">KnowledgeComponent</code><code class="inline">knowledgePaths</code><code class="inline">LEGAL_GRAPH_SCHEMA</code><code class="inline">LEGAL_PROFILE</code><code class="inline">levelKindsFor</code><code class="inline">lexicalScore</code><code class="inline">loadCorpus</code><code class="inline">loadGraph</code><code class="inline">loadManifest</code><code class="inline">loadOntology</code><code class="inline">MANIFEST_FILE</code><code class="inline">manifestPath</code><code class="inline">memorySurface</code><code class="inline">mergeFragment</code><code class="inline">modalityOf</code><code class="inline">nodeKey</code><code class="inline">normalizeText</code><code class="inline">ontologySha</code><code class="inline">paragraphList</code><code class="inline">planSurface</code><code class="inline">PROFILES</code><code class="inline">profileSources</code><code class="inline">promotableRelations</code><code class="inline">proposeOntology</code><code class="inline">queryGraph</code><code class="inline">rankNodes</code><code class="inline">readSources</code><code class="inline">readTextFile</code><code class="inline">readWikiSha</code><code class="inline">reanchorDerived</code><code class="inline">renderKnowledgeBlock</code><code class="inline">renderNodePage</code><code class="inline">renderSectionMap</code><code class="inline">renderWiki</code><code class="inline">resolveProfile</code><code class="inline">retrieveSubgraph</code><code class="inline">SALIENCE</code><code class="inline">salienceWeight</code><code class="inline">saveGraph</code><code class="inline">saveOntology</code><code class="inline">seedNodes</code><code class="inline">SEMANTIC_RELATIONS</code><code class="inline">sentenceList</code><code class="inline">slug</code><code class="inline">sourceDelta</code><code class="inline">sourceSha</code><code class="inline">sourceSlice</code><code class="inline">statsOf</code><code class="inline">STRUCTURAL_RELATIONS</code><code class="inline">surfaceFragment</code><code class="inline">syncCorpus</code><code class="inline">TIERS</code><code class="inline">tierWeight</code><code class="inline">todosSurface</code><code class="inline">tokensOf</code><code class="inline">validateGraph</code><code class="inline">wikiSurface</code></div>
                         </div>
                         <div class="space-y-4 mt-4 text-sm text-[var(--text-secondary)]">
                             <div class="overflow-x-auto">
@@ -2655,7 +2599,7 @@ client.session(model)
                                         <tr class="border-b border-[var(--border-color)]/60 align-top">
                                             <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">adoptedProfile</td>
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/knowledge/store.mjs</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">adoptedProfile({ dir }): Promise&lt;{ name: string; kinds: Array&lt;string&gt;; relations: Array&lt;string&gt;; version: number; proposalSha: string | null; } | null&gt;</td>
+                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">adoptedProfile({ dir }): Promise&lt;{ name: string; kinds: Array&lt;string&gt;; relations: Array&lt;string&gt;; levels?: Array&lt;string&gt;; version: number; proposalSha: string | null; } | null&gt;</td>
                                             <td class="py-1 text-sm">The adopted vocabulary as a profile a graph can be validated against, or null when nothing was adopted.</td>
                                         </tr>
                                         <tr class="border-b border-[var(--border-color)]/60 align-top">
@@ -2685,7 +2629,7 @@ client.session(model)
                                         <tr class="border-b border-[var(--border-color)]/60 align-top">
                                             <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">buildGraph</td>
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/knowledge/build.mjs</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">buildGraph({ sources, profile, title, now }): import('./model.mjs').KnowledgeGraph</td>
+                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">buildGraph({ sources, profile, title, now, hierarchy }): import('./model.mjs').KnowledgeGraph</td>
                                             <td class="py-1 text-sm">Builds a graph from one or more documents.</td>
                                         </tr>
                                         <tr class="border-b border-[var(--border-color)]/60 align-top">
@@ -2709,7 +2653,7 @@ client.session(model)
                                         <tr class="border-b border-[var(--border-color)]/60 align-top">
                                             <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">corpusKey</td>
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/knowledge/cache.mjs</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">corpusKey({ sources, profile, buildVersion }): string</td>
+                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">corpusKey({ sources, profile, buildVersion, hierarchy }): string</td>
                                             <td class="py-1 text-sm">The build identity: sources by path and content, plus the vocabulary that shaped them and the extractor version.</td>
                                         </tr>
                                         <tr class="border-b border-[var(--border-color)]/60 align-top">
@@ -2803,6 +2747,24 @@ client.session(model)
                                             <td class="py-1 text-sm">—</td>
                                         </tr>
                                         <tr class="border-b border-[var(--border-color)]/60 align-top">
+                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">HIERARCHY_RELATIONS</td>
+                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/knowledge/hierarchy.mjs</td>
+                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">HIERARCHY_RELATIONS: readonly string[]</td>
+                                            <td class="py-1 text-sm">Relations whose direction can describe containment.</td>
+                                        </tr>
+                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
+                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">hierarchyOf</td>
+                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/knowledge/hierarchy.mjs</td>
+                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">hierarchyOf({ graph, rel, maxNodes }): HierarchyTree</td>
+                                            <td class="py-1 text-sm">Derives a bounded hierarchy from `contains` (parent → child) or `part_of` (child → parent) edges.</td>
+                                        </tr>
+                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
+                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">hierarchyPath</td>
+                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/knowledge/hierarchy.mjs</td>
+                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">hierarchyPath({ graph, id, tree }): import('./model.mjs').KnowledgeNode[]</td>
+                                            <td class="py-1 text-sm">The root-to-node path, using the deterministic primary parent.</td>
+                                        </tr>
+                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
                                             <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">hubDivisor</td>
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/knowledge/query.mjs</td>
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">hubDivisor({ indegree }): number</td>
@@ -2835,7 +2797,7 @@ client.session(model)
                                         <tr class="border-b border-[var(--border-color)]/60 align-top">
                                             <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">KNOWLEDGE_BUILD_VERSION</td>
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/knowledge/build.mjs</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">KNOWLEDGE_BUILD_VERSION = 1</td>
+                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">KNOWLEDGE_BUILD_VERSION = 2</td>
                                             <td class="py-1 text-sm">Bumped whenever the mechanical pass changes what it emits for the same bytes.</td>
                                         </tr>
                                         <tr class="border-b border-[var(--border-color)]/60 align-top">
@@ -2873,6 +2835,12 @@ client.session(model)
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/knowledge/model.mjs</td>
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">LEGAL_PROFILE: Readonly&lt;{ name: "legal"; kinds: readonly string[]; relations: readonly string[]; }&gt;</td>
                                             <td class="py-1 text-sm">The legal vocabulary the existing corpus uses (`legalgraph/v1`).</td>
+                                        </tr>
+                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
+                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">levelKindsFor</td>
+                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/knowledge/model.mjs</td>
+                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">levelKindsFor({ profile, hierarchy, level }): string</td>
+                                            <td class="py-1 text-sm">Resolves the kind for a one-based structural level.</td>
                                         </tr>
                                         <tr class="border-b border-[var(--border-color)]/60 align-top">
                                             <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">lexicalScore</td>
@@ -3031,10 +2999,16 @@ client.session(model)
                                             <td class="py-1 text-sm">Renders a bounded knowledge block for the prompt.</td>
                                         </tr>
                                         <tr class="border-b border-[var(--border-color)]/60 align-top">
+                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">renderNodePage</td>
+                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/knowledge/render.mjs</td>
+                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">renderNodePage({ graph, node, tree }): string</td>
+                                            <td class="py-1 text-sm">One node's wiki page.</td>
+                                        </tr>
+                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
                                             <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">renderSectionMap</td>
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/knowledge/render.mjs</td>
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">renderSectionMap({ graph, budget }): string | null</td>
-                                            <td class="py-1 text-sm">The map: headings when the graph has them, otherwise the most load-bearing nodes.</td>
+                                            <td class="py-1 text-sm">The map: hierarchy when structural edges justify it, headings when the graph has them, otherwise the most load-bearing nodes.</td>
                                         </tr>
                                         <tr class="border-b border-[var(--border-color)]/60 align-top">
                                             <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">renderWiki</td>
@@ -3135,13 +3109,13 @@ client.session(model)
                                         <tr class="border-b border-[var(--border-color)]/60 align-top">
                                             <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">surfaceFragment</td>
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/knowledge/adapters.mjs</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">surfaceFragment({ surface, input, profile }): { nodes: Array&lt;import('./model.mjs').KnowledgeNode&gt;; edges: Array&lt;import('./model.mjs').KnowledgeEdge&gt;; sources: Array&lt;import('./model.mjs').KnowledgeSourceRecord&gt;; }</td>
+                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">surfaceFragment({ surface, input, profile }): { nodes: Array&lt;import('./model.mjs').KnowledgeNode&gt;; edges: Array&lt;import('./model.mjs').KnowledgeEdge&gt;; sources: Array&lt;import('./model.mjs').KnowledgeSourceRecord&gt;; profile?:…</td>
                                             <td class="py-1 text-sm">Runs one surface's adapter.</td>
                                         </tr>
                                         <tr class="border-b border-[var(--border-color)]/60 align-top">
                                             <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">syncCorpus</td>
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/knowledge/cache.mjs</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">syncCorpus({ dir, paths, sources, profile, now, build, buildVersion }): Promise&lt;{ graph: import('./model.mjs').KnowledgeGraph; delta: { added: Array&lt;string&gt;; changed: Array&lt;string&gt;; removed: Array&lt;string&gt;; unchanged: Arr…</td>
+                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">syncCorpus({ dir, paths, sources, profile, hierarchy, now, build, buildVersion }): Promise&lt;{ graph: import('./model.mjs').KnowledgeGraph; delta: { added: Array&lt;string&gt;; changed: Array&lt;string&gt;; removed: Array&lt;string&gt;; unc…</td>
                                             <td class="py-1 text-sm">Load-or-build.</td>
                                         </tr>
                                         <tr class="border-b border-[var(--border-color)]/60 align-top">
@@ -3177,7 +3151,7 @@ client.session(model)
                                         <tr class="border-b border-[var(--border-color)]/60 align-top">
                                             <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">wikiSurface</td>
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/knowledge/adapters.mjs</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">wikiSurface({ dir, profile, title }): import('./model.mjs').KnowledgeGraph</td>
+                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">wikiSurface({ dir, profile, title, hierarchy, nested }): import('./model.mjs').KnowledgeGraph</td>
                                             <td class="py-1 text-sm">The `wiki` surface: an existing markdown corpus becomes a reference graph.</td>
                                         </tr>
                                     </tbody>
@@ -3188,7 +3162,7 @@ client.session(model)
                     <div class="api-card">
                         <h3 class="font-bold text-[var(--text-primary)] !mt-0">Named exports of <code class="inline">merci-sdk/messaging</code></h3>
                         <div class="space-y-4 mt-4 text-sm text-[var(--text-secondary)]">
-                            <div class="export-chips"><code class="inline">attachNative</code><code class="inline">countConversationTurns</code><code class="inline">createAssistantMessage</code><code class="inline">createSystemMessage</code><code class="inline">createToolCallMessage</code><code class="inline">createToolResultMessage</code><code class="inline">createUserMessage</code><code class="inline">dedupeMessages</code><code class="inline">getNative</code><code class="inline">isGenuineUserTurn</code><code class="inline">isInjection</code><code class="inline">normalizeHistory</code><code class="inline">normalizeToAAI</code><code class="inline">normalizeToGAI</code><code class="inline">normalizeToOAI</code><code class="inline">stripInjectionMeta</code></div>
+                            <div class="export-chips"><code class="inline">attachNative</code><code class="inline">countConversationTurns</code><code class="inline">createAssistantMessage</code><code class="inline">createSystemMessage</code><code class="inline">createToolCallMessage</code><code class="inline">createToolCallMessages</code><code class="inline">createToolResultMessage</code><code class="inline">createUserMessage</code><code class="inline">dedupeMessages</code><code class="inline">getNative</code><code class="inline">isGenuineUserTurn</code><code class="inline">isInjection</code><code class="inline">normalizeHistory</code><code class="inline">normalizeToAAI</code><code class="inline">normalizeToGAI</code><code class="inline">normalizeToOAI</code><code class="inline">stripInjectionMeta</code></div>
                         </div>
                         <div class="space-y-4 mt-4 text-sm text-[var(--text-secondary)]">
                             <div class="overflow-x-auto">
@@ -3231,6 +3205,12 @@ client.session(model)
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/messaging/messages.mjs</td>
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">createToolCallMessage({ provider, id, name, args, thoughtSignature, calls }): MessageRow</td>
                                             <td class="py-1 text-sm">Creates an assistant tool-call message in the backend's wire shape.</td>
+                                        </tr>
+                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
+                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">createToolCallMessages</td>
+                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/messaging/messages.mjs</td>
+                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">createToolCallMessages({ provider, calls, thoughtSignature }): Array&lt;MessageRow&gt;</td>
+                                            <td class="py-1 text-sm">Creates the assistant tool-call row(s) for one model turn.</td>
                                         </tr>
                                         <tr class="border-b border-[var(--border-color)]/60 align-top">
                                             <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">createToolResultMessage</td>
@@ -4141,7 +4121,7 @@ client.session(model)
                 <div class="flex items-center gap-2">
                     <img src="merci-sdk-logo.png" alt="Merci SDK Logo" class="h-6 w-9 object-contain">
                     <span class="font-bold text-sm text-[var(--text-primary)]">Merci SDK</span>
-                    <span class="text-xs font-mono text-[var(--text-secondary)]">v0.24.0</span>
+                    <span class="text-xs font-mono text-[var(--text-secondary)]">v0.25.0</span>
                 </div>
                 <p class="text-xs text-[var(--text-secondary)]">© 2026 Lukáš Michna (Mobeetle) · Apache-2.0</p>
                 <nav class="flex items-center gap-4 text-xs font-semibold text-[var(--text-secondary)]">

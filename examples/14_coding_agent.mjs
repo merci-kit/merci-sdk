@@ -37,9 +37,10 @@ import { stdin as input, stdout as output } from 'node:process';
 import * as readline from 'node:readline/promises';
 import { fileURLToPath } from 'node:url';
 import {
-    EVENTS, createContextTools, createShellTool, defaultDisplay, initializeClient,
-    loadCredentials, loadSkillsFromDirectory, log,
+    EVENTS, defaultDisplay, initializeClient,
+    loadCredentials, log,
 } from 'merci-sdk';
+import { createContextTools, createShellTool, loadSkillsFromDirectory } from 'merci-sdk/tools';
 import { isExitKeyword, readlineSafe, reportUsage, resolveExample, runMain, trackUsage, warnEmptyAnswer, wireClient } from './_shared/example-utils.mjs';
 
 const HERE = dirname(fileURLToPath(import.meta.url));

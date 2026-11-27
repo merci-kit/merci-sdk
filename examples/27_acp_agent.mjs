@@ -36,9 +36,11 @@ import { EventEmitter } from 'node:events';
 import { mkdir, readFile, rm, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import {
-    ACP_AGENT_VERSION, ACP_STOP_REASONS, EVENTS, createAcpAgent, createContextTools, createShellTool,
-    defaultDisplay, initializeClient, loadCredentials, log, permissionAllowed,
+    EVENTS,
+    defaultDisplay, initializeClient, loadCredentials, log,
 } from 'merci-sdk';
+import { ACP_AGENT_VERSION, ACP_STOP_REASONS, createAcpAgent, permissionAllowed } from 'merci-sdk/acp';
+import { createContextTools, createShellTool } from 'merci-sdk/tools';
 import { client, methods, ndJsonStream, PROTOCOL_VERSION } from '@agentclientprotocol/sdk/unstable';
 import { SCRATCH_DIR } from './_shared/real-tools.mjs';
 import { reportUsage, resolveExample, runMain, trackUsage, warnEmptyAnswer, wireClient } from './_shared/example-utils.mjs';

@@ -38,9 +38,10 @@ import { appendFile, mkdir, readFile, rm } from 'node:fs/promises';
 import { join } from 'node:path';
 import {
     CHECKPOINT_KIND, ConfigurationError, ExecutionJournal, JOURNAL_STATUS, LocalFileSessionStore,
-    createUserMessage, defaultDisplay, executeTools, initializeClient, loadCredentials, log,
+    createUserMessage, defaultDisplay, initializeClient, loadCredentials, log,
     restoreCheckpoint, saveCheckpoint, toolJournalKey,
 } from 'merci-sdk';
+import { executeTools } from 'merci-sdk/tools';
 import { SCRATCH_DIR } from './_shared/real-tools.mjs';
 import { reportUsage, resolveExample, runMain, trackUsage, warnEmptyAnswer, wireClient } from './_shared/example-utils.mjs';
 

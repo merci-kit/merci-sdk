@@ -31,7 +31,7 @@
  * Run: `node examples/12_knowledge_graph.mjs`
  * Needs: `PROVIDER` plus its credentials in `secret.env`.
  *
- * @version 0.24.0
+ * @version 0.25.0
  */
 import { mkdir, rm } from 'node:fs/promises';
 import { join } from 'node:path';

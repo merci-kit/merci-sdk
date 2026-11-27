@@ -39,6 +39,14 @@ Read the typed error first — it names the fix. The family
 
 ## Runs
 
+- `run()` resolves to the answer string only. Read the outcome from
+  `session.getLastRun()`: `finishReason`, `truncated` + `truncatedBy`,
+  `contentFiltered`, and `fallbackKind`. A fallback answer is a *sentinel*, not
+  model text — classify it with `fallbackKind({ text })`
+  (`max_iterations` / `empty` / `schema` / `filtered`, or null) or
+  `isSdkFallbackOutput({ text })` from the main entry; `isTransientFallbackKind`
+  says whether a retry can help. The sentinel strings are in `FALLBACK_MESSAGE`.
+  Never match the English sentence by hand.
 - `BudgetExceededError` carries `maxBudgetUsd` and `costUsd` — read both
   before raising the cap. If money was the surprise, check for
   `run:budget_unreported`: without provider-reported cost only the token cap

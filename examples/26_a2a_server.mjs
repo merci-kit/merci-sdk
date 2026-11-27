@@ -22,7 +22,7 @@
  * @version 0.23.0
  */
 import { createServer } from 'node:http';
-import { createA2AServer, createA2AHttpHandler } from 'merci-sdk';
+import { createA2AServer, createA2AHttpHandler } from 'merci-sdk/tools';
 import { childLog } from './_shared/example-utils.mjs';
 
 const log = childLog();

@@ -33,10 +33,11 @@
  * @version 0.23.0
  */
 import {
-    capToolOutputValue, createAssistantMessage, createSystemMessage, createToolCallMessage,
-    createToolResultMessage, createUserMessage, executeTools, getToolCallArguments, getToolCallName,
+    createAssistantMessage, createSystemMessage, createToolCallMessage,
+    createToolResultMessage, createUserMessage, getToolCallArguments, getToolCallName,
     initializeClient, loadCredentials, log, normalizeHistory,
 } from 'merci-sdk';
+import { capToolOutputValue, executeTools } from 'merci-sdk/tools';
 import { reportUsage, resolveExample, runMain, trackUsage, warnEmptyAnswer, wireClient } from './_shared/example-utils.mjs';
 
 const MAX_ITERATIONS = 4;
