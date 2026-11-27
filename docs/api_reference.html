@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <title>API Reference — Merci SDK v0.25.0</title>
+    <title>API Reference — Merci SDK v0.26.0</title>
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com" rel="preconnect"/>
@@ -27,7 +27,7 @@
                     <img src="merci-sdk-logo.png" alt="Merci SDK Logo" class="h-8 w-12 object-contain">
                     <div class="flex items-center gap-2">
                         <h1 class="text-xl font-bold text-[var(--text-primary)] tracking-tight">Merci SDK</h1>
-                        <span class="text-xs font-mono font-semibold px-2 py-0.5 rounded-full bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20">v0.25.0</span>
+                        <span class="text-xs font-mono font-semibold px-2 py-0.5 rounded-full bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20">v0.26.0</span>
                     </div>
                 </a>
             </div>
@@ -61,7 +61,7 @@
                 <div>
                     <h1 class="text-4xl font-extrabold tracking-tight text-[var(--text-primary)]">Merci SDK API Reference</h1>
                     <p class="mt-4 text-lg text-[var(--text-secondary)]">
-                        The TypeScript surface of Merci SDK v0.25.0, grouped by task. Signatures below use the SDK's single-object argument convention. The full generated export table (§8) is authoritative; §§1–7 explain the calls you actually make.
+                        The TypeScript surface of Merci SDK v0.26.0, grouped by task. Signatures below use the SDK's single-object argument convention. The full generated export table (§8) is authoritative; §§1–7 explain the calls you actually make.
                     </p>
                     <p class="mt-2 text-sm text-[var(--text-secondary)]">Start: <a href="getting_started.html">Getting Started</a> · runnable calls in <a href="https://github.com/merci-kit/merci-sdk/tree/main/examples">examples/ (01–32)</a> · concepts in <a href="tutorials.html">Tutorials (01–42)</a> · provider/engine picks in <a href="PROVIDERS.md">PROVIDERS.md</a>.</p>
                 </div>
@@ -356,7 +356,7 @@ client.session(model)
                         <h3 class="font-bold text-[var(--text-primary)] !mt-0">Every named export of <code class="inline">merci-sdk</code> (main entry)</h3>
                         <input id="export-filter" class="search-input" style="display:block;width:100%;max-width:320px;margin-top:8px;padding:0.375rem 0.75rem;border-radius:0.5rem;font-size:0.8125rem" placeholder="Filter exports… (e.g. withBudget)" aria-label="Filter exports"/>
                         <div class="space-y-4 mt-4 text-sm text-[var(--text-secondary)]">
-                            <div class="export-chips"><code class="inline">AbortedError</code><code class="inline">AbstractMethodError</code><code class="inline">adoptedProfile</code><code class="inline">adoptOntology</code><code class="inline">AGENT_EXECUTE</code><code class="inline">AGENT_PLAN</code><code class="inline">AgentContext</code><code class="inline">AgentFileError</code><code class="inline">AgentLauncher</code><code class="inline">applyPatch</code><code class="inline">assertStateSchema</code><code class="inline">attachEventLogger</code><code class="inline">BackendError</code><code class="inline">BaseChatSession</code><code class="inline">BODY_TIMEOUT_CODE</code><code class="inline">BREAKER_OPEN_CODE</code><code class="inline">BrowserComponent</code><code class="inline">BudgetExceededError</code><code class="inline">buildDecisionRequest</code><code class="inline">buildEnvironmentBlock</code><code class="inline">buildGraph</code><code class="inline">canonicalEventNames</code><code class="inline">CAPABILITY</code><code class="inline">CASSETTE_MODES</code><code class="inline">cassetteKey</code><code class="inline">certaintyOf</code><code class="inline">ChatSessionBuilder</code><code class="inline">CHECKPOINT_KIND</code><code class="inline">choiceQuestion</code><code class="inline">CircuitBreaker</code><code class="inline">claimReplan</code><code class="inline">classifyFailure</code><code class="inline">ClientRole</code><code class="inline">collectTemplateRefs</code><code class="inline">compactHistory</code><code class="inline">compareProgress</code><code class="inline">CompositeApiObserver</code><code class="inline">CompositeMemoryProvider</code><code class="inline">ConfigurationError</code><code class="inline">configureSdkLog</code><code class="inline">contextFromMerciEnvelope</code><code class="inline">continueSpawn</code><code class="inline">CORE_RELATIONS</code><code class="inline">corpusKey</code><code class="inline">countConversationTurns</code><code class="inline">createAgenticRuntime</code><code class="inline">createAssistantMessage</code><code class="inline">createCassette</code><code class="inline">createDecisionGate</code><code class="inline">createDecisionReranker</code><code class="inline">createDecisionsClient</code><code class="inline">createEngineRunner</code><code class="inline">createEventRing</code><code class="inline">createGuardrails</code><code class="inline">createHooks</code><code class="inline">createLimiter</code><code class="inline">createLlmJudge</code><code class="inline">createOperatorHttpHandler</code><code class="inline">createOrchestration</code><code class="inline">createOtlpExporter</code><code class="inline">createPlanStageFollowUp</code><code class="inline">createPolicyRenderer</code><code class="inline">createRoleClients</code><code class="inline">createSaveArtifactTool</code><code class="inline">createScoredJudge</code><code class="inline">createStreamingRetryPolicy</code><code class="inline">createStreamLogger</code><code class="inline">createSystemMessage</code><code class="inline">createTaskTool</code><code class="inline">createToolCallMessage</code><code class="inline">createToolCallMessages</code><code class="inline">createToolResultMessage</code><code class="inline">createUnifiedMediaMessages</code><code class="inline">createUserMessage</code><code class="inline">createWorkspaceTools</code><code class="inline">CurlEngine</code><code class="inline">currentRunContext</code><code class="inline">DECISION_QUESTION_TYPE</code><code class="inline">decisionCalibration</code><code class="inline">decisionTest</code><code class="inline">dedupeMessages</code><code class="inline">defaultDisplay</code><code class="inline">discoverInstructions</code><code class="inline">DiscussionSession</code><code class="inline">documentSurface</code><code class="inline">EDGE_SHAPES</code><code class="inline">edgeText</code><code class="inline">emitEvent</code><code class="inline">emptyGraph</code><code class="inline">enterPhase</code><code class="inline">ERROR_CODES</code><code class="inline">EVAL_SCORERS</code><code class="inline">EventEmitterApiObserver</code><code class="inline">EVENTS</code><code class="inline">ExecutionJournal</code><code class="inline">ExponentialBackoffPolicy</code><code class="inline">extractUserText</code><code class="inline">FailureClass</code><code class="inline">failureFingerprint</code><code class="inline">FALLBACK_MESSAGE</code><code class="inline">fallbackKind</code><code class="inline">fingerprintSources</code><code class="inline">foldContext</code><code class="inline">forkSpawn</code><code class="inline">formatStatus</code><code class="inline">GENERIC_PROFILE</code><code class="inline">getAvailableModels</code><code class="inline">getBudgetPool</code><code class="inline">getCircuitBreaker</code><code class="inline">getDecisionModel</code><code class="inline">getDefaultModel</code><code class="inline">getEmbeddingDimensions</code><code class="inline">getEmbeddingModel</code><code class="inline">getLimits</code><code class="inline">getSpawn</code><code class="inline">getSpawnRegistry</code><code class="inline">getToolCallArguments</code><code class="inline">getToolCallName</code><code class="inline">getToolModel</code><code class="inline">goalBlockForHandoff</code><code class="inline">GraphError</code><code class="inline">graphSha</code><code class="inline">GuardrailViolationError</code><code class="inline">HANDOFF_CONTEXT_MODES</code><code class="inline">HANDOFF_GOAL_MODES</code><code class="inline">HANDOFF_MODERATED_MARKER</code><code class="inline">hasTimeoutCode</code><code class="inline">HEADER_TIMEOUT_CODE</code><code class="inline">HIERARCHY_RELATIONS</code><code class="inline">hierarchyOf</code><code class="inline">hierarchyPath</code><code class="inline">HookRegistry</code><code class="inline">HOOKS</code><code class="inline">InactivityTimeoutPolicy</code><code class="inline">INBOX_STORE_VERSION</code><code class="inline">ingestDocument</code><code class="inline">initializeClient</code><code class="inline">InMemoryInboxStore</code><code class="inline">InMemorySessionStore</code><code class="inline">INTERACTIVE_ACTIONS</code><code class="inline">isAbortError</code><code class="inline">isEditTool</code><code class="inline">isInjection</code><code class="inline">isInsideRoot</code><code class="inline">isSdkFallbackOutput</code><code class="inline">isStandard</code><code class="inline">isToolPermitted</code><code class="inline">isTransientError</code><code class="inline">isTransientFallbackKind</code><code class="inline">JaiEngine</code><code class="inline">JaiScrapeEngine</code><code class="inline">JOURNAL_STATUS</code><code class="inline">journalKey</code><code class="inline">KNOWLEDGE_BUILD_VERSION</code><code class="inline">KNOWLEDGE_SCHEMA</code><code class="inline">KnowledgeComponent</code><code class="inline">LEGAL_PROFILE</code><code class="inline">levelKindsFor</code><code class="inline">LIMIT_DEFAULTS</code><code class="inline">LIMIT_REGISTRY</code><code class="inline">LIMITS</code><code class="inline">listSpawns</code><code class="inline">LoadableComponent</code><code class="inline">loadCorpus</code><code class="inline">loadCredentials</code><code class="inline">loadGraph</code><code class="inline">loadManifest</code><code class="inline">loadOntology</code><code class="inline">LocalFileInboxStore</code><code class="inline">LocalFileMemoryProvider</code><code class="inline">LocalFileSessionStore</code><code class="inline">log</code><code class="inline">MAX_BROWSER_URLS</code><code class="inline">MaxTurnsExceededError</code><code class="inline">MemoryComponent</code><code class="inline">MemoryError</code><code class="inline">MemoryManager</code><code class="inline">MemoryProvider</code><code class="inline">memorySurface</code><code class="inline">merciEnvelope</code><code class="inline">MerciError</code><code class="inline">MerciEventEmitter</code><code class="inline">mergeFragment</code><code class="inline">nodeKey</code><code class="inline">NoRetryPolicy</code><code class="inline">normalizeDelegationEnvelope</code><code class="inline">normalizeHandoff</code><code class="inline">normalizeHistory</code><code class="inline">normalizePermissionRules</code><code class="inline">noulQuestion</code><code class="inline">ObscuraEngine</code><code class="inline">ontologySha</code><code class="inline">OrchestrationError</code><code class="inline">OrchestrationExhaustedError</code><code class="inline">OrchestrationFailedError</code><code class="inline">otelAttribute</code><code class="inline">PDF_MEDIA_PROVIDERS</code><code class="inline">PERMISSION_MODES</code><code class="inline">PHASES</code><code class="inline">planSurface</code><code class="inline">PlaywrightSession</code><code class="inline">PolicyError</code><code class="inline">policyToSchedulerOptions</code><code class="inline">policyToWorkspaceOptions</code><code class="inline">profileSources</code><code class="inline">promotableRelations</code><code class="inline">proposeOntology</code><code class="inline">ProtocolType</code><code class="inline">providerDescriptorFor</code><code class="inline">ProviderMemoryEngine</code><code class="inline">PROVIDERS</code><code class="inline">providersForStandard</code><code class="inline">ProviderType</code><code class="inline">queryGraph</code><code class="inline">readDecisionAnswer</code><code class="inline">readSources</code><code class="inline">readWikiSha</code><code class="inline">reloadLimits</code><code class="inline">renderKnowledgeBlock</code><code class="inline">renderNodePage</code><code class="inline">renderSectionMap</code><code class="inline">renderWiki</code><code class="inline">resetLimits</code><code class="inline">resolveAgentClient</code><code class="inline">resolveBrowserMode</code><code class="inline">resolveLimit</code><code class="inline">resolveProvider</code><code class="inline">resolveRole</code><code class="inline">resolveScrapeMode</code><code class="inline">resolveSearchMode</code><code class="inline">resolveWorkspacePath</code><code class="inline">restoreCheckpoint</code><code class="inline">retrieveSubgraph</code><code class="inline">RetryLedger</code><code class="inline">REVIEW_STAGE_REMINDER</code><code class="inline">ROLE_REGISTRY</code><code class="inline">runBatch</code><code class="inline">RunContext</code><code class="inline">runDueSteps</code><code class="inline">runEvals</code><code class="inline">runGuardedStep</code><code class="inline">runStep</code><code class="inline">runWithRunContext</code><code class="inline">saveCheckpoint</code><code class="inline">saveGraph</code><code class="inline">saveOntology</code><code class="inline">SchedulerError</code><code class="inline">scoreQuestion</code><code class="inline">sendToSpawn</code><code class="inline">setLimits</code><code class="inline">sourceDelta</code><code class="inline">sourceSha</code><code class="inline">spawnThreadId</code><code class="inline">SqliteMemoryProvider</code><code class="inline">stampEvent</code><code class="inline">stampStreamEvent</code><code class="inline">standardFor</code><code class="inline">STANDARDS</code><code class="inline">StandardType</code><code class="inline">stateFingerprint</code><code class="inline">StateMachine</code><code class="inline">stillRequiresApproval</code><code class="inline">STOP</code><code class="inline">stripInjectionMeta</code><code class="inline">structuredLlmCall</code><code class="inline">sumSpawnUsage</code><code class="inline">surfaceFragment</code><code class="inline">syncCorpus</code><code class="inline">TASK_TOOL_NAME</code><code class="inline">TaskState</code><code class="inline">TavilyEngine</code><code class="inline">TavilyExtractEngine</code><code class="inline">TIMEOUT_CODES</code><code class="inline">TodoComponent</code><code class="inline">todosSurface</code><code class="inline">toolJournalKey</code><code class="inline">toUnified</code><code class="inline">toUnifiedScrape</code><code class="inline">validateGraph</code><code class="inline">validateTemplateRefs</code><code class="inline">VerificationError</code><code class="inline">WebScrapeComponent</code><code class="inline">WebSearchComponent</code><code class="inline">wikiSurface</code><code class="inline">withAgentDelegation</code><code class="inline">withTaskAgents</code><code class="inline">WorkflowPolicy</code><code class="inline">WorkScheduler</code><code class="inline">WorkSourceError</code><code class="inline">WORKSPACE_HOOKS</code><code class="inline">WORKSPACE_STRATEGIES</code><code class="inline">WorkspaceError</code><code class="inline">workspaceKeyFor</code><code class="inline">WorkspaceManager</code><code class="inline">wrapError</code></div>
+                            <div class="export-chips"><code class="inline">AbortedError</code><code class="inline">AbstractMethodError</code><code class="inline">AGENT_EXECUTE</code><code class="inline">AGENT_PLAN</code><code class="inline">AgentContext</code><code class="inline">AgentFileError</code><code class="inline">AgentLauncher</code><code class="inline">attachEventLogger</code><code class="inline">BackendError</code><code class="inline">BaseChatSession</code><code class="inline">BODY_TIMEOUT_CODE</code><code class="inline">BREAKER_OPEN_CODE</code><code class="inline">BrowserComponent</code><code class="inline">BudgetExceededError</code><code class="inline">buildDecisionRequest</code><code class="inline">buildEnvironmentBlock</code><code class="inline">canonicalEventNames</code><code class="inline">CAPABILITY</code><code class="inline">CASSETTE_MODES</code><code class="inline">cassetteKey</code><code class="inline">certaintyOf</code><code class="inline">ChatSessionBuilder</code><code class="inline">choiceQuestion</code><code class="inline">CircuitBreaker</code><code class="inline">claimReplan</code><code class="inline">classifyFailure</code><code class="inline">ClientRole</code><code class="inline">compactHistory</code><code class="inline">compareProgress</code><code class="inline">CompositeApiObserver</code><code class="inline">CompositeMemoryProvider</code><code class="inline">ConfigurationError</code><code class="inline">configureSdkLog</code><code class="inline">contextFromMerciEnvelope</code><code class="inline">continueSpawn</code><code class="inline">countConversationTurns</code><code class="inline">createAgenticRuntime</code><code class="inline">createAssistantMessage</code><code class="inline">createCassette</code><code class="inline">createDecisionGate</code><code class="inline">createDecisionReranker</code><code class="inline">createDecisionsClient</code><code class="inline">createGuardrails</code><code class="inline">createHooks</code><code class="inline">createLimiter</code><code class="inline">createLlmJudge</code><code class="inline">createOtlpExporter</code><code class="inline">createPlanStageFollowUp</code><code class="inline">createRoleClients</code><code class="inline">createSaveArtifactTool</code><code class="inline">createScoredJudge</code><code class="inline">createStreamingRetryPolicy</code><code class="inline">createStreamLogger</code><code class="inline">createSystemMessage</code><code class="inline">createTaskTool</code><code class="inline">createToolCallMessage</code><code class="inline">createToolCallMessages</code><code class="inline">createToolResultMessage</code><code class="inline">createUnifiedMediaMessages</code><code class="inline">createUserMessage</code><code class="inline">CurlEngine</code><code class="inline">currentRunContext</code><code class="inline">DECISION_QUESTION_TYPE</code><code class="inline">decisionCalibration</code><code class="inline">decisionTest</code><code class="inline">dedupeMessages</code><code class="inline">defaultDisplay</code><code class="inline">discoverInstructions</code><code class="inline">DiscussionSession</code><code class="inline">emitEvent</code><code class="inline">enterPhase</code><code class="inline">ERROR_CODES</code><code class="inline">EVAL_SCORERS</code><code class="inline">EventEmitterApiObserver</code><code class="inline">EVENTS</code><code class="inline">ExecutionJournal</code><code class="inline">ExponentialBackoffPolicy</code><code class="inline">extractUserText</code><code class="inline">FailureClass</code><code class="inline">failureFingerprint</code><code class="inline">FALLBACK_MESSAGE</code><code class="inline">fallbackKind</code><code class="inline">foldContext</code><code class="inline">forkSpawn</code><code class="inline">getAvailableModels</code><code class="inline">getBudgetPool</code><code class="inline">getCircuitBreaker</code><code class="inline">getDecisionModel</code><code class="inline">getDefaultModel</code><code class="inline">getEmbeddingDimensions</code><code class="inline">getEmbeddingModel</code><code class="inline">getLimits</code><code class="inline">getSpawn</code><code class="inline">getSpawnRegistry</code><code class="inline">getToolCallArguments</code><code class="inline">getToolCallName</code><code class="inline">getToolModel</code><code class="inline">goalBlockForHandoff</code><code class="inline">GraphError</code><code class="inline">GuardrailViolationError</code><code class="inline">HANDOFF_CONTEXT_MODES</code><code class="inline">HANDOFF_GOAL_MODES</code><code class="inline">HANDOFF_MODERATED_MARKER</code><code class="inline">hasTimeoutCode</code><code class="inline">HEADER_TIMEOUT_CODE</code><code class="inline">HookRegistry</code><code class="inline">HOOKS</code><code class="inline">InactivityTimeoutPolicy</code><code class="inline">ingestDocument</code><code class="inline">initializeClient</code><code class="inline">INTERACTIVE_ACTIONS</code><code class="inline">isAbortError</code><code class="inline">isEditTool</code><code class="inline">isInjection</code><code class="inline">isSdkFallbackOutput</code><code class="inline">isStandard</code><code class="inline">isToolPermitted</code><code class="inline">isTransientError</code><code class="inline">isTransientFallbackKind</code><code class="inline">JaiEngine</code><code class="inline">JaiScrapeEngine</code><code class="inline">JOURNAL_STATUS</code><code class="inline">journalKey</code><code class="inline">LIMIT_DEFAULTS</code><code class="inline">LIMIT_REGISTRY</code><code class="inline">LIMITS</code><code class="inline">listSpawns</code><code class="inline">LoadableComponent</code><code class="inline">loadCredentials</code><code class="inline">LocalFileMemoryProvider</code><code class="inline">log</code><code class="inline">MAX_BROWSER_URLS</code><code class="inline">MaxTurnsExceededError</code><code class="inline">MemoryComponent</code><code class="inline">MemoryError</code><code class="inline">MemoryManager</code><code class="inline">MemoryProvider</code><code class="inline">merciEnvelope</code><code class="inline">MerciError</code><code class="inline">MerciEventEmitter</code><code class="inline">NoRetryPolicy</code><code class="inline">normalizeDelegationEnvelope</code><code class="inline">normalizeHandoff</code><code class="inline">normalizeHistory</code><code class="inline">normalizePermissionRules</code><code class="inline">noulQuestion</code><code class="inline">ObscuraEngine</code><code class="inline">OrchestrationError</code><code class="inline">OrchestrationExhaustedError</code><code class="inline">OrchestrationFailedError</code><code class="inline">otelAttribute</code><code class="inline">PDF_MEDIA_PROVIDERS</code><code class="inline">PERMISSION_MODES</code><code class="inline">PHASES</code><code class="inline">PlaywrightSession</code><code class="inline">PolicyError</code><code class="inline">ProtocolType</code><code class="inline">providerDescriptorFor</code><code class="inline">ProviderMemoryEngine</code><code class="inline">PROVIDERS</code><code class="inline">providersForStandard</code><code class="inline">ProviderType</code><code class="inline">readDecisionAnswer</code><code class="inline">reloadLimits</code><code class="inline">resetLimits</code><code class="inline">resolveAgentClient</code><code class="inline">resolveBrowserMode</code><code class="inline">resolveLimit</code><code class="inline">resolveProvider</code><code class="inline">resolveRole</code><code class="inline">resolveScrapeMode</code><code class="inline">resolveSearchMode</code><code class="inline">RetryLedger</code><code class="inline">REVIEW_STAGE_REMINDER</code><code class="inline">ROLE_REGISTRY</code><code class="inline">runBatch</code><code class="inline">RunContext</code><code class="inline">runDueSteps</code><code class="inline">runEvals</code><code class="inline">runGuardedStep</code><code class="inline">runStep</code><code class="inline">runWithRunContext</code><code class="inline">SchedulerError</code><code class="inline">scoreQuestion</code><code class="inline">sendToSpawn</code><code class="inline">setLimits</code><code class="inline">spawnThreadId</code><code class="inline">SqliteMemoryProvider</code><code class="inline">stampEvent</code><code class="inline">stampStreamEvent</code><code class="inline">standardFor</code><code class="inline">STANDARDS</code><code class="inline">StandardType</code><code class="inline">stateFingerprint</code><code class="inline">StateMachine</code><code class="inline">stillRequiresApproval</code><code class="inline">STOP</code><code class="inline">stripInjectionMeta</code><code class="inline">sumSpawnUsage</code><code class="inline">TASK_TOOL_NAME</code><code class="inline">TavilyEngine</code><code class="inline">TavilyExtractEngine</code><code class="inline">TIMEOUT_CODES</code><code class="inline">TodoComponent</code><code class="inline">toolJournalKey</code><code class="inline">toUnified</code><code class="inline">toUnifiedScrape</code><code class="inline">VerificationError</code><code class="inline">WebScrapeComponent</code><code class="inline">WebSearchComponent</code><code class="inline">withAgentDelegation</code><code class="inline">withTaskAgents</code><code class="inline">WorkSourceError</code><code class="inline">WorkspaceError</code><code class="inline">wrapError</code></div>
                         </div>
                         <div class="space-y-4 mt-4 text-sm text-[var(--text-secondary)]">
                             <div class="overflow-x-auto">
@@ -381,18 +381,6 @@ client.session(model)
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/core/errors.mjs</td>
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">class AbstractMethodError extends MerciError</td>
                                             <td class="py-1 text-sm">A subclass failed to implement an abstract method.</td>
-                                        </tr>
-                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
-                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">adoptedProfile</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/knowledge/store.mjs</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">adoptedProfile({ dir }): Promise&lt;{ name: string; kinds: Array&lt;string&gt;; relations: Array&lt;string&gt;; levels?: Array&lt;string&gt;; version: number; proposalSha: string | null; } | null&gt;</td>
-                                            <td class="py-1 text-sm">The adopted vocabulary as a profile a graph can be validated against, or null when nothing was adopted.</td>
-                                        </tr>
-                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
-                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">adoptOntology</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/knowledge/store.mjs</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">adoptOntology({ dir, proposal, expected, now }): Promise&lt;{ version: number; sha: string; path: string; adopted: Array&lt;string&gt;; }&gt;</td>
-                                            <td class="py-1 text-sm">Adopts a proposal as the vocabulary.</td>
                                         </tr>
                                         <tr class="border-b border-[var(--border-color)]/60 align-top">
                                             <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">AGENT_EXECUTE</td>
@@ -423,18 +411,6 @@ client.session(model)
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/cli/launcher.mjs</td>
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">class AgentLauncher extends EventEmitter</td>
                                             <td class="py-1 text-sm">Interactive agent CLI: system commands, skill-plugin dispatch, and a tool-fed agentic loop over a backend session.</td>
-                                        </tr>
-                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
-                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">applyPatch</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/knowledge/model.mjs</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">applyPatch({ graph, patch, profile, now }): KnowledgeGraph</td>
-                                            <td class="py-1 text-sm">Applies a patch: add nodes/edges, update node fields, remove by id. Refusals are deliberate and typed by message, because an agent writes these: a dangling endpoint, an unknown kind or relation, a custom relation with no note, or a patch la…</td>
-                                        </tr>
-                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
-                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">assertStateSchema</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/planning/graph-utils.mjs</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">assertStateSchema({ schema, value, label }): void</td>
-                                            <td class="py-1 text-sm">Asserts a step/node output against an optional Zod-like state schema (`safeParse`). No-op when no schema is configured.</td>
                                         </tr>
                                         <tr class="border-b border-[var(--border-color)]/60 align-top">
                                             <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">attachEventLogger</td>
@@ -491,12 +467,6 @@ client.session(model)
                                             <td class="py-1 text-sm">Renders the environment block: working directory, git repo, platform, date.</td>
                                         </tr>
                                         <tr class="border-b border-[var(--border-color)]/60 align-top">
-                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">buildGraph</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/knowledge/build.mjs</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">buildGraph({ sources, profile, title, now, hierarchy }): import('./model.mjs').KnowledgeGraph</td>
-                                            <td class="py-1 text-sm">Builds a graph from one or more documents.</td>
-                                        </tr>
-                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
                                             <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">canonicalEventNames</td>
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/support/event-logger.mjs</td>
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">canonicalEventNames(): string[]</td>
@@ -533,12 +503,6 @@ client.session(model)
                                             <td class="py-1 text-sm">Fluent builder for ChatSession configuration.</td>
                                         </tr>
                                         <tr class="border-b border-[var(--border-color)]/60 align-top">
-                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">CHECKPOINT_KIND</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/planning/checkpoint.mjs</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">CHECKPOINT_KIND: Readonly&lt;{ CHAT: "chat"; STATE_MACHINE: "stateMachine"; WORKFLOW: "workflow"; }&gt;</td>
-                                            <td class="py-1 text-sm">Checkpoint payload kinds.</td>
-                                        </tr>
-                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
                                             <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">choiceQuestion</td>
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/messaging/decision.mjs</td>
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">choiceQuestion({ instructions, criteria }): ChoiceQuestion</td>
@@ -567,12 +531,6 @@ client.session(model)
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/core/constants/roles.mjs</td>
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">ClientRole: Record&lt;string, string&gt;</td>
                                             <td class="py-1 text-sm">The three client roles a host can resolve.</td>
-                                        </tr>
-                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
-                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">collectTemplateRefs</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/planning/graph-utils.mjs</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">collectTemplateRefs({ template }): Array&lt;{ expr: string; head: string; }&gt;</td>
-                                            <td class="py-1 text-sm">Collects `{{expr}}` template references from a string.</td>
                                         </tr>
                                         <tr class="border-b border-[var(--border-color)]/60 align-top">
                                             <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">compactHistory</td>
@@ -623,18 +581,6 @@ client.session(model)
                                             <td class="py-1 text-sm">Continues a settled spawn's conversation with one more turn (SP3).</td>
                                         </tr>
                                         <tr class="border-b border-[var(--border-color)]/60 align-top">
-                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">CORE_RELATIONS</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/knowledge/model.mjs</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">CORE_RELATIONS: readonly string[]</td>
-                                            <td class="py-1 text-sm">Relations a structural/doc parse or an author may use without a note.</td>
-                                        </tr>
-                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
-                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">corpusKey</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/knowledge/cache.mjs</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">corpusKey({ sources, profile, buildVersion, hierarchy }): string</td>
-                                            <td class="py-1 text-sm">The build identity: sources by path and content, plus the vocabulary that shaped them and the extractor version.</td>
-                                        </tr>
-                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
                                             <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">countConversationTurns</td>
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/messaging/unified-message.mjs</td>
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">countConversationTurns({ messages }): number</td>
@@ -677,18 +623,6 @@ client.session(model)
                                             <td class="py-1 text-sm">Creates the decision client for one provider.</td>
                                         </tr>
                                         <tr class="border-b border-[var(--border-color)]/60 align-top">
-                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">createEngineRunner</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/scheduler/runner.mjs</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">createEngineRunner(options?: { engine?: string; client?: unknown; model?: unknown; store?: unknown; tools?: unknown; budget?: unknown; approval?: unknown; prompt?: unknown; objective?: unknown; planFor?: unknown; graphFo…</td>
-                                            <td class="py-1 text-sm">Build the one-attempt runner for a scheduler.</td>
-                                        </tr>
-                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
-                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">createEventRing</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/operator/ring.mjs</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">createEventRing({ emitter, limit, prefixes, now }): { list: (arg0?: { identifier?: string | null; limit?: number | null; }) =&gt; Array&lt;Record&lt;string, unknown&gt;&gt;; clear: () =&gt; void; stop: () =&gt; void; }</td>
-                                            <td class="py-1 text-sm">—</td>
-                                        </tr>
-                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
                                             <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">createGuardrails</td>
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/guardrails.mjs</td>
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">createGuardrails({ rules }): Guardrails</td>
@@ -713,18 +647,6 @@ client.session(model)
                                             <td class="py-1 text-sm">Returns `(ctx) =&gt; ({ passed, evidence })` ready for a LoopContract `judge`.</td>
                                         </tr>
                                         <tr class="border-b border-[var(--border-color)]/60 align-top">
-                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">createOperatorHttpHandler</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/operator/http.mjs</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">createOperatorHttpHandler({ getSnapshot, getPolicySnapshot, refresh, recentEvents, basePath, statusPath, allowedHosts, allowAnyHost, maxBodyBytes, recentEventsLimit, statusMaxRows, now }): (req: import('node:http').Incom…</td>
-                                            <td class="py-1 text-sm">Create a `(req, res) =&gt; Promise&lt;void&gt;` operator handler (§3.3). `queued: true` means this request invoked `refresh()`; `coalesced: true` means another handler request was already invoking it. A scheduler-internal in-flight tick is invisible…</td>
-                                        </tr>
-                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
-                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">createOrchestration</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/orchestration/facade.mjs</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">createOrchestration(options?: OrchestrationOptions): Promise&lt;Orchestration&gt;</td>
-                                            <td class="py-1 text-sm">Build the coordination layer around one client, one board, and one `WORKFLOW.md`.</td>
-                                        </tr>
-                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
                                             <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">createOtlpExporter</td>
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/support/otel-exporter.mjs</td>
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">createOtlpExporter({ endpoint, serviceName, serviceVersion, headers, batchSize, flushIntervalMs, resourceAttributes, fetchImpl }): OtlpExporter</td>
@@ -735,12 +657,6 @@ client.session(model)
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/plan/component.mjs</td>
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">createPlanStageFollowUp({ session }): (ctx: { round: number; }) =&gt; (string | null)</td>
                                             <td class="py-1 text-sm">until plan_exit has been called this run.</td>
-                                        </tr>
-                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
-                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">createPolicyRenderer</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/workflow-policy/integrate.mjs</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">createPolicyRenderer({ policy, eventEmitter }): (arg0: { item: Record&lt;string, unknown&gt;; attempt?: unknown; continuation?: boolean; }) =&gt; string</td>
-                                            <td class="py-1 text-sm">The engine runner's `({ item, attempt, continuation }) =&gt; string` prompt callback.</td>
                                         </tr>
                                         <tr class="border-b border-[var(--border-color)]/60 align-top">
                                             <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">createRoleClients</td>
@@ -815,12 +731,6 @@ client.session(model)
                                             <td class="py-1 text-sm">Creates a user message in the backend's wire shape.</td>
                                         </tr>
                                         <tr class="border-b border-[var(--border-color)]/60 align-top">
-                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">createWorkspaceTools</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/workspace/toolbox.mjs</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">createWorkspaceTools({ workspace, approvalCallback, eventEmitter, include, artifactsDir, context, shell, permissionMode }): { workspace: import('./manager.mjs').WorkspaceHandleLike; root: string; contextTools: Array&lt;impo…</td>
-                                            <td class="py-1 text-sm">Bind `read`/`grep`/`glob`, the shell tool, and the artifact tool to one workspace handle.</td>
-                                        </tr>
-                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
                                             <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">CurlEngine</td>
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/webscrape/engines.mjs</td>
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">class CurlEngine</td>
@@ -875,34 +785,10 @@ client.session(model)
                                             <td class="py-1 text-sm">A multi-agent debate group: agents converse on a shared ledger, optionally judged/aggregated into a conclusion.</td>
                                         </tr>
                                         <tr class="border-b border-[var(--border-color)]/60 align-top">
-                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">documentSurface</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/knowledge/adapters.mjs</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">documentSurface({ paths, profile, title }): import('./model.mjs').KnowledgeGraph</td>
-                                            <td class="py-1 text-sm">The `document` surface: one graph from one or more text files.</td>
-                                        </tr>
-                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
-                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">EDGE_SHAPES</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/knowledge/model.mjs</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">EDGE_SHAPES: readonly string[]</td>
-                                            <td class="py-1 text-sm">The shapes an edge may take beyond "A rel B". - `binary` — the plain assertion; - `negative` — `polarity: 'negative'`: the relation is asserted *not* to hold (a rejected defence, a boundary); - `conditional` — `condition: &lt;nodeId&gt;`: the ass…</td>
-                                        </tr>
-                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
-                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">edgeText</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/knowledge/render.mjs</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">edgeText({ edge, target, arrow }): string</td>
-                                            <td class="py-1 text-sm">The text form of an edge, shared by the prompt block and the wiki so the two cannot drift.</td>
-                                        </tr>
-                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
                                             <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">emitEvent</td>
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/core/events.mjs</td>
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">emitEvent({ emitter, name, payload, runContext }): void</td>
                                             <td class="py-1 text-sm">The single event sink.</td>
-                                        </tr>
-                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
-                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">emptyGraph</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/knowledge/component.mjs</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">emptyGraph({ profile }): import('./model.mjs').KnowledgeGraph</td>
-                                            <td class="py-1 text-sm">—</td>
                                         </tr>
                                         <tr class="border-b border-[var(--border-color)]/60 align-top">
                                             <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">enterPhase</td>
@@ -972,14 +858,8 @@ client.session(model)
                                         </tr>
                                         <tr class="border-b border-[var(--border-color)]/60 align-top">
                                             <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">fallbackKind</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/agentic-core.mjs</td>
+                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/outcomes.mjs</td>
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">fallbackKind({ text }): 'max_iterations' | 'empty' | 'schema' | 'filtered' | null</td>
-                                            <td class="py-1 text-sm">hard failure), `'empty'` (a transient no-answer — retryable), `'schema'` (an exhausted structured-output correction loop — also transient), `'filtered'` (the provider's content moderation stopped the answer — not retryable), or null for rea…</td>
-                                        </tr>
-                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
-                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">fingerprintSources</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/knowledge/cache.mjs</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">fingerprintSources({ sources }): Array&lt;SourceFingerprint&gt;</td>
                                             <td class="py-1 text-sm">—</td>
                                         </tr>
                                         <tr class="border-b border-[var(--border-color)]/60 align-top">
@@ -993,18 +873,6 @@ client.session(model)
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/task.mjs</td>
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">forkSpawn({ client, id, newThreadId, overwrite, store, threadId }): Promise&lt;import('./sessions.mjs').SessionCheckpoint&gt;</td>
                                             <td class="py-1 text-sm">Branches a durable child's conversation (D10).</td>
-                                        </tr>
-                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
-                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">formatStatus</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/operator/status.mjs</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">formatStatus({ snapshot, policy, now, maxRows }): string</td>
-                                            <td class="py-1 text-sm">Render one snapshot as plain text (§3.7).</td>
-                                        </tr>
-                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
-                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">GENERIC_PROFILE</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/knowledge/model.mjs</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">GENERIC_PROFILE: Readonly&lt;{ name: "generic"; kinds: readonly string[]; relations: readonly string[]; }&gt;</td>
-                                            <td class="py-1 text-sm">Domain-neutral vocabulary: documents, claims, evidence, work items.</td>
                                         </tr>
                                         <tr class="border-b border-[var(--border-color)]/60 align-top">
                                             <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">getAvailableModels</td>
@@ -1097,12 +965,6 @@ client.session(model)
                                             <td class="py-1 text-sm">The workflow graph is structurally unusable at runtime — a dependency cycle, an unresolved/dangling dependency, or a deadlock with no runnable step.</td>
                                         </tr>
                                         <tr class="border-b border-[var(--border-color)]/60 align-top">
-                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">graphSha</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/knowledge/model.mjs</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">graphSha({ graph }): string</td>
-                                            <td class="py-1 text-sm">Stable hash of the graph's content.</td>
-                                        </tr>
-                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
                                             <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">GuardrailViolationError</td>
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/core/errors.mjs</td>
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">class GuardrailViolationError extends MerciError</td>
@@ -1139,24 +1001,6 @@ client.session(model)
                                             <td class="py-1 text-sm">Machine-readable code carried by header-timeout abort errors (JAI gateway accepted the connection but sent no response headers in time).</td>
                                         </tr>
                                         <tr class="border-b border-[var(--border-color)]/60 align-top">
-                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">HIERARCHY_RELATIONS</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/knowledge/hierarchy.mjs</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">HIERARCHY_RELATIONS: readonly string[]</td>
-                                            <td class="py-1 text-sm">Relations whose direction can describe containment.</td>
-                                        </tr>
-                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
-                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">hierarchyOf</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/knowledge/hierarchy.mjs</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">hierarchyOf({ graph, rel, maxNodes }): HierarchyTree</td>
-                                            <td class="py-1 text-sm">Derives a bounded hierarchy from `contains` (parent → child) or `part_of` (child → parent) edges.</td>
-                                        </tr>
-                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
-                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">hierarchyPath</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/knowledge/hierarchy.mjs</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">hierarchyPath({ graph, id, tree }): import('./model.mjs').KnowledgeNode[]</td>
-                                            <td class="py-1 text-sm">The root-to-node path, using the deterministic primary parent.</td>
-                                        </tr>
-                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
                                             <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">HookRegistry</td>
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/core/hooks.mjs</td>
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">class HookRegistry</td>
@@ -1175,12 +1019,6 @@ client.session(model)
                                             <td class="py-1 text-sm">Sliding-window inactivity timeout.</td>
                                         </tr>
                                         <tr class="border-b border-[var(--border-color)]/60 align-top">
-                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">INBOX_STORE_VERSION</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/inbox-store.mjs</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">INBOX_STORE_VERSION = 1</td>
-                                            <td class="py-1 text-sm">The on-disk shape every inbox store speaks.</td>
-                                        </tr>
-                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
                                             <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">ingestDocument</td>
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/ingest.mjs</td>
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">ingestDocument({ client, model, path, root, provider, signal }): Promise&lt;string&gt;</td>
@@ -1191,18 +1029,6 @@ client.session(model)
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/index.mjs</td>
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">initializeClient({ provider, options }): Promise&lt;{ client: MerciClientInstance; provider: string; }&gt;</td>
                                             <td class="py-1 text-sm">Builds one backend client.</td>
-                                        </tr>
-                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
-                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">InMemoryInboxStore</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/inbox-store.mjs</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">class InMemoryInboxStore</td>
-                                            <td class="py-1 text-sm">Process-local inbox.</td>
-                                        </tr>
-                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
-                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">InMemorySessionStore</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/sessions.mjs</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">class InMemorySessionStore</td>
-                                            <td class="py-1 text-sm">A `SessionStore` in a `Map`: for tests, evals and short-lived processes.</td>
                                         </tr>
                                         <tr class="border-b border-[var(--border-color)]/60 align-top">
                                             <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">INTERACTIVE_ACTIONS</td>
@@ -1229,16 +1055,10 @@ client.session(model)
                                             <td class="py-1 text-sm">True when `m` is an SDK row-injection.</td>
                                         </tr>
                                         <tr class="border-b border-[var(--border-color)]/60 align-top">
-                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">isInsideRoot</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/support/path-safety.mjs</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">isInsideRoot({ root, path }): boolean</td>
-                                            <td class="py-1 text-sm">True when `path` is `root` itself or sits below it. A bare string prefix would accept `/root2` for the root `/root`; the separator is part of the test.</td>
-                                        </tr>
-                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
                                             <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">isSdkFallbackOutput</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/agentic-core.mjs</td>
+                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/outcomes.mjs</td>
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">isSdkFallbackOutput({ text }): boolean</td>
-                                            <td class="py-1 text-sm">iteration-limit or schema-validation, so the `(${msg})` and `+TRUNCATED` variants match).</td>
+                                            <td class="py-1 text-sm">—</td>
                                         </tr>
                                         <tr class="border-b border-[var(--border-color)]/60 align-top">
                                             <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">isStandard</td>
@@ -1260,9 +1080,9 @@ client.session(model)
                                         </tr>
                                         <tr class="border-b border-[var(--border-color)]/60 align-top">
                                             <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">isTransientFallbackKind</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/agentic-core.mjs</td>
+                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/outcomes.mjs</td>
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">isTransientFallbackKind({ kind }): boolean</td>
-                                            <td class="py-1 text-sm">answer or an exhausted structured-output correction loop.</td>
+                                            <td class="py-1 text-sm">—</td>
                                         </tr>
                                         <tr class="border-b border-[var(--border-color)]/60 align-top">
                                             <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">JaiEngine</td>
@@ -1287,36 +1107,6 @@ client.session(model)
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/journal.mjs</td>
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">journalKey({ parts }): string</td>
                                             <td class="py-1 text-sm">A stable 16-character key for a journal entry, derived from its parts.</td>
-                                        </tr>
-                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
-                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">KNOWLEDGE_BUILD_VERSION</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/knowledge/build.mjs</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">KNOWLEDGE_BUILD_VERSION = 2</td>
-                                            <td class="py-1 text-sm">Bumped whenever the mechanical pass changes what it emits for the same bytes.</td>
-                                        </tr>
-                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
-                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">KNOWLEDGE_SCHEMA</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/knowledge/model.mjs</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">KNOWLEDGE_SCHEMA = "merci.knowledge/v1"</td>
-                                            <td class="py-1 text-sm">Schema id carried by `graph.json`.</td>
-                                        </tr>
-                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
-                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">KnowledgeComponent</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/knowledge/component.mjs</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">class KnowledgeComponent extends LoadableComponent</td>
-                                            <td class="py-1 text-sm">The knowledge capability.</td>
-                                        </tr>
-                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
-                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">LEGAL_PROFILE</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/knowledge/model.mjs</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">LEGAL_PROFILE: Readonly&lt;{ name: "legal"; kinds: readonly string[]; relations: readonly string[]; }&gt;</td>
-                                            <td class="py-1 text-sm">The legal vocabulary the existing corpus uses (`legalgraph/v1`).</td>
-                                        </tr>
-                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
-                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">levelKindsFor</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/knowledge/model.mjs</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">levelKindsFor({ profile, hierarchy, level }): string</td>
-                                            <td class="py-1 text-sm">Resolves the kind for a one-based structural level.</td>
                                         </tr>
                                         <tr class="border-b border-[var(--border-color)]/60 align-top">
                                             <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">LIMIT_DEFAULTS</td>
@@ -1349,52 +1139,16 @@ client.session(model)
                                             <td class="py-1 text-sm">Base class for operational capabilities (skills, memory, …) that surface a payload to the model.</td>
                                         </tr>
                                         <tr class="border-b border-[var(--border-color)]/60 align-top">
-                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">loadCorpus</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/knowledge/cache.mjs</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">loadCorpus({ dir }): Promise&lt;{ graph: import('./model.mjs').KnowledgeGraph | null; manifest: CorpusManifest | null; }&gt;</td>
-                                            <td class="py-1 text-sm">Loads the persisted graph and its manifest.</td>
-                                        </tr>
-                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
                                             <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">loadCredentials</td>
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/support/utils.mjs</td>
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">loadCredentials({ provider }): Record&lt;string, unknown&gt;</td>
                                             <td class="py-1 text-sm">Reads a backend's credentials from the environment into the options `initializeClient` expects.</td>
                                         </tr>
                                         <tr class="border-b border-[var(--border-color)]/60 align-top">
-                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">loadGraph</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/knowledge/store.mjs</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">loadGraph({ dir }): Promise&lt;{ status: 'ok' | 'missing' | 'corrupt'; graph?: import('./model.mjs').KnowledgeGraph; reason?: string; }&gt;</td>
-                                            <td class="py-1 text-sm">Loads the graph.</td>
-                                        </tr>
-                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
-                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">loadManifest</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/knowledge/cache.mjs</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">loadManifest({ dir }): Promise&lt;CorpusManifest | null&gt;</td>
-                                            <td class="py-1 text-sm">—</td>
-                                        </tr>
-                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
-                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">loadOntology</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/knowledge/store.mjs</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">loadOntology({ dir }): Promise&lt;{ kinds: Array&lt;string&gt;; relations: Array&lt;string&gt;; promoted: Array&lt;string&gt;; version: number; status: string; proposalSha: string | null; }&gt;</td>
-                                            <td class="py-1 text-sm">Loads the vocabulary.</td>
-                                        </tr>
-                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
-                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">LocalFileInboxStore</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/inbox-store.mjs</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">class LocalFileInboxStore</td>
-                                            <td class="py-1 text-sm">File-backed inbox: one JSON file per thread, written atomically (tmp + rename, fsync) so a crash mid-save leaves the previous queue intact.</td>
-                                        </tr>
-                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
                                             <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">LocalFileMemoryProvider</td>
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/memory/providers.mjs</td>
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">class LocalFileMemoryProvider extends MemoryProvider</td>
                                             <td class="py-1 text-sm">File-backed memory bank: one JSON file of facts with atomic saves.</td>
-                                        </tr>
-                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
-                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">LocalFileSessionStore</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/sessions.mjs</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">class LocalFileSessionStore</td>
-                                            <td class="py-1 text-sm">File-backed checkpoint store.</td>
                                         </tr>
                                         <tr class="border-b border-[var(--border-color)]/60 align-top">
                                             <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">log</td>
@@ -1439,12 +1193,6 @@ client.session(model)
                                             <td class="py-1 text-sm">Base memory provider contract.</td>
                                         </tr>
                                         <tr class="border-b border-[var(--border-color)]/60 align-top">
-                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">memorySurface</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/knowledge/adapters.mjs</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">memorySurface({ facts }): { nodes: import('./model.mjs').KnowledgeNode[]; edges: import('./model.mjs').KnowledgeEdge[]; }</td>
-                                            <td class="py-1 text-sm">The `memory` surface: bank facts become `fact` nodes.</td>
-                                        </tr>
-                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
                                             <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">merciEnvelope</td>
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/agent-context.mjs</td>
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">merciEnvelope({ ctx }): MerciEnvelope</td>
@@ -1461,18 +1209,6 @@ client.session(model)
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/core/emitter.mjs</td>
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">class MerciEventEmitter extends EventEmitter</td>
                                             <td class="py-1 text-sm">Per-subscription options: higher `priority` dispatches first, `prepend` jumps the queue, `once` removes after the first dispatch.</td>
-                                        </tr>
-                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
-                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">mergeFragment</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/knowledge/adapters.mjs</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">mergeFragment({ graph, fragment }): import('./model.mjs').KnowledgeGraph</td>
-                                            <td class="py-1 text-sm">Merges adapter output into a graph, skipping ids that already exist.</td>
-                                        </tr>
-                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
-                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">nodeKey</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/knowledge/build.mjs</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">nodeKey({ node }): string</td>
-                                            <td class="py-1 text-sm">Stable identity of a node's content, independent of where it sits.</td>
                                         </tr>
                                         <tr class="border-b border-[var(--border-color)]/60 align-top">
                                             <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">NoRetryPolicy</td>
@@ -1517,12 +1253,6 @@ client.session(model)
                                             <td class="py-1 text-sm">Obscura engine — standalone `obscura fetch &lt;url&gt; --dump &lt;text|markdown&gt;`. Zero new dependencies; binary from `opts.binaryPath ?? OBSCURA_BINARY`.</td>
                                         </tr>
                                         <tr class="border-b border-[var(--border-color)]/60 align-top">
-                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">ontologySha</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/knowledge/profile.mjs</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">ontologySha({ proposal }): string</td>
-                                            <td class="py-1 text-sm">Identity of a proposal: the shape, not the timestamp.</td>
-                                        </tr>
-                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
                                             <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">OrchestrationError</td>
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/core/errors.mjs</td>
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">class OrchestrationError extends MerciError</td>
@@ -1565,12 +1295,6 @@ client.session(model)
                                             <td class="py-1 text-sm">Canonical phase names.</td>
                                         </tr>
                                         <tr class="border-b border-[var(--border-color)]/60 align-top">
-                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">planSurface</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/knowledge/adapters.mjs</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">planSurface({ plan }): { nodes: import('./model.mjs').KnowledgeNode[]; edges: import('./model.mjs').KnowledgeEdge[]; }</td>
-                                            <td class="py-1 text-sm">The `plan` surface: a task DAG becomes `step` nodes.</td>
-                                        </tr>
-                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
                                             <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">PlaywrightSession</td>
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/browser/engines.mjs</td>
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">class PlaywrightSession</td>
@@ -1581,36 +1305,6 @@ client.session(model)
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/core/errors.mjs</td>
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">class PolicyError extends MerciError</td>
                                             <td class="py-1 text-sm">A `WORKFLOW.md` contract failed to load, parse, resolve, or render.</td>
-                                        </tr>
-                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
-                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">policyToSchedulerOptions</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/workflow-policy/integrate.mjs</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">policyToSchedulerOptions({ policy }): SchedulerOptions</td>
-                                            <td class="py-1 text-sm">The scheduler options from the resolved policy.</td>
-                                        </tr>
-                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
-                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">policyToWorkspaceOptions</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/workflow-policy/integrate.mjs</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">policyToWorkspaceOptions({ policy }): WorkspaceOptions</td>
-                                            <td class="py-1 text-sm">The construction-bound workspace options.</td>
-                                        </tr>
-                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
-                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">profileSources</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/knowledge/profile.mjs</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">profileSources({ sources }): DataProfile</td>
-                                            <td class="py-1 text-sm">Measures one or more documents.</td>
-                                        </tr>
-                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
-                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">promotableRelations</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/knowledge/store.mjs</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">promotableRelations({ graph, promoteAfter }): Array&lt;{ rel: string; notes: number; }&gt;</td>
-                                            <td class="py-1 text-sm">Custom relations that appear in enough distinct notes to deserve promotion into the vocabulary.</td>
-                                        </tr>
-                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
-                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">proposeOntology</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/knowledge/profile.mjs</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">proposeOntology({ profile, minSupport, name }): OntologyProposal</td>
-                                            <td class="py-1 text-sm">Turns a measurement into a candidate vocabulary.</td>
                                         </tr>
                                         <tr class="border-b border-[var(--border-color)]/60 align-top">
                                             <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">ProtocolType</td>
@@ -1649,58 +1343,16 @@ client.session(model)
                                             <td class="py-1 text-sm">Every concrete provider the SDK can target.</td>
                                         </tr>
                                         <tr class="border-b border-[var(--border-color)]/60 align-top">
-                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">queryGraph</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/knowledge/query.mjs</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">queryGraph({ graph, id, depth, maxNodes, edgeFilter, direction }): { node: import('./model.mjs').KnowledgeNode; nodes: import('./model.mjs').KnowledgeNode[]; edges: Array&lt;import('./model.mjs').KnowledgeEdge&gt;; }</td>
-                                            <td class="py-1 text-sm">The bounded neighbourhood of one node, for the explicit-id query form.</td>
-                                        </tr>
-                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
                                             <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">readDecisionAnswer</td>
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/messaging/decision.mjs</td>
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">readDecisionAnswer({ answers, name, type }): DecisionAnswer</td>
                                             <td class="py-1 text-sm">Reads one answer from a result, refusing a missing key or a type the caller did not expect.</td>
                                         </tr>
                                         <tr class="border-b border-[var(--border-color)]/60 align-top">
-                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">readSources</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/knowledge/cache.mjs</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">readSources({ paths }): Array&lt;{ id: string; path: string; name: string; text: string; }&gt;</td>
-                                            <td class="py-1 text-sm">Reads the sources from disk, in the order given (the order is part of the key).</td>
-                                        </tr>
-                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
-                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">readWikiSha</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/knowledge/render.mjs</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">readWikiSha({ dir }): string | null</td>
-                                            <td class="py-1 text-sm">The graph hash a previously rendered wiki carries, or null.</td>
-                                        </tr>
-                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
                                             <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">reloadLimits</td>
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/core/limit-config.mjs</td>
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">reloadLimits(): void</td>
                                             <td class="py-1 text-sm">Re-reads `merci-limits.json` on the next resolution.</td>
-                                        </tr>
-                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
-                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">renderKnowledgeBlock</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/knowledge/render.mjs</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">renderKnowledgeBlock({ graph, result, budget, query }): string | null</td>
-                                            <td class="py-1 text-sm">Renders a bounded knowledge block for the prompt.</td>
-                                        </tr>
-                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
-                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">renderNodePage</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/knowledge/render.mjs</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">renderNodePage({ graph, node, tree }): string</td>
-                                            <td class="py-1 text-sm">One node's wiki page.</td>
-                                        </tr>
-                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
-                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">renderSectionMap</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/knowledge/render.mjs</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">renderSectionMap({ graph, budget }): string | null</td>
-                                            <td class="py-1 text-sm">The map: hierarchy when structural edges justify it, headings when the graph has them, otherwise the most load-bearing nodes.</td>
-                                        </tr>
-                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
-                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">renderWiki</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/knowledge/render.mjs</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">renderWiki({ graph, dir }): { dir: string; dirWritten: string; pages: number; sha: string; }</td>
-                                            <td class="py-1 text-sm">Renders the wiki.</td>
                                         </tr>
                                         <tr class="border-b border-[var(--border-color)]/60 align-top">
                                             <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">resetLimits</td>
@@ -1749,24 +1401,6 @@ client.session(model)
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/websearch/engines.mjs</td>
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">resolveSearchMode({ sessionProvider, mode }): string</td>
                                             <td class="py-1 text-sm">Resolves the search mode — the engine the web search runs on.</td>
-                                        </tr>
-                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
-                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">resolveWorkspacePath</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/workspace/paths.mjs</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">resolveWorkspacePath({ root, key }): string</td>
-                                            <td class="py-1 text-sm">Resolve one workspace path under a root and assert containment, without IO.</td>
-                                        </tr>
-                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
-                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">restoreCheckpoint</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/planning/checkpoint.mjs</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">restoreCheckpoint({ saved, kind, args }): Object | string | null</td>
-                                            <td class="py-1 text-sm">Restores a checkpoint of the expected kind.</td>
-                                        </tr>
-                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
-                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">retrieveSubgraph</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/knowledge/query.mjs</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">retrieveSubgraph({ graph, text, ids, embedder, depth, limit, scorer, edgeFilter, direction, hubDamping }): Promise&lt;{ nodes: Array&lt;RankedNode&gt;; edges: import('./model.mjs').KnowledgeEdge[]; seeds: Array&lt;string&gt;; }&gt;</td>
-                                            <td class="py-1 text-sm">The whole read path: seed → expand → rank.</td>
                                         </tr>
                                         <tr class="border-b border-[var(--border-color)]/60 align-top">
                                             <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">RetryLedger</td>
@@ -1829,24 +1463,6 @@ client.session(model)
                                             <td class="py-1 text-sm">Installs `runContext` as the ambient correlation context for `fn`. Every `emitEvent`/`stampEvent` executed inside (across awaits and child generators) correlates automatically.</td>
                                         </tr>
                                         <tr class="border-b border-[var(--border-color)]/60 align-top">
-                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">saveCheckpoint</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/planning/checkpoint.mjs</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">saveCheckpoint({ store, threadId, kind, payload }): Promise&lt;string&gt;</td>
-                                            <td class="py-1 text-sm">Saves a tagged checkpoint through a session store.</td>
-                                        </tr>
-                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
-                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">saveGraph</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/knowledge/store.mjs</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">saveGraph({ dir, graph }): Promise&lt;string&gt;</td>
-                                            <td class="py-1 text-sm">Writes the graph and stamps its stats + hash.</td>
-                                        </tr>
-                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
-                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">saveOntology</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/knowledge/store.mjs</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">saveOntology({ dir, ontology }): Promise&lt;string&gt;</td>
-                                            <td class="py-1 text-sm">Writes the vocabulary.</td>
-                                        </tr>
-                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
                                             <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">SchedulerError</td>
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/core/errors.mjs</td>
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">class SchedulerError extends MerciError</td>
@@ -1869,18 +1485,6 @@ client.session(model)
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/core/limit-config.mjs</td>
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">setLimits({ values, disabled: nextDisabled, disabledKeys: nextDisabledKeys, allowGuardOff: nextAllowGuardOff }): ReturnType&lt;typeof getLimits&gt;</td>
                                             <td class="py-1 text-sm">Applies programmatic overrides.</td>
-                                        </tr>
-                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
-                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">sourceDelta</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/knowledge/cache.mjs</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">sourceDelta({ stored, current }): { added: Array&lt;string&gt;; changed: Array&lt;string&gt;; removed: Array&lt;string&gt;; unchanged: Array&lt;string&gt;; clean: boolean; }</td>
-                                            <td class="py-1 text-sm">What changed between the corpus a graph was built from and the one on disk.</td>
-                                        </tr>
-                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
-                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">sourceSha</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/knowledge/build.mjs</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">sourceSha({ text }): string</td>
-                                            <td class="py-1 text-sm">Content hash of a whole source, for the corpus manifest.</td>
                                         </tr>
                                         <tr class="border-b border-[var(--border-color)]/60 align-top">
                                             <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">spawnThreadId</td>
@@ -1955,40 +1559,16 @@ client.session(model)
                                             <td class="py-1 text-sm">Returns a copy of `messages` with the non-wire keys (INJECTION_META_KEY, MERCI_ID_KEY and — unless `keepNative` — MERCI_NATIVE_KEY) removed from every message.</td>
                                         </tr>
                                         <tr class="border-b border-[var(--border-color)]/60 align-top">
-                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">structuredLlmCall</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/planning/planner-utils.mjs</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">structuredLlmCall&lt;T&gt;({ client, model, systemMessage, schema, prompt, label, schemaName, useToolCapture, maxAttempts, timeoutMs, sessionId, signal, onUsage }): Promise&lt;T&gt;</td>
-                                            <td class="py-1 text-sm">Calls the LLM and returns structured data matching `schema`. Retries parse failures with fresh sessions up to maxAttempts; aborts rethrow immediately.</td>
-                                        </tr>
-                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
                                             <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">sumSpawnUsage</td>
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/spawn-registry.mjs</td>
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">sumSpawnUsage(list: Array&lt;SpawnUsage | null | undefined&gt;): SpawnUsage | null</td>
                                             <td class="py-1 text-sm">Sums the numeric usage fields of every attempt.</td>
                                         </tr>
                                         <tr class="border-b border-[var(--border-color)]/60 align-top">
-                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">surfaceFragment</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/knowledge/adapters.mjs</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">surfaceFragment({ surface, input, profile }): { nodes: Array&lt;import('./model.mjs').KnowledgeNode&gt;; edges: Array&lt;import('./model.mjs').KnowledgeEdge&gt;; sources: Array&lt;import('./model.mjs').KnowledgeSourceRecord&gt;; profile?:…</td>
-                                            <td class="py-1 text-sm">Runs one surface's adapter.</td>
-                                        </tr>
-                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
-                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">syncCorpus</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/knowledge/cache.mjs</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">syncCorpus({ dir, paths, sources, profile, hierarchy, now, build, buildVersion }): Promise&lt;{ graph: import('./model.mjs').KnowledgeGraph; delta: { added: Array&lt;string&gt;; changed: Array&lt;string&gt;; removed: Array&lt;string&gt;; unc…</td>
-                                            <td class="py-1 text-sm">Load-or-build.</td>
-                                        </tr>
-                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
                                             <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">TASK_TOOL_NAME</td>
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/task.mjs</td>
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">TASK_TOOL_NAME = "task"</td>
                                             <td class="py-1 text-sm">The `task` tool's wire name.</td>
-                                        </tr>
-                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
-                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">TaskState</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/planning/task-state.mjs</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">class TaskState</td>
-                                            <td class="py-1 text-sm">The serializable state of one workflow (DAG) run.</td>
                                         </tr>
                                         <tr class="border-b border-[var(--border-color)]/60 align-top">
                                             <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">TavilyEngine</td>
@@ -2015,12 +1595,6 @@ client.session(model)
                                             <td class="py-1 text-sm">The todos capability component: task list management exposed as load/save tools and rendered into the system context.</td>
                                         </tr>
                                         <tr class="border-b border-[var(--border-color)]/60 align-top">
-                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">todosSurface</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/knowledge/adapters.mjs</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">todosSurface({ store }): { nodes: import('./model.mjs').KnowledgeNode[]; edges: import('./model.mjs').KnowledgeEdge[]; }</td>
-                                            <td class="py-1 text-sm">The `todos` surface: tasks and their declared dependencies.</td>
-                                        </tr>
-                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
                                             <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">toolJournalKey</td>
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/journal.mjs</td>
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">toolJournalKey({ runId, boundary, name, args }): string</td>
@@ -2037,18 +1611,6 @@ client.session(model)
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/webscrape/engines.mjs</td>
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">toUnifiedScrape({ url, raw, includeVendorMetadata }): UnifiedScrapeResult</td>
                                             <td class="py-1 text-sm">Curl plain text) to the unified `{ url, content, truncated, _vendor? }` shape.</td>
-                                        </tr>
-                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
-                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">validateGraph</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/knowledge/model.mjs</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">validateGraph({ graph, profile, strict, wikiSha, sources, promoteAfter, sourcePolicy }): { schema: string; status: 'pass' | 'warn' | 'fail'; strict: boolean; graphSha: string; summary: { nodes: number; edges: number; err…</td>
-                                            <td class="py-1 text-sm">Validates a graph.</td>
-                                        </tr>
-                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
-                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">validateTemplateRefs</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/planning/graph-utils.mjs</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">validateTemplateRefs({ steps, contextRoots, fields, knownIds, ancestorsOnly, graph }): { unknown: Array&lt;{ stepId: string; expr: string; }&gt;; nonAncestor: Array&lt;{ stepId: string; expr: string; via: string[]; }&gt;; }</td>
-                                            <td class="py-1 text-sm">Validates that every `{{...}}` reference in each step's `userPromptTemplate` names a known step id or an allowed context root, and — with `ancestorsOnly` — that a step id it names is one of that step's **ancestors**. Returns both lists so t…</td>
                                         </tr>
                                         <tr class="border-b border-[var(--border-color)]/60 align-top">
                                             <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">VerificationError</td>
@@ -2069,12 +1631,6 @@ client.session(model)
                                             <td class="py-1 text-sm">Web-search capability surfaced as a `web_search` function tool.</td>
                                         </tr>
                                         <tr class="border-b border-[var(--border-color)]/60 align-top">
-                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">wikiSurface</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/knowledge/adapters.mjs</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">wikiSurface({ dir, profile, title, hierarchy, nested }): import('./model.mjs').KnowledgeGraph</td>
-                                            <td class="py-1 text-sm">The `wiki` surface: an existing markdown corpus becomes a reference graph.</td>
-                                        </tr>
-                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
                                             <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">withAgentDelegation</td>
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/task.mjs</td>
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">withAgentDelegation({ client, agents, models, transports, system, tools, maxDepth, maxSpawns }): TaskClient</td>
@@ -2087,52 +1643,16 @@ client.session(model)
                                             <td class="py-1 text-sm">duplicate name wins) and returns the client for chaining.</td>
                                         </tr>
                                         <tr class="border-b border-[var(--border-color)]/60 align-top">
-                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">WorkflowPolicy</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/workflow-policy/policy.mjs</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">class WorkflowPolicy</td>
-                                            <td class="py-1 text-sm">A reload is single-flight, keeps the last good state on failure, and arms a debounced watcher only after the first load succeeds.</td>
-                                        </tr>
-                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
-                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">WorkScheduler</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/scheduler/scheduler.mjs</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">class WorkScheduler</td>
-                                            <td class="py-1 text-sm">The work-item scheduler: claims, dispatch, retries, parking, and a single-flight tick.</td>
-                                        </tr>
-                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
                                             <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">WorkSourceError</td>
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/core/errors.mjs</td>
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">class WorkSourceError extends MerciError</td>
                                             <td class="py-1 text-sm">A work source failed to list or refresh items.</td>
                                         </tr>
                                         <tr class="border-b border-[var(--border-color)]/60 align-top">
-                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">WORKSPACE_HOOKS</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/workspace/hooks.mjs</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">WORKSPACE_HOOKS: Readonly&lt;{ AFTER_CREATE: "afterCreate"; BEFORE_RUN: "beforeRun"; AFTER_RUN: "afterRun"; BEFORE_REMOVE: "beforeRemove"; }&gt;</td>
-                                            <td class="py-1 text-sm">The four lifecycle hooks, in call order.</td>
-                                        </tr>
-                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
-                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">WORKSPACE_STRATEGIES</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/workspace/manager.mjs</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">WORKSPACE_STRATEGIES: Readonly&lt;{ DIRECTORY: "directory"; GIT_WORKTREE: "git-worktree"; }&gt;</td>
-                                            <td class="py-1 text-sm">The strategies, frozen so a caller cannot mutate the registry.</td>
-                                        </tr>
-                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
                                             <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">WorkspaceError</td>
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/core/errors.mjs</td>
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">class WorkspaceError extends MerciError</td>
                                             <td class="py-1 text-sm">A workspace key, path, or lifecycle operation failed.</td>
-                                        </tr>
-                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
-                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">workspaceKeyFor</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/workspace/keys.mjs</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">workspaceKeyFor({ workItemId }): string</td>
-                                            <td class="py-1 text-sm">Derive the workspace directory name for a work item id. Deterministic: the same id always yields the same key, on any host.</td>
-                                        </tr>
-                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
-                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">WorkspaceManager</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/workspace/manager.mjs</td>
-                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">class WorkspaceManager</td>
-                                            <td class="py-1 text-sm">—</td>
                                         </tr>
                                         <tr class="border-b border-[var(--border-color)]/60 align-top">
                                             <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">wrapError</td>
@@ -2469,6 +1989,46 @@ client.session(model)
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/backends/gai.mjs</td>
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">class MerciClient extends EventEmitter</td>
                                             <td class="py-1 text-sm">Main Merci SDK client for Google GenAI.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="api-card">
+                        <h3 class="font-bold text-[var(--text-primary)] !mt-0">Named exports of <code class="inline">merci-sdk/inbox</code></h3>
+                        <div class="space-y-4 mt-4 text-sm text-[var(--text-secondary)]">
+                            <div class="export-chips"><code class="inline">INBOX_STORE_VERSION</code><code class="inline">InMemoryInboxStore</code><code class="inline">LocalFileInboxStore</code></div>
+                        </div>
+                        <div class="space-y-4 mt-4 text-sm text-[var(--text-secondary)]">
+                            <div class="overflow-x-auto">
+                                <table class="w-full min-w-[760px] text-left table-fixed">
+                                    <thead>
+                                        <tr class="border-b border-[var(--border-color)]">
+                                            <th class="w-[16%] py-2 pr-4 font-bold text-[var(--text-primary)]">Export</th>
+                                            <th class="w-[20%] py-2 pr-4 font-bold text-[var(--text-primary)]">Module</th>
+                                            <th class="w-[34%] py-2 pr-4 font-bold text-[var(--text-primary)]">Signature</th>
+                                            <th class="w-[30%] py-2 font-bold text-[var(--text-primary)]">Summary</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
+                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">INBOX_STORE_VERSION</td>
+                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/inbox-store.mjs</td>
+                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">INBOX_STORE_VERSION = 1</td>
+                                            <td class="py-1 text-sm">The on-disk shape every inbox store speaks.</td>
+                                        </tr>
+                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
+                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">InMemoryInboxStore</td>
+                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/inbox-store.mjs</td>
+                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">class InMemoryInboxStore</td>
+                                            <td class="py-1 text-sm">Process-local inbox.</td>
+                                        </tr>
+                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
+                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">LocalFileInboxStore</td>
+                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/inbox-store.mjs</td>
+                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">class LocalFileInboxStore</td>
+                                            <td class="py-1 text-sm">File-backed inbox: one JSON file per thread, written atomically (tmp + rename, fsync) so a crash mid-save leaves the previous queue intact.</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -3440,7 +3000,7 @@ client.session(model)
                     <div class="api-card">
                         <h3 class="font-bold text-[var(--text-primary)] !mt-0">Named exports of <code class="inline">merci-sdk/planning</code></h3>
                         <div class="space-y-4 mt-4 text-sm text-[var(--text-secondary)]">
-                            <div class="export-chips"><code class="inline">ApprovalCoordinator</code><code class="inline">assertStateSchema</code><code class="inline">CHECKPOINT_KIND</code><code class="inline">collectTemplateRefs</code><code class="inline">getLeafOutput</code><code class="inline">interpolateTemplate</code><code class="inline">Plan</code><code class="inline">PLAN_VERSION</code><code class="inline">restoreCheckpoint</code><code class="inline">saveCheckpoint</code><code class="inline">sortDagNodes</code><code class="inline">TaskState</code><code class="inline">unwrapCheckpoint</code><code class="inline">validateTemplateRefs</code><code class="inline">WorkflowEvaluator</code><code class="inline">WorkflowExecutor</code><code class="inline">WorkflowPlanner</code><code class="inline">wrapCheckpoint</code></div>
+                            <div class="export-chips"><code class="inline">ApprovalCoordinator</code><code class="inline">assertStateSchema</code><code class="inline">CHECKPOINT_KIND</code><code class="inline">collectTemplateRefs</code><code class="inline">getLeafOutput</code><code class="inline">interpolateTemplate</code><code class="inline">Plan</code><code class="inline">PLAN_VERSION</code><code class="inline">restoreCheckpoint</code><code class="inline">saveCheckpoint</code><code class="inline">sortDagNodes</code><code class="inline">structuredLlmCall</code><code class="inline">TaskState</code><code class="inline">unwrapCheckpoint</code><code class="inline">validateTemplateRefs</code><code class="inline">WorkflowEvaluator</code><code class="inline">WorkflowExecutor</code><code class="inline">WorkflowPlanner</code><code class="inline">wrapCheckpoint</code></div>
                         </div>
                         <div class="space-y-4 mt-4 text-sm text-[var(--text-secondary)]">
                             <div class="overflow-x-auto">
@@ -3519,6 +3079,12 @@ client.session(model)
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/planning/graph-utils.mjs</td>
                                             <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">sortDagNodes({ steps }): Array&lt;string&gt;</td>
                                             <td class="py-1 text-sm">Kahn's topological sort of the given steps.</td>
+                                        </tr>
+                                        <tr class="border-b border-[var(--border-color)]/60 align-top">
+                                            <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">structuredLlmCall</td>
+                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-secondary)] break-words">lib/agentic/planning/planner-utils.mjs</td>
+                                            <td class="py-1 pr-4 font-mono text-xs text-[var(--text-primary)] break-words">structuredLlmCall&lt;T&gt;({ client, model, systemMessage, schema, prompt, label, schemaName, useToolCapture, maxAttempts, timeoutMs, sessionId, signal, onUsage }): Promise&lt;T&gt;</td>
+                                            <td class="py-1 text-sm">Calls the LLM and returns structured data matching `schema`. Retries parse failures with fresh sessions up to maxAttempts; aborts rethrow immediately.</td>
                                         </tr>
                                         <tr class="border-b border-[var(--border-color)]/60 align-top">
                                             <td class="py-1 pr-4 font-mono font-bold text-[var(--primary-color)] break-words">TaskState</td>
@@ -4121,7 +3687,7 @@ client.session(model)
                 <div class="flex items-center gap-2">
                     <img src="merci-sdk-logo.png" alt="Merci SDK Logo" class="h-6 w-9 object-contain">
                     <span class="font-bold text-sm text-[var(--text-primary)]">Merci SDK</span>
-                    <span class="text-xs font-mono text-[var(--text-secondary)]">v0.25.0</span>
+                    <span class="text-xs font-mono text-[var(--text-secondary)]">v0.26.0</span>
                 </div>
                 <p class="text-xs text-[var(--text-secondary)]">© 2026 Lukáš Michna (Mobeetle) · Apache-2.0</p>
                 <nav class="flex items-center gap-4 text-xs font-semibold text-[var(--text-secondary)]">

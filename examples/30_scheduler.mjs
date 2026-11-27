@@ -40,8 +40,9 @@ import { EventEmitter } from 'node:events';
 import { mkdir, rm, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import {
-    EVENTS, LocalFileSessionStore, RunContext, WorkSourceError, initializeClient, loadCredentials, log,
+    EVENTS, RunContext, WorkSourceError, initializeClient, loadCredentials, log,
 } from 'merci-sdk';
+import { LocalFileSessionStore } from 'merci-sdk/sessions';
 import {
     CLAIM_STATES, SCHEDULER_DEFAULTS, WorkScheduler, createEngineRunner, createFileAttemptStore,
     createFileClaimStore, createFunctionWorkSource, createJsonFileWorkSource, createMemoryClaimStore,

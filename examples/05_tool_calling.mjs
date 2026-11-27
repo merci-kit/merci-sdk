@@ -13,7 +13,7 @@
  *       several calls into one round; the round's call count is measured.
  *   C — manual     : iterate `session.step({ messages })` yourself, execute
  *       with `executeTools`, and rebuild the round with the message factories
- *       (`createSystemMessage`, `createAssistantMessage`, `createToolCallMessage`,
+ *       (`createSystemMessage`, `createAssistantMessage`, `createToolCallMessages`,
  *       `createToolResultMessage`) — the transcript is yours, and it normalizes
  *       back to the provider's wire.
  *   D — the contract: a tool declaring an `outputSchema` fails the call instead
@@ -24,7 +24,7 @@
  * `session.run({ initialInput, options })`, `session.step({ messages })`,
  * `executeTools({ toolCalls, toolLibrary })`, `capToolOutputValue`,
  * `createSystemMessage`, `createUserMessage`, `createAssistantMessage`,
- * `createToolCallMessage`, `createToolResultMessage`, `normalizeHistory`,
+ * `createToolCallMessages`, `createToolResultMessage`, `normalizeHistory`,
  * `getToolCallName`, `getToolCallArguments`.
  *
  * Run: `node examples/05_tool_calling.mjs`
@@ -33,7 +33,7 @@
  * @version 0.23.0
  */
 import {
-    createAssistantMessage, createSystemMessage, createToolCallMessage,
+    createAssistantMessage, createSystemMessage, createToolCallMessages,
     createToolResultMessage, createUserMessage, getToolCallArguments, getToolCallName,
     initializeClient, loadCredentials, log, normalizeHistory,
 } from 'merci-sdk';
@@ -256,7 +256,7 @@ async function main() {
     const rebuilt = [
         createSystemMessage({ provider, content: MANUAL_SYSTEM }),
         createUserMessage({ provider, content: MANUAL_PROMPT }),
-        createToolCallMessage({
+        ...createToolCallMessages({
             provider,
             calls: manualCalls.map((call) => ({
                 id: String(call.id ?? call.tool_call_id ?? ''),

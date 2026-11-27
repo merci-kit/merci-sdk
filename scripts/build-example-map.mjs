@@ -77,7 +77,13 @@ function importsOf({ ast }) {
     return out;
 }
 
-const PUBLIC_SOURCES = new Set(['merci-sdk', 'merci-sdk/tools', 'merci-sdk/acp', 'merci-sdk/planning', 'merci-sdk/json', 'merci-sdk/messaging', 'merci-sdk/oai', 'merci-sdk/jai', 'merci-sdk/gai', 'merci-sdk/aai', 'merci-sdk/workspace', 'merci-sdk/scheduler', 'merci-sdk/operator', 'merci-sdk/workflow-policy', 'merci-sdk/orchestration', 'merci-sdk/agents', 'merci-sdk/knowledge']);
+const PACKAGE = JSON.parse(readFileSync(new URL('../package.json', import.meta.url), 'utf8'));
+const PUBLIC_SOURCES = new Set([
+    'merci-sdk',
+    ...Object.keys(PACKAGE.exports)
+        .filter((/** @type {string} */ path) => path.startsWith('.'))
+        .map((/** @type {string} */ path) => path === '.' ? 'merci-sdk' : `merci-sdk/${path.slice(2)}`)
+]);
 
 
 /**

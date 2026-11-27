@@ -34,9 +34,10 @@
  */
 import { z } from 'zod';
 import {
-    OrchestrationExhaustedError, initializeClient, loadCredentials, log, structuredLlmCall,
+    OrchestrationExhaustedError, initializeClient, loadCredentials, log,
 } from 'merci-sdk';
 import { guardedParse, zodSchemaToJsonSchema } from 'merci-sdk/json';
+import { structuredLlmCall } from 'merci-sdk/planning';
 import { reportUsage, resolveExample, runMain, trackUsage, wireClient } from './_shared/example-utils.mjs';
 
 const MAX_ITERATIONS = 3;

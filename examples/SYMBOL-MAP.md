@@ -14,7 +14,7 @@
 | 02 | `02_conversation.mjs` | Conversation: one carried history, parameters, a stdin-safe REPL. | live | `EVENTS`, `cachePoints`, `countConversationTurns`, `createUserMessage`, `dedupeMessages`, `getToolCallName`, `guardedParse`, `initializeClient`, `loadCredentials`, `log`, `logprobs`, `logprobsTopK`, `maxTokens`, `previousResponseId`, `promptCacheKey`, `seed`, `serviceTier`, `step`, `store`, `stream`, `stripInjectionMeta`, `temperature`, `topP`, `withParameters`, `withSystemMessage` |
 | 03 | `03_structured_output.mjs` | Structured output: JSON Schema, Zod, and bounded corrections. | live | `OrchestrationExhaustedError`, `asJsonSchema`, `guardedParse`, `initializeClient`, `loadCredentials`, `log`, `run`, `structuredLlmCall`, `withParameters`, `zodSchemaToJsonSchema` |
 | 04 | `04_judgment.mjs` | Judgment: typed answers, then a gate in code. | live | `EVENTS`, `choiceQuestion`, `createAgenticRuntime`, `createDecisionGate`, `createDecisionReranker`, `createDecisionsClient`, `createRoleClients`, `decisionCalibration`, `getDecisionModel`, `initializeClient`, `loadCredentials`, `log`, `noulQuestion`, `readDecisionAnswer`, `resolveRole`, `scoreQuestion`, `withDecisionGate` |
-| 05 | `05_tool_calling.mjs` | Tool calling: the model chooses, the SDK executes. | live | `capToolOutputValue`, `createAssistantMessage`, `createSystemMessage`, `createToolCallMessage`, `createToolResultMessage`, `createUserMessage`, `executeTools`, `getToolCallArguments`, `getToolCallName`, `initializeClient`, `loadCredentials`, `log`, `normalizeHistory`, `parallelToolCalls`, `run`, `step`, `withParameters`, `withSystemMessage`, `withTools` |
+| 05 | `05_tool_calling.mjs` | Tool calling: the model chooses, the SDK executes. | live | `capToolOutputValue`, `createAssistantMessage`, `createSystemMessage`, `createToolCallMessages`, `createToolResultMessage`, `createUserMessage`, `executeTools`, `getToolCallArguments`, `getToolCallName`, `initializeClient`, `loadCredentials`, `log`, `normalizeHistory`, `parallelToolCalls`, `run`, `step`, `withParameters`, `withSystemMessage`, `withTools` |
 | 06 | `06_approvals_and_safety.mjs` | Approvals and safety: the refund agent that must be stopped. | live | `BudgetExceededError`, `EVENTS`, `GuardrailViolationError`, `InMemorySessionStore`, `PERMISSION_MODES`, `capToolOutputValue`, `createGuardrails`, `executeTools`, `extractUserText`, `initializeClient`, `isToolPermitted`, `load`, `loadCredentials`, `log`, `run`, `stillRequiresApproval`, `withApproval`, `withBudget`, `withGuardrails`, `withPermissions`, `withSessionStore`, `withSystemMessage`, `withToolTimeout`, `withTools` |
 | 07 | `07_agent_loop.mjs` | The agent loop: staged follow-ups, abort, budget, limits, in-flight input. | live | `BudgetExceededError`, `EVENTS`, `LIMIT_DEFAULTS`, `LocalFileInboxStore`, `acquire`, `cancelInput`, `countConversationTurns`, `createShellTool`, `defaultDisplay`, `drainInbox`, `enqueueInput`, `filter`, `getLimits`, `getPendingInputs`, `hasLiveBackgroundWork`, `initializeClient`, `isAbortError`, `isRunning`, `load`, `loadCredentials`, `loadInbox`, `log`, `release`, `resetLimits`, `run`, `setInputDelivery`, `setLimits`, `waitForBackgroundWork`, `withBudget`, `withInboxStore`, `withSystemMessage`, `withTools` |
 | 08 | `08_resilience.mjs` | Resilience: retries, fan-out limits, breaker, live policy wiring. | live | `BREAKER_OPEN_CODE`, `CircuitBreaker`, `EVENTS`, `ExponentialBackoffPolicy`, `InactivityTimeoutPolicy`, `canRun`, `createLimiter`, `defaultDisplay`, `initializeClient`, `loadCredentials`, `log`, `run`, `runBatch`, `runGuardedStep`, `stream`, `temperature`, `topK`, `withBudget`, `withParameters`, `withRetryPolicy`, `withStreamTimeout`, `withSystemMessage` |
@@ -53,16 +53,24 @@ Symbols not on the `merci-sdk` barrel, imported from a published subpath:
 | --- | --- |
 | `02_conversation.mjs` | `merci-sdk/json → guardedParse` |
 | `03_structured_output.mjs` | `merci-sdk/json → guardedParse, zodSchemaToJsonSchema` |
+| `03_structured_output.mjs` | `merci-sdk/planning → structuredLlmCall` |
 | `05_tool_calling.mjs` | `merci-sdk/tools → capToolOutputValue, executeTools` |
+| `06_approvals_and_safety.mjs` | `merci-sdk/sessions → InMemorySessionStore` |
 | `06_approvals_and_safety.mjs` | `merci-sdk/tools → capToolOutputValue, executeTools` |
+| `07_agent_loop.mjs` | `merci-sdk/inbox → LocalFileInboxStore` |
 | `07_agent_loop.mjs` | `merci-sdk/tools → createShellTool` |
 | `09_memory_and_todos.mjs` | `merci-sdk/json → guardedParse` |
 | `10_multimodal.mjs` | `merci-sdk/json → extractAndParseJson` |
-| `12_knowledge_graph.mjs` | `merci-sdk/knowledge → bm25Scores, rankNodes, tokensOf` |
+| `12_knowledge_graph.mjs` | `merci-sdk/knowledge → applyPatch, bm25Scores, buildGraph, edgeText, graphSha, KnowledgeComponent, loadGraph, queryGraph, rankNodes, renderKnowledgeBlock, retrieveSubgraph, saveGraph, tokensOf, validateGraph` |
+| `13_knowledge_corpus.mjs` | `merci-sdk/knowledge → adoptOntology, adoptedProfile, applyPatch, buildGraph, corpusKey, fingerprintSources, graphSha, loadCorpus, memorySurface, mergeFragment, ontologySha, profileSources, proposeOntology, readSources, readWikiSha, renderKnowledgeBlock, renderWiki, saveGraph, sourceDelta, surfaceFragment, syncCorpus, todosSurface, validateGraph, wikiSurface` |
 | `13_knowledge_corpus.mjs` | `merci-sdk/json → extractAndParseJson` |
 | `14_coding_agent.mjs` | `merci-sdk/tools → createContextTools, createShellTool, loadSkillsFromDirectory` |
+| `15_delegation.mjs` | `merci-sdk/sessions → InMemorySessionStore` |
+| `16_plan_and_execute.mjs` | `merci-sdk/sessions → LocalFileSessionStore` |
 | `16_plan_and_execute.mjs` | `merci-sdk/tools → createContextTools` |
 | `17_dag_workflow.mjs` | `merci-sdk/planning → TaskState, WorkflowEvaluator, WorkflowExecutor, WorkflowPlanner, assertStateSchema, collectTemplateRefs, validateTemplateRefs` |
+| `20_durability.mjs` | `merci-sdk/planning → CHECKPOINT_KIND, restoreCheckpoint, saveCheckpoint` |
+| `20_durability.mjs` | `merci-sdk/sessions → LocalFileSessionStore` |
 | `20_durability.mjs` | `merci-sdk/tools → executeTools` |
 | `24_mcp_client.mjs` | `merci-sdk/tools → McpClient, loadMcpTools` |
 | `24_mcp_client.mjs` | `merci-sdk/json → guardedParse` |
@@ -75,7 +83,9 @@ Symbols not on the `merci-sdk` barrel, imported from a published subpath:
 | `28_workspace_isolation.mjs` | `merci-sdk/scheduler → WorkScheduler, createMemoryClaimStore, createTodoWorkSource` |
 | `28_workspace_isolation.mjs` | `merci-sdk/workspace → WORKSPACE_HOOKS, WORKSPACE_STRATEGIES, WorkspaceManager, createWorkspaceTools, isInsideRoot, resolveWorkspacePath, workspaceKeyFor` |
 | `29_workflow_contract.mjs` | `merci-sdk/workflow-policy → WORKFLOW_POLICY_REASONS, WorkflowPolicy, createPolicyRenderer, loadWorkflowFile, parseWorkflowMarkdown, policyToSchedulerOptions, policyToWorkspaceOptions, renderPromptTemplate` |
+| `30_scheduler.mjs` | `merci-sdk/sessions → LocalFileSessionStore` |
 | `30_scheduler.mjs` | `merci-sdk/scheduler → CLAIM_STATES, SCHEDULER_DEFAULTS, WorkScheduler, createEngineRunner, createFileAttemptStore, createFileClaimStore, createFunctionWorkSource, createJsonFileWorkSource, createMemoryClaimStore, createMemoryWorkSource, normalizeWorkItem, sortForDispatch` |
+| `31_orchestration.mjs` | `merci-sdk/sessions → LocalFileSessionStore` |
 | `31_orchestration.mjs` | `merci-sdk/operator → DEFAULT_PREFIXES, OPERATOR_API_VERSION, OPERATOR_DEFAULTS, createEventRing, createOperatorHttpHandler, formatStatus` |
 | `31_orchestration.mjs` | `merci-sdk/orchestration → createOrchestration` |
 | `31_orchestration.mjs` | `merci-sdk/scheduler → createMemoryWorkSource` |
@@ -173,7 +183,7 @@ Symbols not on the `merci-sdk` barrel, imported from a published subpath:
 | `createSystemMessage` | `05_tool_calling.mjs` |
 | `createTaskTool` | `15_delegation.mjs` |
 | `createTodoWorkSource` | `28_workspace_isolation.mjs` |
-| `createToolCallMessage` | `05_tool_calling.mjs` |
+| `createToolCallMessages` | `05_tool_calling.mjs` |
 | `createToolResultMessage` | `05_tool_calling.mjs` |
 | `createUnifiedMediaMessages` | `10_multimodal.mjs` |
 | `createUserMessage` | `01_quickstart.mjs`, `02_conversation.mjs`, `05_tool_calling.mjs`, `16_plan_and_execute.mjs`, `20_durability.mjs` |

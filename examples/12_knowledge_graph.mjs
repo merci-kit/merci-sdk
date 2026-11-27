@@ -31,31 +31,23 @@
  * Run: `node examples/12_knowledge_graph.mjs`
  * Needs: `PROVIDER` plus its credentials in `secret.env`.
  *
- * @version 0.25.0
+ * @version 0.26.0
  */
 import { mkdir, rm } from 'node:fs/promises';
 import { join } from 'node:path';
 import {
-    applyPatch,
-    buildGraph,
     createDecisionGate,
     defaultDisplay,
-    edgeText,
     getDecisionModel,
-    graphSha,
     initializeClient,
-    KnowledgeComponent,
     loadCredentials,
-    loadGraph,
     log,
     providerDescriptorFor,
-    queryGraph,
-    renderKnowledgeBlock,
-    retrieveSubgraph,
-    saveGraph,
-    validateGraph,
 } from 'merci-sdk';
-import { bm25Scores, rankNodes, tokensOf } from 'merci-sdk/knowledge';
+import {
+    applyPatch, bm25Scores, buildGraph, edgeText, graphSha, KnowledgeComponent, loadGraph,
+    queryGraph, rankNodes, renderKnowledgeBlock, retrieveSubgraph, saveGraph, tokensOf, validateGraph,
+} from 'merci-sdk/knowledge';
 import { reportUsage, resolveExample, runMain, trackUsage, warnEmptyAnswer, wireClient } from './_shared/example-utils.mjs';
 import { SCRATCH_DIR } from './_shared/real-tools.mjs';
 

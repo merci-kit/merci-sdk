@@ -36,17 +36,17 @@
  * Run: `node examples/13_knowledge_corpus.mjs`
  * Needs: `PROVIDER` plus its credentials in `secret.env`.
  *
- * @version 0.25.0
+ * @version 0.26.0
  */
 import { mkdir, readFile, rm, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
+import { defaultDisplay, initializeClient, loadCredentials, log } from 'merci-sdk';
 import {
-    adoptOntology, adoptedProfile, applyPatch, buildGraph, corpusKey, defaultDisplay,
-    fingerprintSources, graphSha, initializeClient, loadCorpus, loadCredentials, log,
-    memorySurface, mergeFragment, ontologySha, profileSources, proposeOntology, readSources,
+    adoptOntology, adoptedProfile, applyPatch, buildGraph, corpusKey, fingerprintSources, graphSha,
+    loadCorpus, memorySurface, mergeFragment, ontologySha, profileSources, proposeOntology, readSources,
     readWikiSha, renderKnowledgeBlock, renderWiki, saveGraph, sourceDelta, surfaceFragment, syncCorpus,
     todosSurface, validateGraph, wikiSurface,
-} from 'merci-sdk';
+} from 'merci-sdk/knowledge';
 import { extractAndParseJson } from 'merci-sdk/json';
 import { reportUsage, resolveExample, runMain, trackUsage, warnEmptyAnswer, wireClient } from './_shared/example-utils.mjs';
 import { SCRATCH_DIR } from './_shared/real-tools.mjs';

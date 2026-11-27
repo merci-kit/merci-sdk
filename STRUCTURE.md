@@ -1,14 +1,14 @@
 <!-- GENERATED FILE — do not edit by hand. Run `pnpm build:structure` to regenerate. -->
 
-# Merci SDK v0.25.0 — Library Structure & Symbols
+# Merci SDK v0.26.0 — Library Structure & Symbols
 
 > Structural reference: the `lib/` file tree and the symbols each module exports.
 > Generated from the current source by `scripts/build-structure.mjs`.
 
-- **Version:** 0.25.0
-- **Files:** 238 `.mjs`
-- **Exports:** 1049 declared, 541 re-exported
-- **Types:** 562 `@typedef`s
+- **Version:** 0.26.0
+- **Files:** 241 `.mjs`
+- **Exports:** 1067 declared, 477 re-exported
+- **Types:** 566 `@typedef`s
 
 `Kind` is one of `class`, `error class`, `function`, `const`, `default`, `barrel` or a resolved `re-export`. `↩` marks a symbol re-exported from another module.
 
@@ -29,6 +29,7 @@
 | `merci-sdk/evals` | `./lib/agentic/evals.mjs` |
 | `merci-sdk/cassette` | `./lib/support/cassette.mjs` |
 | `merci-sdk/sessions` | `./lib/agentic/sessions.mjs` |
+| `merci-sdk/inbox` | `./lib/agentic/inbox-store.mjs` |
 | `merci-sdk/otel` | `./lib/support/otel-exporter.mjs` |
 | `merci-sdk/workspace` | `./lib/agentic/workspace/index.mjs` |
 | `merci-sdk/scheduler` | `./lib/agentic/scheduler/index.mjs` |
@@ -61,6 +62,7 @@ lib/
 │   │   └── engines.mjs — Obscura browser engines + mode resolution (read + interactive).
 │   ├── budget-accounting.mjs — The token-budget enforcement kernel — pure functions, no state.
 │   ├── budget-pool.mjs — The shared budget pool (wave 6 / SP4, D12) — one cap for the whole spawn tree.
+│   ├── chat-inbox.mjs — Chat session inbox lifecycle: drain, lease, background gate, persistence.
 │   ├── chat-session-builder.mjs — Fluent ChatSession builder shared by every backend.
 │   ├── chat-session.mjs — Abstract backend ChatSession — the step engine + system-context assembly.
 │   ├── cli/ — CLI-facing helpers (launcher, suggestion source)
@@ -110,6 +112,7 @@ lib/
 │   ├── orchestration/
 │   │   ├── facade.mjs — `createOrchestration`: the composition root for the coordination layer.
 │   │   └── index.mjs — Public surface of the orchestration composition root.
+│   ├── outcomes.mjs — Agent outcome policy: fallback classification, guards, stream errors.
 │   ├── pending-inbox.mjs — The parent inbox (wave 6 / SP3) — placing a background result into the next turn.
 │   ├── permissions.mjs — Tool permission rules.
 │   ├── plan/ — Plan/execute stage components
@@ -136,6 +139,7 @@ lib/
 │   │   ├── claims.mjs — Claim stores: the in-process map and the O_EXCL claim file.
 │   │   ├── index.mjs — Public surface of the scheduler modules.
 │   │   ├── normalize.mjs — Normalization and deterministic ordering for external work items.
+│   │   ├── policy.mjs — Pure scheduler policy: config patches, dispatch eligibility, slots, budgets.
 │   │   ├── reconcile.mjs — The refresh classification shared by the scheduler's refresh paths.
 │   │   ├── retry.mjs — Retry delay, run-result normalization, and failure evidence.
 │   │   ├── runner.mjs — `createEngineRunner`: adapts one scheduler attempt to an engine.
@@ -322,10 +326,10 @@ lib/
 | `core` | 35 | 215 | 4 | 29 | Foundation: constant tables, typed errors, events, prompt text, loadable component base |
 | `messaging` | 5 | 37 | 14 | 27 | Unified message model, factories and per-backend history normalizers |
 | `backends` | 35 | 88 | 2 | 61 | Provider clients (JAI, OAI, GAI, AAI) and their protocol adapters |
-| `support` | 22 | 103 | 1 | 37 | Cross-cutting utilities: retry, timeouts, JSON, logger, limits |
+| `support` | 22 | 105 | 1 | 37 | Cross-cutting utilities: retry, timeouts, JSON, logger, limits |
 | `tools` | 13 | 53 | 34 | 41 | Tool system: execution, MCP client/server, A2A, shell, skills, context tools |
-| `agentic` | 127 | 548 | 196 | 364 | Orchestration: sessions, loops, planning, memory, state machine, web components |
-| `root` | 1 | 5 | 290 | 3 | Public barrel that defines the package entry surface (lib/index.mjs) |
+| `agentic` | 130 | 564 | 212 | 368 | Orchestration: sessions, loops, planning, memory, state machine, web components |
+| `root` | 1 | 5 | 210 | 3 | Public barrel that defines the package entry surface (lib/index.mjs) |
 
 ## 4. Symbols by area
 
@@ -493,7 +497,7 @@ lib/
 | `DEFAULT_MEMORY_BANK_DESC` | const | `const DEFAULT_MEMORY_BANK_DESC = 'Default workspace memory for project-specific configuration …` | Description shown for the default bank. |
 | `COMPOSITE_MEMORY_BANK_NAME` | const | `const COMPOSITE_MEMORY_BANK_NAME = 'composite'` | Composite router bank name. |
 | `COMPOSITE_MEMORY_BANK_DESC` | const | `const COMPOSITE_MEMORY_BANK_DESC = 'Composite router for multiple memory banks.'` | Description shown for the composite bank. |
-| `MEMORY_DISTILLATION_SCHEMA` | const | `const MEMORY_DISTILLATION_SCHEMA = z.strictObject({ newFacts: z.array(z.object({ content: z.str …` | Zod schema constraining the distillation engine's output (newFacts, obsoleteFactIds). |
+| `getMemoryDistillationSchema` | function | `function getMemoryDistillationSchema()` | Zod schema constraining the distillation engine's output (newFacts, obsoleteFactIds). |
 | `MEMORY_MAX_HISTORY_ROWS` | const | `const MEMORY_MAX_HISTORY_ROWS = LIMIT_REGISTRY.memory_max_history_rows.default` | Rows kept in a memory bank's audit trail (`history`). |
 
 #### `lib/core/constants/models.mjs` — Model-tier defaults and provider detection helpers.
@@ -713,7 +717,7 @@ lib/
 | Symbol | Kind | Signature / Source | Summary |
 | --- | --- | --- | --- |
 | `CONVERSATION_SUMMARY_MARKER` | const | `const CONVERSATION_SUMMARY_MARKER = '[Summarized earlier conversation]'` | Marker replacing the folded prefix in a compacted history. |
-| `CONVERSATION_SUMMARY_SCHEMA` | const | `const CONVERSATION_SUMMARY_SCHEMA = z.strictObject({ summary: z.string().describe('Concise, rete …` | Zod schema for the summarizer's single-output response. |
+| `getConversationSummarySchema` | function | `function getConversationSummarySchema()` | Zod schema for the summarizer's single-output response. |
 | `CONVERSATION_SUMMARY_PROMPT` | const | `const CONVERSATION_SUMMARY_PROMPT = [ 'You are a conversation historian. The following transcrip …` | Summarizer persona: preserve goals, constraints, decisions, facts, unfinished work. |
 
 #### `lib/core/prompts/dag.mjs` — DAG workflow planning, evaluation, and replan prompts.
@@ -721,10 +725,10 @@ lib/
 | Symbol | Kind | Signature / Source | Summary |
 | --- | --- | --- | --- |
 | `DEFAULT_DAG_HITL_TIMEOUT_MS` | const | ↩ `lib/core/constants/limits.mjs` | Default timeout (ms) for a DAG step paused on manual approval. |
-| `HANDOFF_OPTION_SCHEMA` | const | `const HANDOFF_OPTION_SCHEMA = z.strictObject({ goal: z.enum(['clean', 'full', 'moderated'] …` | Shared per-step handoff option: goal/context vary independently (clean\|full\|moderated each), tools default to inherit. |
-| `DAG_WORKFLOW_PLAN_SCHEMA` | const | `const DAG_WORKFLOW_PLAN_SCHEMA = dagPlanSchema({ minSteps: 2 })` | Zod schema for the initial DAG plan (min 2 steps). |
-| `DAG_WORKFLOW_REPLAN_SCHEMA` | const | `const DAG_WORKFLOW_REPLAN_SCHEMA = dagPlanSchema({ minSteps: 1 })` | Replan schema — the plan schema with the step floor relaxed to one. |
-| `DAG_WORKFLOW_EVAL_SCHEMA` | const | `const DAG_WORKFLOW_EVAL_SCHEMA = z.strictObject({ replanRequired: z.boolean().describe('True …` | Zod schema for per-step verification output (replan decision). |
+| `getHandoffOptionSchema` | function | `function getHandoffOptionSchema()` | Shared per-step handoff option: goal/context vary independently (clean\|full\|moderated each), tools default to inherit. |
+| `getDagWorkflowPlanSchema` | function | `function getDagWorkflowPlanSchema()` | Zod schema for the initial DAG plan (min 2 steps). |
+| `getDagWorkflowReplanSchema` | function | `function getDagWorkflowReplanSchema()` | Replan schema — the plan schema with the step floor relaxed to one. |
+| `getDagWorkflowEvalSchema` | function | `function getDagWorkflowEvalSchema()` | Zod schema for per-step verification output (replan decision). |
 | `DAG_WORKFLOW_PLAN_PROMPT` | function | `const DAG_WORKFLOW_PLAN_PROMPT = ({ objective, toolsList }) => => …` | Builds the initial plan-decomposition prompt. |
 | `escapeUntrustedFence` | function | `const escapeUntrustedFence = ({ value }) => => …` | Escapes closing `<untrusted_*>` fence tags inside untrusted prompt interpolations. |
 | `DAG_WORKFLOW_EVAL_PROMPT` | function | `const DAG_WORKFLOW_EVAL_PROMPT = ({ stepId, output, context, objective = null }) => => …` | Builds the per-step verification prompt. |
@@ -740,7 +744,7 @@ lib/
 
 | Symbol | Kind | Signature / Source | Summary |
 | --- | --- | --- | --- |
-| `SM_PLAN_SCHEMA` | const | `const SM_PLAN_SCHEMA = z.object({ summary: z.string().describe('One-sentence summar …` | Zod schema for a state machine plan — nodes/edges, cycles allowed. |
+| `getSmPlanSchema` | function | `function getSmPlanSchema()` | Zod schema for a state machine plan — nodes/edges, cycles allowed. |
 | `SM_PLAN_PROMPT` | function | `const SM_PLAN_PROMPT = ({ objective, toolsList }) => { … }` |  |
 
 ### 4.2 `messaging` — Unified message model, factories and per-backend history normalizers
@@ -1275,6 +1279,8 @@ lib/
 | `log` | const | ↩ `lib/support/logger.mjs` | The shared logger singleton. |
 | `safeStringify` | function | `function safeStringify({ value })` | references (a node that returns the context itself); a plain stringify throws mid-run. |
 | `strictStringify` | function | `function strictStringify({ value })` | The strict twin of `safeStringify`: same circular handling, but exceeding `safe_stringify_max_nodes` throws instead of substituting `"[truncated]"`. |
+| `walkPath` | function | `function walkPath({ value, parts })` | Walks a dotted path through an object without reading prototype properties. |
+| `stringifyTemplateValue` | function | `function stringifyTemplateValue({ value })` | Renders a template value as text. |
 | `truncateForPrompt` | function | `function truncateForPrompt({ text, maxChars })` | data loss from the model). |
 | `estimateTokens` | function | `function estimateTokens({ text, charsPerToken = LIMITS.estimate_tokens_chars_per_token })` | truncation decisions. |
 | `estimateMessageTokens` | function | `function estimateMessageTokens({ messages })` | `estimateTokens` reads only `content ?? |
@@ -1491,24 +1497,24 @@ lib/
 
 | Symbol | Kind | Signature / Source | Summary |
 | --- | --- | --- | --- |
+| `EMPTY_FALLBACK_CAUSE` | const | ↩ `lib/agentic/outcomes.mjs` | Human-readable cause for an agent turn that ended on the SDK empty-response fallback. |
+| `SCHEMA_FALLBACK_CAUSE` | const | ↩ `lib/agentic/outcomes.mjs` | Human-readable cause for an agent turn that exhausted its structured-output correction retries. |
+| `assertNotInFlight` | function | ↩ `lib/agentic/outcomes.mjs` |  |
+| `assertUsableOutput` | function | ↩ `lib/agentic/outcomes.mjs` |  |
+| `assertVerifyVerdict` | function | ↩ `lib/agentic/outcomes.mjs` |  |
+| `fallbackKind` | function | ↩ `lib/agentic/outcomes.mjs` |  |
+| `isSdkFallbackOutput` | function | ↩ `lib/agentic/outcomes.mjs` |  |
+| `isTransientFallbackKind` | function | ↩ `lib/agentic/outcomes.mjs` |  |
+| `normalizeAgentOutput` | function | ↩ `lib/agentic/outcomes.mjs` | an object's `content` wins, anything else is JSON-stringified. |
+| `resolveExhaustionOpts` | function | ↩ `lib/agentic/outcomes.mjs` |  |
+| `schemaCorrection` | function | ↩ `lib/agentic/outcomes.mjs` |  |
+| `streamErrorToRetryError` | function | ↩ `lib/agentic/outcomes.mjs` |  |
 | `adjustCutForToolPairs` | function | `function adjustCutForToolPairs({ messages, cut, minCut = 1 })` | Adjusts a candidate cut index so a tool-call message is never separated from its tool-result row(s). |
 | `compactHistory` | function | `async function compactHistory({ messages, compaction, session, signal, onEvent, promptTokens = null, onUsage = null })` | a history that already starts with the summary marker is never re-summarized. |
 | `applyApprovalPolicy` | function | `function applyApprovalPolicy({ session, policy })` | session. |
 | `throwIfAborted` | function | `function throwIfAborted({ signal, message = 'Agentic loop aborted.' })` | silently otherwise. |
 | `forwardStreamEvents` | function | `function forwardStreamEvents({ emit, textEvent, thoughtEvent, makePayload, thoughtSignatureEvent, streamEndEvent })` | deltas onto an orchestrator's own event names. |
 | `forwardToolEvents` | function | `function forwardToolEvents({ emit, textEvent, thoughtEvent, toolStartEvent, toolEndEvent, thoughtSignatureEvent, makePayload })` | events (tool_call_start/tool_call_end) the agentic loop emits around executeTools — the AutoGen ToolCallRequestEvent/ExecutionEvent analogue. |
-| `normalizeAgentOutput` | function | `function normalizeAgentOutput({ raw })` | an object's `content` wins, anything else is JSON-stringified. |
-| `EMPTY_FALLBACK_CAUSE` | const | `const EMPTY_FALLBACK_CAUSE = 'empty-response fallback (no text after the tool round)'` | Human-readable cause for an agent turn that ended on the SDK empty-response fallback. |
-| `SCHEMA_FALLBACK_CAUSE` | const | `const SCHEMA_FALLBACK_CAUSE = 'schema-validation fallback (no valid JSON after correction …` | Human-readable cause for an agent turn that exhausted its structured-output correction retries. |
-| `fallbackKind` | function | `function fallbackKind({ text })` | hard failure), `'empty'` (a transient no-answer — retryable), `'schema'` (an exhausted structured-output correction loop — also transient), `'filtered'` (the provider's content moderation stopped the answer — not retryable), or null for real content. |
-| `isTransientFallbackKind` | function | `function isTransientFallbackKind({ kind })` | answer or an exhausted structured-output correction loop. |
-| `isSdkFallbackOutput` | function | `function isSdkFallbackOutput({ text })` | iteration-limit or schema-validation, so the `(${msg})` and `+TRUNCATED` variants match). |
-| `streamErrorToRetryError` | function | `function streamErrorToRetryError({ error })` | The retryable error for a vendor stream failure. |
-| `assertNotInFlight` | function | `function assertNotInFlight({ flag, label })` | Reentrancy guard shared by `runAgenticLoop`, the DAG executor and the state machine: throws a typed `MerciError` (`CONCURRENT_RUN`) when a run is already in flight. |
-| `assertVerifyVerdict` | function | `function assertVerifyVerdict({ verdict, label })` | Verifies a `verify` callback returned a verdict object (`{ passed, evidence }`) whose `passed` is a real boolean. |
-| `assertUsableOutput` | function | `function assertUsableOutput({ text, what = 'output' })` | Throws an `EMPTY_OUTPUT_CODE` error when `text` is an SDK fallback sentinel or whitespace/empty. |
-| `schemaCorrection` | function | `function schemaCorrection({ detail })` | The one correction prompt every engine sends after a stateSchema violation: the executor's four strategies and the discussion group used to spell it themselves and could drift. |
-| `resolveExhaustionOpts` | function | `function resolveExhaustionOpts({ source, autoExtend = false, errorHandlers = null })` |  |
 | `runCriteriaChecks` | function | `async function runCriteriaChecks({ ctx, criteria = [], judge = null, judgeOnPass = false, signal = null })` | Used by the executor's per-node verify and the StateMachine's completion gate. |
 | `runDueSteps` | function | `async function runDueSteps({ steps })` | Runs the steps that are due and returns one settled result per step, in input order. |
 | `runAgenticLoop` | function | `async function runAgenticLoop({ session, messages, opts = {} })` | Tool rounds run until the model answers with text. |
@@ -1640,6 +1646,20 @@ lib/
 | `poolUsageSnapshot` | function | `function poolUsageSnapshot({ pool })` | The pool's usage in the shape the budget events and errors carry. |
 | `attemptPoolView` | function | `function attemptPoolView({ pool })` | A frozen read-only view of a ledger for host hooks: caps are live getters, usage is a frozen copy per read, and the live ledger is never exposed. |
 | `getBudgetPool` | function | `function getBudgetPool({ session })` | The public read API: the tree's cap and spend, or null when the session has no budget. |
+
+#### `lib/agentic/chat-inbox.mjs` — Chat session inbox lifecycle: drain, lease, background gate, persistence.
+
+| Symbol | Kind | Signature / Source | Summary |
+| --- | --- | --- | --- |
+| `drainSessionInbox` | function | `async function drainSessionInbox({ session, options = {} })` |  |
+| `hasLiveSessionBackgroundWork` | function | `function hasLiveSessionBackgroundWork({ session })` |  |
+| `waitForSessionBackgroundWork` | function | `async function waitForSessionBackgroundWork({ session, timeoutMs = LIMITS.inbox_background_wait_ms, recheckMs = LIMITS.inbox_background_recheck_ms })` |  |
+| `createInboxLeaseOwner` | function | `function createInboxLeaseOwner()` |  |
+| `emitSessionInboxEvent` | function | `function emitSessionInboxEvent({ session, name, payload })` |  |
+| `sessionInboxKey` | function | `function sessionInboxKey({ session })` |  |
+| `loadSessionInbox` | function | `async function loadSessionInbox({ session })` |  |
+| `scheduleSessionInboxPersist` | function | `function scheduleSessionInboxPersist({ session })` |  |
+| `flushSessionInbox` | function | `async function flushSessionInbox({ session })` |  |
 
 #### `lib/agentic/chat-session-builder.mjs` — Fluent ChatSession builder shared by every backend.
 
@@ -2024,7 +2044,7 @@ lib/
 
 | Symbol | Kind | Signature / Source | Summary |
 | --- | --- | --- | --- |
-| `JUDGE_SCHEMA` | const | `const JUDGE_SCHEMA = z.strictObject({ passed: z.boolean(), evidence: z.string() } …` |  |
+| `getJudgeSchema` | function | `function getJudgeSchema()` |  |
 | `createLlmJudge` | function | `function createLlmJudge({ client, model, criteria = [] })` | Returns `(ctx) => ({ passed, evidence })` ready for a LoopContract `judge`. |
 | `createScoredJudge` | function | `function createScoredJudge({ client, model, schema, systemMessage, scoreField = 'score', aggregate })` | A typed, scored grader. |
 
@@ -2156,6 +2176,23 @@ lib/
 | Symbol | Kind | Signature / Source | Summary |
 | --- | --- | --- | --- |
 | `createOrchestration` | function | ↩ `lib/agentic/orchestration/facade.mjs` | Build the coordination layer around one client, one board, and one `WORKFLOW.md`. |
+
+#### `lib/agentic/outcomes.mjs` — Agent outcome policy: fallback classification, guards, stream errors.
+
+| Symbol | Kind | Signature / Source | Summary |
+| --- | --- | --- | --- |
+| `normalizeAgentOutput` | function | `function normalizeAgentOutput({ raw })` | an object's `content` wins, anything else is JSON-stringified. |
+| `EMPTY_FALLBACK_CAUSE` | const | `const EMPTY_FALLBACK_CAUSE = 'empty-response fallback (no text after the tool round)'` | Human-readable cause for an agent turn that ended on the SDK empty-response fallback. |
+| `SCHEMA_FALLBACK_CAUSE` | const | `const SCHEMA_FALLBACK_CAUSE = 'schema-validation fallback (no valid JSON after correction …` | Human-readable cause for an agent turn that exhausted its structured-output correction retries. |
+| `fallbackKind` | function | `function fallbackKind({ text })` |  |
+| `isTransientFallbackKind` | function | `function isTransientFallbackKind({ kind })` |  |
+| `isSdkFallbackOutput` | function | `function isSdkFallbackOutput({ text })` |  |
+| `streamErrorToRetryError` | function | `function streamErrorToRetryError({ error })` |  |
+| `assertNotInFlight` | function | `function assertNotInFlight({ flag, label })` |  |
+| `assertVerifyVerdict` | function | `function assertVerifyVerdict({ verdict, label })` |  |
+| `assertUsableOutput` | function | `function assertUsableOutput({ text, what = 'output' })` |  |
+| `schemaCorrection` | function | `function schemaCorrection({ detail })` |  |
+| `resolveExhaustionOpts` | function | `function resolveExhaustionOpts({ source, autoExtend = false, errorHandlers = null })` |  |
 
 #### `lib/agentic/pending-inbox.mjs` — The parent inbox (wave 6 / SP3) — placing a background result into the next turn.
 
@@ -2298,8 +2335,8 @@ lib/
 
 | Symbol | Kind | Signature / Source | Summary |
 | --- | --- | --- | --- |
-| `walkPath` | function | `function walkPath({ value, parts })` | Walks a dotted path through an object (prototype-key safe via Object.hasOwn). |
-| `stringifyTemplateValue` | function | `function stringifyTemplateValue({ value })` | Renders a template value as text. |
+| `stringifyTemplateValue` | function | ↩ `lib/support/utils.mjs` | Renders a template value as text. |
+| `walkPath` | function | ↩ `lib/support/utils.mjs` | Walks a dotted path through an object without reading prototype properties. |
 | `stepFingerprint` | function | `function stepFingerprint({ step })` | Stable identity of a step DEFINITION, **ignoring function-valued fields**. |
 | `stepFnSources` | function | `function stepFnSources({ step })` | The source text of every function in a step definition, keyed by its path. |
 | `fnSourcesDiffer` | function | `function fnSourcesDiffer({ saved, next, missingIsChange = false })` | True when a function-valued field of the new definition differs from the one the saved fingerprint was taken from — including a function the new definition ADDS. |
@@ -2329,6 +2366,7 @@ lib/
 | `Plan` | class | ↩ `lib/agentic/planning/plan.mjs` | One plan, two executor views. |
 | `PLAN_VERSION` | const | ↩ `lib/agentic/planning/plan.mjs` |  |
 | `TaskState` | class | ↩ `lib/agentic/planning/task-state.mjs` | The serializable state of one workflow (DAG) run. |
+| `structuredLlmCall` | function | ↩ `lib/agentic/planning/planner-utils.mjs` | Calls the LLM and returns structured data matching `schema`. |
 | `CHECKPOINT_KIND` | const | ↩ `lib/agentic/planning/checkpoint.mjs` | Checkpoint payload kinds. |
 | `wrapCheckpoint` | function | ↩ `lib/agentic/planning/checkpoint.mjs` | Tags a payload string with its kind. |
 | `unwrapCheckpoint` | function | ↩ `lib/agentic/planning/checkpoint.mjs` | Reads a checkpoint envelope back out of a saved record. |
@@ -2427,6 +2465,20 @@ lib/
 | `isActiveState` | function | `function isActiveState({ state, states })` | Whether `state` is one of the configured states. |
 | `isTerminalState` | function | `function isTerminalState({ state, states })` | Whether `state` is one of the terminal states. |
 
+#### `lib/agentic/scheduler/policy.mjs` — Pure scheduler policy: config patches, dispatch eligibility, slots, budgets.
+
+| Symbol | Kind | Signature / Source | Summary |
+| --- | --- | --- | --- |
+| `MANAGED_KEYS` | const | `const MANAGED_KEYS = Object.freeze([ 'activeStates', 'terminalStates', 'requiredL …` | The keys `applyConfig` may change. |
+| `mergeSchedulerConfig` | function | `function mergeSchedulerConfig({ current, patch })` |  |
+| `changedSchedulerKeys` | function | `function changedSchedulerKeys({ current, patch, merged })` |  |
+| `hasGlobalSlot` | function | `function hasGlobalSlot({ running, claiming, limit })` |  |
+| `hasLaneSlot` | function | `function hasLaneSlot({ lane, running, claiming, byLane })` |  |
+| `schedulerBudgetLimit` | function | `function schedulerBudgetLimit({ limits, totals })` |  |
+| `schedulerBudgetTotals` | function | `function schedulerBudgetTotals({ totals })` |  |
+| `isSchedulerItemRoutable` | function | `function isSchedulerItemRoutable({ item, requiredLabels, filter, filterReceiver })` |  |
+| `shouldDispatchSchedulerItem` | function | `function shouldDispatchSchedulerItem({ item, activeStates, terminalStates, requiredLabels, filter, filterReceiver, running, claiming, claimed, parked, attempts, maxAttemptsPerItem, concurrency })` |  |
+
 #### `lib/agentic/scheduler/reconcile.mjs` — The refresh classification shared by the scheduler's refresh paths.
 
 | Symbol | Kind | Signature / Source | Summary |
@@ -2452,7 +2504,7 @@ lib/
 
 | Symbol | Kind | Signature / Source | Summary |
 | --- | --- | --- | --- |
-| `MANAGED_KEYS` | const | `const MANAGED_KEYS = Object.freeze([ 'activeStates', 'terminalStates', 'requiredL …` | The keys `applyConfig` may change. |
+| `MANAGED_KEYS` | const | ↩ `lib/agentic/scheduler/policy.mjs` | The keys `applyConfig` may change. |
 | `WorkScheduler` | class | `class WorkScheduler` | The work-item scheduler: claims, dispatch, retries, parking, and a single-flight tick. |
 
 #### `lib/agentic/scheduler/state.mjs` — Scheduler state shapes, defaults, usage accumulation, and the snapshot.
@@ -2648,6 +2700,7 @@ _No exports._
 | `resolveWebMode` | function | `function resolveWebMode({ nativeProviders, toolModes, sessionProvider, mode })` |  |
 | `resolveCapabilityMode` | function | `function resolveCapabilityMode({ resolveMode, sessionProvider, config })` |  |
 | `toUrls` | function | `function toUrls({ input })` | Normalizes a tool's `url`/`urls` argument to the list of non-blank strings a batched engine reads. |
+| `runWebBatch` | function | `async function runWebBatch({ input, config, provider, eventEmitter = null, signal = null, limit, emptyMessage, eventNames, extraPayload = {}, emit, run })` | Runs the shared read-batch prologue and epilogue used by browser and scrape. |
 | `webItemError` | function | `function webItemError({ url, err })` | The per-URL failure item every web engine returns: no content, no truncation, and the error message. |
 | `preferJaiEngine` | function | `function preferJaiEngine({ provider, config })` | Whether the session provider takes the JAI engine: it is the JAI backend, no Tavily config was given, and the mode is not explicitly `tavily`. |
 | `nativeProvidersFor` | function | `function nativeProvidersFor({ capability })` | The provider ids with a native (vendor) leg for one capability flag — `nativeWebSearch` or `nativeWebScrape`. |
@@ -2911,9 +2964,9 @@ _No exports._
 | `defaultDisplay` | function | ↩ `lib/agentic/agentic-core.mjs` | Returns the default display `{ onEvent }` for runAgenticLoop consumers: thinking via the logger, text/tool deltas to stdout (the first text delta of each turn is prefixed with `Assistant > ` so the answer is labelled exactly once), newline on stream_end. |
 | `compactHistory` | function | ↩ `lib/agentic/agentic-core.mjs` | a history that already starts with the summary marker is never re-summarized. |
 | `runDueSteps` | function | ↩ `lib/agentic/agentic-core.mjs` | Runs the steps that are due and returns one settled result per step, in input order. |
-| `fallbackKind` | function | ↩ `lib/agentic/agentic-core.mjs` | hard failure), `'empty'` (a transient no-answer — retryable), `'schema'` (an exhausted structured-output correction loop — also transient), `'filtered'` (the provider's content moderation stopped the answer — not retryable), or null for real content. |
-| `isSdkFallbackOutput` | function | ↩ `lib/agentic/agentic-core.mjs` | iteration-limit or schema-validation, so the `(${msg})` and `+TRUNCATED` variants match). |
-| `isTransientFallbackKind` | function | ↩ `lib/agentic/agentic-core.mjs` | answer or an exhausted structured-output correction loop. |
+| `fallbackKind` | function | ↩ `lib/agentic/agentic-core.mjs` |  |
+| `isSdkFallbackOutput` | function | ↩ `lib/agentic/agentic-core.mjs` |  |
+| `isTransientFallbackKind` | function | ↩ `lib/agentic/agentic-core.mjs` |  |
 | `AgentLauncher` | class | ↩ `lib/agentic/cli/launcher.mjs` | Interactive agent CLI: system commands, skill-plugin dispatch, and a tool-fed agentic loop over a backend session. |
 | `DiscussionSession` | class | ↩ `lib/agentic/discussion-session.mjs` | A multi-agent debate group: agents converse on a shared ledger, optionally judged/aggregated into a conclusion. |
 | `StateMachine` | class | ↩ `lib/agentic/state-machine/index.mjs` | A node graph machine with conditional transitions. |
@@ -2948,14 +3001,6 @@ _No exports._
 | `journalKey` | function | ↩ `lib/agentic/journal.mjs` | A stable 16-character key for a journal entry, derived from its parts. |
 | `runStep` | function | ↩ `lib/agentic/step.mjs` | Runs ONE agentic step attempt in a fresh session: builds the session with the glue's policy/capabilities, runs the agentic loop, forwards stream events through the glue's event names, and captures the step's full message row + reasoning signature for the next attempt/step. |
 | `ingestDocument` | function | ↩ `lib/agentic/ingest.mjs` | Ingests a document (image or PDF) as Markdown using a vision-capable model. |
-| `TaskState` | class | ↩ `lib/agentic/planning/task-state.mjs` | The serializable state of one workflow (DAG) run. |
-| `CHECKPOINT_KIND` | const | ↩ `lib/agentic/planning/checkpoint.mjs` | Checkpoint payload kinds. |
-| `saveCheckpoint` | function | ↩ `lib/agentic/planning/checkpoint.mjs` | Saves a tagged checkpoint through a session store. |
-| `restoreCheckpoint` | function | ↩ `lib/agentic/planning/checkpoint.mjs` | Restores a checkpoint of the expected kind. |
-| `structuredLlmCall` | function | ↩ `lib/agentic/planning/planner-utils.mjs` | Calls the LLM and returns structured data matching `schema`. |
-| `collectTemplateRefs` | function | ↩ `lib/agentic/planning/graph-utils.mjs` | Collects `{{expr}}` template references from a string. |
-| `validateTemplateRefs` | function | ↩ `lib/agentic/planning/graph-utils.mjs` | Validates that every `{{...}}` reference in each step's `userPromptTemplate` names a known step id or an allowed context root, and — with `ancestorsOnly` — that a step id it names is one of that step's **ancestors**. |
-| `assertStateSchema` | function | ↩ `lib/agentic/planning/graph-utils.mjs` | Asserts a step/node output against an optional Zod-like state schema (`safeParse`). |
 | `MemoryManager` | class | ↩ `lib/agentic/memory/index.mjs` | Coordinates long-term memory: sync-gap detection, fire-and-forget distillation of new conversation turns, and per-step memory block rendering. |
 | `MemoryProvider` | class | ↩ `lib/agentic/memory/index.mjs` | Base memory provider contract. |
 | `LocalFileMemoryProvider` | class | ↩ `lib/agentic/memory/index.mjs` | File-backed memory bank: one JSON file of facts with atomic saves. |
@@ -2963,56 +3008,6 @@ _No exports._
 | `CompositeMemoryProvider` | class | ↩ `lib/agentic/memory/index.mjs` | Fan-out memory provider across named banks. |
 | `ProviderMemoryEngine` | class | ↩ `lib/agentic/memory/index.mjs` | Memory engine over a single provider. |
 | `MemoryComponent` | class | ↩ `lib/agentic/memory/index.mjs` | The memory capability component: long-term recall/persist exposed as the memory load/save tools. |
-| `KnowledgeComponent` | class | ↩ `lib/agentic/knowledge/index.mjs` | The knowledge capability. |
-| `buildGraph` | function | ↩ `lib/agentic/knowledge/index.mjs` | Builds a graph from one or more documents. |
-| `validateGraph` | function | ↩ `lib/agentic/knowledge/index.mjs` | Validates a graph. |
-| `applyPatch` | function | ↩ `lib/agentic/knowledge/index.mjs` | Applies a patch: add nodes/edges, update node fields, remove by id. |
-| `queryGraph` | function | ↩ `lib/agentic/knowledge/index.mjs` | The bounded neighbourhood of one node, for the explicit-id query form. |
-| `retrieveSubgraph` | function | ↩ `lib/agentic/knowledge/index.mjs` | The whole read path: seed → expand → rank. |
-| `renderKnowledgeBlock` | function | ↩ `lib/agentic/knowledge/index.mjs` | Renders a bounded knowledge block for the prompt. |
-| `renderWiki` | function | ↩ `lib/agentic/knowledge/index.mjs` | Renders the wiki. |
-| `readWikiSha` | function | ↩ `lib/agentic/knowledge/index.mjs` | The graph hash a previously rendered wiki carries, or null. |
-| `loadGraph` | function | ↩ `lib/agentic/knowledge/index.mjs` | Loads the graph. |
-| `saveGraph` | function | ↩ `lib/agentic/knowledge/index.mjs` | Writes the graph and stamps its stats + hash. |
-| `loadOntology` | function | ↩ `lib/agentic/knowledge/index.mjs` | Loads the vocabulary. |
-| `saveOntology` | function | ↩ `lib/agentic/knowledge/index.mjs` | Writes the vocabulary. |
-| `promotableRelations` | function | ↩ `lib/agentic/knowledge/index.mjs` | Custom relations that appear in enough distinct notes to deserve promotion into the vocabulary. |
-| `documentSurface` | function | ↩ `lib/agentic/knowledge/index.mjs` | The `document` surface: one graph from one or more text files. |
-| `wikiSurface` | function | ↩ `lib/agentic/knowledge/index.mjs` | The `wiki` surface: an existing markdown corpus becomes a reference graph. |
-| `memorySurface` | function | ↩ `lib/agentic/knowledge/index.mjs` | The `memory` surface: bank facts become `fact` nodes. |
-| `todosSurface` | function | ↩ `lib/agentic/knowledge/index.mjs` | The `todos` surface: tasks and their declared dependencies. |
-| `planSurface` | function | ↩ `lib/agentic/knowledge/index.mjs` | The `plan` surface: a task DAG becomes `step` nodes. |
-| `GENERIC_PROFILE` | const | ↩ `lib/agentic/knowledge/index.mjs` | Domain-neutral vocabulary: documents, claims, evidence, work items. |
-| `LEGAL_PROFILE` | const | ↩ `lib/agentic/knowledge/index.mjs` | The legal vocabulary the existing corpus uses (`legalgraph/v1`). |
-| `CORE_RELATIONS` | const | ↩ `lib/agentic/knowledge/index.mjs` | Relations a structural/doc parse or an author may use without a note. |
-| `KNOWLEDGE_SCHEMA` | const | ↩ `lib/agentic/knowledge/index.mjs` | Schema id carried by `graph.json`. |
-| `graphSha` | function | ↩ `lib/agentic/knowledge/index.mjs` | Stable hash of the graph's content. |
-| `profileSources` | function | ↩ `lib/agentic/knowledge/index.mjs` | Measures one or more documents. |
-| `proposeOntology` | function | ↩ `lib/agentic/knowledge/index.mjs` | Turns a measurement into a candidate vocabulary. |
-| `ontologySha` | function | ↩ `lib/agentic/knowledge/index.mjs` | Identity of a proposal: the shape, not the timestamp. |
-| `adoptOntology` | function | ↩ `lib/agentic/knowledge/index.mjs` | Adopts a proposal as the vocabulary. |
-| `adoptedProfile` | function | ↩ `lib/agentic/knowledge/index.mjs` | The adopted vocabulary as a profile a graph can be validated against, or null when nothing was adopted. |
-| `surfaceFragment` | function | ↩ `lib/agentic/knowledge/index.mjs` | Runs one surface's adapter. |
-| `mergeFragment` | function | ↩ `lib/agentic/knowledge/index.mjs` | Merges adapter output into a graph, skipping ids that already exist. |
-| `edgeText` | function | ↩ `lib/agentic/knowledge/index.mjs` | The text form of an edge, shared by the prompt block and the wiki so the two cannot drift. |
-| `HIERARCHY_RELATIONS` | const | ↩ `lib/agentic/knowledge/index.mjs` | Relations whose direction can describe containment. |
-| `hierarchyOf` | function | ↩ `lib/agentic/knowledge/index.mjs` | Derives a bounded hierarchy from `contains` (parent → child) or `part_of` (child → parent) edges. |
-| `hierarchyPath` | function | ↩ `lib/agentic/knowledge/index.mjs` | The root-to-node path, using the deterministic primary parent. |
-| `levelKindsFor` | function | ↩ `lib/agentic/knowledge/index.mjs` | Resolves the kind for a one-based structural level. |
-| `renderSectionMap` | function | ↩ `lib/agentic/knowledge/index.mjs` | The map: hierarchy when structural edges justify it, headings when the graph has them, otherwise the most load-bearing nodes. |
-| `renderNodePage` | function | ↩ `lib/agentic/knowledge/index.mjs` | One node's wiki page. |
-| `emptyGraph` | function | ↩ `lib/agentic/knowledge/index.mjs` |  |
-| `syncCorpus` | function | ↩ `lib/agentic/knowledge/index.mjs` | Load-or-build. |
-| `loadCorpus` | function | ↩ `lib/agentic/knowledge/index.mjs` | Loads the persisted graph and its manifest. |
-| `loadManifest` | function | ↩ `lib/agentic/knowledge/index.mjs` |  |
-| `sourceDelta` | function | ↩ `lib/agentic/knowledge/index.mjs` | What changed between the corpus a graph was built from and the one on disk. |
-| `corpusKey` | function | ↩ `lib/agentic/knowledge/index.mjs` | The build identity: sources by path and content, plus the vocabulary that shaped them and the extractor version. |
-| `fingerprintSources` | function | ↩ `lib/agentic/knowledge/index.mjs` |  |
-| `readSources` | function | ↩ `lib/agentic/knowledge/index.mjs` | Reads the sources from disk, in the order given (the order is part of the key). |
-| `nodeKey` | function | ↩ `lib/agentic/knowledge/index.mjs` | Stable identity of a node's content, independent of where it sits. |
-| `sourceSha` | function | ↩ `lib/agentic/knowledge/index.mjs` | Content hash of a whole source, for the corpus manifest. |
-| `KNOWLEDGE_BUILD_VERSION` | const | ↩ `lib/agentic/knowledge/index.mjs` | Bumped whenever the mechanical pass changes what it emits for the same bytes. |
-| `EDGE_SHAPES` | const | ↩ `lib/agentic/knowledge/index.mjs` | The shapes an edge may take beyond "A rel B". |
 | `FailureClass` | const | ↩ `lib/agentic/loops/index.mjs` | The failure taxonomy: the classification labels returned by classifyFailure(). |
 | `failureFingerprint` | function | ↩ `lib/agentic/loops/index.mjs` | Stable key for "is this the same failed attempt as before?". |
 | `RetryLedger` | class | ↩ `lib/agentic/loops/index.mjs` | Retry budget keyed by failure fingerprint, NOT by a global counter. |
@@ -3022,20 +3017,6 @@ _No exports._
 | `compareProgress` | function | ↩ `lib/agentic/loops/index.mjs` | Compares two progress snapshots — a positive score means the run moved forward. |
 | `createLlmJudge` | function | ↩ `lib/agentic/loops/index.mjs` | Returns `(ctx) => ({ passed, evidence })` ready for a LoopContract `judge`. |
 | `createScoredJudge` | function | ↩ `lib/agentic/loops/index.mjs` | A typed, scored grader. |
-| `WorkspaceManager` | class | ↩ `lib/agentic/workspace/index.mjs` |  |
-| `createWorkspaceTools` | function | ↩ `lib/agentic/workspace/index.mjs` | Bind `read`/`grep`/`glob`, the shell tool, and the artifact tool to one workspace handle. |
-| `workspaceKeyFor` | function | ↩ `lib/agentic/workspace/index.mjs` | Derive the workspace directory name for a work item id. |
-| `resolveWorkspacePath` | function | ↩ `lib/agentic/workspace/index.mjs` | Resolve one workspace path under a root and assert containment, without IO. |
-| `isInsideRoot` | function | ↩ `lib/agentic/workspace/index.mjs` | True when `path` is `root` itself or sits below it. |
-| `WORKSPACE_STRATEGIES` | const | ↩ `lib/agentic/workspace/index.mjs` | The strategies, frozen so a caller cannot mutate the registry. |
-| `WORKSPACE_HOOKS` | const | ↩ `lib/agentic/workspace/index.mjs` | The four lifecycle hooks, in call order. |
-| `WorkScheduler` | class | ↩ `lib/agentic/scheduler/index.mjs` | The work-item scheduler: claims, dispatch, retries, parking, and a single-flight tick. |
-| `createEngineRunner` | function | ↩ `lib/agentic/scheduler/index.mjs` | Build the one-attempt runner for a scheduler. |
-| `WorkflowPolicy` | class | ↩ `lib/agentic/workflow-policy/index.mjs` | A reload is single-flight, keeps the last good state on failure, and arms a debounced watcher only after the first load succeeds. |
-| `policyToSchedulerOptions` | function | ↩ `lib/agentic/workflow-policy/index.mjs` | The scheduler options from the resolved policy. |
-| `policyToWorkspaceOptions` | function | ↩ `lib/agentic/workflow-policy/index.mjs` | The construction-bound workspace options. |
-| `createPolicyRenderer` | function | ↩ `lib/agentic/workflow-policy/index.mjs` | The engine runner's `({ item, attempt, continuation }) => string` prompt callback. |
-| `createOrchestration` | function | ↩ `lib/agentic/orchestration/index.mjs` | Build the coordination layer around one client, one board, and one `WORKFLOW.md`. |
 | `LoadableComponent` | class | ↩ `lib/core/loadable.mjs` | Base class for operational capabilities (skills, memory, …) that surface a payload to the model. |
 | `ChatSessionBuilder` | class | ↩ `lib/agentic/chat-session-builder.mjs` | Fluent builder for ChatSession configuration. |
 | `BaseChatSession` | class | ↩ `lib/agentic/chat-session.mjs` | Shared OAI-family ChatSession (oai/gai/aai). |
@@ -3045,9 +3026,6 @@ _No exports._
 | `AGENT_EXECUTE` | const | ↩ `lib/agentic/plan/component.mjs` | Execute-agent identity (full tool set). |
 | `buildEnvironmentBlock` | function | ↩ `lib/agentic/context.mjs` | Renders the environment block: working directory, git repo, platform, date. |
 | `discoverInstructions` | function | ↩ `lib/agentic/context.mjs` | Discovers and renders AGENTS.md instruction files from `root` up to `stopAt` (inclusive). |
-| `createOperatorHttpHandler` | function | ↩ `lib/agentic/operator/index.mjs` | Create a `(req, res) => Promise<void>` operator handler (§3.3). |
-| `createEventRing` | function | ↩ `lib/agentic/operator/index.mjs` | emitter?: unknown, limit?: number, prefixes?: ReadonlyArray<string>, now?: () => number }} [arg0] |
-| `formatStatus` | function | ↩ `lib/agentic/operator/index.mjs` | Render one snapshot as plain text (§3.7). |
 | `withTaskAgents` | function | ↩ `lib/agentic/task.mjs` | duplicate name wins) and returns the client for chaining. |
 | `withAgentDelegation` | function | ↩ `lib/agentic/task.mjs` | Declares the host's delegation envelope (D1a). |
 | `createTaskTool` | function | ↩ `lib/agentic/task.mjs` | on. |
@@ -3063,11 +3041,6 @@ _No exports._
 | `continueSpawn` | function | ↩ `lib/agentic/task.mjs` | Continues a settled spawn's conversation with one more turn (SP3). |
 | `sendToSpawn` | function | ↩ `lib/agentic/task.mjs` | `client.send({id, prompt})` — the addressing form of `continueWith`. |
 | `forkSpawn` | function | ↩ `lib/agentic/task.mjs` | Branches a durable child's conversation (D10). |
-| `LocalFileSessionStore` | class | ↩ `lib/agentic/sessions.mjs` | File-backed checkpoint store. |
-| `InMemorySessionStore` | class | ↩ `lib/agentic/sessions.mjs` | A `SessionStore` in a `Map`: for tests, evals and short-lived processes. |
-| `LocalFileInboxStore` | class | ↩ `lib/agentic/inbox-store.mjs` | File-backed inbox: one JSON file per thread, written atomically (tmp + rename, fsync) so a crash mid-save leaves the previous queue intact. |
-| `InMemoryInboxStore` | class | ↩ `lib/agentic/inbox-store.mjs` | Process-local inbox. |
-| `INBOX_STORE_VERSION` | const | ↩ `lib/agentic/inbox-store.mjs` | The on-disk shape every inbox store speaks. |
 | `PERMISSION_MODES` | const | ↩ `lib/agentic/permissions.mjs` | The permission modes this SDK understands. |
 | `isToolPermitted` | function | ↩ `lib/agentic/permissions.mjs` | Whether a tool name passes the allow / deny lists. |
 | `isEditTool` | function | ↩ `lib/agentic/permissions.mjs` | Whether a tool name looks like an edit (write / patch / delete / move). |
@@ -3213,9 +3186,9 @@ Everything importable from the package entry point (`lib/index.mjs`):
 | `defaultDisplay` | function | ↩ `lib/agentic/agentic-core.mjs` | Returns the default display `{ onEvent }` for runAgenticLoop consumers: thinking via the logger, text/tool deltas to stdout (the first text delta of each turn is prefixed with `Assistant > ` so the answer is labelled exactly once), newline on stream_end. |
 | `compactHistory` | function | ↩ `lib/agentic/agentic-core.mjs` | a history that already starts with the summary marker is never re-summarized. |
 | `runDueSteps` | function | ↩ `lib/agentic/agentic-core.mjs` | Runs the steps that are due and returns one settled result per step, in input order. |
-| `fallbackKind` | function | ↩ `lib/agentic/agentic-core.mjs` | hard failure), `'empty'` (a transient no-answer — retryable), `'schema'` (an exhausted structured-output correction loop — also transient), `'filtered'` (the provider's content moderation stopped the answer — not retryable), or null for real content. |
-| `isSdkFallbackOutput` | function | ↩ `lib/agentic/agentic-core.mjs` | iteration-limit or schema-validation, so the `(${msg})` and `+TRUNCATED` variants match). |
-| `isTransientFallbackKind` | function | ↩ `lib/agentic/agentic-core.mjs` | answer or an exhausted structured-output correction loop. |
+| `fallbackKind` | function | ↩ `lib/agentic/agentic-core.mjs` |  |
+| `isSdkFallbackOutput` | function | ↩ `lib/agentic/agentic-core.mjs` |  |
+| `isTransientFallbackKind` | function | ↩ `lib/agentic/agentic-core.mjs` |  |
 | `AgentLauncher` | class | ↩ `lib/agentic/cli/launcher.mjs` | Interactive agent CLI: system commands, skill-plugin dispatch, and a tool-fed agentic loop over a backend session. |
 | `DiscussionSession` | class | ↩ `lib/agentic/discussion-session.mjs` | A multi-agent debate group: agents converse on a shared ledger, optionally judged/aggregated into a conclusion. |
 | `StateMachine` | class | ↩ `lib/agentic/state-machine/index.mjs` | A node graph machine with conditional transitions. |
@@ -3250,14 +3223,6 @@ Everything importable from the package entry point (`lib/index.mjs`):
 | `journalKey` | function | ↩ `lib/agentic/journal.mjs` | A stable 16-character key for a journal entry, derived from its parts. |
 | `runStep` | function | ↩ `lib/agentic/step.mjs` | Runs ONE agentic step attempt in a fresh session: builds the session with the glue's policy/capabilities, runs the agentic loop, forwards stream events through the glue's event names, and captures the step's full message row + reasoning signature for the next attempt/step. |
 | `ingestDocument` | function | ↩ `lib/agentic/ingest.mjs` | Ingests a document (image or PDF) as Markdown using a vision-capable model. |
-| `TaskState` | class | ↩ `lib/agentic/planning/task-state.mjs` | The serializable state of one workflow (DAG) run. |
-| `CHECKPOINT_KIND` | const | ↩ `lib/agentic/planning/checkpoint.mjs` | Checkpoint payload kinds. |
-| `saveCheckpoint` | function | ↩ `lib/agentic/planning/checkpoint.mjs` | Saves a tagged checkpoint through a session store. |
-| `restoreCheckpoint` | function | ↩ `lib/agentic/planning/checkpoint.mjs` | Restores a checkpoint of the expected kind. |
-| `structuredLlmCall` | function | ↩ `lib/agentic/planning/planner-utils.mjs` | Calls the LLM and returns structured data matching `schema`. |
-| `collectTemplateRefs` | function | ↩ `lib/agentic/planning/graph-utils.mjs` | Collects `{{expr}}` template references from a string. |
-| `validateTemplateRefs` | function | ↩ `lib/agentic/planning/graph-utils.mjs` | Validates that every `{{...}}` reference in each step's `userPromptTemplate` names a known step id or an allowed context root, and — with `ancestorsOnly` — that a step id it names is one of that step's **ancestors**. |
-| `assertStateSchema` | function | ↩ `lib/agentic/planning/graph-utils.mjs` | Asserts a step/node output against an optional Zod-like state schema (`safeParse`). |
 | `MemoryManager` | class | ↩ `lib/agentic/memory/index.mjs` | Coordinates long-term memory: sync-gap detection, fire-and-forget distillation of new conversation turns, and per-step memory block rendering. |
 | `MemoryProvider` | class | ↩ `lib/agentic/memory/index.mjs` | Base memory provider contract. |
 | `LocalFileMemoryProvider` | class | ↩ `lib/agentic/memory/index.mjs` | File-backed memory bank: one JSON file of facts with atomic saves. |
@@ -3265,56 +3230,6 @@ Everything importable from the package entry point (`lib/index.mjs`):
 | `CompositeMemoryProvider` | class | ↩ `lib/agentic/memory/index.mjs` | Fan-out memory provider across named banks. |
 | `ProviderMemoryEngine` | class | ↩ `lib/agentic/memory/index.mjs` | Memory engine over a single provider. |
 | `MemoryComponent` | class | ↩ `lib/agentic/memory/index.mjs` | The memory capability component: long-term recall/persist exposed as the memory load/save tools. |
-| `KnowledgeComponent` | class | ↩ `lib/agentic/knowledge/index.mjs` | The knowledge capability. |
-| `buildGraph` | function | ↩ `lib/agentic/knowledge/index.mjs` | Builds a graph from one or more documents. |
-| `validateGraph` | function | ↩ `lib/agentic/knowledge/index.mjs` | Validates a graph. |
-| `applyPatch` | function | ↩ `lib/agentic/knowledge/index.mjs` | Applies a patch: add nodes/edges, update node fields, remove by id. |
-| `queryGraph` | function | ↩ `lib/agentic/knowledge/index.mjs` | The bounded neighbourhood of one node, for the explicit-id query form. |
-| `retrieveSubgraph` | function | ↩ `lib/agentic/knowledge/index.mjs` | The whole read path: seed → expand → rank. |
-| `renderKnowledgeBlock` | function | ↩ `lib/agentic/knowledge/index.mjs` | Renders a bounded knowledge block for the prompt. |
-| `renderWiki` | function | ↩ `lib/agentic/knowledge/index.mjs` | Renders the wiki. |
-| `readWikiSha` | function | ↩ `lib/agentic/knowledge/index.mjs` | The graph hash a previously rendered wiki carries, or null. |
-| `loadGraph` | function | ↩ `lib/agentic/knowledge/index.mjs` | Loads the graph. |
-| `saveGraph` | function | ↩ `lib/agentic/knowledge/index.mjs` | Writes the graph and stamps its stats + hash. |
-| `loadOntology` | function | ↩ `lib/agentic/knowledge/index.mjs` | Loads the vocabulary. |
-| `saveOntology` | function | ↩ `lib/agentic/knowledge/index.mjs` | Writes the vocabulary. |
-| `promotableRelations` | function | ↩ `lib/agentic/knowledge/index.mjs` | Custom relations that appear in enough distinct notes to deserve promotion into the vocabulary. |
-| `documentSurface` | function | ↩ `lib/agentic/knowledge/index.mjs` | The `document` surface: one graph from one or more text files. |
-| `wikiSurface` | function | ↩ `lib/agentic/knowledge/index.mjs` | The `wiki` surface: an existing markdown corpus becomes a reference graph. |
-| `memorySurface` | function | ↩ `lib/agentic/knowledge/index.mjs` | The `memory` surface: bank facts become `fact` nodes. |
-| `todosSurface` | function | ↩ `lib/agentic/knowledge/index.mjs` | The `todos` surface: tasks and their declared dependencies. |
-| `planSurface` | function | ↩ `lib/agentic/knowledge/index.mjs` | The `plan` surface: a task DAG becomes `step` nodes. |
-| `GENERIC_PROFILE` | const | ↩ `lib/agentic/knowledge/index.mjs` | Domain-neutral vocabulary: documents, claims, evidence, work items. |
-| `LEGAL_PROFILE` | const | ↩ `lib/agentic/knowledge/index.mjs` | The legal vocabulary the existing corpus uses (`legalgraph/v1`). |
-| `CORE_RELATIONS` | const | ↩ `lib/agentic/knowledge/index.mjs` | Relations a structural/doc parse or an author may use without a note. |
-| `KNOWLEDGE_SCHEMA` | const | ↩ `lib/agentic/knowledge/index.mjs` | Schema id carried by `graph.json`. |
-| `graphSha` | function | ↩ `lib/agentic/knowledge/index.mjs` | Stable hash of the graph's content. |
-| `profileSources` | function | ↩ `lib/agentic/knowledge/index.mjs` | Measures one or more documents. |
-| `proposeOntology` | function | ↩ `lib/agentic/knowledge/index.mjs` | Turns a measurement into a candidate vocabulary. |
-| `ontologySha` | function | ↩ `lib/agentic/knowledge/index.mjs` | Identity of a proposal: the shape, not the timestamp. |
-| `adoptOntology` | function | ↩ `lib/agentic/knowledge/index.mjs` | Adopts a proposal as the vocabulary. |
-| `adoptedProfile` | function | ↩ `lib/agentic/knowledge/index.mjs` | The adopted vocabulary as a profile a graph can be validated against, or null when nothing was adopted. |
-| `surfaceFragment` | function | ↩ `lib/agentic/knowledge/index.mjs` | Runs one surface's adapter. |
-| `mergeFragment` | function | ↩ `lib/agentic/knowledge/index.mjs` | Merges adapter output into a graph, skipping ids that already exist. |
-| `edgeText` | function | ↩ `lib/agentic/knowledge/index.mjs` | The text form of an edge, shared by the prompt block and the wiki so the two cannot drift. |
-| `HIERARCHY_RELATIONS` | const | ↩ `lib/agentic/knowledge/index.mjs` | Relations whose direction can describe containment. |
-| `hierarchyOf` | function | ↩ `lib/agentic/knowledge/index.mjs` | Derives a bounded hierarchy from `contains` (parent → child) or `part_of` (child → parent) edges. |
-| `hierarchyPath` | function | ↩ `lib/agentic/knowledge/index.mjs` | The root-to-node path, using the deterministic primary parent. |
-| `levelKindsFor` | function | ↩ `lib/agentic/knowledge/index.mjs` | Resolves the kind for a one-based structural level. |
-| `renderSectionMap` | function | ↩ `lib/agentic/knowledge/index.mjs` | The map: hierarchy when structural edges justify it, headings when the graph has them, otherwise the most load-bearing nodes. |
-| `renderNodePage` | function | ↩ `lib/agentic/knowledge/index.mjs` | One node's wiki page. |
-| `emptyGraph` | function | ↩ `lib/agentic/knowledge/index.mjs` |  |
-| `syncCorpus` | function | ↩ `lib/agentic/knowledge/index.mjs` | Load-or-build. |
-| `loadCorpus` | function | ↩ `lib/agentic/knowledge/index.mjs` | Loads the persisted graph and its manifest. |
-| `loadManifest` | function | ↩ `lib/agentic/knowledge/index.mjs` |  |
-| `sourceDelta` | function | ↩ `lib/agentic/knowledge/index.mjs` | What changed between the corpus a graph was built from and the one on disk. |
-| `corpusKey` | function | ↩ `lib/agentic/knowledge/index.mjs` | The build identity: sources by path and content, plus the vocabulary that shaped them and the extractor version. |
-| `fingerprintSources` | function | ↩ `lib/agentic/knowledge/index.mjs` |  |
-| `readSources` | function | ↩ `lib/agentic/knowledge/index.mjs` | Reads the sources from disk, in the order given (the order is part of the key). |
-| `nodeKey` | function | ↩ `lib/agentic/knowledge/index.mjs` | Stable identity of a node's content, independent of where it sits. |
-| `sourceSha` | function | ↩ `lib/agentic/knowledge/index.mjs` | Content hash of a whole source, for the corpus manifest. |
-| `KNOWLEDGE_BUILD_VERSION` | const | ↩ `lib/agentic/knowledge/index.mjs` | Bumped whenever the mechanical pass changes what it emits for the same bytes. |
-| `EDGE_SHAPES` | const | ↩ `lib/agentic/knowledge/index.mjs` | The shapes an edge may take beyond "A rel B". |
 | `FailureClass` | const | ↩ `lib/agentic/loops/index.mjs` | The failure taxonomy: the classification labels returned by classifyFailure(). |
 | `failureFingerprint` | function | ↩ `lib/agentic/loops/index.mjs` | Stable key for "is this the same failed attempt as before?". |
 | `RetryLedger` | class | ↩ `lib/agentic/loops/index.mjs` | Retry budget keyed by failure fingerprint, NOT by a global counter. |
@@ -3324,20 +3239,6 @@ Everything importable from the package entry point (`lib/index.mjs`):
 | `compareProgress` | function | ↩ `lib/agentic/loops/index.mjs` | Compares two progress snapshots — a positive score means the run moved forward. |
 | `createLlmJudge` | function | ↩ `lib/agentic/loops/index.mjs` | Returns `(ctx) => ({ passed, evidence })` ready for a LoopContract `judge`. |
 | `createScoredJudge` | function | ↩ `lib/agentic/loops/index.mjs` | A typed, scored grader. |
-| `WorkspaceManager` | class | ↩ `lib/agentic/workspace/index.mjs` |  |
-| `createWorkspaceTools` | function | ↩ `lib/agentic/workspace/index.mjs` | Bind `read`/`grep`/`glob`, the shell tool, and the artifact tool to one workspace handle. |
-| `workspaceKeyFor` | function | ↩ `lib/agentic/workspace/index.mjs` | Derive the workspace directory name for a work item id. |
-| `resolveWorkspacePath` | function | ↩ `lib/agentic/workspace/index.mjs` | Resolve one workspace path under a root and assert containment, without IO. |
-| `isInsideRoot` | function | ↩ `lib/agentic/workspace/index.mjs` | True when `path` is `root` itself or sits below it. |
-| `WORKSPACE_STRATEGIES` | const | ↩ `lib/agentic/workspace/index.mjs` | The strategies, frozen so a caller cannot mutate the registry. |
-| `WORKSPACE_HOOKS` | const | ↩ `lib/agentic/workspace/index.mjs` | The four lifecycle hooks, in call order. |
-| `WorkScheduler` | class | ↩ `lib/agentic/scheduler/index.mjs` | The work-item scheduler: claims, dispatch, retries, parking, and a single-flight tick. |
-| `createEngineRunner` | function | ↩ `lib/agentic/scheduler/index.mjs` | Build the one-attempt runner for a scheduler. |
-| `WorkflowPolicy` | class | ↩ `lib/agentic/workflow-policy/index.mjs` | A reload is single-flight, keeps the last good state on failure, and arms a debounced watcher only after the first load succeeds. |
-| `policyToSchedulerOptions` | function | ↩ `lib/agentic/workflow-policy/index.mjs` | The scheduler options from the resolved policy. |
-| `policyToWorkspaceOptions` | function | ↩ `lib/agentic/workflow-policy/index.mjs` | The construction-bound workspace options. |
-| `createPolicyRenderer` | function | ↩ `lib/agentic/workflow-policy/index.mjs` | The engine runner's `({ item, attempt, continuation }) => string` prompt callback. |
-| `createOrchestration` | function | ↩ `lib/agentic/orchestration/index.mjs` | Build the coordination layer around one client, one board, and one `WORKFLOW.md`. |
 | `LoadableComponent` | class | ↩ `lib/core/loadable.mjs` | Base class for operational capabilities (skills, memory, …) that surface a payload to the model. |
 | `ChatSessionBuilder` | class | ↩ `lib/agentic/chat-session-builder.mjs` | Fluent builder for ChatSession configuration. |
 | `BaseChatSession` | class | ↩ `lib/agentic/chat-session.mjs` | Shared OAI-family ChatSession (oai/gai/aai). |
@@ -3347,9 +3248,6 @@ Everything importable from the package entry point (`lib/index.mjs`):
 | `AGENT_EXECUTE` | const | ↩ `lib/agentic/plan/component.mjs` | Execute-agent identity (full tool set). |
 | `buildEnvironmentBlock` | function | ↩ `lib/agentic/context.mjs` | Renders the environment block: working directory, git repo, platform, date. |
 | `discoverInstructions` | function | ↩ `lib/agentic/context.mjs` | Discovers and renders AGENTS.md instruction files from `root` up to `stopAt` (inclusive). |
-| `createOperatorHttpHandler` | function | ↩ `lib/agentic/operator/index.mjs` | Create a `(req, res) => Promise<void>` operator handler (§3.3). |
-| `createEventRing` | function | ↩ `lib/agentic/operator/index.mjs` | emitter?: unknown, limit?: number, prefixes?: ReadonlyArray<string>, now?: () => number }} [arg0] |
-| `formatStatus` | function | ↩ `lib/agentic/operator/index.mjs` | Render one snapshot as plain text (§3.7). |
 | `withTaskAgents` | function | ↩ `lib/agentic/task.mjs` | duplicate name wins) and returns the client for chaining. |
 | `withAgentDelegation` | function | ↩ `lib/agentic/task.mjs` | Declares the host's delegation envelope (D1a). |
 | `createTaskTool` | function | ↩ `lib/agentic/task.mjs` | on. |
@@ -3365,11 +3263,6 @@ Everything importable from the package entry point (`lib/index.mjs`):
 | `continueSpawn` | function | ↩ `lib/agentic/task.mjs` | Continues a settled spawn's conversation with one more turn (SP3). |
 | `sendToSpawn` | function | ↩ `lib/agentic/task.mjs` | `client.send({id, prompt})` — the addressing form of `continueWith`. |
 | `forkSpawn` | function | ↩ `lib/agentic/task.mjs` | Branches a durable child's conversation (D10). |
-| `LocalFileSessionStore` | class | ↩ `lib/agentic/sessions.mjs` | File-backed checkpoint store. |
-| `InMemorySessionStore` | class | ↩ `lib/agentic/sessions.mjs` | A `SessionStore` in a `Map`: for tests, evals and short-lived processes. |
-| `LocalFileInboxStore` | class | ↩ `lib/agentic/inbox-store.mjs` | File-backed inbox: one JSON file per thread, written atomically (tmp + rename, fsync) so a crash mid-save leaves the previous queue intact. |
-| `InMemoryInboxStore` | class | ↩ `lib/agentic/inbox-store.mjs` | Process-local inbox. |
-| `INBOX_STORE_VERSION` | const | ↩ `lib/agentic/inbox-store.mjs` | The on-disk shape every inbox store speaks. |
 | `PERMISSION_MODES` | const | ↩ `lib/agentic/permissions.mjs` | The permission modes this SDK understands. |
 | `isToolPermitted` | function | ↩ `lib/agentic/permissions.mjs` | Whether a tool name passes the allow / deny lists. |
 | `isEditTool` | function | ↩ `lib/agentic/permissions.mjs` | Whether a tool name looks like an edit (write / patch / delete / move). |
@@ -3724,6 +3617,8 @@ Everything importable from the package entry point (`lib/index.mjs`):
 | `PoolUsage` | `{Object}` | `lib/agentic/budget-pool.mjs` |
 | `BudgetPool` | `{Object}` | `lib/agentic/budget-pool.mjs` |
 | `PoolUsageInput` | `{Object}` | `lib/agentic/budget-pool.mjs` |
+| `SessionBuilder` | `{import('./chat-session-builder.mjs').ChatSessionBuilder}` | `lib/agentic/chat-inbox.mjs` |
+| `LoopOptions` | `{import('./agentic-core.mjs').LoopOptions}` | `lib/agentic/chat-inbox.mjs` |
 | `BuilderClient` | `{import('./task.mjs').TaskClient & {tasks?: Object}}` | `lib/agentic/chat-session-builder.mjs` |
 | `MemoryClient` | `{Object}` | `lib/agentic/chat-session-builder.mjs` |
 | `TelemetryExporter` | `{Object}` | `lib/agentic/chat-session-builder.mjs` |
@@ -3985,6 +3880,8 @@ Everything importable from the package entry point (`lib/index.mjs`):
 | `TransferOptions` | `{Object}` | `lib/agentic/transfer.mjs` |
 | `TransferPolicy` | `{Object}` | `lib/agentic/transfer.mjs` |
 | `WebInjectOptions` | `{Object}` | `lib/agentic/web-shared.mjs` |
+| `WebBatchConfig` | `{Object}` | `lib/agentic/web-shared.mjs` |
+| `WebBatchResult` | `{Object}` | `lib/agentic/web-shared.mjs` |
 | `HostResolver` | `{(host: string, options: {all: true, verbatim: true}) => Promise<Array<{address: string, family?: number}\|string>>}` | `lib/agentic/web-shared.mjs` |
 | `ResolvedHost` | `{{ok: true, host: string, address: string\|null, family: number} \| {ok: false, host: string\|null, reason: string}}` | `lib/agentic/web-shared.mjs` |
 | `WebScrapeConfig` | `{Object}` | `lib/agentic/webscrape/component.mjs` |
@@ -4047,12 +3944,12 @@ Counts of relative import/re-export specifiers between top-level areas. This is 
 
 | From → To | Imports |
 | --- | --- |
-| `agentic → core` | 235 |
-| `agentic → support` | 96 |
+| `agentic → core` | 238 |
+| `agentic → support` | 98 |
 | `backends → core` | 53 |
-| `root → agentic` | 50 |
 | `tools → core` | 41 |
 | `backends → support` | 40 |
+| `root → agentic` | 38 |
 | `agentic → messaging` | 29 |
 | `support → core` | 27 |
 | `tools → support` | 21 |
@@ -4060,9 +3957,9 @@ Counts of relative import/re-export specifiers between top-level areas. This is 
 | `root → core` | 10 |
 | `root → support` | 8 |
 | `agentic → tools` | 7 |
-| `tools → agentic` | 7 |
 | `backends → tools` | 6 |
 | `messaging → core` | 6 |
+| `tools → agentic` | 6 |
 | `backends → agentic` | 5 |
 | `messaging → support` | 5 |
 | `root → messaging` | 3 |

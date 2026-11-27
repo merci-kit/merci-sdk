@@ -7,6 +7,35 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.26.0] - 2026-11-27
+
+### Changed
+
+- **Optional families moved off the root entry.** Knowledge, workspace,
+  scheduler, workflow-policy, operator, orchestration, session, inbox, and planning
+  APIs now load from their focused subpaths. Optional builder and discussion paths
+  load those implementations only when the corresponding feature is used.
+- **Lazy validators and parsers.** `zod`, `ajv`, and `yaml` load on first use by
+  schema validation/conversion, internal schema construction, or YAML parsing.
+  A root import no longer loads any of the three packages.
+- **Smaller god-files.** Scheduler policy, chat inbox lifecycle, and agentic
+  outcome policy now live in focused modules with differential parity coverage.
+- **Shared web read batch.** Browser and web-scrape now use one cap, domain-policy,
+  event, and result-mapping pipeline; interactive browser actions remain separate.
+- **Shared JAI task SSE setup.** `stream()` and `executeJson()` now use one private
+  transport generator while keeping their version, aggregation, quota, and error
+  policies separate.
+
+### Compatibility
+
+- Update root imports to `merci-sdk/knowledge`, `merci-sdk/workspace`,
+  `merci-sdk/scheduler`, `merci-sdk/workflow-policy`, `merci-sdk/operator`,
+  `merci-sdk/orchestration`, `merci-sdk/sessions`, `merci-sdk/inbox`, or
+  `merci-sdk/planning`. Shared error classes remain on `merci-sdk`.
+- Internal deep imports of `DAG_WORKFLOW_*_SCHEMA`, `SM_PLAN_SCHEMA`,
+  `CONVERSATION_SUMMARY_SCHEMA`, `MEMORY_DISTILLATION_SCHEMA`, and `JUDGE_SCHEMA`
+  now call their `get…Schema()` replacements. Package entry points are unchanged.
+
 ## [0.25.0] - 2026-11-27
 
 ### Added
@@ -2519,7 +2548,8 @@ therefore starts here.
 - The tool output cap bounds a result of any shape, so a runaway tool cannot
   push an unbounded payload into the model's context.
 
-[Unreleased]: https://github.com/merci-kit/merci-sdk/compare/v0.25.0...HEAD
+[Unreleased]: https://github.com/merci-kit/merci-sdk/compare/v0.26.0...HEAD
+[0.26.0]: https://github.com/merci-kit/merci-sdk/releases/tag/v0.26.0
 [0.25.0]: https://github.com/merci-kit/merci-sdk/releases/tag/v0.25.0
 [0.24.0]: https://github.com/merci-kit/merci-sdk/releases/tag/v0.24.0
 [0.23.2]: https://github.com/merci-kit/merci-sdk/releases/tag/v0.23.2

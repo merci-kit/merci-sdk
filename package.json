@@ -1,6 +1,6 @@
 {
   "name": "merci-sdk",
-  "version": "0.25.0",
+  "version": "0.26.0",
   "description": "Merci SDK - Agentic SDK for OpenAI, Gemini and Anthropic compatible endpoints",
   "type": "module",
   "main": "lib/index.mjs",
@@ -57,6 +57,10 @@
     "./sessions": {
       "types": "./dist/types/lib/agentic/sessions.d.mts",
       "import": "./lib/agentic/sessions.mjs"
+    },
+    "./inbox": {
+      "types": "./dist/types/lib/agentic/inbox-store.d.mts",
+      "import": "./lib/agentic/inbox-store.mjs"
     },
     "./otel": {
       "types": "./dist/types/lib/support/otel-exporter.d.mts",

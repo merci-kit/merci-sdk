@@ -32,9 +32,10 @@ import { dirname, join, resolve, sep } from 'node:path';
 import * as readline from 'node:readline/promises';
 import { stdin as input, stdout as output } from 'node:process';
 import {
-    AGENT_EXECUTE, AGENT_PLAN, EVENTS, LocalFileSessionStore, createPlanStageFollowUp,
+    AGENT_EXECUTE, AGENT_PLAN, EVENTS, createPlanStageFollowUp,
     createUserMessage, defaultDisplay, initializeClient, loadCredentials, log,
 } from 'merci-sdk';
+import { LocalFileSessionStore } from 'merci-sdk/sessions';
 import { createContextTools } from 'merci-sdk/tools';
 import { readlineSafe, reportUsage, resolveExample, runMain, trackUsage, warnEmptyAnswer, wireClient } from './_shared/example-utils.mjs';
 

@@ -1062,7 +1062,7 @@ started. The modern era removed tasks, and the stateless modes cannot keep a
 task alive between requests, so `taskStore` is refused there.
 
 ```js
-import { loadMcpToolsFrom } from 'merci-sdk';
+import { loadMcpToolsFrom } from 'merci-sdk/tools';
 
 const tools = await loadMcpToolsFrom({ command: 'npx', args: ['@some/mcp-server'] });
 const session = client.session(model).withTools({ tools });
@@ -1078,7 +1078,7 @@ or the older v0.3) and calls the peer over the A2A JSON-RPC binding;
 `createA2AServer` and `createA2AHttpHandler`.
 
 ```js
-import { loadA2ATool } from 'merci-sdk';
+import { loadA2ATool } from 'merci-sdk/tools';
 
 const tool = await loadA2ATool({ agentUrl: 'http://peer.local' });
 const session = client.session(model).withTools({ tools: [tool] });

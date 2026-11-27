@@ -37,10 +37,11 @@
 import { stdin as input, stdout as output } from 'node:process';
 import * as readline from 'node:readline/promises';
 import {
-    BudgetExceededError, EVENTS, GuardrailViolationError, InMemorySessionStore, PERMISSION_MODES,
+    BudgetExceededError, EVENTS, GuardrailViolationError, PERMISSION_MODES,
     createGuardrails, extractUserText, initializeClient, isToolPermitted, loadCredentials, log,
     stillRequiresApproval,
 } from 'merci-sdk';
+import { InMemorySessionStore } from 'merci-sdk/sessions';
 import { capToolOutputValue, executeTools } from 'merci-sdk/tools';
 import { readlineSafe, reportUsage, resolveExample, runMain, trackUsage, warnEmptyAnswer, wireClient } from './_shared/example-utils.mjs';
 
@@ -194,13 +195,16 @@ async function main() {
     /** @type {string[]} */
     const toolNames = [];
     let approved = false;
+    const onApprovalGranted = (/** @type {any} */ e) => {
+        if (e?.name === 'issue_refund') approved = true;
+    };
+    client.on(EVENTS.TOOL.APPROVAL_GRANTED, onApprovalGranted);
     /** The duty manager: small goodwill credits are pre-approved, everything else asks. */
     /** @param {string} name @param {any} args @returns {Promise<boolean>} */
     const approve = async (name, args) => {
         asked.push({ name, args });
         if (name === 'issue_refund' && Number(args?.amountUsd ?? 0) <= 50) return true;
         const granted = await ask({ label: `Approve ${name}(${JSON.stringify(args ?? {})})?` });
-        approved = approved || granted;
         return granted;
     };
     const deskRefund = {
@@ -238,12 +242,14 @@ async function main() {
         // The model skipped the gate. The host now sends the same request through
         // the same gate, so the approval path is still proven on this run.
         log.condition({ label: 'approval', branch: 'host call', why: 'the model did not call issue_refund; the host sends the same request through the same gate' });
-        await executeTools({
+        const [hostResult] = /** @type {any} */ (await executeTools({
             toolCalls: [{ id: 'host-refund', name: 'issue_refund', arguments: JSON.stringify({ orderId: ORDER, amountUsd: AMOUNT }) }],
             toolLibrary: [/** @type {any} */ (deskRefund)],
             approval: { callback: approve, timeoutMs: 5_000 },
-        });
+        }));
+        approved = approved || hostResult?.success === true;
     }
+    client.off(EVENTS.TOOL.APPROVAL_GRANTED, onApprovalGranted);
     const refundGate = asked.find((a) => a.name === 'issue_refund');
     check({
         name: 'C: the refund was put in front of a human before it ran',

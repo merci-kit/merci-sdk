@@ -41,7 +41,8 @@ import { createServer } from 'node:http';
 import { existsSync, realpathSync } from 'node:fs';
 import { mkdir, rm, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
-import { LocalFileSessionStore, EVENTS, MerciEventEmitter, initializeClient, loadCredentials, log } from 'merci-sdk';
+import { EVENTS, MerciEventEmitter, initializeClient, loadCredentials, log } from 'merci-sdk';
+import { LocalFileSessionStore } from 'merci-sdk/sessions';
 import {
     DEFAULT_PREFIXES, OPERATOR_API_VERSION, OPERATOR_DEFAULTS, createEventRing, createOperatorHttpHandler, formatStatus,
 } from 'merci-sdk/operator';

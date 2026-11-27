@@ -30,6 +30,35 @@ Move tool execution, MCP, A2A, shell, skills, and external-capability imports to
 public-entry change: it keeps the functionality while reducing root import time,
 memory, and module count for consumers that do not use those protocols.
 
+The remaining optional capability families also live on focused entry points.
+Their implementations are no longer pulled into the root import transitively:
+
+| Family | Import from |
+| --- | --- |
+| Knowledge graph and wiki | `merci-sdk/knowledge` |
+| Workspace isolation and tools | `merci-sdk/workspace` |
+| Scheduler | `merci-sdk/scheduler` |
+| Workflow policy | `merci-sdk/workflow-policy` |
+| Operator HTTP API | `merci-sdk/operator` |
+| Coordination composition | `merci-sdk/orchestration` |
+| Session stores | `merci-sdk/sessions` |
+| Inbox stores | `merci-sdk/inbox` |
+| DAG planning and checkpoints | `merci-sdk/planning` |
+
+```js
+// Before
+import { KnowledgeComponent, WorkScheduler, LocalFileSessionStore } from 'merci-sdk';
+
+// After
+import { KnowledgeComponent } from 'merci-sdk/knowledge';
+import { WorkScheduler } from 'merci-sdk/scheduler';
+import { LocalFileSessionStore } from 'merci-sdk/sessions';
+```
+
+Shared errors such as `WorkspaceError`, `SchedulerError`, and `PolicyError` stay
+on the root entry. The capability APIs and behavior are unchanged; only their
+import paths move.
+
 ## Unreleased nested wiki behavior
 
 `buildGraph()` and `wikiSurface()` now preserve arbitrary heading/path depth.
@@ -873,6 +902,24 @@ Two behaviour notes for anyone who wired the primitives by hand:
 
 **No existing call is removed or changed in meaning.** A consumer that does not
 use the coordination layer has nothing to edit.
+
+## 0.26.0 — Root slimming continues: families move to subpaths
+
+Knowledge, workspace, scheduler, workflow-policy, operator, orchestration,
+session, and planning APIs move from `merci-sdk` to their focused subpaths;
+`merci-sdk/inbox` is new. Shared error classes stay on the root.
+
+```js
+// before
+import { buildGraph, WorkScheduler } from 'merci-sdk';
+// after
+import { buildGraph } from 'merci-sdk/knowledge';
+import { WorkScheduler } from 'merci-sdk/scheduler';
+```
+
+`zod`, `ajv`, and `yaml` now load lazily on first schema/parse use, so a root
+import no longer pulls them in. Internal deep imports of the workflow schemas
+now call the `get…Schema()` getters. Package entry points are unchanged.
 
 ## 0.25.0 — Leaner root import: tools and ACP move to subpaths
 

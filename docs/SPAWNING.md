@@ -318,6 +318,8 @@ A host that wants OpenChamber's server-owned queue asks the SDK to be it. Three
 calls cover the dispatcher, and one store makes it survive a restart:
 
 ```js
+import { LocalFileInboxStore } from 'merci-sdk/inbox';
+
 session.withInboxStore({ store: new LocalFileInboxStore({ dir: 'inbox' }), threadId });
 session.isRunning();            // choose run() vs enqueueInput(), never catch CONCURRENT_RUN
 await session.drainInbox();     // the idle handler: run the queue, or null when empty

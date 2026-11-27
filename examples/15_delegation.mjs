@@ -37,12 +37,13 @@
  * @version 0.23.0
  */
 import {
-    AgentContext, ConfigurationError, EVENTS, HANDOFF_CONTEXT_MODES, HANDOFF_GOAL_MODES, InMemorySessionStore,
+    AgentContext, ConfigurationError, EVENTS, HANDOFF_CONTEXT_MODES, HANDOFF_GOAL_MODES,
     TASK_TOOL_NAME, compactHistory, contextFromMerciEnvelope, continueSpawn, createTaskTool, foldContext, forkSpawn,
     getBudgetPool, getSpawn, goalBlockForHandoff, initializeClient, listSpawns, loadCredentials, log, merciEnvelope,
     normalizeDelegationEnvelope, normalizeHandoff, resolveAgentClient, sendToSpawn, spawnThreadId, sumSpawnUsage,
     withAgentDelegation, withTaskAgents,
 } from 'merci-sdk';
+import { InMemorySessionStore } from 'merci-sdk/sessions';
 import { reportUsage, resolveExample, runMain, trackUsage, warnEmptyAnswer, wireClient, wireTaskEvents } from './_shared/example-utils.mjs';
 
 /** The brief the lead must deliver, and the tokens the children must echo. */
